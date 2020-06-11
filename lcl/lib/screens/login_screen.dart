@@ -7,6 +7,7 @@ import 'package:lcl/resources/firebase_repository.dart';
 //import 'package:infv1/ui_elements/loader.dart';
 import 'package:lcl/ui_elements/delayed_animation.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
+import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:lcl/utils/uniColors.dart';
 
@@ -119,26 +120,16 @@ class LoginScreenState extends State<LoginScreen>
                   ),
                   DelayedAnimation(
                     child: Text(
-                      "Get personal advice from ",
+                      Strings.TAG_LINE,
                       style: TextStyle(
-                          fontFamily: 'Poppins',
+                          fontFamily: 'CaviarDreams',
                           //fontWeight: FontWeight.w600,
                           fontSize: 20.0,
                           color: uniColors.lcRed),
                     ),
                     delay: delayedAmount + 2000,
                   ),
-                  DelayedAnimation(
-                    child: Text(
-                      "the people you look up to.",
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          //fontWeight: FontWeight.w600,
-                          fontSize: 20.0,
-                          color:uniColors.lcRed),
-                    ),
-                    delay: delayedAmount + 2500,
-                  ),
+
                   SizedBox(
                     height: 170.0,
                   ),
