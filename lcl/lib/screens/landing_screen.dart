@@ -11,7 +11,7 @@ import 'package:lcl/utils/uniColors.dart';
 class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-        var screenHeight = MediaQuery.of(context).size.height;
+    var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(

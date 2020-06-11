@@ -32,6 +32,7 @@ dependencies:
   google_sign_in: ^4.5.1
   geolocator: ^5.3.1
   language_pickers: ^0.2.0+1
+  gradient_text: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -72,9 +73,11 @@ flutter:
     - family: Bebas
       fonts:
         - asset: assets/fonts/bebas.ttf
-    - family: PT
+    - family: Raleway
       fonts:
-        - asset: assets/fonts/patagoniaB.ttf
+        - asset: assets/fonts/RalewayEL.ttf
+        - asset: assets/fonts/RalewayMD.ttf
+          weight: 400
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

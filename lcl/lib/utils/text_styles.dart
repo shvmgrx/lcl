@@ -27,7 +27,21 @@ class TextStyles {
     fontSize: 50,
     fontWeight: FontWeight.w900,
     color: uniColors.lcRed,
-    fontFamily: 'PT',
+    fontFamily: 'CaviarDreams',
+  );
+  static final TextStyle drawerNameTextStyle = TextStyle(
+    letterSpacing: 1.2,
+    fontSize: 30,
+    fontWeight: FontWeight.w800,
+    //color: uniColors.standardBlack,
+    fontFamily: 'CaviarDreams',
+  );
+    static final TextStyle drawerNameBarButtonTextStyle = TextStyle(
+    letterSpacing: 4,
+    fontSize: 18,
+    fontWeight: FontWeight.w900,
+    color: uniColors.lcRed,
+    fontFamily: 'Raleway',
   );
   static final TextStyle bodyTextStyle = TextStyle(
     letterSpacing: 0.8,

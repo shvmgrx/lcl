@@ -9,6 +9,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:lcl/utils/uniColors.dart';
 import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/language_pickers.dart';
+import 'package:lcl/widgets/nmBarButton.dart';
+import 'package:lcl/widgets/nmBox.dart';
+import 'package:lcl/widgets/nmButton.dart';
+import 'package:gradient_text/gradient_text.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -36,15 +40,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
   bool isVege;
   bool isNVege;
 
+  bool paymentPressed = false;
+  bool profilePressed = false;
+  bool settingsPressed = false;
+  bool category1Pressed = true;
+  bool category2Pressed = false;
+  bool category3Pressed = false;
+  bool category4Pressed = false;
+
   Language _selectedDropdownLanguage =
       LanguagePickerUtils.getLanguageByIsoCode('en');
 
   @override
   void initState() {
     getLocation();
-    isVega=false;
-    isVege=true;
-    isNVege=false;
+    isVega = false;
+    isVege = true;
+    isNVege = false;
     _repository.getCurrentUser().then((user) {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
@@ -66,7 +78,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     buddyMode = true;
     romanticMode = false;
     businessMode = false;
-    
   }
 
   // Widget buildDropdownItem(Language language) {
@@ -110,227 +121,350 @@ class _DashboardScreenState extends State<DashboardScreen> {
       key: _scaffoldKey,
       drawer: Drawer(
         elevation: 15,
-        child: Column(
-          children: <Widget>[
-            Container(
-             
-              height: screenHeight / 3,
-              width: screenWidth,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                     loggedInprofilePhoto!=null? loggedInprofilePhoto: "https://i.pinimg.com/736x/20/fb/5d/20fb5dc251af2d68822bd0420dcb0a8e.jpg"),
-                  fit: BoxFit.cover,
+        child: Container(
+          color: uniColors.backgroundGrey,
+          child: new ListView(
+            children: <Widget>[
+              Container(
+                height: screenHeight / 3,
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(loggedInprofilePhoto != null
+                        ? loggedInprofilePhoto
+                        : "https://i.pinimg.com/736x/20/fb/5d/20fb5dc251af2d68822bd0420dcb0a8e.jpg"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 3),
-              child: Row(
-                children: <Widget>[
-                  Text("Distance"),
-                  Slider(
-                    value: distance.toDouble(),
-                    min: 0.0,
-                    max: 250.0,
-                    activeColor: uniColors.lcRed,
-                    inactiveColor: uniColors.backgroundGrey,
-                    onChanged: (double newValue) {
-                      setState(() {
-                        distance = newValue.round();
-                      });
-                    },
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: loggedInname != null
+                      ? GradientText(loggedInname,
+                          gradient: LinearGradient(colors: [
+                            uniColors.lcRed,
+                            uniColors.lcRedLight,
+                            uniColors.lcRed,
+                          ]),
+                          style: TextStyles.drawerNameTextStyle,
+                          textAlign: TextAlign.center)
+                      : Text(""),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          profilePressed = !profilePressed;
+                          if (profilePressed) {
+                            Navigator.pushNamed(
+                                context, "/edit_profile_screen");
+                          }
+                        });
+                      },
+                      child: NMButton(
+                        down: profilePressed,
+                        icon: Icons.settings,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          settingsPressed = !settingsPressed;
+                          if (settingsPressed) {
+                            Navigator.pushNamed(context, "/settings_screen");
+                          }
+                        });
+                      },
+                      child: NMButton(
+                        down: settingsPressed,
+                        icon: Icons.mode_edit,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          paymentPressed = !paymentPressed;
+                        });
+                      },
+                      child: NMButton(
+                          down: paymentPressed, icon: Icons.restaurant_menu),
+                    ),
+                  ],
+                ),
+              ),
+              
+              SizedBox(
+                height: screenHeight * 0.27,
+              ),
+              ListTile(
+                  title: new Text(
+                    "Donate",
+                    style: TextStyle(
+                        color: uniColors.standardBlack,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16),
                   ),
-                  (distance < 250) ? Text("$distance kms") : Text("Global"),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 3),
-              child: Row(
-                children: <Widget>[
-                  Text("Time"),
-                  Slider(
-                    value: time.toDouble(),
-                    min: 0.0,
-                    max: 60.0,
-                    activeColor: uniColors.lcRed,
-                    inactiveColor: uniColors.standardWhite,
-                    onChanged: (double newTime) {
-                      setState(() {
-                        time = newTime.round();
-                      });
-                    },
+                  trailing: new Icon(Icons.attach_money,color: uniColors.standardBlack,),
+                  // onTap: () => signOut(),
                   ),
-                  (time < 60) ? Text("$time minutes") : Text("No Limit"),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 3),
-              child: Row(
-                children: <Widget>[
-                  Text("Languages:"),
-                  Text(currentLanguages.toString()),
-                  LanguagePickerDropdown(
-                    initialValue: 'en',
-                    itemBuilder: buildDropdownItem,
-                    onValuePicked: (Language language) {
-                      _selectedDropdownLanguage = language;
-                      print(_selectedDropdownLanguage.name);
-                      print(_selectedDropdownLanguage.isoCode);
-                      setState(() {
-                        currentLanguages
-                            .add(_selectedDropdownLanguage.name.toString());
-                      });
-                    },
+              ListTile(
+                  title: new Text(
+                    "Terms of Service",
+                    style: TextStyle(
+                        color: uniColors.standardBlack,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16),
                   ),
-                ],
-              ),
-            ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text("Buddy mode:"),
-                          Checkbox(
-                              value: buddyMode,
-                              onChanged: (bool newBuddyValue) {
-                                setState(() {
-                                  buddyMode = newBuddyValue;
-                                });
-                              }),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Flirt mode:"),
-                          Checkbox(
-                              value: romanticMode,
-                              onChanged: (bool newRomanticValue) {
-                                setState(() {
-                                  romanticMode = newRomanticValue;
-                                });
-                              }),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Business mode:"),
-                          Checkbox(
-                              value: businessMode,
-                              onChanged: (bool newBusinessValue) {
-                                setState(() {
-                                  businessMode = newBusinessValue;
-                                });
-                              }),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: Row(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text("Vegetarian:"),
-                          Checkbox(
-                              value: isVege,
-                              onChanged: (bool vegetarianValue) {
-                                setState(() {
-                                  isVege = vegetarianValue;
-                                });
-                              }),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Vegan:"),
-                          Checkbox(
-                              value: isVega,
-                              onChanged: (bool veganValue) {
-                                setState(() {
-                                  isVega = veganValue;
-                                });
-                              }),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Non-Vegetarian"),
-                          Checkbox(
-                              value: isNVege,
-                              onChanged: (bool nVegeValue) {
-                                setState(() {
-                                  isNVege = nVegeValue;
-                                });
-                              }),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: uniColors.lcRed,
-              height: screenHeight / 30,
-              width: screenWidth,
-              child: FlatButton(
-                child: Text('SUBMIT'),
-                onPressed: () {
-                  _repository.getCurrentUser().then((FirebaseUser user) {
-                    _repository.updateDatatoDb(
-                      user,
-                      loggedInname,
-                      loggedInUsername,
-                      loggedInBio,
-                      isVega,
-                      isVege,
-                      isNVege,
-                      position.toString(),
-                      currentLanguages,
-                      loggedInprofilePhoto,
-                    );
-                  });
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              color: uniColors.lcRed,
-              height: screenHeight / 30,
-              width: screenWidth,
-              child: FlatButton(
-                child: Text('LOGOUT'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-          ],
+                  trailing: new Icon(Icons.description,color: uniColors.standardBlack,),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
+                  }),
+              
+              //  NMBarButton(
+              //     down: profilePressed,
+              //     icon: Icons.description,
+              //     iconText: "Terms and Conditions"),
+              //     SizedBox(height: 5,),
+              // NMBarButton(
+              //     down: profilePressed,
+              //     icon: Icons.settings,
+              //     iconText: "Donate"),
+            ],
+          ),
         ),
       ),
+      // drawer: Drawer(
+      //   elevation: 15,
+      //   child: Column(
+      //     children: <Widget>[
+      //       Container(
+
+      //         height: screenHeight / 3,
+      //         width: screenWidth,
+      //         decoration: BoxDecoration(
+      //           image: DecorationImage(
+      //             image: NetworkImage(
+      //                loggedInprofilePhoto!=null? loggedInprofilePhoto: "https://i.pinimg.com/736x/20/fb/5d/20fb5dc251af2d68822bd0420dcb0a8e.jpg"),
+      //             fit: BoxFit.cover,
+      //           ),
+      //         ),
+      //       ),
+      //       Padding(
+      //         padding: const EdgeInsets.only(left: 3),
+      //         child: Row(
+      //           children: <Widget>[
+      //             Text("Distance"),
+      //             Slider(
+      //               value: distance.toDouble(),
+      //               min: 0.0,
+      //               max: 250.0,
+      //               activeColor: uniColors.lcRed,
+      //               inactiveColor: uniColors.backgroundGrey,
+      //               onChanged: (double newValue) {
+      //                 setState(() {
+      //                   distance = newValue.round();
+      //                 });
+      //               },
+      //             ),
+      //             (distance < 250) ? Text("$distance kms") : Text("Global"),
+      //           ],
+      //         ),
+      //       ),
+      //       Padding(
+      //         padding: const EdgeInsets.only(left: 3),
+      //         child: Row(
+      //           children: <Widget>[
+      //             Text("Time"),
+      //             Slider(
+      //               value: time.toDouble(),
+      //               min: 0.0,
+      //               max: 60.0,
+      //               activeColor: uniColors.lcRed,
+      //               inactiveColor: uniColors.standardWhite,
+      //               onChanged: (double newTime) {
+      //                 setState(() {
+      //                   time = newTime.round();
+      //                 });
+      //               },
+      //             ),
+      //             (time < 60) ? Text("$time minutes") : Text("No Limit"),
+      //           ],
+      //         ),
+      //       ),
+      //       Padding(
+      //         padding: const EdgeInsets.only(left: 3),
+      //         child: Row(
+      //           children: <Widget>[
+      //             Text("Languages:"),
+      //             Text(currentLanguages.toString()),
+      //             LanguagePickerDropdown(
+      //               initialValue: 'en',
+      //               itemBuilder: buildDropdownItem,
+      //               onValuePicked: (Language language) {
+      //                 _selectedDropdownLanguage = language;
+      //                 print(_selectedDropdownLanguage.name);
+      //                 print(_selectedDropdownLanguage.isoCode);
+      //                 setState(() {
+      //                   currentLanguages
+      //                       .add(_selectedDropdownLanguage.name.toString());
+      //                 });
+      //               },
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //       Divider(),
+      //       Padding(
+      //         padding: const EdgeInsets.only(left: 5),
+      //         child: Row(
+      //           mainAxisAlignment: MainAxisAlignment.start,
+      //           children: <Widget>[
+      //             Column(
+      //               crossAxisAlignment: CrossAxisAlignment.start,
+      //               children: <Widget>[
+      //                 Row(
+      //                   children: <Widget>[
+      //                     Text("Buddy mode:"),
+      //                     Checkbox(
+      //                         value: buddyMode,
+      //                         onChanged: (bool newBuddyValue) {
+      //                           setState(() {
+      //                             buddyMode = newBuddyValue;
+      //                           });
+      //                         }),
+      //                   ],
+      //                 ),
+      //                 Row(
+      //                   children: <Widget>[
+      //                     Text("Flirt mode:"),
+      //                     Checkbox(
+      //                         value: romanticMode,
+      //                         onChanged: (bool newRomanticValue) {
+      //                           setState(() {
+      //                             romanticMode = newRomanticValue;
+      //                           });
+      //                         }),
+      //                   ],
+      //                 ),
+      //                 Row(
+      //                   children: <Widget>[
+      //                     Text("Business mode:"),
+      //                     Checkbox(
+      //                         value: businessMode,
+      //                         onChanged: (bool newBusinessValue) {
+      //                           setState(() {
+      //                             businessMode = newBusinessValue;
+      //                           });
+      //                         }),
+      //                   ],
+      //                 ),
+      //               ],
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //       Divider(),
+      //       Padding(
+      //         padding: const EdgeInsets.only(left: 5),
+      //         child: Row(
+      //           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //           //crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: <Widget>[
+      //             Column(
+      //               crossAxisAlignment: CrossAxisAlignment.start,
+      //               children: <Widget>[
+      //                 Row(
+      //                   children: <Widget>[
+      //                     Text("Vegetarian:"),
+      //                     Checkbox(
+      //                         value: isVege,
+      //                         onChanged: (bool vegetarianValue) {
+      //                           setState(() {
+      //                             isVege = vegetarianValue;
+      //                           });
+      //                         }),
+      //                   ],
+      //                 ),
+      //                 Row(
+      //                   children: <Widget>[
+      //                     Text("Vegan:"),
+      //                     Checkbox(
+      //                         value: isVega,
+      //                         onChanged: (bool veganValue) {
+      //                           setState(() {
+      //                             isVega = veganValue;
+      //                           });
+      //                         }),
+      //                   ],
+      //                 ),
+      //                 Row(
+      //                   children: <Widget>[
+      //                     Text("Non-Vegetarian"),
+      //                     Checkbox(
+      //                         value: isNVege,
+      //                         onChanged: (bool nVegeValue) {
+      //                           setState(() {
+      //                             isNVege = nVegeValue;
+      //                           });
+      //                         }),
+      //                   ],
+      //                 ),
+      //               ],
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //       Container(
+      //         color: uniColors.lcRed,
+      //         height: screenHeight / 30,
+      //         width: screenWidth,
+      //         child: FlatButton(
+      //           child: Text('SUBMIT'),
+      //           onPressed: () {
+      //             _repository.getCurrentUser().then((FirebaseUser user) {
+      //               _repository.updateDatatoDb(
+      //                 user,
+      //                 loggedInname,
+      //                 loggedInUsername,
+      //                 loggedInBio,
+      //                 isVega,
+      //                 isVege,
+      //                 isNVege,
+      //                 position.toString(),
+      //                 currentLanguages,
+      //                 loggedInprofilePhoto,
+      //               );
+      //             });
+      //             Navigator.of(context).pop();
+      //           },
+      //         ),
+      //       ),
+      //       SizedBox(
+      //         height: 15,
+      //       ),
+      //       Container(
+      //         color: uniColors.lcRed,
+      //         height: screenHeight / 30,
+      //         width: screenWidth,
+      //         child: FlatButton(
+      //           child: Text('LOGOUT'),
+      //           onPressed: () {
+      //             Navigator.of(context).pop();
+      //           },
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       backgroundColor: Colors.white,
       body: Stack(
         fit: StackFit.expand,
