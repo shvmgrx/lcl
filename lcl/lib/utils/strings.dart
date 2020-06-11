@@ -1,0 +1,27 @@
+class Strings {
+  Strings._();
+
+  static const String APP_NAME = "LUNCHALIZE";
+  static const String TAG_LINE = "Find your new lunch buddy";
+  static const String READY_TO_LUNCHALIZE = "Ready to Lunchalize?";
+  static const String LANDING_SUBTEXT =
+      "Swipe around to find a buddy to have a meal together.";
+
+  static const String LAST_STEP_TO_ENJOY = "";
+  static const String chooseAPlan = "Choose preferences";
+  static const String weekSubscription = "Location";
+  static const String oneMonthSubscription = "Duration";
+  static const String threeMonthSubscription = "Languages";
+  static const String sixMonthSubscription = "Mode";
+  static const String welcomeToAPlanet = "Welcome to Lunchalize";
+  static const String relatedToYou = "Now online";
+  static const String lifeWithATiger = "@Steven";
+  static const String wildAnimals = "@Lara";
+  static const String quickCategories = "";
+  static const String location = "Location";
+  static const String lion = "Languages";
+  static const String reptiles = "Meal Type";
+  static const String pets = "Mode";
+  static const String loremIpsum1 = "Wants to grab a drink along";
+  static const String loremIpsum2 = "Wants to have dinner together";
+}
