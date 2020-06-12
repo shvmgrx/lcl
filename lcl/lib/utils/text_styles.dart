@@ -43,6 +43,18 @@ class TextStyles {
     color: uniColors.lcRed,
     fontFamily: 'Raleway',
   );
+    static final TextStyle mainScreenProfileName = TextStyle(
+    fontSize: 14,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.grey2,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
   static final TextStyle bodyTextStyle = TextStyle(
     letterSpacing: 0.8,
     fontSize: 20,

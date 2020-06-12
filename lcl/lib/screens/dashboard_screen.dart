@@ -1,7 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lcl/common/mainScreenBar.dart';
+import 'package:lcl/enum/userState.dart';
+import 'package:lcl/models/user.dart';
+import 'package:lcl/provider/user_provider.dart';
+import 'package:lcl/resources/authMethods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
+import 'package:lcl/screens/login_screen.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +18,7 @@ import 'package:lcl/widgets/nmBarButton.dart';
 import 'package:lcl/widgets/nmBox.dart';
 import 'package:lcl/widgets/nmButton.dart';
 import 'package:gradient_text/gradient_text.dart';
+import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -23,6 +29,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   FirebaseRepository _repository = FirebaseRepository();
+
+    List<User> refreshList;
 
   String loggedInname;
   String loggedInprofilePhoto;
@@ -48,6 +56,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   bool category3Pressed = false;
   bool category4Pressed = false;
 
+  bool refreshLunchalize = true;
+
   Language _selectedDropdownLanguage =
       LanguagePickerUtils.getLanguageByIsoCode('en');
 
@@ -70,6 +80,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
         });
       });
     });
+//starthere
+    // _repository.getCurrentUser().then((FirebaseUser user) {
+    //   _repository.fetchAllUsers(user).then((List<User> list) {
+    //     setState(() {
+    //       influencerList = list;
+    //       print(influencerList);
+    //       for (var i = 0; i < 1; i++) {
+    //         if (list[i].isInfluencer == true && list[i].isInfCert == true) {
+    //           influencerList.add(list[i]);
+    //         }
+    //       }
+    //     });
+    //   });
+    // });
 
     // TODO: implement initState
     super.initState();
@@ -117,6 +141,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
+
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+
+    final AuthMethods authMethods = AuthMethods();
+
+    signOut() async {
+      final bool isLoggedOut = await AuthMethods().signOut();
+      if (isLoggedOut) {
+        // set userState to offline as the user logs out'
+        authMethods.setUserState(
+          userId: userProvider.getUser.uid,
+          userState: UserState.Offline,
+        );
+
+        // move the user to login screen
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (Route<dynamic> route) => false,
+        );
+      }
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
@@ -200,21 +247,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),
               ),
-              
+
               SizedBox(
                 height: screenHeight * 0.27,
               ),
               ListTile(
-                  title: new Text(
-                    "Donate",
-                    style: TextStyle(
-                        color: uniColors.standardBlack,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16),
-                  ),
-                  trailing: new Icon(Icons.attach_money,color: uniColors.standardBlack,),
-                  // onTap: () => signOut(),
-                  ),
+                title: new Text(
+                  "Donate",
+                  style: TextStyle(
+                      color: uniColors.standardBlack,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16),
+                ),
+                trailing: new Icon(
+                  Icons.attach_money,
+                  color: uniColors.standardBlack,
+                ),
+                // onTap: () => signOut(),
+              ),
               ListTile(
                   title: new Text(
                     "Terms of Service",
@@ -223,12 +273,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         fontWeight: FontWeight.w600,
                         fontSize: 16),
                   ),
-                  trailing: new Icon(Icons.description,color: uniColors.standardBlack,),
+                  trailing: new Icon(
+                    Icons.description,
+                    color: uniColors.standardBlack,
+                  ),
                   onTap: () {
                     Navigator.of(context).pop();
                     //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                   }),
-              
+
               //  NMBarButton(
               //     down: profilePressed,
               //     icon: Icons.description,
@@ -519,7 +572,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(40),
                 ),
-                color: Color(0xFFEC2639),
+                color: uniColors.lcRed,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -529,94 +582,124 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       horizontal: 25,
                       vertical: 16,
                     ),
-                    child: Text(
-                      Strings.relatedToYou,
-                      style: TextStyles.buttonTextStyle,
+                    // child: Text(
+                    //   Strings.relatedToYou,
+                    //   style: TextStyles.buttonTextStyle,
+                    // ),
+                  ),
+                  Container(
+                    //margin: EdgeInsets.only(top: 20),
+                    height: MediaQuery.of(context).size.height - 200.0,
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 2,
+                      childAspectRatio: 0.65,
+                      primary: false,
+                      children: <Widget>[
+
+                 if (refreshLunchalize)
+                    if (refreshList != null)
+                      ...refreshList.map((e) {
+                        return buildInfluencerGrid(e);
+                      }).toList(),
+                        // Text("Main screen"),
+                        // CupertinoButton(
+                        //     child: Text("update data"),
+                        //     onPressed: () {
+                        //       _repository.getCurrentUser().then((FirebaseUser user) {
+                        //         print(user.displayName);
+                        //         _repository.updateDatatoDb(
+                        //             user, user.displayName, user.displayName, 6);
+                        //       });
+                        //     }),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            margin: const EdgeInsets.only(left: 16),
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Expanded(
-                                  child: ClipRRect(
-                                    child: Image.asset(
-                                      "assets/man3.jpg",
-                                      fit: BoxFit.cover,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 6),
-                                  child: Text(
-                                    Strings.lifeWithATiger,
-                                    style: TextStyles.titleTextStyle,
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 6),
-                                  child: Text(
-                                    Strings.loremIpsum1,
-                                    style: TextStyles.body3TextStyle,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Expanded(
-                                  child: ClipRRect(
-                                    child: Image.asset(
-                                      "assets/woman1.jpg",
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 6),
-                                  child: Text(
-                                    Strings.wildAnimals,
-                                    style: TextStyles.titleTextStyle,
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 6),
-                                  child: Text(
-                                    Strings.loremIpsum2,
-                                    style: TextStyles.body3TextStyle,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: SingleChildScrollView(
+                  //     scrollDirection: Axis.horizontal,
+                  //     child: Row(
+                  //       children: <Widget>[
+                  //         Container(
+                  //           margin: const EdgeInsets.only(left: 16),
+                  //           width: MediaQuery.of(context).size.width * 0.5,
+                  //            height: MediaQuery.of(context).size.height *0.3,
+                  //           child: Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             children: <Widget>[
+                  //               Expanded(
+                  //                 child: ClipRRect(
+                  //                   child: Image.asset(
+                  //                     "assets/man3.jpg",
+                  //                     fit: BoxFit.fill,
+                  //                     width: MediaQuery.of(context).size.width *0.5,
+                  //                    // height: MediaQuery.of(context).size.height *0.2,
+                  //                   ),
+                  //                   borderRadius: BorderRadius.circular(12),
+                  //                 ),
+                  //               ),
+                  //               Padding(
+                  //                 padding:
+                  //                     const EdgeInsets.symmetric(vertical: 6),
+                  //                 child: Text(
+                  //                   Strings.lifeWithATiger,
+                  //                   style: TextStyles.titleTextStyle,
+                  //                 ),
+                  //               ),
+                  //               Padding(
+                  //                 padding:
+                  //                     const EdgeInsets.symmetric(vertical: 6),
+                  //                 child: Text(
+                  //                   Strings.loremIpsum1,
+                  //                   style: TextStyles.body3TextStyle,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         SizedBox(
+                  //           width: 20,
+                  //         ),
+                  //         Container(
+                  //           width: MediaQuery.of(context).size.width * 0.5,
+                  //           child: Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             children: <Widget>[
+                  //               Expanded(
+                  //                 child: ClipRRect(
+                  //                   child: Image.asset(
+                  //                     "assets/woman1.jpg",
+                  //                     width: MediaQuery.of(context).size.width *
+                  //                         0.5,
+                  //                     fit: BoxFit.cover,
+                  //                   ),
+                  //                   borderRadius: BorderRadius.circular(12),
+                  //                 ),
+                  //               ),
+                  //               Padding(
+                  //                 padding:
+                  //                     const EdgeInsets.symmetric(vertical: 6),
+                  //                 child: Text(
+                  //                   Strings.wildAnimals,
+                  //                   style: TextStyles.titleTextStyle,
+                  //                 ),
+                  //               ),
+                  //               Padding(
+                  //                 padding:
+                  //                     const EdgeInsets.symmetric(vertical: 6),
+                  //                 child: Text(
+                  //                   Strings.loremIpsum2,
+                  //                   style: TextStyles.body3TextStyle,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -798,6 +881,98 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  buildInfluencerGrid(User influencer) {
+    return GestureDetector(
+      onTap: () {
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) =>
+        //         InfluencerDetails(selectedInfluencer: influencer)));
+      },
+      child: Padding(
+        padding: EdgeInsets.all(5.0),
+        child: Stack(
+          children: <Widget>[
+            Container(
+                height: 170.0, width: 125.0, color: uniColors.transparent),
+            // Positioned(
+            //     left: 15.0,
+            //     top: 1.0,
+            //     child: Container(
+            //         height: 180.0,
+            //         width: 101.0,
+            //         decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.only(
+            //               topLeft: Radius.circular(25.0),
+            //               topRight: Radius.circular(25.0),
+            //             ),
+            //             boxShadow: [
+            //               BoxShadow(
+            //                   blurRadius: 7.0,
+            //                   color: Colors.grey.withOpacity(0.65),
+            //                   offset: Offset(10, 25),
+            //                   spreadRadius: 8.0)
+            //             ]))),
+            Positioned(
+                left: 1.0,
+                top: 1.0,
+                child: Hero(
+                    tag: influencer.profilePhoto,
+                    child: Opacity(
+                      opacity: 1,
+                      child: Container(
+                          height: 150.0,
+                          width: 109.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25.0),
+                                topRight: Radius.circular(25.0),
+                              ),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      "${influencer.profilePhoto}"),
+                                  fit: BoxFit.cover))),
+                    ))),
+            Positioned(
+                left: 1.0,
+                top: 126.0,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 45.0,
+                      width: 110.0,
+                      decoration: BoxDecoration(
+                          //gradient: UniversalVariables.fabGradient,
+
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(25.0),
+                            bottomRight: Radius.circular(25.0),
+                          ),
+                          color: uniColors.white2),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2.0),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(influencer.name,
+                              // gradient: LinearGradient(colors: [
+                              //   UniversalVariables.grey1,
+                              //   UniversalVariables.white1,
+                              //   UniversalVariables.grey3,
+                              // ]
+                              // ),
+
+                              style: TextStyles.mainScreenProfileName,
+                              textAlign: TextAlign.center),
+                        ),
+                      ),
+                    ),
+                  ],
+                ))
+          ],
+        ),
       ),
     );
   }

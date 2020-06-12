@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lcl/models/user.dart';
 import 'package:lcl/resources/firebase_methods.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -13,6 +14,8 @@ class FirebaseRepository {
 
   Future<bool> authenticateUser(FirebaseUser user) =>
       _firebaseMethods.authenticateUser(user);
+
+      Future<User> getUserDetails() => _firebaseMethods.getUserDetails();
 
   Future<void> fetchLoggedUser(FirebaseUser user) =>
       _firebaseMethods.fetchLoggedUser(user);
