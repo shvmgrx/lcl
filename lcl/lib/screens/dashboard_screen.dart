@@ -953,31 +953,14 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                 AvailableUserDetail(selectedAvailableUser: availableUsers)));
       },
       child: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(6.0),
         child: Stack(
           children: <Widget>[
             Container(
-                height: screenHeight / 3,
+                height: 250,
                 // width: screenWidth / 1.75,
                 color: uniColors.transparent),
-            // Positioned(
-            //     left: 15.0,
-            //     top: 1.0,
-            //     child: Container(
-            //         height: 180.0,
-            //         width: 101.0,
-            //         decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.only(
-            //               topLeft: Radius.circular(25.0),
-            //               topRight: Radius.circular(25.0),
-            //             ),
-            //             boxShadow: [
-            //               BoxShadow(
-            //                   blurRadius: 7.0,
-            //                   color: Colors.grey.withOpacity(0.65),
-            //                   offset: Offset(10, 25),
-            //                   spreadRadius: 8.0)
-            //             ]))),
+
             Positioned(
               left: 1.0,
               top: 1.0,
@@ -1000,11 +983,11 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
             ),
             Positioned(
                 left: 1.0,
-                top: 145.0,
+                top: 135.0,
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: 50.0,
+                      height: 40.0,
                       width: screenWidth / 2.2,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(

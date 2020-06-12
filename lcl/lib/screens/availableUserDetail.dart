@@ -379,7 +379,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                     color: uniColors.lcRed.withOpacity(controller.value),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -458,7 +458,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                           opacity: controller.value,
                           child: Container(
                             // height: 150.0,
-                            width: screenWidth,
+                           // width: screenWidth*0.8,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(25.0),
@@ -516,7 +516,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 70),
+                                    Spacer(),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(

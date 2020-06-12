@@ -70,7 +70,7 @@ class TextStyles {
 
   
       static final TextStyle cookTime = TextStyle(
-    fontSize: 14,
+    fontSize: 10,
     fontWeight: FontWeight.w600,
     color: uniColors.grey2,
     fontFamily: 'Bebas',
