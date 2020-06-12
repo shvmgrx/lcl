@@ -1,4 +1,5 @@
 import 'package:lcl/provider/user_provider.dart';
+import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,13 @@ class _MyAppState extends State<MyApp> {
           child: MaterialApp(
         title: "Lunchalize",
         debugShowCheckedModeBanner: false,
+                initialRoute: "/",
+        routes: {
+          '/landing_screen': (context) => LandingScreen(),
+          '/dashboard_screen': (context) => DashboardScreen(),
+          '/available_userDetail_screen': (context) => AvailableUserDetail(),
+          '/login_screen': (context) => LoginScreen(),
+        },
         home: FutureBuilder(
           future: _repository.getCurrentUser(),
           builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {

@@ -55,6 +55,18 @@ class TextStyles {
     //   ),
     // ],
   );
+  static final TextStyle profileUserName = TextStyle(
+    fontSize: 20,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.lcRed,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
   static final TextStyle bodyTextStyle = TextStyle(
     letterSpacing: 0.8,
     fontSize: 20,
