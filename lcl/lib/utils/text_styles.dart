@@ -29,6 +29,12 @@ class TextStyles {
     color: uniColors.lcRed,
     fontFamily: 'CaviarDreams',
   );
+    static final TextStyle editPageLogoTextStyle = TextStyle(
+    fontSize: 40,
+    fontWeight: FontWeight.w900,
+    color: uniColors.lcRed,
+    fontFamily: 'CaviarDreams',
+  );
   static final TextStyle drawerNameTextStyle = TextStyle(
     letterSpacing: 1.2,
     fontSize: 30,
@@ -66,6 +72,45 @@ class TextStyles {
     //     color: UniversalVariables.gold2,
     //   ),
     // ],
+  );
+
+    static final TextStyle editHeadingName = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+  color: uniColors.grey1,
+    fontFamily: 'Bebas',
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 2.0,
+        color: Colors.white30,
+      ),
+    ],
+  );
+
+  static final TextStyle hintTextStyle = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w300,
+  color: uniColors.lcRed,
+    fontFamily: 'CaviarDreams',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: Colors.white30,
+    //   ),
+    // ],
+  );
+
+      static final TextStyle whileEditing = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: uniColors.standardBlack,
+   fontFamily: 'CaviarDreams',
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 2.0,
+        color: Colors.white30,
+      ),
+    ],
   );
 
   

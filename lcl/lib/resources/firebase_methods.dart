@@ -1,15 +1,23 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lcl/constants/constantStrings.dart';
+import 'package:lcl/models/message.dart';
 import 'package:lcl/models/user.dart';
+import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/utils/utilities.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 
 class FirebaseMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
   static final Firestore firestore = Firestore.instance;
+
+    StorageReference _storageReference;
+
 
   static final Firestore _firestore = Firestore.instance;
 
@@ -84,7 +92,91 @@ class FirebaseMethods {
     }
     return userList;
   }
+  Future<String> uploadImageToStorage(File imageFile) async {
+    // mention try catch later on
+    try {
+      _storageReference = FirebaseStorage.instance
+          .ref()
+          .child('${DateTime.now().millisecondsSinceEpoch}');
 
+      StorageUploadTask storageUploadTask =
+          _storageReference.putFile(imageFile);
+      var url = await (await storageUploadTask.onComplete).ref.getDownloadURL();
+
+      return url;
+    } catch (e) {
+      return null;
+    }
+  }
+
+    void setProfilePhoto(String url, FirebaseUser currentUser) async {
+    print("Url received for setting:");
+
+    user = User(uid: currentUser.uid, profilePhoto: url);
+    firestore
+        .collection(USERS_COLLECTION)
+        .document(currentUser.uid)
+        .updateData(user.toMap(user));
+  }
+
+    void setImageMsg(String url, String receiverId, String senderId) async {
+    Message message;
+
+    message = Message.imageMessage(
+        message: "IMAGE",
+        receiverId: receiverId,
+        senderId: senderId,
+        photoUrl: url,
+        timestamp: Timestamp.now(),
+        type: 'image');
+
+    // create imagemap
+    var map = message.toImageMap();
+
+    // var map = Map<String, dynamic>();
+    await firestore
+        .collection(MESSAGES_COLLECTION)
+        .document(message.senderId)
+        .collection(message.receiverId)
+        .add(map);
+
+    firestore
+        .collection(MESSAGES_COLLECTION)
+        .document(message.receiverId)
+        .collection(message.senderId)
+        .add(map);
+  }
+
+
+  void uploadImage(File image, String receiverId, String senderId,
+      ImageUploadProvider imageUploadProvider) async {
+    // Set some loading value to db and show it to user
+    imageUploadProvider.setToLoading();
+
+    // Get url from the image bucket
+    String url = await uploadImageToStorage(image);
+
+    // Hide loading
+    imageUploadProvider.setToIdle();
+
+    setImageMsg(url, receiverId, senderId);
+  }
+
+  void changeProfilePhoto(File image, ImageUploadProvider imageUploadProvider,
+      FirebaseUser currentUser) async {
+    // Set some loading value to db and show it to user
+    //imageUploadProvider.setToLoading();
+
+    // Get url from the image bucket
+    String url = await uploadImageToStorage(image);
+
+    // Hide loading
+    // imageUploadProvider.setToIdle();
+    print("Url sending for setting:");
+
+    setProfilePhoto(url, currentUser);
+  }
+  
   Future<void> addDataToDb(FirebaseUser currentUser) async {
     String username = Utils.getUsername(currentUser.email);
 

@@ -1,4 +1,8 @@
 
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lcl/enum/userState.dart';
 
 class Utils {
@@ -6,6 +10,12 @@ class Utils {
 
     return "lc:${email.split('@')[0]}";
 
+  }
+
+    static Future<File> pickImage({@required ImageSource source}) async {
+    File selectedImage = await ImagePicker.pickImage(source: source);
+    //return await compressImage(selectedImage);
+    return selectedImage;
   }
 
   static int stateToNum(UserState userState) {

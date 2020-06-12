@@ -622,7 +622,7 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                           crossAxisCount: 2,
                           crossAxisSpacing: 0,
                           mainAxisSpacing: 1,
-                          childAspectRatio: 0.95,
+                          childAspectRatio: 0.85,
                           primary: false,
                           children: <Widget>[
                             if (refreshLunchalize)
@@ -957,13 +957,13 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
         child: Stack(
           children: <Widget>[
             Container(
-                height: 250,
+                //height: 250,
                 // width: screenWidth / 1.75,
                 color: uniColors.transparent),
 
             Positioned(
               left: 1.0,
-              top: 1.0,
+              top: 5.0,
               child: Opacity(
                 opacity: 1,
                 child: Container(
@@ -983,7 +983,7 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
             ),
             Positioned(
                 left: 1.0,
-                top: 135.0,
+                top: 155.0,
                 child: Column(
                   children: <Widget>[
                     Container(

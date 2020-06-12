@@ -1,6 +1,8 @@
+import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
+import 'package:lcl/screens/editProfile.dart';
 import 'package:lcl/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
   
@@ -27,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-       // ChangeNotifierProvider(create: (_) => ImageUploadProvider()),
+        ChangeNotifierProvider(create: (_) => ImageUploadProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
           child: MaterialApp(
@@ -39,6 +41,7 @@ class _MyAppState extends State<MyApp> {
           '/dashboard_screen': (context) => DashboardScreen(),
           '/available_userDetail_screen': (context) => AvailableUserDetail(),
           '/login_screen': (context) => LoginScreen(),
+          '/edit_profile_screen': (context) => EditProfile(),
         },
         home: FutureBuilder(
           future: _repository.getCurrentUser(),
