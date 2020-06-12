@@ -73,8 +73,10 @@ class FirebaseMethods {
     Future<List<User>> fetchBatch(FirebaseUser currentUser) async {
     List<User> userList = List<User>();
 
-    QuerySnapshot querySnapshot =
-        await firestore.collection(USERS_COLLECTION).getDocuments();
+    QuerySnapshot querySnapshot = await firestore
+    .collection(USERS_COLLECTION)
+    .getDocuments();
+
     for (var i = 0; i < querySnapshot.documents.length; i++) {
       if (querySnapshot.documents[i].documentID != currentUser.uid) {
         userList.add(User.fromMap(querySnapshot.documents[i].data));

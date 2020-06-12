@@ -19,6 +19,10 @@ class FirebaseRepository {
 
   Future<void> fetchLoggedUser(FirebaseUser user) =>
       _firebaseMethods.fetchLoggedUser(user);
+
+       Future<List<User>> fetchBatch(FirebaseUser user) =>
+      _firebaseMethods.fetchBatch(user);
+      
   Future<void> updateDatatoDb(
           FirebaseUser user,
           String name,
