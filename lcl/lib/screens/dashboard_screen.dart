@@ -620,9 +620,9 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
                         height: MediaQuery.of(context).size.height - 300.0,
                         child: GridView.count(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 1,
-                          childAspectRatio: 0.85,
+                          crossAxisSpacing: 3,
+                          mainAxisSpacing: 0,
+                          childAspectRatio: 0.88,
                           primary: false,
                           children: <Widget>[
                             if (refreshLunchalize)
