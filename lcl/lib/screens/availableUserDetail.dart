@@ -468,65 +468,307 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                               ),
                               color: uniColors.standardWhite,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            child: Column(
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(widget.selectedAvailableUser.name,
-                                            style:
-                                                TextStyles.profileUserName,
-                                           // textAlign: TextAlign.left
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15.0, left: 10),
+                                      child: Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+                                                Text(
+                                                  widget.selectedAvailableUser
+                                                      .name,
+                                                  style: TextStyles
+                                                      .profileUserName,
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 3.0),
+                                                  child: Text(
+                                                    "(45 kms far)",
+                                                    style: TextStyles
+                                                        .profileUserDistance,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(vertical:8.0),
-                                          child: Text(widget.selectedAvailableUser.bio,
-                                              style:
-                                                  TextStyles.mainScreenProfileName,
-                                             // textAlign: TextAlign.left
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8.0),
+                                              child: Text(
+                                                widget
+                                                    .selectedAvailableUser.bio,
+                                                style: TextStyles.mainScreenBio,
+                                                // textAlign: TextAlign.left
                                               ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                    SizedBox(width: 70),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        child: Column(
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.fastfood,
+                                                  color: uniColors.lcRed,
+                                                ),
+                                                Icon(
+                                                  Icons.restaurant_menu,
+                                                  color: uniColors.lcRed,
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.room_service,
+                                                  color: uniColors.lcRed,
+                                                ),
+                                                Icon(
+                                                  Icons.description,
+                                                  color: uniColors.lcRed,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                Spacer(),
+                                Divider(),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 15, bottom: 10,top:10),
                                   child: Container(
-                                    child: Column(
+                                      child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
                                       children: <Widget>[
-                                        Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.close,
-                                              color: uniColors.lcRed,
-                                            ),
-                                            Icon(
-                                              Icons.restaurant_menu,
-                                              color: uniColors.lcRed,
-                                            ),
-                                          ],
+                                        Container(
+                                          width: screenWidth,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Container(
+                                                child: Image.network(
+                                                    "${widget.selectedAvailableUser.profilePhoto}"),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(left:8.0),
+                                                child: Container(
+                                                  child: Column(
+                                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                          top: 2.0,
+                                                          left: 4,
+                                                        ),
+                                                        child: Text(
+                                                          "Dish name",
+                                                          style: TextStyles
+                                                              .profileUserName,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 4.0,
+                                                                    left: 6.0),
+                                                            child: Text(
+                                                              "Prep Time: 15 mins",
+                                                              style: TextStyles
+                                                                  .cookTime,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 4.0,
+                                                                    left: 8.0),
+                                                            child: Text(
+                                                              "Cook Time: 30 mins",
+                                                              style: TextStyles
+                                                                  .cookTime,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                          top: 5.0,
+                                                          left: 4,
+                                                        ),
+                                                        child: Text(
+                                                          "Diet: Vegan",
+                                                          style: TextStyles
+                                                              .recipeDetails,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                          top: 5.0,
+                                                          left: 4,
+                                                        ),
+                                                        child: Text(
+                                                          "Type: Fastfood",
+                                                          style: TextStyles
+                                                              .recipeDetails,
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                          top: 5.0,
+                                                          left: 4,
+                                                        ),
+                                                        child: Text(
+                                                          "Cuisine: Italian",
+                                                          style: TextStyles
+                                                              .recipeDetails,
+                                                        ),
+                                                      ),
+                                                      
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.wallpaper,
-                                              color: uniColors.lcRed,
-                                            ),
-                                            Icon(
-                                              Icons.description,
-                                              color: uniColors.lcRed,
-                                            ),
-                                          ],
+                                        Container(
+                                          width: screenWidth,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Container(
+                                                child: Image.network(
+                                                    "${widget.selectedAvailableUser.profilePhoto}"),
+                                              ),
+                                              Container(
+                                                child: Column(
+                                                  // mainAxisAlignment: MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                        top: 2.0,
+                                                        left: 4,
+                                                      ),
+                                                      child: Text(
+                                                        "Dish name",
+                                                        style: TextStyles
+                                                            .profileUserName,
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 4.0,
+                                                                  left: 6.0),
+                                                          child: Text(
+                                                            "Prep Time: 15 mins",
+                                                            style: TextStyles
+                                                                .cookTime,
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 4.0,
+                                                                  left: 8.0),
+                                                          child: Text(
+                                                            "Cook Time: 30 mins",
+                                                            style: TextStyles
+                                                                .cookTime,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                        top: 5.0,
+                                                        left: 4,
+                                                      ),
+                                                      child: Text(
+                                                        "Diet: Vegan",
+                                                        style: TextStyles
+                                                            .recipeDetails,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                        top: 5.0,
+                                                        left: 4,
+                                                      ),
+                                                      child: Text(
+                                                        "Type: Fastfood",
+                                                        style: TextStyles
+                                                            .recipeDetails,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                        top: 5.0,
+                                                        left: 4,
+                                                      ),
+                                                      child: Text(
+                                                        "Cuisine: Italian",
+                                                        style: TextStyles
+                                                            .recipeDetails,
+                                                      ),
+                                                    ),
+                                                    
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
-                                  ),
+                                  )),
                                 )
                               ],
                             ),

@@ -43,11 +43,38 @@ class TextStyles {
     color: uniColors.lcRed,
     fontFamily: 'Raleway',
   );
+    static final TextStyle mainScreenBio = TextStyle(
+    fontSize: 14,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.grey2,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
     static final TextStyle mainScreenProfileName = TextStyle(
     fontSize: 14,
     //fontWeight: FontWeight.w400,
     color: uniColors.grey2,
     fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
+  
+      static final TextStyle cookTime = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: uniColors.grey2,
+    fontFamily: 'Bebas',
+    letterSpacing: 1.5
     // shadows: <Shadow>[
     //   Shadow(
     //     blurRadius: 2.0,
@@ -66,6 +93,31 @@ class TextStyles {
     //     color: UniversalVariables.gold2,
     //   ),
     // ],
+  );
+
+    static final TextStyle recipeDetails = TextStyle(
+    fontSize: 12,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.standardBlack,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+    static final TextStyle profileUserDistance = TextStyle(
+    fontSize: 14,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.lcRed,
+    fontFamily: 'Raleway',
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 2.0,
+        color: uniColors.standardWhite,
+      ),
+    ],
   );
   static final TextStyle bodyTextStyle = TextStyle(
     letterSpacing: 0.8,
