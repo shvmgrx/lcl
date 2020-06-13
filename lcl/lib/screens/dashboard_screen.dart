@@ -336,7 +336,7 @@ Navigator.pop(context);
                 SizedBox(
                   height: screenHeight * 0.27,
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () => signOut(),
                   child: ListTile(
                     title: new Text(

@@ -39,6 +39,9 @@ dependencies:
   path_provider: ^1.6.10
   agora_rtc_engine: ^1.0.12
 
+  #permission_handler: 2.2.0 
+  #permission handle 2.2.0 for ios
+
 
 dev_dependencies:
   flutter_test:

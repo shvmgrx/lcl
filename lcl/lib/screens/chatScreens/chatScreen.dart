@@ -356,13 +356,16 @@ class _ChatScreenState extends State<ChatScreen> {
                   decoration: BoxDecoration(
                       gradient: uniColors.fabGradient,
                       shape: BoxShape.circle),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.send,
-                      color:uniColors.standardWhite,
-                      size: 15,
+                  child: InkWell(
+                      child: IconButton(
+                      icon: Icon(
+                        Icons.send,
+                        color:uniColors.standardWhite,
+                        size: 15,
+                      ),
+                      //onPressed: () => {},
                     ),
-                    onPressed: () => {},
+                     onTap: () => sendMessage(),
                   ))
               : Container()
         ],
@@ -399,13 +402,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     maxRadius: 22,
                     backgroundColor: Colors.transparent,
                     backgroundImage: NetworkImage(
-                        "https://images.pexels.com/photos/36469/woman-person-flowers-wreaths.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"),
+                        "${widget.receiver.profilePhoto}"),
                   ),
           Padding(
             padding: const EdgeInsets.only(left:5),
             child: Text(
-              // widget.receiver.name == null? 
-              "Test name",
+              widget.receiver.name == null? "":  widget.receiver.name,
+
               style: TextStyles.chatScreenNameTextStyle,
               // : widget.receiver.name,
             ),
