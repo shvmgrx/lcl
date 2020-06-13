@@ -27,7 +27,7 @@ dependencies:
   cloud_firestore: ^0.13.6
   cached_network_image: ^2.1.0+1
   rxdart: ^0.24.0
-  permission_handler: 3.0.0
+  permission_handler: 2.2.0
   firebase_auth: ^0.16.1
   google_sign_in: ^4.5.1
   geolocator: ^5.3.1
@@ -37,7 +37,7 @@ dependencies:
   firebase_storage: ^3.1.5
   image_picker: ^0.6.7+1
   path_provider: ^1.6.10
-  agora_rtc_engine: ^1.0.12
+  agora_rtc_engine: ^1.0.8
 
   #permission_handler: 2.2.0 
   #permission handle 2.2.0 for ios
