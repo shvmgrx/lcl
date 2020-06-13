@@ -10,6 +10,7 @@ import 'package:lcl/models/message.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/resources/firebase_repository.dart';
+import 'package:lcl/screens/chatScreens/widgets/cached_image.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:lcl/utils/utilities.dart';
 import 'package:lcl/widgets/CustomAppBar.dart';
@@ -146,15 +147,19 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   getMessage(Message message) {
-    return Text(
-      message.message,
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16.0,
-      ),
-    );
+    
+    return message.type != MESSAGE_TYPE_IMAGE
+        ? Text(
+            message.message,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+            ),
+          )
+        : message.photoUrl != null
+            ? CachedImage(url: message.photoUrl)
+            : Text("Url was null");
   }
-
   Widget receiverLayout(Message message) {
     Radius messageRadius = Radius.circular(10);
 
