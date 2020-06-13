@@ -77,6 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
         return ListView.builder(
           padding: EdgeInsets.all(10),
           itemCount: snapshot.data.documents.length,
+           reverse: true,
           itemBuilder: (context, index) {
             // mention the arrow syntax if you get the time
             return chatMessageItem(snapshot.data.documents[index]);
