@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/utils/text_styles.dart';
@@ -210,7 +211,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: TextField(
               controller: textFieldController,
               style: TextStyle(
-                color: Colors.white,
+                color: uniColors.standardBlack,
               ),
               onChanged: (val) {
                 (val.length > 0 && val.trim() != "")
@@ -257,6 +258,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: IconButton(
                     icon: Icon(
                       Icons.send,
+                      color:uniColors.standardWhite,
                       size: 15,
                     ),
                     onPressed: () => {},
@@ -281,17 +283,17 @@ class _ChatScreenState extends State<ChatScreen> {
           Navigator.pop(context);
         },
       ),
-      centerTitle: true,
+      centerTitle: false,
       title: Row(
         children: <Widget>[
-          // CircleAvatar(
-          //           maxRadius: 22,
-          //           backgroundColor: Colors.transparent,
-          //           backgroundImage: NetworkImage(
-          //               "https://images.pexels.com/photos/36469/woman-person-flowers-wreaths.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"),
-          //         ),
+          CircleAvatar(
+                    maxRadius: 22,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: NetworkImage(
+                        "https://images.pexels.com/photos/36469/woman-person-flowers-wreaths.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"),
+                  ),
           Padding(
-            padding: const EdgeInsets.only(left:2),
+            padding: const EdgeInsets.only(left:5),
             child: Text(
               // widget.receiver.name == null? 
               "Test name",
@@ -305,15 +307,16 @@ class _ChatScreenState extends State<ChatScreen> {
         IconButton(
           icon: Icon(
             Icons.video_call,
+            color: uniColors.lcRed,
           ),
           onPressed: () {},
         ),
-        IconButton(
-          icon: Icon(
-            Icons.phone,
-          ),
-          onPressed: () {},
-        )
+        // IconButton(
+        //   icon: Icon(
+        //     Icons.phone,
+        //   ),
+        //   onPressed: () {},
+        // )
       ],
     );
   }
