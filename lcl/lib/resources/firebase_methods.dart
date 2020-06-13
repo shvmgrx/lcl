@@ -58,8 +58,8 @@ class FirebaseMethods {
 
   Future<bool> authenticateUser(FirebaseUser user) async {
     QuerySnapshot result = await firestore
-        .collection("users")
-        .where("email", isEqualTo: user.email)
+        .collection(USERS_COLLECTION)
+        .where(EMAIL_FIELD, isEqualTo: user.email)
         .getDocuments();
 
     final List<DocumentSnapshot> docs = result.documents;
@@ -73,7 +73,7 @@ class FirebaseMethods {
       uid: currentUser.uid,
     );
     DocumentSnapshot documentSnapshot =
-        await firestore.collection("users").document(currentUser.uid).get();
+        await firestore.collection(USERS_COLLECTION).document(currentUser.uid).get();
 
     return documentSnapshot;
   }
@@ -123,7 +123,7 @@ class FirebaseMethods {
     Message message;
 
     message = Message.imageMessage(
-        message: "IMAGE",
+        message: MESSAGE_TYPE_IMAGE,
         receiverId: receiverId,
         senderId: senderId,
         photoUrl: url,
@@ -188,9 +188,27 @@ class FirebaseMethods {
         username: username);
 
     firestore
-        .collection("users")
+        .collection(USERS_COLLECTION)
         .document(currentUser.uid)
         .setData(user.toMap(user));
+  }
+
+
+    Future<void> addMessageToDb(
+      Message message, User sender, User receiver) async {
+    var map = message.toMap();
+
+    await firestore
+        .collection(MESSAGES_COLLECTION)
+        .document(message.senderId)
+        .collection(message.receiverId)
+        .add(map);
+    
+    return await firestore
+        .collection(MESSAGES_COLLECTION)
+        .document(message.receiverId)
+        .collection(message.senderId)
+        .add(map);
   }
 
     Future<void> updateDatatoDb(
@@ -217,7 +235,7 @@ class FirebaseMethods {
         profilePhoto: profilePhoto);
 
     firestore
-        .collection("users")
+        .collection(USERS_COLLECTION)
         .document(currentUser.uid)
         .updateData(user.toMap(user));
   }

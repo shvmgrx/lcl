@@ -35,6 +35,9 @@ class uniColors {
   static final Color gold3 = Color(0xffa48c64);
   static final Color gold4 = Color(0xffc1b59c);
 
+    static final Color senderColor  = lcRed;
+  static final Color receiverColor = lcRedLight;
+
 
   static final Color gradientColorStart = lcRed;
   static final Color gradientColorEnd = lcRedLight;
