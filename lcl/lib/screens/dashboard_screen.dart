@@ -237,12 +237,14 @@ class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProv
           userState: UserState.Offline,
         );
 
+Navigator.pop(context);
         // move the user to login screen
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => LoginScreen()),
           (Route<dynamic> route) => false,
         );
+        
       }
     }
 
