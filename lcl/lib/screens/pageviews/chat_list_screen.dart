@@ -38,7 +38,9 @@ class _ChatListScreenState extends State<ChatListScreen> {
           Icons.arrow_back_ios,
           color: uniColors.lcRed,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       title: UserCircle(initials),
       centerTitle: true,
