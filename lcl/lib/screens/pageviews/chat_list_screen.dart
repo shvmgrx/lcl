@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lcl/resources/firebase_repository.dart';
+import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:lcl/utils/utilities.dart';
@@ -59,10 +60,12 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: uniColors.standardWhite,
-      appBar: customAppBar(context),
-      body: ChatListContainer(currentUserId),
+    return PickupLayout(
+          scaffold: Scaffold(
+        backgroundColor: uniColors.standardWhite,
+        appBar: customAppBar(context),
+        body: ChatListContainer(currentUserId),
+      ),
     );
   }
 }

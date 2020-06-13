@@ -11,6 +11,8 @@ import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/chatScreens/widgets/cached_image.dart';
+import 'package:lcl/utils/call_utilities.dart';
+import 'package:lcl/utils/permissions.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:lcl/utils/utilities.dart';
 import 'package:lcl/widgets/CustomAppBar.dart';
@@ -147,7 +149,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   getMessage(Message message) {
-    
     return message.type != MESSAGE_TYPE_IMAGE
         ? Text(
             message.message,
@@ -157,9 +158,15 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           )
         : message.photoUrl != null
-            ? CachedImage(url: message.photoUrl)
+            ? CachedImage(
+                message.photoUrl,
+                height: 250,
+                width: 250,
+                radius: 10,
+              )
             : Text("Url was null");
   }
+
   Widget receiverLayout(Message message) {
     Radius messageRadius = Radius.circular(10);
 
@@ -406,12 +413,19 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
       actions: <Widget>[
-        IconButton(
+
+                IconButton(
           icon: Icon(
             CupertinoIcons.video_camera,
-            color: uniColors.lcRed,
           ),
-          onPressed: () {},
+          onPressed: () async =>
+              await Permissions.cameraAndMicrophonePermissionsGranted()
+                  ? CallUtils.dial(
+                      from: sender,
+                      to: widget.receiver,
+                      context: context,
+                    )
+                  : {},
         ),
         // IconButton(
         //   icon: Icon(

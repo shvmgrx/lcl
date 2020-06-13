@@ -1,14 +1,11 @@
 import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
-import 'package:lcl/screens/chatScreens.dart/chatScreen.dart';
 import 'package:lcl/screens/chatScreens/chatScreen.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/editProfile.dart';
 import 'package:lcl/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
-  
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/login_screen.dart';

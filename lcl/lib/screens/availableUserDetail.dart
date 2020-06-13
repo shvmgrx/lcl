@@ -571,6 +571,8 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
+                                              height: 100,
+                                              width:100,
                                               child: Image.network(
                                                   "${widget.selectedAvailableUser.profilePhoto}"),
                                             ),
@@ -675,6 +677,8 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
+                                              height: 100,
+                                              width: 100,
                                               child: Image.network(
                                                   "${widget.selectedAvailableUser.profilePhoto}"),
                                             ),
