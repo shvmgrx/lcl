@@ -39,8 +39,15 @@ class TextStyles {
     letterSpacing: 1.2,
     fontSize: 30,
     fontWeight: FontWeight.w800,
-    //color: uniColors.standardBlack,
+    color: uniColors.lcRed,
     fontFamily: 'CaviarDreams',
+  );
+    static final TextStyle chatScreenNameTextStyle = TextStyle(
+    //letterSpacing: 1,
+    fontSize: 20,
+    fontWeight: FontWeight.w800,
+    color: uniColors.lcRed,
+    fontFamily: 'Raleway',
   );
     static final TextStyle drawerNameBarButtonTextStyle = TextStyle(
     letterSpacing: 4,

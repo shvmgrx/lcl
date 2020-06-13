@@ -1,6 +1,7 @@
 import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
+import 'package:lcl/screens/chatScreens.dart/chatScreen.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/editProfile.dart';
 import 'package:lcl/screens/landing_screen.dart';
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
           '/login_screen': (context) => LoginScreen(),
           '/edit_profile_screen': (context) => EditProfile(),
            '/chatList_screen': (context) => ChatListScreen(),
+           '/chat_screen': (context) => ChatScreen(),
         },
         home: FutureBuilder(
           future: _repository.getCurrentUser(),

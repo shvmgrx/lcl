@@ -35,4 +35,12 @@ class uniColors {
   static final Color gold3 = Color(0xffa48c64);
   static final Color gold4 = Color(0xffc1b59c);
 
+
+  static final Color gradientColorStart = Color(0xffd07155);
+  static final Color gradientColorEnd = Color(0xffefe6e0);
+    static final Gradient fabGradient = LinearGradient(
+      colors: [gradientColorStart, gradientColorEnd],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight);
+
 }

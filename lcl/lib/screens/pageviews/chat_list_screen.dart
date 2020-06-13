@@ -85,7 +85,13 @@ class _ChatListContainerState extends State<ChatListContainer> {
         itemBuilder: (context, index) {
           return CustomTile(
             mini: false,
-            onTap: () {},
+            onTap: () {
+               Navigator.pushNamed(
+                                context, "/chat_screen");
+            },
+
+
+            
             title: Text(
               "Test user",
               style: TextStyle(
