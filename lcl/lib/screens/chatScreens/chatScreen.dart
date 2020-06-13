@@ -420,6 +420,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 IconButton(
           icon: Icon(
             CupertinoIcons.video_camera,
+            color:uniColors.lcRed
           ),
           onPressed: () async =>
               await Permissions.cameraAndMicrophonePermissionsGranted()
