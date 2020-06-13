@@ -18,6 +18,13 @@ class Utils {
     return selectedImage;
   }
 
+    static String getInitials(String name) {
+    List<String> nameSplit = name.split(" ");
+    String firstNameInitial = nameSplit[0][0];
+    String lastNameInitial = nameSplit[1][0];
+    return firstNameInitial + lastNameInitial;
+  }
+
   static int stateToNum(UserState userState) {
     switch (userState) {
       case UserState.Offline:

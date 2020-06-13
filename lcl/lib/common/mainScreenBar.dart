@@ -22,9 +22,15 @@ class MainScreenBar extends StatelessWidget {
               color: Colors.red,
             ),
             Spacer(),
-            Icon(
-              Icons.message,
-              color: Colors.red,
+            GestureDetector(
+                          child: Icon(
+                Icons.message,
+                color: Colors.red,
+              ),
+             onTap: () {
+               Navigator.pushNamed(
+                                context, "/chatList_screen");
+      },
             ),
           ],
         ),

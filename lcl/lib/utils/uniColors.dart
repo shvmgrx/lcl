@@ -21,13 +21,16 @@ class uniColors {
   //     colors: [gold1,white1, gold2],
   //     begin: Alignment.bottomCenter,
   //     end: Alignment.topCenter);
+  static final Color offline = Color(0xffFA1304);
+  static final Color online = Colors.green;
+  static final Color away = Color(0xffa95f39);
 
 
   static final Color grey1 = Color(0xff343942);
   static final Color grey2 = Color(0xff878E9A);
   static final Color grey3 = Color(0xff575C66);
 
-    static final Color gold1 = Color(0xffa48c64);
+  static final Color gold1 = Color(0xffa48c64);
   static final Color gold2 = Color(0xffba9765);
   static final Color gold3 = Color(0xffa48c64);
   static final Color gold4 = Color(0xffc1b59c);

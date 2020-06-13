@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/login_screen.dart';
+import 'package:lcl/screens/pageviews/chat_list_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
           '/available_userDetail_screen': (context) => AvailableUserDetail(),
           '/login_screen': (context) => LoginScreen(),
           '/edit_profile_screen': (context) => EditProfile(),
+           '/chatList_screen': (context) => ChatListScreen(),
         },
         home: FutureBuilder(
           future: _repository.getCurrentUser(),
