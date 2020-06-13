@@ -12,10 +12,9 @@ class Utils {
 
   }
 
-    static Future<File> pickImage({@required ImageSource source}) async {
+   static Future<File> pickImage({@required ImageSource source}) async {
     File selectedImage = await ImagePicker.pickImage(source: source);
     //return await compressImage(selectedImage);
-    return selectedImage;
   }
 
     static String getInitials(String name) {

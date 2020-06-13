@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/utils/strings.dart';
@@ -59,7 +60,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: uniColors.backgroundGrey,
+      backgroundColor: uniColors.standardWhite,
       appBar: customAppBar(context),
       body: ChatListContainer(currentUserId),
     );
@@ -141,8 +142,8 @@ class _ChatListContainerState extends State<ChatListContainer> {
                     child: Container(
                       child: IconButton(
                         icon: Icon(
-                          Icons.video_call,
-                          size:20,
+                          CupertinoIcons.video_camera,
+                          size:25,
                           color: uniColors.lcRed,
                         ),
                         onPressed: () {},

@@ -1,15 +1,22 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lcl/constants/constantStrings.dart';
+import 'package:lcl/enum/view_state.dart';
 import 'package:lcl/models/message.dart';
 import 'package:lcl/models/user.dart';
+import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/utils/text_styles.dart';
+import 'package:lcl/utils/utilities.dart';
 import 'package:lcl/widgets/CustomAppBar.dart';
 
 
 import 'package:lcl/utils/uniColors.dart';
+import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
   final User receiver;
@@ -29,6 +36,8 @@ class _ChatScreenState extends State<ChatScreen> {
   User sender;
 
    String _currentUserId;
+
+   ImageUploadProvider _imageUploadProvider;
  @override
   void initState() {  
     super.initState();
@@ -48,6 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+     _imageUploadProvider = Provider.of<ImageUploadProvider>(context);
     return Scaffold(
       backgroundColor: uniColors.backgroundGrey,
       appBar: customAppBar(context),
@@ -56,6 +66,13 @@ class _ChatScreenState extends State<ChatScreen> {
           Flexible(
             child: messageList(),
           ),
+          _imageUploadProvider.getViewState == ViewState.LOADING
+              ? Container(
+                  alignment: Alignment.centerRight,
+                  margin: EdgeInsets.only(right: 15),
+                  child: CircularProgressIndicator(),
+                )
+              : Container(),
           chatControls(),
         ],
       ),
@@ -315,10 +332,12 @@ class _ChatScreenState extends State<ChatScreen> {
           //         padding: EdgeInsets.symmetric(horizontal: 10),
           //         child: Icon(Icons.record_voice_over),
           //       ),
-          isWriting ? Container() : Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.camera_alt),
-          ),
+          isWriting
+              ? Container()
+              : GestureDetector(
+                  child: Icon(Icons.camera_alt),
+                  onTap: () => pickImage(source: ImageSource.gallery),
+                ),
           isWriting
               ? Container(
                   margin: EdgeInsets.only(left: 10),
@@ -339,6 +358,14 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  void pickImage({@required ImageSource source}) async {
+    File selectedImage = await Utils.pickImage(source: source);
+    _repository.uploadImage(
+        image: selectedImage,
+        receiverId: widget.receiver.uid,
+        senderId: _currentUserId,
+        imageUploadProvider: _imageUploadProvider);
+  }
 
 
           
@@ -376,7 +403,7 @@ class _ChatScreenState extends State<ChatScreen> {
       actions: <Widget>[
         IconButton(
           icon: Icon(
-            Icons.video_call,
+            CupertinoIcons.video_camera,
             color: uniColors.lcRed,
           ),
           onPressed: () {},
