@@ -203,6 +203,7 @@ class FirebaseMethods {
         .document(message.senderId)
         .collection(message.receiverId)
         .add(map);
+        
     
     return await firestore
         .collection(MESSAGES_COLLECTION)

@@ -9,6 +9,7 @@ import 'package:lcl/enum/view_state.dart';
 import 'package:lcl/models/message.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/image_upload_provider.dart';
+import 'package:lcl/resources/chat_methods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/chatScreens/widgets/cached_image.dart';
 import 'package:lcl/utils/call_utilities.dart';
@@ -34,6 +35,8 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController textFieldController = TextEditingController();
   FirebaseRepository _repository = FirebaseRepository();
+
+    final ChatMethods _chatMethods = ChatMethods();
 
   bool isWriting = false;
   User sender;
@@ -214,7 +217,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
       textFieldController.text = "";
 
-      _repository.addMessageToDb(_message, sender, widget.receiver);
+      _chatMethods.addMessageToDb(_message, sender, widget.receiver);
     }
 
 

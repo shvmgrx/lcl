@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
           '/login_screen': (context) => LoginScreen(),
           '/edit_profile_screen': (context) => EditProfile(),
            '/chatList_screen': (context) => ChatListScreen(),
-           '/chat_screen': (context) => ChatScreen(),
+           
         },
         home: FutureBuilder(
           future: _repository.getCurrentUser(),

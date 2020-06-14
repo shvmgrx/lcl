@@ -16,10 +16,12 @@ class ChatListScreen extends StatelessWidget {
     return CustomAppBar(
       leading: IconButton(
         icon: Icon(
-          Icons.notifications,
-          color: Colors.white,
+          Icons.arrow_back,
+          color: uniColors.lcRed,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       // title: UserCircle(),
       centerTitle: true,
@@ -27,7 +29,7 @@ class ChatListScreen extends StatelessWidget {
         IconButton(
           icon: Icon(
             Icons.search,
-            color: Colors.white,
+            color: uniColors.lcRed,
           ),
           onPressed: () {
             Navigator.pushNamed(context, "/search_screen");
@@ -36,7 +38,7 @@ class ChatListScreen extends StatelessWidget {
         IconButton(
           icon: Icon(
             Icons.more_vert,
-            color: Colors.white,
+            color: uniColors.lcRed,
           ),
           onPressed: () {},
         ),
@@ -48,7 +50,7 @@ class ChatListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PickupLayout(
       scaffold: Scaffold(
-        backgroundColor: uniColors.standardBlack,
+        backgroundColor: uniColors.backgroundGrey,
         appBar: customAppBar(context),
         //floatingActionButton: NewChatButton(),
         body: ChatListContainer(),
