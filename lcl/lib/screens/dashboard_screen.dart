@@ -38,6 +38,8 @@ class _DashboardScreenState extends State<DashboardScreen>
   final AuthMethods _authMethods = AuthMethods();
 
   AnimationController controller;
+  Animation animation;
+  Animation anim;
 
   List<User> refreshList;
 
@@ -133,7 +135,61 @@ class _DashboardScreenState extends State<DashboardScreen>
     buddyMode = true;
     romanticMode = false;
     businessMode = false;
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
+    print(controller.value);
+    controller.addListener(() {
+      setState(() {});
+    });
+
+    showLunchalizePageNow();
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
+
+
+    void showRecipePageNow() {
+    controller.reverse();
+
+    setState(() {
+      showRecipePage = true;
+      showLunchalizePage = false;
+      showFavsPage = false;
+    });
+    controller.forward();
+  }
+
+  void showLunchalizePageNow() {
+   controller.reverse();
+
+    setState(() {
+      showRecipePage = false;
+      showLunchalizePage = true;
+      showFavsPage = false;
+    });
+    controller.forward();
+  }
+
+    void showFavsPageNow() {
+    controller.reverse();
+
+    setState(() {
+      showRecipePage = false;
+      showLunchalizePage = false;
+      showFavsPage = true;
+    });
+    controller.forward();
+  }
+
+
+
 
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
@@ -144,12 +200,6 @@ class _DashboardScreenState extends State<DashboardScreen>
         });
       });
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
@@ -669,330 +719,333 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ),
                     color: uniColors.lcRed,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 16,
+                  child: Opacity(
+                    opacity: controller.value,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 25,
+                            vertical: 16,
+                          ),
+                          // child: Text(
+                          //   Strings.relatedToYou,
+                          //   style: TextStyles.buttonTextStyle,
+                          // ),
                         ),
-                        // child: Text(
-                        //   Strings.relatedToYou,
-                        //   style: TextStyles.buttonTextStyle,
-                        // ),
-                      ),
 
-                      Visibility(
+                        Visibility(
                           visible: showLunchalizePage,
-                           child: Container(
-                          //margin: EdgeInsets.only(top: 20),
-                          height: MediaQuery.of(context).size.height - 300.0,
-                          child: GridView.count(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 3,
-                            mainAxisSpacing: 0,
-                            childAspectRatio: 0.88,
-                            primary: false,
-                            children: <Widget>[
-                              if (refreshLunchalize)
-                                if (filterList != null)
-                                  ...filterList.map((e) {
-                                    print(filterList);
-                                    return buildFilterGrid(e);
-                                  }).toList(),
-                              // Text("Main screen"),
-                              // CupertinoButton(
-                              //     child: Text("update data"),
-                              //     onPressed: () {
-                              //       _repository.getCurrentUser().then((FirebaseUser user) {
-                              //         print(user.displayName);
-                              //         _repository.updateDatatoDb(
-                              //             user, user.displayName, user.displayName, 6);
-                              //       });
-                              //     }),
-                            ],
+                          child: Container(
+                            //margin: EdgeInsets.only(top: 20),
+                            height: MediaQuery.of(context).size.height - 300.0,
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 3,
+                              mainAxisSpacing: 0,
+                              childAspectRatio: 0.88,
+                              primary: false,
+                              children: <Widget>[
+                                if (refreshLunchalize)
+                                  if (filterList != null)
+                                    ...filterList.map((e) {
+                                      print(filterList);
+                                      return buildFilterGrid(e);
+                                    }).toList(),
+                                // Text("Main screen"),
+                                // CupertinoButton(
+                                //     child: Text("update data"),
+                                //     onPressed: () {
+                                //       _repository.getCurrentUser().then((FirebaseUser user) {
+                                //         print(user.displayName);
+                                //         _repository.updateDatatoDb(
+                                //             user, user.displayName, user.displayName, 6);
+                                //       });
+                                //     }),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Visibility(
+                        Visibility(
                           visible: showRecipePage,
-                           child: Container(
-                          //margin: EdgeInsets.only(top: 20),
-                          height: MediaQuery.of(context).size.height - 300.0,
-                          child: Center(child: Text("RecipePage"))
+                          child: Container(
+                              //margin: EdgeInsets.only(top: 20),
+                              height:
+                                  MediaQuery.of(context).size.height - 300.0,
+                              child: Center(child: Text("RecipePage"))),
                         ),
-                      ),
-                      Visibility(
+                        Visibility(
                           visible: showFavsPage,
-                           child: Container(
-                          //margin: EdgeInsets.only(top: 20),
-                          height: MediaQuery.of(context).size.height - 300.0,
-                          child: Center(child: Text("FavouritesPage"))
+                          child: Container(
+                              //margin: EdgeInsets.only(top: 20),
+                              height:
+                                  MediaQuery.of(context).size.height - 300.0,
+                              child: Center(child: Text("FavouritesPage"))),
                         ),
-                      ),
 
-                      // Expanded(
-                      //   child: SingleChildScrollView(
-                      //     scrollDirection: Axis.horizontal,
-                      //     child: Row(
-                      //       children: <Widget>[
-                      //         Container(
-                      //           margin: const EdgeInsets.only(left: 16),
-                      //           width: MediaQuery.of(context).size.width * 0.5,
-                      //            height: MediaQuery.of(context).size.height *0.3,
-                      //           child: Column(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: <Widget>[
-                      //               Expanded(
-                      //                 child: ClipRRect(
-                      //                   child: Image.asset(
-                      //                     "assets/man3.jpg",
-                      //                     fit: BoxFit.fill,
-                      //                     width: MediaQuery.of(context).size.width *0.5,
-                      //                    // height: MediaQuery.of(context).size.height *0.2,
-                      //                   ),
-                      //                   borderRadius: BorderRadius.circular(12),
-                      //                 ),
-                      //               ),
-                      //               Padding(
-                      //                 padding:
-                      //                     const EdgeInsets.symmetric(vertical: 6),
-                      //                 child: Text(
-                      //                   Strings.lifeWithATiger,
-                      //                   style: TextStyles.titleTextStyle,
-                      //                 ),
-                      //               ),
-                      //               Padding(
-                      //                 padding:
-                      //                     const EdgeInsets.symmetric(vertical: 6),
-                      //                 child: Text(
-                      //                   Strings.loremIpsum1,
-                      //                   style: TextStyles.body3TextStyle,
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //         SizedBox(
-                      //           width: 20,
-                      //         ),
-                      //         Container(
-                      //           width: MediaQuery.of(context).size.width * 0.5,
-                      //           child: Column(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: <Widget>[
-                      //               Expanded(
-                      //                 child: ClipRRect(
-                      //                   child: Image.asset(
-                      //                     "assets/woman1.jpg",
-                      //                     width: MediaQuery.of(context).size.width *
-                      //                         0.5,
-                      //                     fit: BoxFit.cover,
-                      //                   ),
-                      //                   borderRadius: BorderRadius.circular(12),
-                      //                 ),
-                      //               ),
-                      //               Padding(
-                      //                 padding:
-                      //                     const EdgeInsets.symmetric(vertical: 6),
-                      //                 child: Text(
-                      //                   Strings.wildAnimals,
-                      //                   style: TextStyles.titleTextStyle,
-                      //                 ),
-                      //               ),
-                      //               Padding(
-                      //                 padding:
-                      //                     const EdgeInsets.symmetric(vertical: 6),
-                      //                 child: Text(
-                      //                   Strings.loremIpsum2,
-                      //                   style: TextStyles.body3TextStyle,
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(
-                      //     horizontal: 16,
-                      //     vertical: 16,
-                      //   ),
-                      //   child: Text(
-                      //     Strings.quickCategories,
-                      //     style: TextStyles.titleTextStyle,
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     mainAxisSize: MainAxisSize.max,
-                      //     children: <Widget>[
-                      //       Column(
-                      //         children: <Widget>[
-                      //           GestureDetector(
-                      //             onTap: () {
-                      //               getLocation();
-                      //               _scaffoldKey.currentState.openDrawer();
-                      //               // showDialog(
-                      //               //   context: context,
-                      //               //   barrierDismissible:
-                      //               //       false, // user must tap button!
-                      //               //   builder: (BuildContext context) {
-                      //               //     return AlertDialog(
-                      //               //       title: Center(child: Text('Distance')),
-                      //               //       elevation: 2.5,
-                      //               //       backgroundColor:
-                      //               //           Colors.white.withOpacity(0.8),
-                      //               //       shape: RoundedRectangleBorder(
-                      //               //           borderRadius: BorderRadius.only(
-                      //               //         topRight: Radius.circular(20),
-                      //               //         topLeft: Radius.circular(20),
-                      //               //         bottomLeft: Radius.circular(10),
-                      //               //         bottomRight: Radius.circular(10),
-                      //               //       )),
-                      //               //       content: SingleChildScrollView(
-                      //               //         child: ListBody(
-                      //               //           children: <Widget>[
-                      //               //             Text("$distance"),
-                      //               //             Slider(
-                      //               //               value: distance.toDouble(),
-                      //               //               min: 0.0,
-                      //               //               max: 220.0,
-                      //               //               activeColor: uniColors.lcRed,
-                      //               //               inactiveColor:
-                      //               //                   uniColors.standardWhite,
-                      //               //               onChanged: (double newValue) {
-                      //               //                 setState(() {
-                      //               //                   distance = newValue.round();
-                      //               //                 });
-                      //               //               },
-                      //               //             ),
-                      //               //           ],
-                      //               //         ),
-                      //               //       ),
-                      //               //       actions: <Widget>[
-                      //               //         Row(
-                      //               //           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //               //           children: <Widget>[
-                      //               //             FlatButton(
-                      //               //               child: Text('CANCEL'),
-                      //               //               onPressed: () {
-                      //               //                 Navigator.of(context).pop();
-                      //               //               },
-                      //               //             ),
-                      //               //             FlatButton(
-                      //               //               child: Text('SUBMIT'),
-                      //               //               onPressed: () {
-                      //               //                 Navigator.of(context).pop();
-                      //               //               },
-                      //               //             ),
-                      //               //           ],
-                      //               //         ),
-                      //               //       ],
-                      //               //     );
-                      //               //   },
-                      //               // );
-                      //             },
-                      //             child: Container(
-                      //               padding: const EdgeInsets.all(12),
-                      //               decoration: BoxDecoration(
-                      //                   borderRadius: BorderRadius.circular(8),
-                      //                   color: Colors.white),
-                      //               // child: Image.asset(
-                      //               //   "assets/city1.png",
-                      //               //   height: 50,
-                      //               //   width: 50,
-                      //               // ),
-                      //             ),
-                      //           ),
-                      //           SizedBox(
-                      //             height: 4,
-                      //           ),
-                      //           Text(
-                      //             Strings.location,
-                      //             style: TextStyles.body2TextStyle,
-                      //           ),
-                      //         ],
-                      //       ),
-                      //       Column(
-                      //         children: <Widget>[
-                      //           Container(
-                      //             padding: const EdgeInsets.all(12),
-                      //             decoration: BoxDecoration(
-                      //                 borderRadius: BorderRadius.circular(8),
-                      //                 color: Colors.white),
-                      //             // child: Image.asset(
-                      //             //   "assets/time2.png",
-                      //             //   height: 50,
-                      //             //   width: 50,
-                      //             // ),
-                      //           ),
-                      //           SizedBox(
-                      //             height: 4,
-                      //           ),
-                      //           Text(
-                      //             Strings.lion,
-                      //             style: TextStyles.body2TextStyle,
-                      //           ),
-                      //         ],
-                      //       ),
-                      //       // Column(
-                      //       //   children: <Widget>[
-                      //       //     Container(
-                      //       //       padding: const EdgeInsets.all(12),
-                      //       //       decoration: BoxDecoration(
-                      //       //         borderRadius: BorderRadius.circular(8),
-                      //       //         color: Colors.white
-                      //       //       ),
-                      //       //       child: Image.asset(
-                      //       //         "assets/meal2.png",
-                      //       //         height: 50,
-                      //       //         width: 50,
-                      //       //       ),
-                      //       //     ),
-                      //       //     SizedBox(
-                      //       //       height: 4,
-                      //       //     ),
-                      //       //     Text(
-                      //       //       Strings.reptiles,
-                      //       //       style: TextStyles.body2TextStyle,
-                      //       //     ),
-                      //       //   ],
-                      //       // ),
-                      //       Column(
-                      //         children: <Widget>[
-                      //           Container(
-                      //             padding: const EdgeInsets.all(12),
-                      //             decoration: BoxDecoration(
-                      //                 borderRadius: BorderRadius.circular(8),
-                      //                 color: Colors.white),
-                      //             // child: Image.asset(
-                      //             //   "assets/mode.png",
-                      //             //   height: 50,
-                      //             //   width: 50,
-                      //             // ),
-                      //           ),
-                      //           SizedBox(
-                      //             height: 4,
-                      //           ),
-                      //           Text(
-                      //             Strings.pets,
-                      //             style: TextStyles.body2TextStyle,
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 32,
-                      // ),
-                    ],
+                        // Expanded(
+                        //   child: SingleChildScrollView(
+                        //     scrollDirection: Axis.horizontal,
+                        //     child: Row(
+                        //       children: <Widget>[
+                        //         Container(
+                        //           margin: const EdgeInsets.only(left: 16),
+                        //           width: MediaQuery.of(context).size.width * 0.5,
+                        //            height: MediaQuery.of(context).size.height *0.3,
+                        //           child: Column(
+                        //             crossAxisAlignment: CrossAxisAlignment.start,
+                        //             children: <Widget>[
+                        //               Expanded(
+                        //                 child: ClipRRect(
+                        //                   child: Image.asset(
+                        //                     "assets/man3.jpg",
+                        //                     fit: BoxFit.fill,
+                        //                     width: MediaQuery.of(context).size.width *0.5,
+                        //                    // height: MediaQuery.of(context).size.height *0.2,
+                        //                   ),
+                        //                   borderRadius: BorderRadius.circular(12),
+                        //                 ),
+                        //               ),
+                        //               Padding(
+                        //                 padding:
+                        //                     const EdgeInsets.symmetric(vertical: 6),
+                        //                 child: Text(
+                        //                   Strings.lifeWithATiger,
+                        //                   style: TextStyles.titleTextStyle,
+                        //                 ),
+                        //               ),
+                        //               Padding(
+                        //                 padding:
+                        //                     const EdgeInsets.symmetric(vertical: 6),
+                        //                 child: Text(
+                        //                   Strings.loremIpsum1,
+                        //                   style: TextStyles.body3TextStyle,
+                        //                 ),
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //         SizedBox(
+                        //           width: 20,
+                        //         ),
+                        //         Container(
+                        //           width: MediaQuery.of(context).size.width * 0.5,
+                        //           child: Column(
+                        //             crossAxisAlignment: CrossAxisAlignment.start,
+                        //             children: <Widget>[
+                        //               Expanded(
+                        //                 child: ClipRRect(
+                        //                   child: Image.asset(
+                        //                     "assets/woman1.jpg",
+                        //                     width: MediaQuery.of(context).size.width *
+                        //                         0.5,
+                        //                     fit: BoxFit.cover,
+                        //                   ),
+                        //                   borderRadius: BorderRadius.circular(12),
+                        //                 ),
+                        //               ),
+                        //               Padding(
+                        //                 padding:
+                        //                     const EdgeInsets.symmetric(vertical: 6),
+                        //                 child: Text(
+                        //                   Strings.wildAnimals,
+                        //                   style: TextStyles.titleTextStyle,
+                        //                 ),
+                        //               ),
+                        //               Padding(
+                        //                 padding:
+                        //                     const EdgeInsets.symmetric(vertical: 6),
+                        //                 child: Text(
+                        //                   Strings.loremIpsum2,
+                        //                   style: TextStyles.body3TextStyle,
+                        //                 ),
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(
+                        //     horizontal: 16,
+                        //     vertical: 16,
+                        //   ),
+                        //   child: Text(
+                        //     Strings.quickCategories,
+                        //     style: TextStyles.titleTextStyle,
+                        //   ),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     mainAxisSize: MainAxisSize.max,
+                        //     children: <Widget>[
+                        //       Column(
+                        //         children: <Widget>[
+                        //           GestureDetector(
+                        //             onTap: () {
+                        //               getLocation();
+                        //               _scaffoldKey.currentState.openDrawer();
+                        //               // showDialog(
+                        //               //   context: context,
+                        //               //   barrierDismissible:
+                        //               //       false, // user must tap button!
+                        //               //   builder: (BuildContext context) {
+                        //               //     return AlertDialog(
+                        //               //       title: Center(child: Text('Distance')),
+                        //               //       elevation: 2.5,
+                        //               //       backgroundColor:
+                        //               //           Colors.white.withOpacity(0.8),
+                        //               //       shape: RoundedRectangleBorder(
+                        //               //           borderRadius: BorderRadius.only(
+                        //               //         topRight: Radius.circular(20),
+                        //               //         topLeft: Radius.circular(20),
+                        //               //         bottomLeft: Radius.circular(10),
+                        //               //         bottomRight: Radius.circular(10),
+                        //               //       )),
+                        //               //       content: SingleChildScrollView(
+                        //               //         child: ListBody(
+                        //               //           children: <Widget>[
+                        //               //             Text("$distance"),
+                        //               //             Slider(
+                        //               //               value: distance.toDouble(),
+                        //               //               min: 0.0,
+                        //               //               max: 220.0,
+                        //               //               activeColor: uniColors.lcRed,
+                        //               //               inactiveColor:
+                        //               //                   uniColors.standardWhite,
+                        //               //               onChanged: (double newValue) {
+                        //               //                 setState(() {
+                        //               //                   distance = newValue.round();
+                        //               //                 });
+                        //               //               },
+                        //               //             ),
+                        //               //           ],
+                        //               //         ),
+                        //               //       ),
+                        //               //       actions: <Widget>[
+                        //               //         Row(
+                        //               //           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //               //           children: <Widget>[
+                        //               //             FlatButton(
+                        //               //               child: Text('CANCEL'),
+                        //               //               onPressed: () {
+                        //               //                 Navigator.of(context).pop();
+                        //               //               },
+                        //               //             ),
+                        //               //             FlatButton(
+                        //               //               child: Text('SUBMIT'),
+                        //               //               onPressed: () {
+                        //               //                 Navigator.of(context).pop();
+                        //               //               },
+                        //               //             ),
+                        //               //           ],
+                        //               //         ),
+                        //               //       ],
+                        //               //     );
+                        //               //   },
+                        //               // );
+                        //             },
+                        //             child: Container(
+                        //               padding: const EdgeInsets.all(12),
+                        //               decoration: BoxDecoration(
+                        //                   borderRadius: BorderRadius.circular(8),
+                        //                   color: Colors.white),
+                        //               // child: Image.asset(
+                        //               //   "assets/city1.png",
+                        //               //   height: 50,
+                        //               //   width: 50,
+                        //               // ),
+                        //             ),
+                        //           ),
+                        //           SizedBox(
+                        //             height: 4,
+                        //           ),
+                        //           Text(
+                        //             Strings.location,
+                        //             style: TextStyles.body2TextStyle,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //       Column(
+                        //         children: <Widget>[
+                        //           Container(
+                        //             padding: const EdgeInsets.all(12),
+                        //             decoration: BoxDecoration(
+                        //                 borderRadius: BorderRadius.circular(8),
+                        //                 color: Colors.white),
+                        //             // child: Image.asset(
+                        //             //   "assets/time2.png",
+                        //             //   height: 50,
+                        //             //   width: 50,
+                        //             // ),
+                        //           ),
+                        //           SizedBox(
+                        //             height: 4,
+                        //           ),
+                        //           Text(
+                        //             Strings.lion,
+                        //             style: TextStyles.body2TextStyle,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //       // Column(
+                        //       //   children: <Widget>[
+                        //       //     Container(
+                        //       //       padding: const EdgeInsets.all(12),
+                        //       //       decoration: BoxDecoration(
+                        //       //         borderRadius: BorderRadius.circular(8),
+                        //       //         color: Colors.white
+                        //       //       ),
+                        //       //       child: Image.asset(
+                        //       //         "assets/meal2.png",
+                        //       //         height: 50,
+                        //       //         width: 50,
+                        //       //       ),
+                        //       //     ),
+                        //       //     SizedBox(
+                        //       //       height: 4,
+                        //       //     ),
+                        //       //     Text(
+                        //       //       Strings.reptiles,
+                        //       //       style: TextStyles.body2TextStyle,
+                        //       //     ),
+                        //       //   ],
+                        //       // ),
+                        //       Column(
+                        //         children: <Widget>[
+                        //           Container(
+                        //             padding: const EdgeInsets.all(12),
+                        //             decoration: BoxDecoration(
+                        //                 borderRadius: BorderRadius.circular(8),
+                        //                 color: Colors.white),
+                        //             // child: Image.asset(
+                        //             //   "assets/mode.png",
+                        //             //   height: 50,
+                        //             //   width: 50,
+                        //             // ),
+                        //           ),
+                        //           SizedBox(
+                        //             height: 4,
+                        //           ),
+                        //           Text(
+                        //             Strings.pets,
+                        //             style: TextStyles.body2TextStyle,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 32,
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -1029,12 +1082,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                 IconButton(
                   icon: Icon(Icons.menu, color: uniColors.lcRed, size: 35),
                   onPressed: () {
-                    setState(() {
-                      showRecipePage = true;
-                    showLunchalizePage = false;
-                    showFavsPage = false;
-                    });
-                    
+                    // setState(() {
+                    //   showRecipePage = true;
+                    //   showLunchalizePage = false;
+                    //   showFavsPage = false;
+                    // });
+                    showRecipePageNow();
+
                     print('Star it');
                   },
                 ),
@@ -1043,12 +1097,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                       Icon(Icons.restaurant, color: uniColors.lcRed, size: 35),
                   onPressed: () {
                     refresh();
-                    setState(() {
-                       showRecipePage = false;
-                    showLunchalizePage = true;
-                    showFavsPage = false;
-                    });
-                   
+                    // setState(() {
+                    //   showRecipePage = false;
+                    //   showLunchalizePage = true;
+                    //   showFavsPage = false;
+                    // });
+                    showLunchalizePageNow();
 
                     print('Star it');
                   },
@@ -1056,13 +1110,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                 IconButton(
                   icon: Icon(Icons.favorite, color: uniColors.lcRed, size: 35),
                   onPressed: () {
+                    // setState(() {
+                    //   showRecipePage = false;
+                    //   showLunchalizePage = false;
+                    //   showFavsPage = true;
+                    // });
+                    showFavsPageNow();
 
-                    setState(() {
-                      showRecipePage = false;
-                    showLunchalizePage = false;
-                    showFavsPage = true;
-                    });
-                    
                     print('Star it');
                   },
                 ),
