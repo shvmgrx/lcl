@@ -686,6 +686,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         //   style: TextStyles.buttonTextStyle,
                         // ),
                       ),
+                    
                       Container(
                         //margin: EdgeInsets.only(top: 20),
                         height: MediaQuery.of(context).size.height - 300.0,
@@ -1007,7 +1008,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           clipBehavior: Clip.antiAlias,
           notchMargin: 6.0,
           child: Container(
-            height: 40,
+            height: 55,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -1042,6 +1043,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   buildFilterGrid(User availableUsers) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
+   
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(CupertinoPageRoute(

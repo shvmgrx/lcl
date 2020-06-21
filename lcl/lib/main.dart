@@ -23,10 +23,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   FirebaseRepository _repository = FirebaseRepository();
 
-
+ 
 
   @override
   Widget build(BuildContext context) {
+    
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ImageUploadProvider()),
@@ -46,6 +47,7 @@ class _MyAppState extends State<MyApp> {
            
         },
         home: FutureBuilder(
+          
           future: _repository.getCurrentUser(),
           builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
             if (snapshot.hasData) {
