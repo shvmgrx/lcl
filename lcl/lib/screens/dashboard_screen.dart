@@ -69,13 +69,14 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   bool showBottomBar = true;
 
-  bool showReceipePage=false;
-  bool showLunchalizePage=true;
-  bool showFavsPage=false;
+  bool showRecipePage = false;
+  bool showLunchalizePage = true;
+  bool showFavsPage = false;
 
   bool refreshLunchalize = true;
 
-  Language _selectedDropdownLanguage =LanguagePickerUtils.getLanguageByIsoCode('en');
+  Language _selectedDropdownLanguage =
+      LanguagePickerUtils.getLanguageByIsoCode('en');
 
   UserProvider userProvider;
 
@@ -135,16 +136,11 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Future<Null> refresh() {
- 
     return _repository.getCurrentUser().then((FirebaseUser user) {
-       
       _repository.fetchBatch(user).then((List<User> list) {
-
-          print("objedct");
+        print("objedct");
         setState(() {
           filterList = list;
-
-       
         });
       });
     });
@@ -686,35 +682,53 @@ class _DashboardScreenState extends State<DashboardScreen>
                         //   style: TextStyles.buttonTextStyle,
                         // ),
                       ),
-                    
-                      Container(
-                        //margin: EdgeInsets.only(top: 20),
-                        height: MediaQuery.of(context).size.height - 300.0,
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 3,
-                          mainAxisSpacing: 0,
-                          childAspectRatio: 0.88,
-                          primary: false,
-                          children: <Widget>[
-                            
-                            if (refreshLunchalize)
-                              if (filterList != null)
-                                ...filterList.map((e) {
-                                  print(filterList);
-                                  return buildFilterGrid(e);
-                                }).toList(),
-                            // Text("Main screen"),
-                            // CupertinoButton(
-                            //     child: Text("update data"),
-                            //     onPressed: () {
-                            //       _repository.getCurrentUser().then((FirebaseUser user) {
-                            //         print(user.displayName);
-                            //         _repository.updateDatatoDb(
-                            //             user, user.displayName, user.displayName, 6);
-                            //       });
-                            //     }),
-                          ],
+
+                      Visibility(
+                          visible: showLunchalizePage,
+                           child: Container(
+                          //margin: EdgeInsets.only(top: 20),
+                          height: MediaQuery.of(context).size.height - 300.0,
+                          child: GridView.count(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 3,
+                            mainAxisSpacing: 0,
+                            childAspectRatio: 0.88,
+                            primary: false,
+                            children: <Widget>[
+                              if (refreshLunchalize)
+                                if (filterList != null)
+                                  ...filterList.map((e) {
+                                    print(filterList);
+                                    return buildFilterGrid(e);
+                                  }).toList(),
+                              // Text("Main screen"),
+                              // CupertinoButton(
+                              //     child: Text("update data"),
+                              //     onPressed: () {
+                              //       _repository.getCurrentUser().then((FirebaseUser user) {
+                              //         print(user.displayName);
+                              //         _repository.updateDatatoDb(
+                              //             user, user.displayName, user.displayName, 6);
+                              //       });
+                              //     }),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                          visible: showRecipePage,
+                           child: Container(
+                          //margin: EdgeInsets.only(top: 20),
+                          height: MediaQuery.of(context).size.height - 300.0,
+                          child: Center(child: Text("RecipePage"))
+                        ),
+                      ),
+                      Visibility(
+                          visible: showFavsPage,
+                           child: Container(
+                          //margin: EdgeInsets.only(top: 20),
+                          height: MediaQuery.of(context).size.height - 300.0,
+                          child: Center(child: Text("FavouritesPage"))
                         ),
                       ),
 
@@ -1013,22 +1027,42 @@ class _DashboardScreenState extends State<DashboardScreen>
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.menu,color:uniColors.lcRed,size:35),
+                  icon: Icon(Icons.menu, color: uniColors.lcRed, size: 35),
                   onPressed: () {
+                    setState(() {
+                      showRecipePage = true;
+                    showLunchalizePage = false;
+                    showFavsPage = false;
+                    });
+                    
                     print('Star it');
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.restaurant,color:uniColors.lcRed,size:35),
+                  icon:
+                      Icon(Icons.restaurant, color: uniColors.lcRed, size: 35),
                   onPressed: () {
-                    refreshLunchalize=true;
                     refresh();
+                    setState(() {
+                       showRecipePage = false;
+                    showLunchalizePage = true;
+                    showFavsPage = false;
+                    });
+                   
+
                     print('Star it');
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.favorite,color:uniColors.lcRed,size:35),
+                  icon: Icon(Icons.favorite, color: uniColors.lcRed, size: 35),
                   onPressed: () {
+
+                    setState(() {
+                      showRecipePage = false;
+                    showLunchalizePage = false;
+                    showFavsPage = true;
+                    });
+                    
                     print('Star it');
                   },
                 ),
@@ -1043,7 +1077,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   buildFilterGrid(User availableUsers) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
-   
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(CupertinoPageRoute(
