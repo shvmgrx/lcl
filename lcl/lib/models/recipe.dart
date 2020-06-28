@@ -14,6 +14,7 @@ class Recipe {
   List diet;
   List cuisine;
   bool calorieKnown;
+  int calories;
   String foodPic;
   int yum;
 
@@ -34,6 +35,7 @@ class Recipe {
     this.diet,
     this.cuisine,
     this.calorieKnown,
+    this.calories,
     this.foodPic,
     this.yum
 
@@ -57,6 +59,7 @@ class Recipe {
     recipeMap["diet"] = recipe.diet;
     recipeMap["cuisine"] = recipe.cuisine;
     recipeMap["calorieKnown"] = recipe.calorieKnown;
+    recipeMap["calories"] = recipe.calories;
     recipeMap["foodPic"] = recipe.foodPic;
     recipeMap["yum"] = recipe.yum;
     return recipeMap;
@@ -74,6 +77,7 @@ class Recipe {
     this.restTime = recipeMap["restTime"];
     this.level = recipeMap["level"];
     this.calorieKnown = recipeMap["calorieKnown"];
+    this.calories = recipeMap["calories"];
     this.foodPic = recipeMap["foodPic"];
     this.yum = recipeMap["yum"];
   }

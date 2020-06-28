@@ -10,6 +10,7 @@ import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/login_screen.dart';
+import 'package:lcl/screens/recipeScreens/recipeMakerContainer.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -722,7 +723,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                             GestureDetector(
                               onTap: () {
-                                _scaffoldKey.currentState.openDrawer();
+                               // _scaffoldKey.currentState.openDrawer();
+                               showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        backgroundColor: uniColors.white1,
+        builder: (context) => RecipeMakerContainer(),
+      );
                               },
                               child: Text(
                                 Strings.APP_NAME,

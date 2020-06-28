@@ -212,7 +212,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - agora_rtc_engine (1.0.12):
+  - agora_rtc_engine (1.0.13):
     - AgoraRtcEngine_iOS_Crypto (= 2.9.1)
     - Flutter
   - AgoraRtcEngine_iOS_Crypto (2.9.1)
@@ -402,7 +402,7 @@ PODS:
     - Flutter
   - path_provider_macos (0.0.1):
     - Flutter
-  - permission_handler (3.0.0):
+  - permission_handler (2.2.0):
     - Flutter
   - PromisesObjC (1.2.9)
   - sqflite (0.0.1):
@@ -507,11 +507,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
-  agora_rtc_engine: 1fe3b8d1949467e5884c4b57fd02c45c887533a5
+  agora_rtc_engine: 4e1678a60aeb2c868cb37181eeb79f9e8788306d
   AgoraRtcEngine_iOS_Crypto: c2bca616406c6dda9ae254d59637a18ba0fae8f0
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
-  cloud_firestore: 4cc700e236ebfe2d5d980e49cb066d202cfee0e9
+  cloud_firestore: 2a4f8f802fb0b701cf809b283b6bec7477ebaa6f
   cloud_firestore_web: 9ec3dc7f5f98de5129339802d491c1204462bfec
   Firebase: fc4cbf6f1592636431821ef9a3c557e4dfd9f268
   firebase_auth: af8784c4d8d87c36f730a305f97bfbcb24db024b
@@ -549,7 +549,7 @@ SPEC CHECKSUMS:
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_linux: 4d630dc393e1f20364f3e3b4a2ff41d9674a84e4
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
-  permission_handler: 047f11d44db785922214783da5f7a3cc8874c843
+  permission_handler: 0fc6d6641c09e4bfd5541dd39b0f44c7e369aa6b
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
 
