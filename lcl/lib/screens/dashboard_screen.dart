@@ -72,8 +72,11 @@ class _DashboardScreenState extends State<DashboardScreen>
   bool showBottomBar = true;
 
   bool showRecipePage = false;
+  bool showSearchPage = false;
   bool showLunchalizePage = true;
   bool showFavsPage = false;
+  bool showAccountPage = false;
+  
 
   bool refreshLunchalize = true;
 
@@ -160,8 +163,23 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     setState(() {
       showRecipePage = true;
+      showSearchPage = false;
       showLunchalizePage = false;
       showFavsPage = false;
+      showAccountPage = false;
+    });
+    controller.forward();
+  }
+
+     void showSearchPageNow() {
+    controller.reverse();
+
+    setState(() {
+      showRecipePage = false;
+      showSearchPage = true;
+      showLunchalizePage = false;
+      showFavsPage = false;
+      showAccountPage = false;
     });
     controller.forward();
   }
@@ -171,19 +189,38 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     setState(() {
       showRecipePage = false;
+      showSearchPage = false;
       showLunchalizePage = true;
       showFavsPage = false;
+      showAccountPage = false;
     });
     controller.forward();
   }
+
+  
 
     void showFavsPageNow() {
     controller.reverse();
 
     setState(() {
       showRecipePage = false;
+      showSearchPage = false;
       showLunchalizePage = false;
       showFavsPage = true;
+      showAccountPage = false;
+    });
+    controller.forward();
+  }
+
+   void showAccountPageNow() {
+   controller.reverse();
+
+    setState(() {
+      showRecipePage = false;
+      showSearchPage = false;
+      showLunchalizePage = false;
+      showFavsPage = false;
+      showAccountPage = true;
     });
     controller.forward();
   }
@@ -734,6 +771,22 @@ class _DashboardScreenState extends State<DashboardScreen>
                           //   style: TextStyles.buttonTextStyle,
                           // ),
                         ),
+                        Visibility(
+                          visible: showRecipePage,
+                          child: Container(
+                              //margin: EdgeInsets.only(top: 20),
+                              height:
+                                  MediaQuery.of(context).size.height - 300.0,
+                              child: Center(child: Text("RecipePage"))),
+                        ),
+                        Visibility(
+                          visible: showSearchPage,
+                          child: Container(
+                              //margin: EdgeInsets.only(top: 20),
+                              height:
+                                  MediaQuery.of(context).size.height - 300.0,
+                              child: Center(child: Text("SearchPage"))),
+                        ),
 
                         Visibility(
                           visible: showLunchalizePage,
@@ -767,14 +820,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                           ),
                         ),
-                        Visibility(
-                          visible: showRecipePage,
-                          child: Container(
-                              //margin: EdgeInsets.only(top: 20),
-                              height:
-                                  MediaQuery.of(context).size.height - 300.0,
-                              child: Center(child: Text("RecipePage"))),
-                        ),
+                        
                         Visibility(
                           visible: showFavsPage,
                           child: Container(
@@ -782,6 +828,15 @@ class _DashboardScreenState extends State<DashboardScreen>
                               height:
                                   MediaQuery.of(context).size.height - 300.0,
                               child: Center(child: Text("FavouritesPage"))),
+                        ),
+
+                        Visibility(
+                          visible: showAccountPage,
+                          child: Container(
+                              //margin: EdgeInsets.only(top: 20),
+                              height:
+                                  MediaQuery.of(context).size.height - 300.0,
+                              child: Center(child: Text("AccountPage"))),
                         ),
 
                         // Expanded(
@@ -1092,6 +1147,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                     print('Star it');
                   },
                 ),
+                 IconButton(
+                  icon: Icon(Icons.search, color: uniColors.lcRed, size: 35),
+                  onPressed: () {
+                    // setState(() {
+                    //   showRecipePage = true;
+                    //   showLunchalizePage = false;
+                    //   showFavsPage = false;
+                    // });
+                    showSearchPageNow();
+
+                    print('Star it');
+                  },
+                ),
                 IconButton(
                   icon:
                       Icon(Icons.restaurant, color: uniColors.lcRed, size: 35),
@@ -1116,6 +1184,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                     //   showFavsPage = true;
                     // });
                     showFavsPageNow();
+
+                    print('Star it');
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.person, color: uniColors.lcRed, size: 35),
+                  onPressed: () {
+                    // setState(() {
+                    //   showRecipePage = false;
+                    //   showLunchalizePage = false;
+                    //   showFavsPage = true;
+                    // });
+                    showAccountPageNow();
 
                     print('Star it');
                   },
