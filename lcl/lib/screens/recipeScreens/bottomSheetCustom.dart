@@ -44,7 +44,7 @@ class BottomSheet extends StatefulWidget {
   const BottomSheet({
     Key key,
     this.animationController,
-    this.enableDrag = true,
+    this.enableDrag = false,
     this.elevation = 0.0,
     @required this.onClosing,
     @required this.builder,

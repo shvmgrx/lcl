@@ -23,6 +23,16 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   List recipeCategory;
   int recipePortion;
 
+  int igAmt1;
+  int igUnit1;
+  String igName1;
+
+  int recipePreparationTime;
+  int recipeCookingTime;
+  int recipeRestTime;
+  String recipeDifficulty;
+  double recipeCalories;
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -234,158 +244,347 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             });
                                           },
                                         ),
-
-                                        // FormBuilderTextField(
-                                        //   attribute: "recipeName",
-                                        //   //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
-                                        //   keyboardType: TextInputType.text,
-                                        //   validators: [
-                                        //     // FormBuilderValidators.
-                                        //     FormBuilderValidators.max(25),
-                                        //   ],
-                                        //   onChanged: (value) {
-                                        //     setState(() {
-                                        //       recipeName = value;
-                                        //     });
-                                        //   },
-                                        // ),
                                       ),
                                     ],
                                   ),
                                 ),
 
-                                SizedBox(height: 100),
-                                FormBuilderDateTimePicker(
-                                  attribute: "date",
-                                  inputType: InputType.date,
-                                  format: DateFormat("yyyy-MM-dd"),
-                                  decoration: InputDecoration(
-                                      labelText: "Appointment Time"),
+                                //RecipeIngridients
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_INGRIDIENTS,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Container(
+                                        width: screenWidth * 0.1,
+                                        child: FormBuilderDropdown(
+                                          attribute: "amount",
+                                          decoration:
+                                              InputDecoration(labelText: ""),
+                                          items: [
+                                            1,
+                                            2,
+                                            3,
+                                            4,
+                                            5,
+                                            6,
+                                            7,
+                                            8,
+                                            9,
+                                            10,
+                                            11,
+                                            12,
+                                            13,
+                                            14,
+                                            15,
+                                            16,
+                                            17,
+                                            18,
+                                            19,
+                                            20,
+                                            21,
+                                            22,
+                                            23,
+                                            24,
+                                            25,
+                                            26,
+                                            27,
+                                            28,
+                                            29,
+                                            30,
+                                            31,
+                                            32,
+                                            33,
+                                            34,
+                                            35,
+                                            36,
+                                            37,
+                                            38,
+                                            39,
+                                            40,
+                                            41,
+                                            42,
+                                            43,
+                                            44,
+                                            45,
+                                            46,
+                                            47,
+                                            48,
+                                            49,
+                                            50
+                                          ]
+                                              .map((amount) => DropdownMenuItem(
+                                                  value: amount,
+                                                  child: Text("$amount")))
+                                              .toList(),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Container(
+                                        width: screenWidth * 0.20,
+                                        child: FormBuilderDropdown(
+                                          attribute: "unit",
+                                          decoration:
+                                              InputDecoration(labelText: ""),
+                                          items: [
+                                            'mg',
+                                            'gm',
+                                            'kg',
+                                            'ml',
+                                            'teaspoon',
+                                            'tablespoon',
+                                            'cup',
+                                            'mm',
+                                            'cm',
+                                            'inch'
+                                          ]
+                                              .map((unit) => DropdownMenuItem(
+                                                  value: unit,
+                                                  child: Text("$unit")))
+                                              .toList(),
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 14.0),
+                                        child: Container(
+                                          width: screenWidth * 0.30,
+                                          child: FormBuilderTextField(
+                                            attribute: "ingridient",
+                                            //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
+                                            keyboardType: TextInputType.text,
+                                            textCapitalization:
+                                                TextCapitalization.characters,
+                                            validators: [
+                                              // FormBuilderValidators.
+                                              FormBuilderValidators.max(25),
+                                            ],
+                                            onChanged: (value) {
+                                              setState(() {
+                                                // recipeName = value;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Icon(
+                                          Icons.done,
+                                          color: uniColors.lcRed,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                FormBuilderSlider(
-                                  attribute: "slider",
-                                  validators: [FormBuilderValidators.min(6)],
+
+                                //PreparationTime
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_PREPARATION_TIME,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 30),
+                                      Container(
+                                        width: screenWidth * 0.20,
+                                        child: FormBuilderTextField(
+                                            attribute: "preparationTime",
+                                            decoration:InputDecoration(labelText: "Mins",helperStyle: TextStyles.recipe),
+                                            //keyboardType: TextInputType.,
+                                            textCapitalization:
+                                                TextCapitalization.characters,
+                                            validators: [
+                                              // FormBuilderValidators.
+                                              FormBuilderValidators.max(25),
+                                            ],
+                                            onChanged: (value) {
+                                              setState(() {
+                                                 recipePreparationTime = value;
+                                              });
+                                            },
+                                          ),
+                                      ),
+                                      
+                                    ],
+                                  ),
+                                ),
+                                
+                                 //CookingTime
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_COOKING_TIME,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 30),
+                                      Container(
+                                        width: screenWidth * 0.20,
+                                        child: FormBuilderTextField(
+                                            attribute: "cookingTime",
+                                            decoration:InputDecoration(labelText: "Mins",helperStyle: TextStyles.recipe),
+                                            //keyboardType: TextInputType.,
+                                            textCapitalization:
+                                                TextCapitalization.characters,
+                                            validators: [
+                                              // FormBuilderValidators.
+                                              FormBuilderValidators.max(25),
+                                            ],
+                                            onChanged: (value) {
+                                              setState(() {
+                                                 recipeCookingTime = value;
+                                              });
+                                            },
+                                          ),
+                                      ),
+                                      
+                                    ],
+                                  ),
+                                ),
+
+                                 //RestTime
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_REST_TIME,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 30),
+                                      Container(
+                                        width: screenWidth * 0.20,
+                                        child: FormBuilderTextField(
+                                            attribute: "restTime",
+                                            decoration:InputDecoration(labelText: "Mins",helperStyle: TextStyles.recipe),
+                                            //keyboardType: TextInputType.,
+                                            textCapitalization:
+                                                TextCapitalization.characters,
+                                            validators: [
+                                              // FormBuilderValidators.
+                                              FormBuilderValidators.max(25),
+                                            ],
+                                            onChanged: (value) {
+                                              setState(() {
+                                                 recipeRestTime = value;
+                                              });
+                                            },
+                                          ),
+                                      ),
+                                      
+                                    ],
+                                  ),
+                                ),
+                                //RecipeDifficulty
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_DIFFICULTY,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 10),
+
+                                      Container(
+                                        width: screenWidth * 0.40,
+                                        child: FormBuilderDropdown(
+                                          attribute: "difficulty",
+                                          decoration:
+                                              InputDecoration(labelText: ""),
+                                          items: [
+                                            'Fool proof',
+                                            'Quick & Easy',
+                                            'Fastfood',
+                                            'Pro',
+                                            'Fine Dining',
+                                            'Festive',
+                                          ]
+                                              .map((difficulty) => DropdownMenuItem(
+                                                  value: difficulty,
+                                                  child: Text("$difficulty")))
+                                              .toList(),
+
+                                        onChanged: (value) {
+                                            setState(() {
+                                              recipeDifficulty = value;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      
+                                    ],
+                                  ),
+                                ),
+
+                                //RecipeCalories
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_CALORIES,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Container(
+                                        width: screenWidth * 0.65,
+                                        child:FormBuilderSlider(
+                                  attribute: "calories",
+                                  // validators: [FormBuilderValidators.min(6)],
                                   min: 0.0,
-                                  max: 10.0,
-                                  initialValue: 1.0,
-                                  divisions: 20,
-                                  decoration: InputDecoration(
-                                      labelText: "Number of things"),
+                                  max: 1500.0,
+                                  initialValue: 100.0,
+                                  divisions: 10,
+                                  decoration: InputDecoration(labelText: ""),
+                                   onChanged: (value) {
+                                            setState(() {
+                                              recipeCalories = value;
+                                            });
+                                          },
                                 ),
-                                FormBuilderCheckbox(
-                                  attribute: 'accept_terms',
-                                  label: Text(
-                                      "I have read and agree to the terms and conditions"),
-                                  validators: [
-                                    FormBuilderValidators.requiredTrue(
-                                      errorText:
-                                          "You must accept terms and conditions to continue",
-                                    ),
-                                  ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                FormBuilderDropdown(
-                                  attribute: "gender",
-                                  decoration:
-                                      InputDecoration(labelText: "Gender"),
-                                  // initialValue: 'Male',
-                                  hint: Text('Select Gender'),
-                                  validators: [
-                                    FormBuilderValidators.required()
-                                  ],
-                                  items: ['Male', 'Female', 'Other']
-                                      .map((gender) => DropdownMenuItem(
-                                          value: gender,
-                                          child: Text("$gender")))
-                                      .toList(),
-                                ),
-                                FormBuilderTextField(
-                                  attribute: "age",
-                                  decoration: InputDecoration(labelText: "Age"),
-                                  validators: [
-                                    FormBuilderValidators.numeric(),
-                                    FormBuilderValidators.max(70),
-                                  ],
-                                ),
-                                FormBuilderSegmentedControl(
-                                  decoration: InputDecoration(
-                                      labelText: "Movie Rating (Archer)"),
-                                  attribute: "movie_rating",
-                                  options: List.generate(5, (i) => i + 1)
-                                      .map((number) =>
-                                          FormBuilderFieldOption(value: number))
-                                      .toList(),
-                                ),
-                                FormBuilderSwitch(
-                                  label:
-                                      Text('I Accept the tems and conditions'),
-                                  attribute: "accept_terms_switch",
-                                  initialValue: true,
-                                ),
-                                FormBuilderTouchSpin(
-                                  decoration:
-                                      InputDecoration(labelText: "Stepper"),
-                                  attribute: "stepper",
-                                  initialValue: 10,
-                                  step: 1,
-                                ),
-                                FormBuilderRate(
-                                  decoration: InputDecoration(
-                                      labelText: "Rate this form"),
-                                  attribute: "rate",
-                                  iconSize: 32.0,
-                                  initialValue: 1.0,
-                                  max: 5,
-                                ),
-                                FormBuilderCheckboxList(
-                                  decoration: InputDecoration(
-                                      labelText: "The language of my people"),
-                                  attribute: "languages",
-                                  initialValue: ["Dart"],
-                                  options: [
-                                    FormBuilderFieldOption(value: "Dart"),
-                                    FormBuilderFieldOption(value: "Kotlin"),
-                                    FormBuilderFieldOption(value: "Java"),
-                                    FormBuilderFieldOption(value: "Swift"),
-                                    FormBuilderFieldOption(
-                                        value: "Objective-C"),
-                                  ],
-                                ),
-                                FormBuilderChoiceChip(
-                                  attribute: "favorite_ice_cream",
-                                  options: [
-                                    FormBuilderFieldOption(
-                                        child: Text("Vanilla"),
-                                        value: "vanilla"),
-                                    FormBuilderFieldOption(
-                                        child: Text("Chocolate"),
-                                        value: "chocolate"),
-                                    FormBuilderFieldOption(
-                                        child: Text("Strawberry"),
-                                        value: "strawberry"),
-                                    FormBuilderFieldOption(
-                                        child: Text("Peach"), value: "peach"),
-                                  ],
-                                ),
-                                FormBuilderFilterChip(
-                                  attribute: "pets",
-                                  options: [
-                                    FormBuilderFieldOption(
-                                        child: Text("Cats"), value: "cats"),
-                                    FormBuilderFieldOption(
-                                        child: Text("Dogs"), value: "dogs"),
-                                    FormBuilderFieldOption(
-                                        child: Text("Rodents"),
-                                        value: "rodents"),
-                                    FormBuilderFieldOption(
-                                        child: Text("Birds"), value: "birds"),
-                                  ],
-                                ),
-                                FormBuilderSignaturePad(
-                                  decoration:
-                                      InputDecoration(labelText: "Signature"),
-                                  attribute: "signature",
-                                  height: 100,
-                                ),
+
+                          
+                              
+                             
+                            
                               ],
                             ),
                           ),
