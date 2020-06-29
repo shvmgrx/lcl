@@ -580,11 +580,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                     ],
                                   ),
                                 ),
-
-                          
-                              
-                             
-                            
                               ],
                             ),
                           ),
@@ -594,7 +589,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                 child: Text("Submit"),
                                 onPressed: () {
                                   if (_fbKey.currentState.saveAndValidate()) {
-                                    print(_fbKey.currentState.value);
+                                    print(_fbKey.currentState.value.runtimeType);
                                   }
                                 },
                               ),
