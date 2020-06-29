@@ -222,4 +222,32 @@ class TextStyles {
     height: 1.2,
     fontFamily: 'Ubuntu',
   );
+
+      static final TextStyle recipeMaker = TextStyle(
+    fontSize: 24,
+    //fontWeight: FontWeight.w400,
+    letterSpacing: 2.0,
+    color: uniColors.white2,
+    fontFamily: 'CaviarDreams',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
+        static final TextStyle recipe = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 2.0,
+    color: uniColors.lcRed,
+    fontFamily: 'Homizio',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
 }

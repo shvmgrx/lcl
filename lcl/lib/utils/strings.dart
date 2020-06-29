@@ -24,4 +24,11 @@ class Strings {
   static const String pets = "Mode";
   static const String loremIpsum1 = "Wants to grab a drink along";
   static const String loremIpsum2 = "Wants to have dinner together";
+
+
+
+   static const String RECIPE_MAKER = "Recipe Maker";
+   static const String RECIPE_NAME = "Recipe Name";
+   static const String RECIPE_CATEGORY = "Category";
+   static const String RECIPE_PORTION = "Portion";
 }
