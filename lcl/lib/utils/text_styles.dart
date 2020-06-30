@@ -135,9 +135,22 @@ class TextStyles {
     // ],
   );
   static final TextStyle profileUserName = TextStyle(
-    fontSize: 20,
+    fontSize: 25,
     //fontWeight: FontWeight.w400,
     color: uniColors.lcRed,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
+    static final TextStyle chatBubble = TextStyle(
+    fontSize: 20,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.white2,
     fontFamily: 'Raleway',
     // shadows: <Shadow>[
     //   Shadow(
@@ -151,6 +164,31 @@ class TextStyles {
     fontSize: 12,
     //fontWeight: FontWeight.w400,
     color: uniColors.standardBlack,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
+      static final TextStyle chipStyle = TextStyle(
+    fontSize: 15,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.black,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+        static final TextStyle recipeName = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w800,
+    color: uniColors.black,
     fontFamily: 'Raleway',
     // shadows: <Shadow>[
     //   Shadow(

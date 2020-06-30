@@ -26,6 +26,7 @@ import 'package:gradient_text/gradient_text.dart';
 import 'package:provider/provider.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:floating_action_row/floating_action_row.dart';
+import 'package:flutter_web_browser/flutter_web_browser.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -435,21 +436,24 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ),
 
                    ListTile(
-                      title: new Text(
-                        "Donate",
-                        style: TextStyle(
-                            color: uniColors.standardBlack,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                      ),
-                      trailing: new Icon(
-                        Icons.attach_money,
-                        color: uniColors.standardBlack,
-                      ),
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
-                      }),
+                   title: new Text(
+                     "Donate",
+                     style: TextStyle(
+                         color: uniColors.standardBlack,
+                         fontWeight: FontWeight.w600,
+                         fontSize: 16),
+                   ),
+                   trailing: new Icon(
+                     Icons.attach_money,
+                     color: uniColors.standardBlack,
+                   ),
+                   onTap: () {
+                  //   Navigator.of(context).pop();
+
+             
+
+                     //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
+                   }),
                   
                   ListTile(
                       title: new Text(
@@ -1141,7 +1145,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    margin: EdgeInsets.only(bottom: 40),
+                  //  height:80,
+                    margin: EdgeInsets.only(bottom: 55),
                     child: FloatingActionRow(
                       color: uniColors.white2,
                       children: <Widget>[
@@ -1149,7 +1154,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                         //     icon: Icon(Icons.add), onTap: () {}),
                        // FloatingActionRowDivider(),
                          FloatingActionRowButton(icon: Icon(Icons.favorite, color:uniColors.lcRed, size: 25,),  onTap: () {}),
-                         FloatingActionRowButton(icon: Icon(Icons.refresh, color:uniColors.lcRed, size: 55,), onTap: () {refresh();}),
+                         Padding(
+                           padding: const EdgeInsets.symmetric(horizontal:20.0),
+                           child: FloatingActionRowButton(icon: Icon(Icons.refresh, color:uniColors.lcRed, size: 60,), onTap: () {refresh();}),
+                         ),
                          FloatingActionRowButton(icon: Icon(Icons.location_on, color:uniColors.lcRed, size: 25,),  onTap: () {}),
                       ],
                     ),

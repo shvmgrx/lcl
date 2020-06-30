@@ -6,6 +6,7 @@ class uniColors {
   static final Color lcRedLight = Color(0xffff5757);
   static final Color standardWhite = Colors.white;
    static final Color standardBlack = Color(0xff58585e);
+    static final Color black = Colors.black;
    
 
   static final Color backgroundGrey = Colors.grey[200];
