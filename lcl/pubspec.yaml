@@ -40,6 +40,8 @@ dependencies:
   agora_rtc_engine: ^1.0.8
   swipedetector: ^1.2.0
   flutter_form_builder: ^3.11.3
+  floating_action_row: ^0.1.0
+
 
   #permission_handler: 2.2.0 
   #permission handler 2.2.0 for ios

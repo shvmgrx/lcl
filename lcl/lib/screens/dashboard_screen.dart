@@ -25,6 +25,7 @@ import 'package:lcl/widgets/nmButton.dart';
 import 'package:gradient_text/gradient_text.dart';
 import 'package:provider/provider.dart';
 import 'package:swipedetector/swipedetector.dart';
+import 'package:floating_action_row/floating_action_row.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -79,7 +80,6 @@ class _DashboardScreenState extends State<DashboardScreen>
   bool showLunchalizePage = true;
   bool showFavsPage = false;
   bool showAccountPage = false;
-  
 
   bool refreshLunchalize = true;
 
@@ -160,8 +160,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.dispose();
   }
 
-
-    void showRecipePageNow() {
+  void showRecipePageNow() {
     controller.reverse();
 
     setState(() {
@@ -174,7 +173,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     controller.forward();
   }
 
-     void showSearchPageNow() {
+  void showSearchPageNow() {
     controller.reverse();
 
     setState(() {
@@ -188,7 +187,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   void showLunchalizePageNow() {
-   controller.reverse();
+    controller.reverse();
 
     setState(() {
       showRecipePage = false;
@@ -200,9 +199,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     controller.forward();
   }
 
-  
-
-    void showFavsPageNow() {
+  void showFavsPageNow() {
     controller.reverse();
 
     setState(() {
@@ -215,8 +212,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     controller.forward();
   }
 
-   void showAccountPageNow() {
-   controller.reverse();
+  void showAccountPageNow() {
+    controller.reverse();
 
     setState(() {
       showRecipePage = false;
@@ -227,9 +224,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
     controller.forward();
   }
-
-
-
 
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
@@ -343,14 +337,14 @@ class _DashboardScreenState extends State<DashboardScreen>
     return PickupLayout(
       scaffold: SwipeDetector(
         swipeConfiguration: SwipeConfiguration(
-                      verticalSwipeMinVelocity: 20.0,
-                      verticalSwipeMinDisplacement: 20.0,
-                      verticalSwipeMaxWidthThreshold:100.0,
-                      // horizontalSwipeMaxHeightThreshold: 50.0,
-                      // horizontalSwipeMinDisplacement:50.0,
-                      // horizontalSwipeMinVelocity: 200.0
-                      ),
-              child: Scaffold(
+          verticalSwipeMinVelocity: 20.0,
+          verticalSwipeMinDisplacement: 20.0,
+          verticalSwipeMaxWidthThreshold: 100.0,
+          // horizontalSwipeMaxHeightThreshold: 50.0,
+          // horizontalSwipeMinDisplacement:50.0,
+          // horizontalSwipeMinVelocity: 200.0
+        ),
+        child: Scaffold(
           key: _scaffoldKey,
           drawer: Drawer(
             elevation: 15,
@@ -387,8 +381,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -412,7 +406,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                             setState(() {
                               settingsPressed = !settingsPressed;
                               if (settingsPressed) {
-                                Navigator.pushNamed(context, "/settings_screen");
+                                Navigator.pushNamed(
+                                    context, "/settings_screen");
                               }
                             });
                           },
@@ -428,20 +423,20 @@ class _DashboardScreenState extends State<DashboardScreen>
                             });
                           },
                           child: NMButton(
-                              down: paymentPressed, icon: Icons.restaurant_menu),
+                              down: paymentPressed,
+                              icon: Icons.restaurant_menu),
                         ),
                       ],
                     ),
                   ),
 
                   SizedBox(
-                    height: screenHeight * 0.27,
+                    height: screenHeight * 0.22,
                   ),
-                  InkWell(
-                    onTap: () => signOut(),
-                    child: ListTile(
+
+                   ListTile(
                       title: new Text(
-                        "LOGOUT",
+                        "Donate",
                         style: TextStyle(
                             color: uniColors.standardBlack,
                             fontWeight: FontWeight.w600,
@@ -451,8 +446,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                         Icons.attach_money,
                         color: uniColors.standardBlack,
                       ),
-                    ),
-                  ),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
+                      }),
+                  
                   ListTile(
                       title: new Text(
                         "Terms of Service",
@@ -469,6 +467,22 @@ class _DashboardScreenState extends State<DashboardScreen>
                         Navigator.of(context).pop();
                         //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                       }),
+                      InkWell(
+                    onTap: () => signOut(),
+                    child: ListTile(
+                      title: new Text(
+                        "LOGOUT",
+                        style: TextStyle(
+                            color: uniColors.standardBlack,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16),
+                      ),
+                      trailing: new Icon(
+                        Icons.exit_to_app,
+                        color: uniColors.standardBlack,
+                      ),
+                    ),
+                  ),
 
                   //  NMBarButton(
                   //     down: profilePressed,
@@ -734,13 +748,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                               ),
                               GestureDetector(
                                 onTap: () {
-                                 // _scaffoldKey.currentState.openDrawer();
-                                 showModalBottomSheetCustom(
-       //   isScrollControlled: true,
-          context: context,
-       //   backgroundColor: uniColors.white1,
-          builder: (context) => RecipeMakerContainer(),
-        );
+                                  // _scaffoldKey.currentState.openDrawer();
+                                  showModalBottomSheetCustom(
+                                    //   isScrollControlled: true,
+                                    context: context,
+                                    //   backgroundColor: uniColors.white1,
+                                    builder: (context) =>
+                                        RecipeMakerContainer(),
+                                  );
                                 },
                                 child: Text(
                                   Strings.APP_NAME,
@@ -810,7 +825,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                             visible: showLunchalizePage,
                             child: Container(
                               //margin: EdgeInsets.only(top: 20),
-                              height: MediaQuery.of(context).size.height - 300.0,
+                              height:
+                                  MediaQuery.of(context).size.height - 300.0,
                               child: GridView.count(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 3,
@@ -838,7 +854,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                               ),
                             ),
                           ),
-                          
+
                           Visibility(
                             visible: showFavsPage,
                             child: Container(
@@ -1122,6 +1138,23 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ),
                   ),
                 ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 40),
+                    child: FloatingActionRow(
+                      color: uniColors.white2,
+                      children: <Widget>[
+                        // FloatingActionRowButton(
+                        //     icon: Icon(Icons.add), onTap: () {}),
+                       // FloatingActionRowDivider(),
+                         FloatingActionRowButton(icon: Icon(Icons.favorite, color:uniColors.lcRed, size: 25,),  onTap: () {}),
+                         FloatingActionRowButton(icon: Icon(Icons.refresh, color:uniColors.lcRed, size: 55,), onTap: () {refresh();}),
+                         FloatingActionRowButton(icon: Icon(Icons.location_on, color:uniColors.lcRed, size: 25,),  onTap: () {}),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -1165,7 +1198,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       print('Star it');
                     },
                   ),
-                   IconButton(
+                  IconButton(
                     icon: Icon(Icons.search, color: uniColors.lcRed, size: 35),
                     onPressed: () {
                       // setState(() {
@@ -1179,8 +1212,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                     },
                   ),
                   IconButton(
-                    icon:
-                        Icon(Icons.restaurant, color: uniColors.lcRed, size: 35),
+                    icon: Icon(Icons.restaurant,
+                        color: uniColors.lcRed, size: 35),
                     onPressed: () {
                       refresh();
                       // setState(() {
@@ -1194,7 +1227,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.favorite, color: uniColors.lcRed, size: 35),
+                    icon:
+                        Icon(Icons.favorite, color: uniColors.lcRed, size: 35),
                     onPressed: () {
                       // setState(() {
                       //   showRecipePage = false;
@@ -1225,9 +1259,9 @@ class _DashboardScreenState extends State<DashboardScreen>
           ),
         ),
         onSwipeUp: () => showModalBottomSheetCustom(
-       //   isScrollControlled: true,
+          //   isScrollControlled: true,
           context: context,
-       //   backgroundColor: uniColors.white1,
+          //   backgroundColor: uniColors.white1,
           builder: (context) => RecipeMakerContainer(),
         ),
       ),
@@ -1311,9 +1345,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                           ),
                           Expanded(
                             flex: 1,
-                            child: Icon(
-                              Icons.favorite,
-                              color: uniColors.lcRed,
+                            child: IconButton(
+                              icon: Icon(Icons.restaurant,
+                                  color: uniColors.lcRed, size: 30),
+                              onPressed: () {
+                                // setState(() {
+                                //   showRecipePage = true;
+                                //   showLunchalizePage = false;
+                                //   showFavsPage = false;
+                                // });
+                              },
                             ),
                           ),
                         ],
