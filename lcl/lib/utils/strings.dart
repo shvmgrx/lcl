@@ -32,9 +32,12 @@ class Strings {
    static const String RECIPE_CATEGORY = "Category";
    static const String RECIPE_PORTION = "Portion";
    static const String RECIPE_INGRIDIENTS = "Ingridients";
+   static const String RECIPE_INSTRUCTIONS = "Instructions";
    static const String RECIPE_PREPARATION_TIME = "Preparation Time";
    static const String RECIPE_COOKING_TIME = "Cooking Time";
    static const String RECIPE_REST_TIME = "Rest Time";
    static const String RECIPE_DIFFICULTY = "Difficulty";
+   static const String RECIPE_TYPE = "Type";
+   static const String RECIPE_CUISINE = "Cuisine";
    static const String RECIPE_CALORIES = "Calories";
 }

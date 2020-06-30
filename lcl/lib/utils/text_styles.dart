@@ -160,6 +160,19 @@ class TextStyles {
     // ],
   );
 
+      static final TextStyle submitBubble = TextStyle(
+    fontSize: 17,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.white2,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
     static final TextStyle recipeDetails = TextStyle(
     fontSize: 12,
     //fontWeight: FontWeight.w400,

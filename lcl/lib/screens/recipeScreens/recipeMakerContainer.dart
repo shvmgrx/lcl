@@ -212,7 +212,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   int recipeCookingTime;
   int recipeRestTime;
   String recipeDifficulty;
+  String recipeType;
+  String recipeCuisine;
   double recipeCalories;
+
+  String recipeInstructions;
 
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
@@ -1311,7 +1315,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing12 = {"igName12": igName12, "igAmt12": igAmt12, "igUnit12": igUnit12};
+              ing12 = {
+                "igName12": igName12,
+                "igAmt12": igAmt12,
+                "igUnit12": igUnit12
+              };
               showIg13 = true;
             });
           },
@@ -1403,7 +1411,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing13 = {"igName13": igName13, "igAmt13": igAmt13, "igUnit13": igUnit13};
+              ing13 = {
+                "igName13": igName13,
+                "igAmt13": igAmt13,
+                "igUnit13": igUnit13
+              };
               showIg14 = true;
             });
           },
@@ -1495,7 +1507,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing14 = {"igName14": igName14, "igAmt14": igAmt14, "igUnit14": igUnit14};
+              ing14 = {
+                "igName14": igName14,
+                "igAmt14": igAmt14,
+                "igUnit14": igUnit14
+              };
               showIg15 = true;
             });
           },
@@ -1587,7 +1603,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing15 = {"igName15": igName15, "igAmt15": igAmt15, "igUnit15": igUnit15};
+              ing15 = {
+                "igName15": igName15,
+                "igAmt15": igAmt15,
+                "igUnit15": igUnit15
+              };
               showIg16 = true;
             });
           },
@@ -1679,7 +1699,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing16 = {"igName16": igName16, "igAmt16": igAmt16, "igUnit16": igUnit16};
+              ing16 = {
+                "igName16": igName16,
+                "igAmt16": igAmt16,
+                "igUnit16": igUnit16
+              };
               showIg17 = true;
             });
           },
@@ -1771,7 +1795,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing17 = {"igName17": igName17, "igAmt17": igAmt17, "igUnit17": igUnit17};
+              ing17 = {
+                "igName17": igName17,
+                "igAmt17": igAmt17,
+                "igUnit17": igUnit17
+              };
               showIg18 = true;
             });
           },
@@ -1863,7 +1891,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing18 = {"igName18": igName18, "igAmt18": igAmt18, "igUnit18": igUnit18};
+              ing18 = {
+                "igName18": igName18,
+                "igAmt18": igAmt18,
+                "igUnit18": igUnit18
+              };
               showIg19 = true;
             });
           },
@@ -1955,7 +1987,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing19 = {"igName19": igName19, "igAmt19": igAmt19, "igUnit19": igUnit19};
+              ing19 = {
+                "igName19": igName19,
+                "igAmt19": igAmt19,
+                "igUnit19": igUnit19
+              };
               showIg20 = true;
             });
           },
@@ -2047,7 +2083,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing20 = {"igName20": igName20, "igAmt20": igAmt20, "igUnit20": igUnit20};
+              ing20 = {
+                "igName20": igName20,
+                "igAmt20": igAmt20,
+                "igUnit20": igUnit20
+              };
               showIg21 = true;
             });
           },
@@ -2139,7 +2179,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing21 = {"igName21": igName21, "igAmt21": igAmt21, "igUnit21": igUnit21};
+              ing21 = {
+                "igName21": igName21,
+                "igAmt21": igAmt21,
+                "igUnit21": igUnit21
+              };
               showIg22 = true;
             });
           },
@@ -2231,7 +2275,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing22 = {"igName22": igName22, "igAmt22": igAmt22, "igUnit22": igUnit22};
+              ing22 = {
+                "igName22": igName22,
+                "igAmt22": igAmt22,
+                "igUnit22": igUnit22
+              };
               showIg23 = true;
             });
           },
@@ -2323,7 +2371,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing23 = {"igName23": igName23, "igAmt23": igAmt23, "igUnit23": igUnit23};
+              ing23 = {
+                "igName23": igName23,
+                "igAmt23": igAmt23,
+                "igUnit23": igUnit23
+              };
               showIg24 = true;
             });
           },
@@ -2415,7 +2467,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing24 = {"igName24": igName24, "igAmt24": igAmt24, "igUnit24": igUnit24};
+              ing24 = {
+                "igName24": igName24,
+                "igAmt24": igAmt24,
+                "igUnit24": igUnit24
+              };
               showIg25 = true;
             });
           },
@@ -2507,7 +2563,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing25 = {"igName25": igName25, "igAmt25": igAmt25, "igUnit25": igUnit25};
+              ing25 = {
+                "igName25": igName25,
+                "igAmt25": igAmt25,
+                "igUnit25": igUnit25
+              };
               showIg26 = true;
             });
           },
@@ -2599,7 +2659,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing26 = {"igName26": igName26, "igAmt26": igAmt26, "igUnit26": igUnit26};
+              ing26 = {
+                "igName26": igName26,
+                "igAmt26": igAmt26,
+                "igUnit26": igUnit26
+              };
               showIg27 = true;
             });
           },
@@ -2691,7 +2755,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing27 = {"igName27": igName27, "igAmt27": igAmt27, "igUnit27": igUnit27};
+              ing27 = {
+                "igName27": igName27,
+                "igAmt27": igAmt27,
+                "igUnit27": igUnit27
+              };
               showIg28 = true;
             });
           },
@@ -2783,7 +2851,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing28 = {"igName28": igName28, "igAmt28": igAmt28, "igUnit28": igUnit28};
+              ing28 = {
+                "igName28": igName28,
+                "igAmt28": igAmt28,
+                "igUnit28": igUnit28
+              };
               showIg29 = true;
             });
           },
@@ -2875,7 +2947,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing29 = {"igName29": igName29, "igAmt29": igAmt29, "igUnit29": igUnit29};
+              ing29 = {
+                "igName29": igName29,
+                "igAmt29": igAmt29,
+                "igUnit29": igUnit29
+              };
               showIg30 = true;
             });
           },
@@ -2890,7 +2966,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     return ig29;
   }
 
-    Widget makeIg30(screenWidth) {
+  Widget makeIg30(screenWidth) {
     Widget ig30 = Row(
       children: <Widget>[
         Padding(
@@ -2967,7 +3043,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing30 = {"igName30": igName30, "igAmt30": igAmt30, "igUnit30": igUnit30};
+              ing30 = {
+                "igName30": igName30,
+                "igAmt30": igAmt30,
+                "igUnit30": igUnit30
+              };
               showIg31 = true;
             });
           },
@@ -2981,8 +3061,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
     return ig30;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -3045,7 +3123,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                             key: _fbKey,
                             initialValue: {
                               'date': DateTime.now(),
-                              'accept_terms': false,
+                              //  'accept_terms': false,
                             },
                             autovalidate: true,
                             child: Column(
@@ -3223,24 +3301,23 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                         children: <Widget>[
                                           makeIg1(screenWidth),
                                           Visibility(
-                                          visible: showIg2,
+                                            visible: showIg2,
                                             child: makeIg2(screenWidth),
                                           ),
                                           Visibility(
                                             visible: showIg3,
                                             child: makeIg3(screenWidth),
                                           ),
-
                                           Visibility(
-                                           visible: showIg4,
+                                            visible: showIg4,
                                             child: makeIg4(screenWidth),
                                           ),
                                           Visibility(
-                                           visible: showIg5,
+                                            visible: showIg5,
                                             child: makeIg5(screenWidth),
                                           ),
                                           Visibility(
-                                           visible: showIg6,
+                                            visible: showIg6,
                                             child: makeIg6(screenWidth),
                                           ),
                                           Visibility(
@@ -3343,12 +3420,53 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             visible: showIg31,
                                             child: Center(
                                               child: Padding(
-                                                padding: const EdgeInsets.only(top:10.0),
-                                                child: Text("MAX LIMIT REACHED",style: TextStyles.error),
+                                                padding: const EdgeInsets.only(
+                                                    top: 10.0),
+                                                child: Text("MAX LIMIT REACHED",
+                                                    style: TextStyles.error),
                                               ),
                                             ),
                                           ),
                                         ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                //Instructions
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_INSTRUCTIONS,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 30),
+                                      Container(
+                                        width: screenWidth * 0.60,
+                                        child: FormBuilderTextField(
+                                          attribute: "instructions",
+                                          decoration: InputDecoration(
+                                              labelText: "",
+                                              helperStyle: TextStyles.recipe),
+                                          keyboardType: TextInputType.multiline,
+                                          textCapitalization:
+                                              TextCapitalization.characters,
+                                          // validators: [
+                                          //   // FormBuilderValidators.
+                                          //   FormBuilderValidators.max(25),
+                                          // ],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              recipeInstructions = value;
+                                            });
+                                          },
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -3376,13 +3494,14 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                           decoration: InputDecoration(
                                               labelText: "Mins",
                                               helperStyle: TextStyles.recipe),
-                                          //keyboardType: TextInputType.,
+                                          keyboardType: TextInputType.text,
                                           textCapitalization:
                                               TextCapitalization.characters,
-                                          validators: [
-                                            // FormBuilderValidators.
-                                            FormBuilderValidators.max(25),
-                                          ],
+
+                                          // validators: [
+                                          //   // FormBuilderValidators.
+                                          //   FormBuilderValidators.max(4),
+                                          // ],
                                           onChanged: (value) {
                                             setState(() {
                                               recipePreparationTime = value;
@@ -3415,13 +3534,13 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                           decoration: InputDecoration(
                                               labelText: "Mins",
                                               helperStyle: TextStyles.recipe),
-                                          //keyboardType: TextInputType.,
+                                          keyboardType: TextInputType.text,
                                           textCapitalization:
                                               TextCapitalization.characters,
-                                          validators: [
-                                            // FormBuilderValidators.
-                                            FormBuilderValidators.max(25),
-                                          ],
+                                          // validators: [
+                                          //   // FormBuilderValidators.
+                                          //   FormBuilderValidators.max(25),
+                                          // ],
                                           onChanged: (value) {
                                             setState(() {
                                               recipeCookingTime = value;
@@ -3454,13 +3573,13 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                           decoration: InputDecoration(
                                               labelText: "Mins",
                                               helperStyle: TextStyles.recipe),
-                                          //keyboardType: TextInputType.,
+                                          keyboardType: TextInputType.text,
                                           textCapitalization:
                                               TextCapitalization.characters,
-                                          validators: [
-                                            // FormBuilderValidators.
-                                            FormBuilderValidators.max(25),
-                                          ],
+                                          // validators: [
+                                          //   // FormBuilderValidators.
+                                          //   FormBuilderValidators.max(25),
+                                          // ],
                                           onChanged: (value) {
                                             setState(() {
                                               recipeRestTime = value;
@@ -3516,6 +3635,102 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                   ),
                                 ),
 
+                                //RecipeType
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_TYPE,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Container(
+                                        width: screenWidth * 0.40,
+                                        child: FormBuilderDropdown(
+                                          attribute: "type",
+                                          decoration:
+                                              InputDecoration(labelText: ""),
+                                          items: [
+                                            'Breakfast',
+                                            'Lunch',
+                                            'Dinner',
+                                            'Snack',
+                                            'Main course',
+                                            'Dessert',
+                                            'Baking',
+                                            'Drink',
+                                          ]
+                                              .map((type) => DropdownMenuItem(
+                                                  value: type,
+                                                  child: Text("$type")))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              recipeType = value;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                //RecipeCuisine
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0),
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(Strings.RECIPE_CUISINE,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Container(
+                                        width: screenWidth * 0.40,
+                                        child: FormBuilderDropdown(
+                                          attribute: "type",
+                                          decoration:
+                                              InputDecoration(labelText: ""),
+                                          items: [
+                                            'Indian',
+                                            'Turkish',
+                                            'Mediterranean',
+                                            'Spanish',
+                                            'Asian',
+                                            'French',
+                                            'American',
+                                            'African',
+                                            'Mexican',
+                                            'Scandinavian',
+                                            'Middle Eastern',
+                                            'Eastern European',
+                                            'Other',
+                                          ]
+                                              .map((cuisine) =>
+                                                  DropdownMenuItem(
+                                                      value: cuisine,
+                                                      child: Text("$cuisine")))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              recipeCuisine = value;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
                                 //RecipeCalories
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -3554,60 +3769,199 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                               ],
                             ),
                           ),
-                          Row(
-                            children: <Widget>[
-                              MaterialButton(
-                                child: Text("Submit"),
-                                onPressed: () {
-                                  if (_fbKey.currentState.saveAndValidate()) {
-                                    print(
-                                        _fbKey.currentState.value.runtimeType);
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
 
-                                
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _fbKey.currentState.reset();
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: uniColors.lcRed,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(25.0),
+                                          topRight: Radius.circular(25.0),
+                                          bottomLeft: Radius.circular(25.0),
+                                          bottomRight: Radius.circular(25.0),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 8.0),
+                                                  child: Text("RESET",
+                                                      style: TextStyles
+                                                          .submitBubble),
+                                                ),
+                                                Icon(
+                                                  Icons.close,
+                                                  color: uniColors.white2,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      if (_fbKey.currentState
+                                          .saveAndValidate()) {
+                                        ing1 != null
+                                            ? ingridients.insert(0, ing1)
+                                            : {};
+                                        ing2 != null
+                                            ? ingridients.insert(1, ing2)
+                                            : {};
+                                        ing3 != null
+                                            ? ingridients.insert(2, ing3)
+                                            : {};
+                                        ing4 != null
+                                            ? ingridients.insert(3, ing4)
+                                            : {};
+                                        ing5 != null
+                                            ? ingridients.insert(4, ing5)
+                                            : {};
+                                        ing6 != null
+                                            ? ingridients.insert(5, ing6)
+                                            : {};
+                                        ing7 != null
+                                            ? ingridients.insert(6, ing7)
+                                            : {};
+                                        ing8 != null
+                                            ? ingridients.insert(7, ing8)
+                                            : {};
+                                        ing9 != null
+                                            ? ingridients.insert(8, ing9)
+                                            : {};
+                                        ing10 != null
+                                            ? ingridients.insert(9, ing10)
+                                            : {};
+                                        ing11 != null
+                                            ? ingridients.insert(10, ing11)
+                                            : {};
+                                        ing12 != null
+                                            ? ingridients.insert(11, ing12)
+                                            : {};
+                                        ing13 != null
+                                            ? ingridients.insert(12, ing13)
+                                            : {};
+                                        ing14 != null
+                                            ? ingridients.insert(13, ing14)
+                                            : {};
+                                        ing15 != null
+                                            ? ingridients.insert(14, ing15)
+                                            : {};
+                                        ing16 != null
+                                            ? ingridients.insert(15, ing16)
+                                            : {};
+                                        ing17 != null
+                                            ? ingridients.insert(16, ing17)
+                                            : {};
+                                        ing18 != null
+                                            ? ingridients.insert(17, ing18)
+                                            : {};
+                                        ing19 != null
+                                            ? ingridients.insert(18, ing19)
+                                            : {};
+                                        ing20 != null
+                                            ? ingridients.insert(19, ing20)
+                                            : {};
+                                        ing21 != null
+                                            ? ingridients.insert(20, ing21)
+                                            : {};
+                                        ing22 != null
+                                            ? ingridients.insert(21, ing22)
+                                            : {};
+                                        ing23 != null
+                                            ? ingridients.insert(22, ing23)
+                                            : {};
+                                        ing24 != null
+                                            ? ingridients.insert(23, ing24)
+                                            : {};
+                                        ing25 != null
+                                            ? ingridients.insert(24, ing25)
+                                            : {};
+                                        ing26 != null
+                                            ? ingridients.insert(25, ing26)
+                                            : {};
+                                        ing27 != null
+                                            ? ingridients.insert(26, ing27)
+                                            : {};
+                                        ing28 != null
+                                            ? ingridients.insert(27, ing28)
+                                            : {};
+                                        ing29 != null
+                                            ? ingridients.insert(28, ing29)
+                                            : {};
+                                        ing30 != null
+                                            ? ingridients.insert(29, ing30)
+                                            : {};
 
-                               ing1 !=null? ingridients.insert(0, ing1):{};
-                               ing2 !=null? ingridients.insert(1, ing2):{};
-                               ing3 !=null? ingridients.insert(2, ing3):{};
-                               ing4 !=null? ingridients.insert(3, ing4):{};
-                               ing5 !=null? ingridients.insert(4, ing5):{};
-                               ing6 !=null? ingridients.insert(5, ing6):{};
-                               ing7 !=null? ingridients.insert(6, ing7):{};
-                               ing8 !=null? ingridients.insert(7, ing8):{};
-                               ing9 !=null? ingridients.insert(8, ing9):{};
-                               ing10 !=null? ingridients.insert(9, ing10):{};
-                               ing11 !=null? ingridients.insert(10, ing11):{};
-                               ing12 !=null? ingridients.insert(11, ing12):{};
-                               ing13 !=null? ingridients.insert(12, ing13):{};
-                               ing14 !=null? ingridients.insert(13, ing14):{};
-                               ing15 !=null? ingridients.insert(14, ing15):{};
-                               ing16 !=null? ingridients.insert(15, ing16):{};
-                               ing17 !=null? ingridients.insert(16, ing17):{};
-                               ing18 !=null? ingridients.insert(17, ing18):{};
-                               ing19 !=null? ingridients.insert(18, ing19):{};
-                               ing20 !=null? ingridients.insert(19, ing20):{};
-                               ing21 !=null? ingridients.insert(20, ing21):{};
-                               ing22 !=null? ingridients.insert(21, ing22):{};
-                               ing23 !=null? ingridients.insert(22, ing23):{};
-                               ing24 !=null? ingridients.insert(23, ing24):{};
-                               ing25 !=null? ingridients.insert(24, ing25):{};
-                               ing26 !=null? ingridients.insert(25, ing26):{};
-                               ing27 !=null? ingridients.insert(26, ing27):{};
-                               ing28 !=null? ingridients.insert(27, ing28):{};
-                               ing29 !=null? ingridients.insert(28, ing29):{};
-                               ing30 !=null? ingridients.insert(29, ing30):{};
-      
-                                   
-
-                                  }
-                                },
-                              ),
-                              MaterialButton(
-                                child: Text("Reset"),
-                                onPressed: () {
-                                  _fbKey.currentState.reset();
-                                },
-                              ),
-                            ],
+                                        print(_fbKey
+                                            .currentState.value.runtimeType);
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: uniColors.online,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(25.0),
+                                          topRight: Radius.circular(25.0),
+                                          bottomLeft: Radius.circular(25.0),
+                                          bottomRight: Radius.circular(25.0),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Row(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 8.0),
+                                                  child: Text("SUBMIT",
+                                                      style: TextStyles
+                                                          .submitBubble),
+                                                ),
+                                                Icon(
+                                                  Icons.send,
+                                                  color: uniColors.white2,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           )
                         ],
                       )
