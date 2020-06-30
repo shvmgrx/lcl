@@ -3563,19 +3563,40 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                     print(
                                         _fbKey.currentState.value.runtimeType);
 
-                                    ///     ingridients.add(ing1);
+                                
 
-                                    ingridients.insert(0, ing1);
-                                    ingridients.insert(1, ing2);
-                                    ingridients.insert(2, ing3);
-                                    ingridients.insert(3, ing4);
-                                    ingridients.insert(4, ing5);
-                                    ingridients.insert(5, ing6);
-                                    ingridients.insert(6, ing7);
-                                    ingridients.insert(7, ing8);
-                                    ingridients.insert(8, ing9);
-
-                                    print(ingridients);
+                               ing1 !=null? ingridients.insert(0, ing1):{};
+                               ing2 !=null? ingridients.insert(1, ing2):{};
+                               ing3 !=null? ingridients.insert(2, ing3):{};
+                               ing4 !=null? ingridients.insert(3, ing4):{};
+                               ing5 !=null? ingridients.insert(4, ing5):{};
+                               ing6 !=null? ingridients.insert(5, ing6):{};
+                               ing7 !=null? ingridients.insert(6, ing7):{};
+                               ing8 !=null? ingridients.insert(7, ing8):{};
+                               ing9 !=null? ingridients.insert(8, ing9):{};
+                               ing10 !=null? ingridients.insert(9, ing10):{};
+                               ing11 !=null? ingridients.insert(10, ing11):{};
+                               ing12 !=null? ingridients.insert(11, ing12):{};
+                               ing13 !=null? ingridients.insert(12, ing13):{};
+                               ing14 !=null? ingridients.insert(13, ing14):{};
+                               ing15 !=null? ingridients.insert(14, ing15):{};
+                               ing16 !=null? ingridients.insert(15, ing16):{};
+                               ing17 !=null? ingridients.insert(16, ing17):{};
+                               ing18 !=null? ingridients.insert(17, ing18):{};
+                               ing19 !=null? ingridients.insert(18, ing19):{};
+                               ing20 !=null? ingridients.insert(19, ing20):{};
+                               ing21 !=null? ingridients.insert(20, ing21):{};
+                               ing22 !=null? ingridients.insert(21, ing22):{};
+                               ing23 !=null? ingridients.insert(22, ing23):{};
+                               ing24 !=null? ingridients.insert(23, ing24):{};
+                               ing25 !=null? ingridients.insert(24, ing25):{};
+                               ing26 !=null? ingridients.insert(25, ing26):{};
+                               ing27 !=null? ingridients.insert(26, ing27):{};
+                               ing28 !=null? ingridients.insert(27, ing28):{};
+                               ing29 !=null? ingridients.insert(28, ing29):{};
+                               ing30 !=null? ingridients.insert(29, ing30):{};
+      
+                                   
 
                                   }
                                 },
