@@ -197,6 +197,19 @@ class TextStyles {
     //   ),
     // ],
   );
+
+          static final TextStyle error = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w800,
+    color: Colors.red,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
     static final TextStyle profileUserDistance = TextStyle(
     fontSize: 14,
     //fontWeight: FontWeight.w400,

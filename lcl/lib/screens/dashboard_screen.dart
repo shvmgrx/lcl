@@ -1266,12 +1266,14 @@ class _DashboardScreenState extends State<DashboardScreen>
             ),
           ),
         ),
-        onSwipeUp: () => showModalBottomSheetCustom(
-          //   isScrollControlled: true,
-          context: context,
-          //   backgroundColor: uniColors.white1,
-          builder: (context) => RecipeMakerContainer(),
-        ),
+        onSwipeUp: () => showModalBottomSheet(context: context,isScrollControlled: true, backgroundColor: uniColors.white1, builder: (context) => RecipeMakerContainer(),)
+        
+        // showModalBottomSheetCustom(
+        //   //   isScrollControlled: true,
+        //   context: context,
+        //   //   backgroundColor: uniColors.white1,
+        //   builder: (context) => RecipeMakerContainer(),
+        // ),
       ),
     );
   }
