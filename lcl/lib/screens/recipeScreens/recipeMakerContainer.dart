@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lcl/provider/image_upload_provider.dart';
+import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:lcl/utils/uniColors.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
+import 'package:lcl/utils/utilities.dart';
 
 class RecipeMakerContainer extends StatefulWidget {
   @override
@@ -18,6 +24,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     // TODO: implement initState
     super.initState();
   }
+
+
+  FirebaseRepository _repository = FirebaseRepository();
+
+  ImageUploadProvider _imageUploadProvider;
 
   String recipeName;
   List recipeCategory;
@@ -217,6 +228,17 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   double recipeCalories;
 
   String recipeInstructions;
+
+  //   void pickRecipePhoto({@required ImageSource source}) async {
+  //   File selectedImage = await Utils.pickImage(source: source);
+
+  //   _repository.getCurrentUser().then((user) {
+  //     _repository.changeProfilePhoto(
+  //         image: selectedImage,
+  //         imageUploadProvider: _imageUploadProvider,
+  //         currentUser: user);
+  //   });
+  // }
 
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
