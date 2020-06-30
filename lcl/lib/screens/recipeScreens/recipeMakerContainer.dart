@@ -19,147 +19,134 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     super.initState();
   }
 
-  Widget makeIngr(screenWidth) {
-    Widget e = Row(
-                                        children: <Widget>[
-                                          Container(
-                                            width: screenWidth * 0.1,
-                                            child: FormBuilderDropdown(
-                                              attribute: "amount",
-                                              decoration: InputDecoration(
-                                                  labelText: ""),
-                                              items: [
-                                                1,
-                                                2,
-                                                3,
-                                                4,
-                                                5,
-                                                6,
-                                                7,
-                                                8,
-                                                9,
-                                                10,
-                                                11,
-                                                12,
-                                                13,
-                                                14,
-                                                15,
-                                                16,
-                                                17,
-                                                18,
-                                                19,
-                                                20,
-                                                21,
-                                                22,
-                                                23,
-                                                24,
-                                                25,
-                                                26,
-                                                27,
-                                                28,
-                                                29,
-                                                30,
-                                                31,
-                                                32,
-                                                33,
-                                                34,
-                                                35,
-                                                36,
-                                                37,
-                                                38,
-                                                39,
-                                                40,
-                                                41,
-                                                42,
-                                                43,
-                                                44,
-                                                45,
-                                                46,
-                                                47,
-                                                48,
-                                                49,
-                                                50
-                                              ]
-                                                  .map((amount) =>
-                                                      DropdownMenuItem(
-                                                          value: amount,
-                                                          child:
-                                                              Text("$amount")))
-                                                  .toList(),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5),
-                                          Container(
-                                            width: screenWidth * 0.20,
-                                            child: FormBuilderDropdown(
-                                              attribute: "unit",
-                                              decoration: InputDecoration(
-                                                  labelText: ""),
-                                              items: [
-                                                'mg',
-                                                'gm',
-                                                'kg',
-                                                'ml',
-                                                'teaspoon',
-                                                'tablespoon',
-                                                'cup',
-                                                'mm',
-                                                'cm',
-                                                'inch'
-                                              ]
-                                                  .map((unit) =>
-                                                      DropdownMenuItem(
-                                                          value: unit,
-                                                          child: Text("$unit")))
-                                                  .toList(),
-                                            ),
-                                          ),
-                                          SizedBox(width: 5),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 14.0),
-                                            child: Container(
-                                              width: screenWidth * 0.30,
-                                              child: FormBuilderTextField(
-                                                attribute: "ingridient",
-                                                //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                textCapitalization:
-                                                    TextCapitalization
-                                                        .characters,
-                                                validators: [
-                                                  // FormBuilderValidators.
-                                                  FormBuilderValidators.max(25),
-                                                ],
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    // recipeName = value;
-                                                  });
-                                                },
-                                              ),
-                                            ),
-                                          ),
-
-                                        ],
-                                      );
-
-    return e;
-  }
-
   String recipeName;
   List recipeCategory;
   int recipePortion;
 
-  int igAmt1;
+  List ingridients;
+
+  Map ing1;
   int igUnit1;
+  String igAmt1;
   String igName1;
+
+  Map ing2;
+  int igUnit2;
+  int igAmt2;
+  String igName2;
 
   int recipePreparationTime;
   int recipeCookingTime;
   int recipeRestTime;
   String recipeDifficulty;
   double recipeCalories;
+
+  Widget makeIg1(screenWidth) {
+    Widget ig1 = Row(
+      children: <Widget>[
+        Container(
+          width: screenWidth * 0.20,
+          child: FormBuilderDropdown(
+            attribute: "unit",
+            decoration: InputDecoration(labelText: ""),
+            items: [
+              'mg',
+              'gm',
+              'kg',
+              'ml',
+              'teaspoon',
+              'tablespoon',
+              'cup',
+              'mm',
+              'cm',
+              'inch'
+            ]
+                .map((unit) =>
+                    DropdownMenuItem(value: unit, child: Text("$unit")))
+                .toList(),
+            onChanged: (unit) {
+              print(unit);
+              setState(() {
+                igUnit1 = unit;
+              });
+            },
+          ),
+        ),
+        SizedBox(width: 5),
+        Container(
+          width: screenWidth * 0.1,
+          child:  Padding(
+          padding: const EdgeInsets.only(top: 14.0),
+          child: Container(
+            width: screenWidth * 0.30,
+            child: FormBuilderTextField(
+              attribute: "amount",
+              decoration: InputDecoration(
+                  labelText: "amount", helperStyle: TextStyles.recipe),
+              keyboardType: TextInputType.text,
+            //  textCapitalization: TextCapitalization.characters,
+              onChanged: (value) {
+                setState(() {
+                  igAmt1 = value;
+                });
+              },
+            ),
+          ),
+        ),
+          
+          
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 14.0),
+          //   child: FormBuilderTextField(
+          //     attribute: "amount",
+          //     decoration: InputDecoration(
+          //         labelText: "amt", helperStyle: TextStyles.recipe),
+          //     keyboardType: TextInputType.text,
+          //     textCapitalization: TextCapitalization.characters,
+          //     onChanged: (amount) {
+          //       setState(() {
+          //         igAmt1 = amount;
+          //       });
+          //     },
+          //   ),
+          // ),
+        ),
+        SizedBox(width: 5),
+        Padding(
+          padding: const EdgeInsets.only(top: 14.0),
+          child: Container(
+            width: screenWidth * 0.30,
+            child: FormBuilderTextField(
+              attribute: "ingridient",
+              decoration: InputDecoration(
+                  labelText: "ingridient name", helperStyle: TextStyles.recipe),
+              keyboardType: TextInputType.text,
+              textCapitalization: TextCapitalization.characters,
+              onChanged: (value) {
+                setState(() {
+                  igName1 = value;
+                });
+              },
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            setState(() {
+              print(igUnit1);
+              ing1 = {"igName1": igName1, "igAmt1": igAmt1, "igUnit1": igUnit1};
+            });
+          },
+          child: Icon(
+            Icons.done,
+            color: uniColors.lcRed,
+          ),
+        ),
+      ],
+    );
+
+    return ig1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -384,21 +371,22 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                   child: Row(
                                     //   mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Container(
-                                        child: Text(Strings.RECIPE_INGRIDIENTS,
-                                            style: TextStyles.recipe),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 25.0),
+                                        child: Container(
+                                          child: Text(
+                                              Strings.RECIPE_INGRIDIENTS,
+                                              style: TextStyles.recipe),
+                                        ),
                                       ),
                                       SizedBox(width: 10),
-                                      makeIngr(screenWidth),
-                                    
-                                      Expanded(
-                                        flex: 1,
-                                        child: Icon(
-                                          Icons.done,
-                                          color: uniColors.lcRed,
-                                        ),
+                                      Column(
+                                        children: <Widget>[
+                                          makeIg1(screenWidth),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -612,6 +600,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                   if (_fbKey.currentState.saveAndValidate()) {
                                     print(
                                         _fbKey.currentState.value.runtimeType);
+                                          print(igUnit1);
+                                    print(ing1);
                                   }
                                 },
                               ),
