@@ -26,7 +26,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   List ingridients;
 
   Map ing1;
-  int igUnit1;
+  String igUnit1;
   String igAmt1;
   String igName1;
 
@@ -44,45 +44,48 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
       children: <Widget>[
-        Container(
-          width: screenWidth * 0.20,
-          child: FormBuilderDropdown(
-            attribute: "unit",
-            decoration: InputDecoration(labelText: ""),
-            items: [
-              'mg',
-              'gm',
-              'kg',
-              'ml',
-              'teaspoon',
-              'tablespoon',
-              'cup',
-              'mm',
-              'cm',
-              'inch'
-            ]
-                .map((unit) =>
-                    DropdownMenuItem(value: unit, child: Text("$unit")))
-                .toList(),
-            onChanged: (unit) {
-              print(unit);
-              setState(() {
-                igUnit1 = unit;
-              });
-            },
+        Padding(
+          padding: const EdgeInsets.only(top:10.0),
+          child: Container(
+            width: screenWidth * 0.20,
+            child: FormBuilderDropdown(
+              attribute: "unit",
+              decoration: InputDecoration(labelText: ""),
+              items: [
+                'mg',
+                'gm',
+                'kg',
+                'ml',
+                'teaspoon',
+                'tablespoon',
+                'cup',
+                'mm',
+                'cm',
+                'inch'
+              ]
+                  .map((unit) =>
+                      DropdownMenuItem(value: unit, child: Text("$unit")))
+                  .toList(),
+
+              onChanged: (value) {
+                setState(() {
+                  igUnit1 = value;
+                });
+              },
+            ),
           ),
         ),
         SizedBox(width: 5),
         Container(
           width: screenWidth * 0.1,
           child:  Padding(
-          padding: const EdgeInsets.only(top: 14.0),
+          padding: const EdgeInsets.only(top: 15.0),
           child: Container(
             width: screenWidth * 0.30,
             child: FormBuilderTextField(
               attribute: "amount",
               decoration: InputDecoration(
-                  labelText: "amount", helperStyle: TextStyles.recipe),
+                  labelText: "amt", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
             //  textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
