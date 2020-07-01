@@ -29,7 +29,7 @@ class Strings {
 
    static const String RECIPE_MAKER = "Recipe Maker";
    static const String RECIPE_NAME = "Recipe Name";
-   static const String RECIPE_CATEGORY = "Category";
+   static const String RECIPE_DIET = "Diet";
    static const String RECIPE_PORTION = "Portion";
    static const String RECIPE_INGRIDIENTS = "Ingridients";
    static const String RECIPE_INSTRUCTIONS = "Instructions";

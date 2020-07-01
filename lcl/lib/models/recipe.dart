@@ -1,84 +1,78 @@
 class Recipe {
   String recipeId;
   String userId;
-  String name;
-  double portion;
-  List categories;
-  Map ingridients;
-  List instructions;
-  double prepTime;
-  double cookTime;
-  bool needsRestTime;
-  double restTime;
-  List level;
-  List diet;
-  List cuisine;
-  bool calorieKnown;
-  int calories;
-  String foodPic;
-  int yum;
+  String recipeName;
+  String recipeDiet;
+  int recipePortion;
+  List recipeIngridients;
+  String recipeInstructions;
+  int recipePreparationTime;
+  int recipeCookingTime;
+  int recipeRestTime;
+  String recipeDifficulty;
+  String recipeType;
+  String recipeCuisine;
+  int recipeCalories;
+  String recipePicture;
+  int recipeYums;
 
-
-  Recipe({
-    this.recipeId,
-    this.userId,
-    this.name,
-    this.portion,
-    this.categories,
-    this.ingridients,
-    this.instructions,
-    this.prepTime,
-    this.cookTime,
-    this.needsRestTime,
-    this.restTime,
-    this.level,
-    this.diet,
-    this.cuisine,
-    this.calorieKnown,
-    this.calories,
-    this.foodPic,
-    this.yum
-
-  });
+  Recipe(
+      {this.recipeId,
+      this.userId,
+      this.recipeName,
+      this.recipeDiet,
+      this.recipePortion,
+      this.recipeIngridients,
+      this.recipeInstructions,
+      this.recipePreparationTime,
+      this.recipeCookingTime,
+      this.recipeRestTime,
+      this.recipeDifficulty,
+      this.recipeType,
+      this.recipeCuisine,
+      this.recipeCalories,
+      this.recipePicture,
+      this.recipeYums});
 
   // to map
   Map<String, dynamic> toMap(Recipe recipe) {
     Map<String, dynamic> recipeMap = Map();
     recipeMap["recipeId"] = recipe.recipeId;
     recipeMap["userId"] = recipe.userId;
-    recipeMap["name"] = recipe.name;
-    recipeMap["portion"] = recipe.portion;
-    recipeMap["categories"] = recipe.categories;
-    recipeMap["ingridients"] = recipe.ingridients;
-    recipeMap["instructions"] = recipe.instructions;
-    recipeMap["prepTime"] = recipe.prepTime;
-    recipeMap["cookTime"] = recipe.cookTime;
-    recipeMap["needsRestTime"] = recipe.needsRestTime;
-    recipeMap["restTime"] = recipe.restTime;
-    recipeMap["level"] = recipe.level;
-    recipeMap["diet"] = recipe.diet;
-    recipeMap["cuisine"] = recipe.cuisine;
-    recipeMap["calorieKnown"] = recipe.calorieKnown;
-    recipeMap["calories"] = recipe.calories;
-    recipeMap["foodPic"] = recipe.foodPic;
-    recipeMap["yum"] = recipe.yum;
+    recipeMap["recipeName"] = recipe.recipeName;
+    recipeMap["recipeDiet"] = recipe.recipeDiet;
+    recipeMap["recipePortion"] = recipe.recipePortion;
+    recipeMap["recipeIngridients"] = recipe.recipeIngridients;
+    recipeMap["recipeInstructions"] = recipe.recipeInstructions;
+    recipeMap["recipePreparationTime"] = recipe.recipePreparationTime;
+    recipeMap["recipeCookingTime"] = recipe.recipeCookingTime;
+    recipeMap["recipeRestTime"] = recipe.recipeRestTime;
+    recipeMap["recipeDifficulty"] = recipe.recipeDifficulty;
+    recipeMap["recipeType"] = recipe.recipeType;
+    recipeMap["recipeCuisine"] = recipe.recipeCuisine;
+    recipeMap["recipeCalories"] = recipe.recipeCalories;
+    recipeMap["recipePicture"] = recipe.recipePicture;
+    recipeMap["recipeYums"] = recipe.recipeYums;
     return recipeMap;
   }
 
   Recipe.fromMap(Map recipeMap) {
-    this.name = recipeMap["name"];
-    this.portion = recipeMap["portion"];
-    this.categories = recipeMap["categories"];
-    this.ingridients = recipeMap["ingridients"];
-    this.instructions = recipeMap["instructions"];
-    this.prepTime = recipeMap["prepTime"];
-    this.cookTime = recipeMap["cookTime"];
-    this.needsRestTime = recipeMap["needsRestTime"];
-    this.restTime = recipeMap["restTime"];
-    this.level = recipeMap["level"];
-    this.calorieKnown = recipeMap["calorieKnown"];
-    this.calories = recipeMap["calories"];
-    this.foodPic = recipeMap["foodPic"];
-    this.yum = recipeMap["yum"];
+    this.recipeId = recipeMap["recipeId"];
+    this.userId = recipeMap["userId"];
+    this.recipeName = recipeMap["recipeName"];
+    this.recipeDiet = recipeMap["recipeDiet"];
+    this.recipePortion = recipeMap["recipePortion"];
+    this.recipeIngridients = recipeMap["recipeIngridients"];
+    this.recipeInstructions = recipeMap["recipeInstructions"];
+    this.recipePreparationTime = recipeMap["recipePreparationTime"];
+    this.recipeCookingTime = recipeMap["recipeCookingTime"];
+    this.recipeRestTime = recipeMap["recipeRestTime"];
+    this.recipeDifficulty = recipeMap["recipeDifficulty"];
+    this.recipeType = recipeMap["recipeType"];
+    this.recipeCuisine = recipeMap["recipeCuisine"];
+    this.recipeCalories = recipeMap["recipeCalories"];
+    this.recipePicture = recipeMap["recipePicture"];
+    this.recipeYums = recipeMap["recipeYums"];
+    
   }
 }

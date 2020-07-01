@@ -31,10 +31,20 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   ImageUploadProvider _imageUploadProvider;
 
   String recipeName;
-  List recipeCategory;
+  String recipeDiet;
   int recipePortion;
+  String recipeInstructions;
 
-  //List ingridients;
+  int recipePreparationTime;
+  int recipeCookingTime;
+  int recipeRestTime;
+  String recipeDifficulty;
+  String recipeType;
+  String recipeCuisine;
+  int recipeCalories;
+
+
+  String recipePicture;
 
   static List ingridients = new List()..length = 1;
 
@@ -219,26 +229,10 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
   bool showIg31 = false;
 
-  int recipePreparationTime;
-  int recipeCookingTime;
-  int recipeRestTime;
-  String recipeDifficulty;
-  String recipeType;
-  String recipeCuisine;
-  double recipeCalories;
 
-  String recipeInstructions;
+  
 
-  //   void pickRecipePhoto({@required ImageSource source}) async {
-  //   File selectedImage = await Utils.pickImage(source: source);
 
-  //   _repository.getCurrentUser().then((user) {
-  //     _repository.changeProfilePhoto(
-  //         image: selectedImage,
-  //         imageUploadProvider: _imageUploadProvider,
-  //         currentUser: user);
-  //   });
-  // }
 
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
@@ -3183,85 +3177,48 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                     ],
                                   ),
                                 ),
-                                //RecipeCategory
+                                //RecipeDiet
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10.0),
-                                  child: Column(
+                                  child: Row(
+                                    //   mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        //   mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Container(
-                                            child: Text(Strings.RECIPE_CATEGORY,
-                                                style: TextStyles.recipe),
-                                          ),
-                                          SizedBox(width: 35),
-                                          Expanded(
-                                            child: Container(
-                                              width: screenWidth,
-                                              child: FormBuilderFilterChip(
-                                                attribute: "categories",
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    recipeCategory = value;
-                                                    print(recipeCategory);
-                                                  });
-                                                },
-                                                options: [
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Vegan"),
-                                                      value: "Vegan"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Vegetarian"),
-                                                      value: "Vegetarian"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Low-carb"),
-                                                      value: "Low-carb"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Keto"),
-                                                      value: "Keto"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Organic"),
-                                                      value: "Organic"),
-                                                  FormBuilderFieldOption(
+                                      Container(
+                                        child: Text(Strings.RECIPE_DIET,
+                                            style: TextStyles.recipe),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Container(
+                                        width: screenWidth * 0.40,
+                                        child: FormBuilderDropdown(
+                                          attribute: "diet",
+                                          decoration:
+                                              InputDecoration(labelText: ""),
+                                          items: [
+                                            'Vegan',
+                                            'Vegatarian',
+                                            'Non-Vegatarian',
+                                            'Low-Carb/Keto',
+                                            'Lactose-free',
+                                            'Gluten-free',
+                                            'Healthy',
+                                            'Low Calorie'
+                                          ]
+                                              .map((diet) =>
+                                                  DropdownMenuItem(
+                                                      value: diet,
                                                       child:
-                                                          Text("Clean Eating"),
-                                                      value: "Clean Eating"),
-                                                  FormBuilderFieldOption(
-                                                      child:
-                                                          Text("Lactose-free"),
-                                                      value: "Lactose-free"),
-                                                  FormBuilderFieldOption(
-                                                      child:
-                                                          Text("Gluten-free"),
-                                                      value: "Gluten-free"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Chef cook"),
-                                                      value: "Chef cook"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Gourmet"),
-                                                      value: "Gourmet"),
-                                                  FormBuilderFieldOption(
-                                                      child:
-                                                          Text("Sweet Tooth"),
-                                                      value: "Sweet Tooth"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Healthy"),
-                                                      value: "Healthy"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Raw"),
-                                                      value: "Raw"),
-                                                  FormBuilderFieldOption(
-                                                      child: Text("Paleo"),
-                                                      value: "Paleo"),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                                          Text("$diet")))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              recipeDiet = value;
+                                            });
+                                          },
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -3797,51 +3754,51 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
 
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      _fbKey.currentState.reset();
-                                    },
-                                    child: Container(
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        color: uniColors.lcRed,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(25.0),
-                                          topRight: Radius.circular(25.0),
-                                          bottomLeft: Radius.circular(25.0),
-                                          bottomRight: Radius.circular(25.0),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Row(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 8.0),
-                                                  child: Text("RESET",
-                                                      style: TextStyles
-                                                          .submitBubble),
-                                                ),
-                                                Icon(
-                                                  Icons.close,
-                                                  color: uniColors.white2,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                // Padding(
+                                //   padding: const EdgeInsets.all(5.0),
+                                //   child: GestureDetector(
+                                //     onTap: () {
+                                //       _fbKey.currentState.reset();
+                                //     },
+                                //     child: Container(
+                                //       height: 40,
+                                //       decoration: BoxDecoration(
+                                //         color: uniColors.lcRed,
+                                //         borderRadius: BorderRadius.only(
+                                //           topLeft: Radius.circular(25.0),
+                                //           topRight: Radius.circular(25.0),
+                                //           bottomLeft: Radius.circular(25.0),
+                                //           bottomRight: Radius.circular(25.0),
+                                //         ),
+                                //       ),
+                                //       child: Padding(
+                                //         padding: const EdgeInsets.all(8.0),
+                                //         child: Column(
+                                //           mainAxisAlignment:
+                                //               MainAxisAlignment.center,
+                                //           children: <Widget>[
+                                //             Row(
+                                //               children: <Widget>[
+                                //                 Padding(
+                                //                   padding: const EdgeInsets
+                                //                           .symmetric(
+                                //                       horizontal: 8.0),
+                                //                   child: Text("RESET",
+                                //                       style: TextStyles
+                                //                           .submitBubble),
+                                //                 ),
+                                //                 Icon(
+                                //                   Icons.close,
+                                //                   color: uniColors.white2,
+                                //                 ),
+                                //               ],
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                                 Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: GestureDetector(
