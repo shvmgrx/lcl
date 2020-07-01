@@ -48,191 +48,192 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   String recipeCalories;
 
   int recipeYums;
-  String recipePicture="dd";
+  String recipePicture = "dd";
 
   static List recipeIngridients = new List()..length = 1;
 
-  
- static String igUnit1;
- static String igAmt1;
- static String igName1;
+  static String igUnit1;
+  static String igAmt1;
+  static String igName1;
   Map ing1 = {"igName1": igName1, "igAmt1": igAmt1, "igUnit1": igUnit1};
 
-  Map ing2;
+
   bool showIg2 = false;
-  String igUnit2;
-  String igAmt2;
-  String igName2;
+  static String igUnit2;
+  static String igAmt2;
+  static String igName2;
+  Map ing2 = {"igName2": igName2, "igAmt2": igAmt2, "igUnit2": igUnit2};
 
-  Map ing3;
   bool showIg3 = false;
-  String igUnit3;
-  String igAmt3;
-  String igName3;
+  static String igUnit3;
+  static String igAmt3;
+  static String igName3;
+  Map ing3 = {"igName3": igName3, "igAmt3": igAmt3, "igUnit2": igUnit3};
 
-  Map ing4;
   bool showIg4 = false;
-  String igUnit4;
-  String igAmt4;
-  String igName4;
+  static String igUnit4;
+  static String igAmt4;
+  static String igName4;
+  Map ing4 = {"igName4": igName4, "igAmt4": igAmt4, "igUnit4": igUnit4};
 
-  Map ing5;
   bool showIg5 = false;
-  String igUnit5;
-  String igAmt5;
-  String igName5;
+  static String igUnit5;
+  static String igAmt5;
+  static String igName5;
+  Map ing5 = {"igName5": igName5, "igAmt5": igAmt5, "igUnit5": igUnit3};
 
-  Map ing6;
   bool showIg6 = false;
-  String igUnit6;
-  String igAmt6;
-  String igName6;
+  static String igUnit6;
+  static String igAmt6;
+  static String igName6;
+  Map ing6 = {"igName6": igName6, "igAmt6": igAmt6, "igUnit6": igUnit6};
 
-  Map ing7;
-  bool showIg7 = false;
-  String igUnit7;
-  String igAmt7;
-  String igName7;
+   bool showIg7 = false;
+ static String igUnit7;
+ static String igAmt7;
+ static String igName7;
+ Map ing7 = {"igName7": igName7, "igAmt7": igAmt7, "igUnit7": igUnit7};
+ 
+ bool showIg8 = false;
+ static String igUnit8;
+ static String igAmt8;
+ static String igName8;
+ Map ing8 = {"igName8": igName8, "igAmt8": igAmt8, "igUnit8": igUnit8};
 
-  Map ing8;
-  bool showIg8 = false;
-  String igUnit8;
-  String igAmt8;
-  String igName8;
 
-  Map ing9;
-  bool showIg9 = false;
-  String igUnit9;
-  String igAmt9;
-  String igName9;
+ bool showIg9 = false;
+ static String igUnit9;
+ static String igAmt9;
+ static String igName9;
+ Map ing9 = {"igName9": igName9, "igAmt9": igAmt9, "igUnit9": igUnit9};
+ 
+ bool showIg10 = false;
+ static String igUnit10;
+ static String igAmt10;
+ static String igName10;
+ Map ing10 = {"igName10": igName10, "igAmt10": igAmt10, "igUnit10": igUnit10};
+ 
+ bool showIg11 = false;
+ static String igUnit11;
+ static String igAmt11;
+ static String igName11;
+ Map ing11 = {"igName11": igName11, "igAmt11": igAmt11, "igUnit11": igUnit11};
+ 
+ bool showIg12 = false;
+ static String igUnit12;
+ static String igAmt12;
+ static String igName12;
+ Map ing12 = {"igName12": igName12, "igAmt12": igAmt12, "igUnit12": igUnit12};
+ 
+ bool showIg13 = false;
+ static String igUnit13;
+ static String igAmt13;
+ static String igName13;
+ Map ing13 = {"igName13": igName13, "igAmt13": igAmt13, "igUnit13": igUnit13};
+ 
+ bool showIg14 = false;
+ static String igUnit14;
+ static String igAmt14;
+ static String igName14;
+ Map ing14 = {"igName14": igName14, "igAmt14": igAmt14, "igUnit14": igUnit14};
+ 
+ bool showIg15 = false;
+ static String igUnit15;
+ static String igAmt15;
+ static String igName15;
+ Map ing15 = {"igName15": igName15, "igAmt15": igAmt15, "igUnit15": igUnit15};
+ 
+ bool showIg16 = false;
+ static String igUnit16;
+ static String igAmt16;
+ static String igName16;
+ Map ing16 = {"igName16": igName16, "igAmt16": igAmt16, "igUnit16": igUnit16};
+ 
+ bool showIg17 = false;
+ static String igUnit17;
+ static String igAmt17;
+ static String igName17;
+ Map ing17 = {"igName17": igName17, "igAmt17": igAmt17, "igUnit17": igUnit17};
+ 
+ bool showIg18 = false;
+ static String igUnit18;
+ static String igAmt18;
+ static String igName18;
+ Map ing18 = {"igName18": igName18, "igAmt18": igAmt18, "igUnit18": igUnit18};
+ 
+ bool showIg19 = false;
+ static String igUnit19;
+ static String igAmt19;
+ static String igName19;
+ Map ing19 = {"igName19": igName19, "igAmt19": igAmt19, "igUnit19": igUnit19};
+ 
+ bool showIg20 = false;
+ static String igUnit20;
+ static String igAmt20;
+ static String igName20;
+ Map ing20 = {"igName20": igName20, "igAmt20": igAmt20, "igUnit20": igUnit20};
+ 
+ bool showIg21 = false;
+ static String igUnit21;
+ static String igAmt21;
+ static String igName21;
+ Map ing21 = {"igName21": igName21, "igAmt21": igAmt21, "igUnit21": igUnit21};
+ 
+ bool showIg22 = false;
+ static String igUnit22;
+ static String igAmt22;
+ static String igName22;
+ Map ing22 = {"igName22": igName22, "igAmt22": igAmt22, "igUnit22": igUnit22};
+ 
+ bool showIg23 = false;
+ static String igUnit23;
+ static String igAmt23;
+ static String igName23;
+ Map ing23 = {"igName23": igName23, "igAmt23": igAmt23, "igUnit23": igUnit23};
+ 
+ bool showIg24 = false;
+ static String igUnit24;
+ static String igAmt24;
+ static String igName24;
+ Map ing24 = {"igName24": igName24, "igAmt24": igAmt24, "igUnit24": igUnit24};
+ 
+ bool showIg25 = false;
+ static String igUnit25;
+ static String igAmt25;
+ static String igName25;
+ Map ing25 = {"igName25": igName25, "igAmt25": igAmt25, "igUnit25": igUnit25};
+ 
+ bool showIg26 = false;
+ static String igUnit26;
+ static String igAmt26;
+ static String igName26;
+ Map ing26 = {"igName26": igName26, "igAmt26": igAmt26, "igUnit26": igUnit26};
+ 
+ bool showIg27 = false;
+ static String igUnit27;
+ static String igAmt27;
+ static String igName27;
+ Map ing27 = {"igName27": igName27, "igAmt27": igAmt27, "igUnit27": igUnit27};
+ 
+ bool showIg28 = false;
+ static String igUnit28;
+ static String igAmt28;
+ static String igName28;
+ Map ing28 = {"igName28": igName28, "igAmt28": igAmt28, "igUnit28": igUnit28};
+ 
+ bool showIg29 = false;
+ static String igUnit29;
+ static String igAmt29;
+ static String igName29;
+ Map ing29 = {"igName29": igName29, "igAmt29": igAmt29, "igUnit29": igUnit29};
+ 
+ bool showIg30 = false;
+ static String igUnit30;
+ static String igAmt30;
+ static String igName30;
+ Map ing30 = {"igName30": igName30, "igAmt30": igAmt30, "igUnit30": igUnit30};
 
-  Map ing10;
-  bool showIg10 = false;
-  String igUnit10;
-  String igAmt10;
-  String igName10;
-
-  Map ing11;
-  bool showIg11 = false;
-  String igUnit11;
-  String igAmt11;
-  String igName11;
-
-  Map ing12;
-  bool showIg12 = false;
-  String igUnit12;
-  String igAmt12;
-  String igName12;
-
-  Map ing13;
-  bool showIg13 = false;
-  String igUnit13;
-  String igAmt13;
-  String igName13;
-
-  Map ing14;
-  bool showIg14 = false;
-  String igUnit14;
-  String igAmt14;
-  String igName14;
-
-  Map ing15;
-  bool showIg15 = false;
-  String igUnit15;
-  String igAmt15;
-  String igName15;
-
-  Map ing16;
-  bool showIg16 = false;
-  String igUnit16;
-  String igAmt16;
-  String igName16;
-
-  Map ing17;
-  bool showIg17 = false;
-  String igUnit17;
-  String igAmt17;
-  String igName17;
-
-  Map ing18;
-  bool showIg18 = false;
-  String igUnit18;
-  String igAmt18;
-  String igName18;
-
-  Map ing19;
-  bool showIg19 = false;
-  String igUnit19;
-  String igAmt19;
-  String igName19;
-
-  Map ing20;
-  bool showIg20 = false;
-  String igUnit20;
-  String igAmt20;
-  String igName20;
-
-  Map ing21;
-  bool showIg21 = false;
-  String igUnit21;
-  String igAmt21;
-  String igName21;
-
-  Map ing22;
-  bool showIg22 = false;
-  String igUnit22;
-  String igAmt22;
-  String igName22;
-
-  Map ing23;
-  bool showIg23 = false;
-  String igUnit23;
-  String igAmt23;
-  String igName23;
-
-  Map ing24;
-  bool showIg24 = false;
-  String igUnit24;
-  String igAmt24;
-  String igName24;
-
-  Map ing25;
-  bool showIg25 = false;
-  String igUnit25;
-  String igAmt25;
-  String igName25;
-
-  Map ing26;
-  bool showIg26 = false;
-  String igUnit26;
-  String igAmt26;
-  String igName26;
-
-  Map ing27;
-  bool showIg27 = false;
-  String igUnit27;
-  String igAmt27;
-  String igName27;
-
-  Map ing28;
-  bool showIg28 = false;
-  String igUnit28;
-  String igAmt28;
-  String igName28;
-
-  Map ing29;
-  bool showIg29 = false;
-  String igUnit29;
-  String igAmt29;
-  String igName29;
-
-  Map ing30;
-  bool showIg30 = false;
-  String igUnit30;
-  String igAmt30;
-  String igName30;
-
-  bool showIg31 = false;
+ bool showIg31 = false;
 
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
@@ -311,14 +312,14 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         InkWell(
           onTap: () {
             setState(() {
-              ing1 = {"igName1": igName1, "igAmt1": igAmt1, "igUnit1": igUnit1};
+              ing1 = {'igName1': igName1, "igAmt1": igAmt1, "igUnit1": igUnit1};
               showIg2 = true;
-               print(ing1);
-              print(ing1['igName1']);
             });
           },
           child: Icon(
-            ing1['igName1']==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing1['igName1'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -410,7 +411,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            ing2==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing2['igName2'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -502,7 +505,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-           ing3==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing3 == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -594,7 +599,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-             ing4==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing4['igName4'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -686,7 +693,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            ing5==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing5['igName5'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -778,7 +787,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            ing6==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing6['igName6'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -870,7 +881,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-             ing7==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing7['igName7'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -962,7 +975,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            ing8==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing8['igName8'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1054,7 +1069,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            ing9==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing9['igName9'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1150,7 +1167,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            ing10==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing10['igName10'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1246,7 +1265,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            ing11==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
+            ing11['igName11'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1342,7 +1363,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing12['igName12'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1438,7 +1461,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing13['igName13'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1534,7 +1559,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing14['igName14'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1630,7 +1657,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing15['igName15'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1726,7 +1755,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing16['igName16'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1822,7 +1853,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing17['igName17'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -1918,7 +1951,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing18['igName18'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2014,7 +2049,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing19['igName19'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2110,7 +2147,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing20['igName20'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2206,7 +2245,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing21['igName21'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2302,7 +2343,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing22['igName22'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2398,7 +2441,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing23['igName23'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2494,7 +2539,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing24['igName24'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2590,7 +2637,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing25['igName25'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2686,7 +2735,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing26['igName26'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2782,7 +2833,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing27['igName27'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2878,7 +2931,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing28['igName28'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -2974,7 +3029,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing29['igName29'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -3070,7 +3127,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing30['igName30'] == null
+                ? CupertinoIcons.add_circled
+                : CupertinoIcons.add_circled_solid,
             color: uniColors.lcRed,
           ),
         ),
@@ -3091,26 +3150,25 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
     sendRecipe() {
       Recipe _recipe = Recipe(
-          recipeId: Utils.randomString(),
-          userId: userProvider.getUser.uid,
-          recipeName: recipeName,
-          recipeDiet: recipeDiet,
-          recipePortion: recipePortion,
-          recipeIngridients: recipeIngridients,
-          recipeInstructions: recipeInstructions,
-          recipePreparationTime: recipePreparationTime,
-          recipeCookingTime: recipeCookingTime,
-          recipeRestTime: recipeRestTime,
-          recipeDifficulty: recipeDifficulty,
-          recipeType: recipeType,
-          recipeCuisine: recipeCuisine,
-          recipeCalories: recipeCalories,
-          recipePicture: recipePicture,
-          recipeYums: recipeYums,
-          recipeCreatorPic:userProvider.getUser.profilePhoto,
-          recipeCreatorName: userProvider.getUser.name,
-          );
-         
+        recipeId: Utils.randomString(),
+        userId: userProvider.getUser.uid,
+        recipeName: recipeName,
+        recipeDiet: recipeDiet,
+        recipePortion: recipePortion,
+        recipeIngridients: recipeIngridients,
+        recipeInstructions: recipeInstructions,
+        recipePreparationTime: recipePreparationTime,
+        recipeCookingTime: recipeCookingTime,
+        recipeRestTime: recipeRestTime,
+        recipeDifficulty: recipeDifficulty,
+        recipeType: recipeType,
+        recipeCuisine: recipeCuisine,
+        recipeCalories: recipeCalories,
+        recipePicture: recipePicture,
+        recipeYums: recipeYums,
+        recipeCreatorPic: userProvider.getUser.profilePhoto,
+        recipeCreatorName: userProvider.getUser.name,
+      );
 
       _recipeMethods.addRecipeToDb(_recipe);
     }
@@ -3950,7 +4008,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                         sendRecipe();
                                         _fbKey.currentState.reset();
                                         Navigator.pop(context);
-
                                       }
                                     },
                                     child: Container(
