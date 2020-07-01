@@ -3281,33 +3281,35 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 height: screenHeight * 0.08,
                 child: Row(
                   children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        onTap: () {
-                          displayCloseDialog();
-                        },
-                        child: Icon(
-                          Icons.close,
-                          color: uniColors.white1,
+                   
+                      Padding(
+                        padding: const EdgeInsets.only(left:8.0),
+                        child: InkWell(
+                          onTap: () {
+                            displayCloseDialog();
+                          },
+                          child: Icon(
+                            Icons.close,
+                            color: uniColors.white1,
+                          ),
                         ),
                       ),
-                    ),
+                   
                     Expanded(
-                      flex: 3,
+                      flex: 7,
                       child: Center(
                           child: Text(
                         Strings.RECIPE_MAKER,
                         style: TextStyles.recipeMaker,
                       )),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: Icon(
-                        Icons.done,
-                        color: uniColors.white1,
-                      ),
-                    ),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: Icon(
+                    //     Icons.done,
+                    //     color: uniColors.white1,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
