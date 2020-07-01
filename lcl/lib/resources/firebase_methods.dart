@@ -10,14 +10,12 @@ import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/utils/utilities.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-
 class FirebaseMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn _googleSignIn = GoogleSignIn();
   static final Firestore firestore = Firestore.instance;
 
-    StorageReference _storageReference;
-
+  StorageReference _storageReference;
 
   static final Firestore _firestore = Firestore.instance;
 
@@ -33,7 +31,7 @@ class FirebaseMethods {
     return currentUser;
   }
 
-    Future<User> getUserDetails() async {
+  Future<User> getUserDetails() async {
     FirebaseUser currentUser = await getCurrentUser();
 
     DocumentSnapshot documentSnapshot =
@@ -68,22 +66,23 @@ class FirebaseMethods {
     return docs.length == 0 ? true : false;
   }
 
-    Future<DocumentSnapshot> fetchLoggedUser(FirebaseUser currentUser) async {
+  Future<DocumentSnapshot> fetchLoggedUser(FirebaseUser currentUser) async {
     user = User(
       uid: currentUser.uid,
     );
-    DocumentSnapshot documentSnapshot =
-        await firestore.collection(USERS_COLLECTION).document(currentUser.uid).get();
+    DocumentSnapshot documentSnapshot = await firestore
+        .collection(USERS_COLLECTION)
+        .document(currentUser.uid)
+        .get();
 
     return documentSnapshot;
   }
 
-    Future<List<User>> fetchBatch(FirebaseUser currentUser) async {
+  Future<List<User>> fetchBatch(FirebaseUser currentUser) async {
     List<User> userList = List<User>();
 
-    QuerySnapshot querySnapshot = await firestore
-    .collection(USERS_COLLECTION)
-    .getDocuments();
+    QuerySnapshot querySnapshot =
+        await firestore.collection(USERS_COLLECTION).getDocuments();
 
     for (var i = 0; i < querySnapshot.documents.length; i++) {
       if (querySnapshot.documents[i].documentID != currentUser.uid) {
@@ -92,6 +91,7 @@ class FirebaseMethods {
     }
     return userList;
   }
+
   Future<String> uploadImageToStorage(File imageFile) async {
     // mention try catch later on
     try {
@@ -109,7 +109,7 @@ class FirebaseMethods {
     }
   }
 
-    void setProfilePhoto(String url, FirebaseUser currentUser) async {
+  void setProfilePhoto(String url, FirebaseUser currentUser) async {
     print("Url received for setting:");
 
     user = User(uid: currentUser.uid, profilePhoto: url);
@@ -119,7 +119,7 @@ class FirebaseMethods {
         .updateData(user.toMap(user));
   }
 
-    void setImageMsg(String url, String receiverId, String senderId) async {
+  void setImageMsg(String url, String receiverId, String senderId) async {
     Message message;
 
     message = Message.imageMessage(
@@ -147,7 +147,6 @@ class FirebaseMethods {
         .add(map);
   }
 
-
   void uploadImage(File image, String receiverId, String senderId,
       ImageUploadProvider imageUploadProvider) async {
     // Set some loading value to db and show it to user
@@ -161,6 +160,8 @@ class FirebaseMethods {
 
     setImageMsg(url, receiverId, senderId);
   }
+
+
 
   void changeProfilePhoto(File image, ImageUploadProvider imageUploadProvider,
       FirebaseUser currentUser) async {
@@ -176,7 +177,7 @@ class FirebaseMethods {
 
     setProfilePhoto(url, currentUser);
   }
-  
+
   Future<void> addDataToDb(FirebaseUser currentUser) async {
     String username = Utils.getUsername(currentUser.email);
 
@@ -193,8 +194,7 @@ class FirebaseMethods {
         .setData(user.toMap(user));
   }
 
-
-    Future<void> addMessageToDb(
+  Future<void> addMessageToDb(
       Message message, User sender, User receiver) async {
     var map = message.toMap();
 
@@ -203,8 +203,7 @@ class FirebaseMethods {
         .document(message.senderId)
         .collection(message.receiverId)
         .add(map);
-        
-    
+
     return await firestore
         .collection(MESSAGES_COLLECTION)
         .document(message.receiverId)
@@ -212,7 +211,7 @@ class FirebaseMethods {
         .add(map);
   }
 
-    Future<void> updateDatatoDb(
+  Future<void> updateDatatoDb(
       FirebaseUser currentUser,
       String name,
       String username,
@@ -223,15 +222,15 @@ class FirebaseMethods {
       String position,
       List languages,
       String profilePhoto) async {
-        user = User(
+    user = User(
         uid: currentUser.uid,
         name: name,
         username: username,
         bio: bio,
-        isVegan:isVegan,
-        isVegetarian:isVegetarian,
-         isNVegetarian:isNVegetarian,
-        position:position,
+        isVegan: isVegan,
+        isVegetarian: isVegetarian,
+        isNVegetarian: isNVegetarian,
+        position: position,
         languages: languages,
         profilePhoto: profilePhoto);
 
@@ -241,17 +240,10 @@ class FirebaseMethods {
         .updateData(user.toMap(user));
   }
 
-    Future<void> signOut() async {
+  Future<void> signOut() async {
     print("signed out start");
     await _googleSignIn.disconnect();
     await _googleSignIn.signOut();
     return await _auth.signOut();
   }
-
-
-
-
-
-
-
 }

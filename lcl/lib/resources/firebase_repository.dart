@@ -19,15 +19,15 @@ class FirebaseRepository {
   Future<bool> authenticateUser(FirebaseUser user) =>
       _firebaseMethods.authenticateUser(user);
 
-      Future<User> getUserDetails() => _firebaseMethods.getUserDetails();
+  Future<User> getUserDetails() => _firebaseMethods.getUserDetails();
 
   Future<void> fetchLoggedUser(FirebaseUser user) =>
       _firebaseMethods.fetchLoggedUser(user);
 
-       Future<List<User>> fetchBatch(FirebaseUser user) =>
+  Future<List<User>> fetchBatch(FirebaseUser user) =>
       _firebaseMethods.fetchBatch(user);
 
-        void uploadImage(
+  void uploadImage(
           {@required File image,
           @required String receiverId,
           @required String senderId,
@@ -35,13 +35,15 @@ class FirebaseRepository {
       _firebaseMethods.uploadImage(
           image, receiverId, senderId, imageUploadProvider);
 
+
+
   void changeProfilePhoto(
           {@required File image,
           @required ImageUploadProvider imageUploadProvider,
           @required FirebaseUser currentUser}) =>
       _firebaseMethods.changeProfilePhoto(
           image, imageUploadProvider, currentUser);
-      
+
   Future<void> updateDatatoDb(
           FirebaseUser user,
           String name,
@@ -54,9 +56,9 @@ class FirebaseRepository {
           List languages,
           String profilePhoto) =>
       _firebaseMethods.updateDatatoDb(user, name, username, bio, isVegan,
-          isVegetarian, isNVegetarian, position,languages, profilePhoto);
+          isVegetarian, isNVegetarian, position, languages, profilePhoto);
 
-    Future<void> addMessageToDb(Message message, User sender, User receiver) =>
+  Future<void> addMessageToDb(Message message, User sender, User receiver) =>
       _firebaseMethods.addMessageToDb(message, sender, receiver);
 
   Future<void> addDataToDb(FirebaseUser user) =>

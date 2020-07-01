@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -50,13 +51,14 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   int recipeYums;
   String recipePicture = "dd";
 
+  File tempRecipePicture;
+
   static List recipeIngridients = new List()..length = 1;
 
   static String igUnit1;
   static String igAmt1;
   static String igName1;
   Map ing1 = {"igName1": igName1, "igAmt1": igAmt1, "igUnit1": igUnit1};
-
 
   bool showIg2 = false;
   static String igUnit2;
@@ -88,152 +90,151 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   static String igName6;
   Map ing6 = {"igName6": igName6, "igAmt6": igAmt6, "igUnit6": igUnit6};
 
-   bool showIg7 = false;
- static String igUnit7;
- static String igAmt7;
- static String igName7;
- Map ing7 = {"igName7": igName7, "igAmt7": igAmt7, "igUnit7": igUnit7};
- 
- bool showIg8 = false;
- static String igUnit8;
- static String igAmt8;
- static String igName8;
- Map ing8 = {"igName8": igName8, "igAmt8": igAmt8, "igUnit8": igUnit8};
+  bool showIg7 = false;
+  static String igUnit7;
+  static String igAmt7;
+  static String igName7;
+  Map ing7 = {"igName7": igName7, "igAmt7": igAmt7, "igUnit7": igUnit7};
 
+  bool showIg8 = false;
+  static String igUnit8;
+  static String igAmt8;
+  static String igName8;
+  Map ing8 = {"igName8": igName8, "igAmt8": igAmt8, "igUnit8": igUnit8};
 
- bool showIg9 = false;
- static String igUnit9;
- static String igAmt9;
- static String igName9;
- Map ing9 = {"igName9": igName9, "igAmt9": igAmt9, "igUnit9": igUnit9};
- 
- bool showIg10 = false;
- static String igUnit10;
- static String igAmt10;
- static String igName10;
- Map ing10 = {"igName10": igName10, "igAmt10": igAmt10, "igUnit10": igUnit10};
- 
- bool showIg11 = false;
- static String igUnit11;
- static String igAmt11;
- static String igName11;
- Map ing11 = {"igName11": igName11, "igAmt11": igAmt11, "igUnit11": igUnit11};
- 
- bool showIg12 = false;
- static String igUnit12;
- static String igAmt12;
- static String igName12;
- Map ing12 = {"igName12": igName12, "igAmt12": igAmt12, "igUnit12": igUnit12};
- 
- bool showIg13 = false;
- static String igUnit13;
- static String igAmt13;
- static String igName13;
- Map ing13 = {"igName13": igName13, "igAmt13": igAmt13, "igUnit13": igUnit13};
- 
- bool showIg14 = false;
- static String igUnit14;
- static String igAmt14;
- static String igName14;
- Map ing14 = {"igName14": igName14, "igAmt14": igAmt14, "igUnit14": igUnit14};
- 
- bool showIg15 = false;
- static String igUnit15;
- static String igAmt15;
- static String igName15;
- Map ing15 = {"igName15": igName15, "igAmt15": igAmt15, "igUnit15": igUnit15};
- 
- bool showIg16 = false;
- static String igUnit16;
- static String igAmt16;
- static String igName16;
- Map ing16 = {"igName16": igName16, "igAmt16": igAmt16, "igUnit16": igUnit16};
- 
- bool showIg17 = false;
- static String igUnit17;
- static String igAmt17;
- static String igName17;
- Map ing17 = {"igName17": igName17, "igAmt17": igAmt17, "igUnit17": igUnit17};
- 
- bool showIg18 = false;
- static String igUnit18;
- static String igAmt18;
- static String igName18;
- Map ing18 = {"igName18": igName18, "igAmt18": igAmt18, "igUnit18": igUnit18};
- 
- bool showIg19 = false;
- static String igUnit19;
- static String igAmt19;
- static String igName19;
- Map ing19 = {"igName19": igName19, "igAmt19": igAmt19, "igUnit19": igUnit19};
- 
- bool showIg20 = false;
- static String igUnit20;
- static String igAmt20;
- static String igName20;
- Map ing20 = {"igName20": igName20, "igAmt20": igAmt20, "igUnit20": igUnit20};
- 
- bool showIg21 = false;
- static String igUnit21;
- static String igAmt21;
- static String igName21;
- Map ing21 = {"igName21": igName21, "igAmt21": igAmt21, "igUnit21": igUnit21};
- 
- bool showIg22 = false;
- static String igUnit22;
- static String igAmt22;
- static String igName22;
- Map ing22 = {"igName22": igName22, "igAmt22": igAmt22, "igUnit22": igUnit22};
- 
- bool showIg23 = false;
- static String igUnit23;
- static String igAmt23;
- static String igName23;
- Map ing23 = {"igName23": igName23, "igAmt23": igAmt23, "igUnit23": igUnit23};
- 
- bool showIg24 = false;
- static String igUnit24;
- static String igAmt24;
- static String igName24;
- Map ing24 = {"igName24": igName24, "igAmt24": igAmt24, "igUnit24": igUnit24};
- 
- bool showIg25 = false;
- static String igUnit25;
- static String igAmt25;
- static String igName25;
- Map ing25 = {"igName25": igName25, "igAmt25": igAmt25, "igUnit25": igUnit25};
- 
- bool showIg26 = false;
- static String igUnit26;
- static String igAmt26;
- static String igName26;
- Map ing26 = {"igName26": igName26, "igAmt26": igAmt26, "igUnit26": igUnit26};
- 
- bool showIg27 = false;
- static String igUnit27;
- static String igAmt27;
- static String igName27;
- Map ing27 = {"igName27": igName27, "igAmt27": igAmt27, "igUnit27": igUnit27};
- 
- bool showIg28 = false;
- static String igUnit28;
- static String igAmt28;
- static String igName28;
- Map ing28 = {"igName28": igName28, "igAmt28": igAmt28, "igUnit28": igUnit28};
- 
- bool showIg29 = false;
- static String igUnit29;
- static String igAmt29;
- static String igName29;
- Map ing29 = {"igName29": igName29, "igAmt29": igAmt29, "igUnit29": igUnit29};
- 
- bool showIg30 = false;
- static String igUnit30;
- static String igAmt30;
- static String igName30;
- Map ing30 = {"igName30": igName30, "igAmt30": igAmt30, "igUnit30": igUnit30};
+  bool showIg9 = false;
+  static String igUnit9;
+  static String igAmt9;
+  static String igName9;
+  Map ing9 = {"igName9": igName9, "igAmt9": igAmt9, "igUnit9": igUnit9};
 
- bool showIg31 = false;
+  bool showIg10 = false;
+  static String igUnit10;
+  static String igAmt10;
+  static String igName10;
+  Map ing10 = {"igName10": igName10, "igAmt10": igAmt10, "igUnit10": igUnit10};
+
+  bool showIg11 = false;
+  static String igUnit11;
+  static String igAmt11;
+  static String igName11;
+  Map ing11 = {"igName11": igName11, "igAmt11": igAmt11, "igUnit11": igUnit11};
+
+  bool showIg12 = false;
+  static String igUnit12;
+  static String igAmt12;
+  static String igName12;
+  Map ing12 = {"igName12": igName12, "igAmt12": igAmt12, "igUnit12": igUnit12};
+
+  bool showIg13 = false;
+  static String igUnit13;
+  static String igAmt13;
+  static String igName13;
+  Map ing13 = {"igName13": igName13, "igAmt13": igAmt13, "igUnit13": igUnit13};
+
+  bool showIg14 = false;
+  static String igUnit14;
+  static String igAmt14;
+  static String igName14;
+  Map ing14 = {"igName14": igName14, "igAmt14": igAmt14, "igUnit14": igUnit14};
+
+  bool showIg15 = false;
+  static String igUnit15;
+  static String igAmt15;
+  static String igName15;
+  Map ing15 = {"igName15": igName15, "igAmt15": igAmt15, "igUnit15": igUnit15};
+
+  bool showIg16 = false;
+  static String igUnit16;
+  static String igAmt16;
+  static String igName16;
+  Map ing16 = {"igName16": igName16, "igAmt16": igAmt16, "igUnit16": igUnit16};
+
+  bool showIg17 = false;
+  static String igUnit17;
+  static String igAmt17;
+  static String igName17;
+  Map ing17 = {"igName17": igName17, "igAmt17": igAmt17, "igUnit17": igUnit17};
+
+  bool showIg18 = false;
+  static String igUnit18;
+  static String igAmt18;
+  static String igName18;
+  Map ing18 = {"igName18": igName18, "igAmt18": igAmt18, "igUnit18": igUnit18};
+
+  bool showIg19 = false;
+  static String igUnit19;
+  static String igAmt19;
+  static String igName19;
+  Map ing19 = {"igName19": igName19, "igAmt19": igAmt19, "igUnit19": igUnit19};
+
+  bool showIg20 = false;
+  static String igUnit20;
+  static String igAmt20;
+  static String igName20;
+  Map ing20 = {"igName20": igName20, "igAmt20": igAmt20, "igUnit20": igUnit20};
+
+  bool showIg21 = false;
+  static String igUnit21;
+  static String igAmt21;
+  static String igName21;
+  Map ing21 = {"igName21": igName21, "igAmt21": igAmt21, "igUnit21": igUnit21};
+
+  bool showIg22 = false;
+  static String igUnit22;
+  static String igAmt22;
+  static String igName22;
+  Map ing22 = {"igName22": igName22, "igAmt22": igAmt22, "igUnit22": igUnit22};
+
+  bool showIg23 = false;
+  static String igUnit23;
+  static String igAmt23;
+  static String igName23;
+  Map ing23 = {"igName23": igName23, "igAmt23": igAmt23, "igUnit23": igUnit23};
+
+  bool showIg24 = false;
+  static String igUnit24;
+  static String igAmt24;
+  static String igName24;
+  Map ing24 = {"igName24": igName24, "igAmt24": igAmt24, "igUnit24": igUnit24};
+
+  bool showIg25 = false;
+  static String igUnit25;
+  static String igAmt25;
+  static String igName25;
+  Map ing25 = {"igName25": igName25, "igAmt25": igAmt25, "igUnit25": igUnit25};
+
+  bool showIg26 = false;
+  static String igUnit26;
+  static String igAmt26;
+  static String igName26;
+  Map ing26 = {"igName26": igName26, "igAmt26": igAmt26, "igUnit26": igUnit26};
+
+  bool showIg27 = false;
+  static String igUnit27;
+  static String igAmt27;
+  static String igName27;
+  Map ing27 = {"igName27": igName27, "igAmt27": igAmt27, "igUnit27": igUnit27};
+
+  bool showIg28 = false;
+  static String igUnit28;
+  static String igAmt28;
+  static String igName28;
+  Map ing28 = {"igName28": igName28, "igAmt28": igAmt28, "igUnit28": igUnit28};
+
+  bool showIg29 = false;
+  static String igUnit29;
+  static String igAmt29;
+  static String igName29;
+  Map ing29 = {"igName29": igName29, "igAmt29": igAmt29, "igUnit29": igUnit29};
+
+  bool showIg30 = false;
+  static String igUnit30;
+  static String igAmt30;
+  static String igName30;
+  Map ing30 = {"igName30": igName30, "igAmt30": igAmt30, "igUnit30": igUnit30};
+
+  bool showIg31 = false;
 
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
@@ -3143,12 +3144,41 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
   @override
   Widget build(BuildContext context) {
+    _imageUploadProvider = Provider.of<ImageUploadProvider>(context);
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
     final UserProvider userProvider = Provider.of<UserProvider>(context);
 
-    sendRecipe() {
+    StorageReference _storageReference;
+
+    void pickImage() async {
+      File selectedImage = await Utils.pickImage(source: ImageSource.gallery);
+      setState(() {
+        tempRecipePicture = selectedImage;
+      });
+    }
+
+    Future<String> uploadImageToStorage(File tempRecipePicture) async {
+      try {
+        _storageReference = FirebaseStorage.instance
+            .ref()
+            .child('${DateTime.now().millisecondsSinceEpoch}');
+
+        StorageUploadTask storageUploadTask =
+            _storageReference.putFile(tempRecipePicture);
+        var url =
+            await (await storageUploadTask.onComplete).ref.getDownloadURL();
+
+        return url;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    void sendRecipe() async {
+      recipePicture = await uploadImageToStorage(tempRecipePicture);
+
       Recipe _recipe = Recipe(
         recipeId: Utils.randomString(),
         userId: userProvider.getUser.uid,
@@ -3236,6 +3266,40 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
+                                Container(
+                                  //add image here
+
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Container(
+                                        width: 160.0,
+                                        height: 160.0,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(userProvider
+                                                        .getUser.profilePhoto !=
+                                                    null
+                                                ? userProvider
+                                                    .getUser.profilePhoto
+                                                : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Crystal_Clear_kdm_user_female.svg/1200px-Crystal_Clear_kdm_user_female.svg.png"),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        // top:75,
+                                        bottom: 0,
+                                        right: 20,
+                                        child: Icon(
+                                          Icons.add_circle,
+                                          size: 40,
+                                          color: uniColors.lcRed,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                                 //RecipeName
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -4005,6 +4069,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             : {};
 
                                         print(_fbKey.currentState.value);
+
                                         sendRecipe();
                                         _fbKey.currentState.reset();
                                         Navigator.pop(context);
