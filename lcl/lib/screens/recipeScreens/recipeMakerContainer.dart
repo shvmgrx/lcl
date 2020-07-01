@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +17,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:lcl/utils/utilities.dart';
 import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:image/image.dart' as Im;
 
 class RecipeMakerContainer extends StatefulWidget {
   @override
@@ -49,10 +52,10 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   String recipeCalories;
 
   int recipeYums;
-  String recipePicture = "dd";
+  String recipePicture = "dummyNoImage";
 
   File tempRecipePicture;
-  String tempoRecipePicture;
+  String tempoRecipePicture = "notUploadedYet";
 
   static List recipeIngridients = new List()..length = 1;
 
@@ -3170,21 +3173,46 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
       }
     }
 
-    void pickImage({@required ImageSource source}) async {
-      print("prin1");
-      File selectedImg = await Utils.pickImage(source: source);
-        print("prin2");
-      setState(() {
-          print("prin3");
-        tempRecipePicture = selectedImg;
-          print("prin4");
-      });
-  print("prin5");
-      tempoRecipePicture = await uploadImageToStorage(selectedImg);
-        print("prin6");
+    Future<File> compressImageHigh(File imageToCompress) async {
+      final tempDir = await getTemporaryDirectory();
+      final path = tempDir.path;
+      String temp = Utils.randomString();
+
+      Im.Image image = Im.decodeImage(imageToCompress.readAsBytesSync());
+      // Im.copyResize(image, width: 500, height: 500);
+
+      return new File('$path/img_$temp.jpg')
+        ..writeAsBytesSync(Im.encodeJpg(image, quality: 40));
     }
 
-  
+    Future<File> compressImageLow(File imageToCompress) async {
+      final tempDir = await getTemporaryDirectory();
+      final path = tempDir.path;
+      String temp = Utils.randomString();
+
+      Im.Image image = Im.decodeImage(imageToCompress.readAsBytesSync());
+      // Im.copyResize(image, width: 500, height: 500);
+
+      return new File('$path/img_$temp.jpg')
+        ..writeAsBytesSync(Im.encodeJpg(image, quality: 65));
+    }
+
+    Future<File> pickImage({@required ImageSource source}) async {
+      File selectedImg = await Utils.pickImage(source: source);
+
+      File compImgHigh;
+      File compImgLow;
+
+      compImgLow = await compressImageLow(selectedImg);
+
+      setState(() {
+        tempRecipePicture = compImgLow;
+      });
+
+      compImgHigh = await compressImageHigh(selectedImg);
+
+      tempoRecipePicture = await uploadImageToStorage(compImgHigh);
+    }
 
     void sendRecipe() async {
       recipePicture = await uploadImageToStorage(tempRecipePicture);
@@ -3213,6 +3241,31 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
       _recipeMethods.addRecipeToDb(_recipe);
     }
 
+    void displayCloseDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => new CupertinoAlertDialog(
+          // title: new Text("Discard"),
+          content: new Text("Do you want to discard?",style: TextStyles.recipe),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: (){
+                Navigator.pop(context);
+                _fbKey.currentState.reset();
+                Navigator.pop(context);
+              },
+                isDefaultAction: true, child: new Text("Yes", style: TextStyles.alertConfirmation),),
+            CupertinoDialogAction(
+              onPressed: (){
+                Navigator.pop(context);
+               
+              },
+                isDefaultAction: true, child: new Text("No", style: TextStyles.alertConfirmation),),
+          ],
+        ),
+      );
+    }
+
     return SafeArea(
       child: Container(
         color: Colors.white,
@@ -3230,9 +3283,14 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: Icon(
-                        Icons.close,
-                        color: uniColors.white1,
+                      child: InkWell(
+                        onTap: () {
+                          displayCloseDialog();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: uniColors.white1,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -3281,9 +3339,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
                                   child: Stack(
                                     children: <Widget>[
-                                    //  tempoRecipePicture == null
-                                       //   ? 
-                                          Container(
+                                      tempoRecipePicture == "notUploadedYet"
+                                          ? Container(
                                               width: 160.0,
                                               height: 160.0,
                                               decoration: BoxDecoration(
@@ -3295,26 +3352,26 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                                 ),
                                               ),
                                             )
-                                            ,
-                                          // : Container(
-                                          //     width: 160.0,
-                                          //     height: 160.0,
-                                          //     decoration: BoxDecoration(
-                                          //       shape: BoxShape.circle,
-                                          //       image: DecorationImage(
-                                          //         fit: BoxFit.cover,
-                                          //         image: NetworkImage(
-                                          //             tempoRecipePicture),
-                                          //       ),
-                                          //     ),
-                                          //   ),
+                                          : Container(
+                                              width: 160.0,
+                                              height: 160.0,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                      tempoRecipePicture),
+                                                ),
+                                              ),
+                                            ),
                                       Positioned(
                                         // top:75,
                                         bottom: 0,
                                         right: 18,
                                         child: InkWell(
                                           onTap: () {
-                                           pickImage(source: ImageSource.gallery);
+                                            pickImage(
+                                                source: ImageSource.gallery);
                                           },
                                           child: Icon(
                                             Icons.add_circle,
@@ -3916,7 +3973,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               InputDecoration(labelText: ""),
                                           onChanged: (value) {
                                             setState(() {
-                                              recipeCalories = value;
+                                              recipeCalories = value.toString();
                                             });
                                           },
                                         ),

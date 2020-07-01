@@ -49,6 +49,7 @@ dependencies:
   flutter_open_browser: ^1.0.3
 
 
+
   #permission_handler: 2.2.0 
   #permission handler 2.2.0 for ios
   #permission handler 3.0.0 for android

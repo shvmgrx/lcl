@@ -314,4 +314,13 @@ class TextStyles {
     //   ),
     // ],
   );
+
+          static final TextStyle alertConfirmation = TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w900,
+    letterSpacing: 2.0,
+    color: uniColors.black,
+    fontFamily: 'Homizio',
+
+  );
 }
