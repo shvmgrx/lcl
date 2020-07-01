@@ -52,6 +52,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   String recipePicture = "dd";
 
   File tempRecipePicture;
+  String tempoRecipePicture;
 
   static List recipeIngridients = new List()..length = 1;
 
@@ -3152,13 +3153,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
     StorageReference _storageReference;
 
-    void pickImage() async {
-      File selectedImage = await Utils.pickImage(source: ImageSource.gallery);
-      setState(() {
-        tempRecipePicture = selectedImage;
-      });
-    }
-
     Future<String> uploadImageToStorage(File tempRecipePicture) async {
       try {
         _storageReference = FirebaseStorage.instance
@@ -3175,6 +3169,22 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         return null;
       }
     }
+
+    void pickImage({@required ImageSource source}) async {
+      print("prin1");
+      File selectedImg = await Utils.pickImage(source: source);
+        print("prin2");
+      setState(() {
+          print("prin3");
+        tempRecipePicture = selectedImg;
+          print("prin4");
+      });
+  print("prin5");
+      tempoRecipePicture = await uploadImageToStorage(selectedImg);
+        print("prin6");
+    }
+
+  
 
     void sendRecipe() async {
       recipePicture = await uploadImageToStorage(tempRecipePicture);
@@ -3271,30 +3281,46 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
                                   child: Stack(
                                     children: <Widget>[
-                                      Container(
-                                        width: 160.0,
-                                        height: 160.0,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(userProvider
-                                                        .getUser.profilePhoto !=
-                                                    null
-                                                ? userProvider
-                                                    .getUser.profilePhoto
-                                                : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Crystal_Clear_kdm_user_female.svg/1200px-Crystal_Clear_kdm_user_female.svg.png"),
-                                          ),
-                                        ),
-                                      ),
+                                    //  tempoRecipePicture == null
+                                       //   ? 
+                                          Container(
+                                              width: 160.0,
+                                              height: 160.0,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: AssetImage(
+                                                      "assets/plate.jpg"),
+                                                ),
+                                              ),
+                                            )
+                                            ,
+                                          // : Container(
+                                          //     width: 160.0,
+                                          //     height: 160.0,
+                                          //     decoration: BoxDecoration(
+                                          //       shape: BoxShape.circle,
+                                          //       image: DecorationImage(
+                                          //         fit: BoxFit.cover,
+                                          //         image: NetworkImage(
+                                          //             tempoRecipePicture),
+                                          //       ),
+                                          //     ),
+                                          //   ),
                                       Positioned(
                                         // top:75,
                                         bottom: 0,
-                                        right: 20,
-                                        child: Icon(
-                                          Icons.add_circle,
-                                          size: 40,
-                                          color: uniColors.lcRed,
+                                        right: 18,
+                                        child: InkWell(
+                                          onTap: () {
+                                           pickImage(source: ImageSource.gallery);
+                                          },
+                                          child: Icon(
+                                            Icons.add_circle,
+                                            size: 43,
+                                            color: uniColors.lcRed,
+                                          ),
                                         ),
                                       )
                                     ],

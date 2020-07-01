@@ -14,8 +14,13 @@ class Utils {
   }
 
    static Future<File> pickImage({@required ImageSource source}) async {
-    File selectedImage = await ImagePicker.pickImage(source: source);
-    return selectedImage;
+    File _image;
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    _image = File(pickedFile.path);
+
+    return _image;
   }
 
     static String getInitials(String name) {

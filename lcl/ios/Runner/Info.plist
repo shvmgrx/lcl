@@ -2,10 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow app to use load camera picture</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow app to use load picture</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow app to use microphone for videocall.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Allow app to use camera for videocall.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
