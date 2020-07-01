@@ -1,5 +1,6 @@
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,15 @@ class Utils {
     String lastNameInitial = nameSplit[1][0];
     return firstNameInitial + lastNameInitial;
   }
+
+   static String randomString() {
+        var rand = new Random();
+        var codeUnits = new List.generate(9, (index) {
+          return rand.nextInt(33) + 89;
+        });
+
+        return new String.fromCharCodes(codeUnits);
+      }
 
   static int stateToNum(UserState userState) {
     switch (userState) {

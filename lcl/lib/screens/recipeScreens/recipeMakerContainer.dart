@@ -1,15 +1,20 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lcl/models/recipe.dart';
 import 'package:lcl/provider/image_upload_provider.dart';
+import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/resources/firebase_repository.dart';
+import 'package:lcl/resources/recipeMethods.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:lcl/utils/uniColors.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:lcl/utils/utilities.dart';
+import 'package:provider/provider.dart';
 
 class RecipeMakerContainer extends StatefulWidget {
   @override
@@ -25,7 +30,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     super.initState();
   }
 
-
   FirebaseRepository _repository = FirebaseRepository();
 
   ImageUploadProvider _imageUploadProvider;
@@ -35,23 +39,24 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   int recipePortion;
   String recipeInstructions;
 
-  int recipePreparationTime;
-  int recipeCookingTime;
-  int recipeRestTime;
+  String recipePreparationTime;
+  String recipeCookingTime;
+  String recipeRestTime;
   String recipeDifficulty;
   String recipeType;
   String recipeCuisine;
-  int recipeCalories;
+  String recipeCalories;
 
+  int recipeYums;
+  String recipePicture="dd";
 
-  String recipePicture;
+  static List recipeIngridients = new List()..length = 1;
 
-  static List ingridients = new List()..length = 1;
-
-  Map ing1;
-  String igUnit1;
-  String igAmt1;
-  String igName1;
+  
+ static String igUnit1;
+ static String igAmt1;
+ static String igName1;
+  Map ing1 = {"igName1": igName1, "igAmt1": igAmt1, "igUnit1": igUnit1};
 
   Map ing2;
   bool showIg2 = false;
@@ -229,11 +234,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
   bool showIg31 = false;
 
-
-  
-
-
-
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
       children: <Widget>[
@@ -313,10 +313,12 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             setState(() {
               ing1 = {"igName1": igName1, "igAmt1": igAmt1, "igUnit1": igUnit1};
               showIg2 = true;
+               print(ing1);
+              print(ing1['igName1']);
             });
           },
           child: Icon(
-            Icons.done,
+            ing1['igName1']==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -408,7 +410,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing2==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -500,7 +502,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+           ing3==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -592,7 +594,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+             ing4==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -684,7 +686,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing5==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -776,7 +778,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing6==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -868,7 +870,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+             ing7==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -960,7 +962,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing8==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -1052,7 +1054,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing9==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -1148,7 +1150,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing10==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -1244,7 +1246,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             });
           },
           child: Icon(
-            Icons.done,
+            ing11==null? CupertinoIcons.add_circled: CupertinoIcons.add_circled,
             color: uniColors.lcRed,
           ),
         ),
@@ -3078,10 +3080,41 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     return ig30;
   }
 
+  final RecipeMethods _recipeMethods = RecipeMethods();
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
+
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+
+    sendRecipe() {
+      Recipe _recipe = Recipe(
+          recipeId: Utils.randomString(),
+          userId: userProvider.getUser.uid,
+          recipeName: recipeName,
+          recipeDiet: recipeDiet,
+          recipePortion: recipePortion,
+          recipeIngridients: recipeIngridients,
+          recipeInstructions: recipeInstructions,
+          recipePreparationTime: recipePreparationTime,
+          recipeCookingTime: recipeCookingTime,
+          recipeRestTime: recipeRestTime,
+          recipeDifficulty: recipeDifficulty,
+          recipeType: recipeType,
+          recipeCuisine: recipeCuisine,
+          recipeCalories: recipeCalories,
+          recipePicture: recipePicture,
+          recipeYums: recipeYums,
+          recipeCreatorPic:userProvider.getUser.profilePhoto,
+          recipeCreatorName: userProvider.getUser.name,
+          );
+         
+
+      _recipeMethods.addRecipeToDb(_recipe);
+    }
+
     return SafeArea(
       child: Container(
         color: Colors.white,
@@ -3207,11 +3240,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             'Healthy',
                                             'Low Calorie'
                                           ]
-                                              .map((diet) =>
-                                                  DropdownMenuItem(
-                                                      value: diet,
-                                                      child:
-                                                          Text("$diet")))
+                                              .map((diet) => DropdownMenuItem(
+                                                  value: diet,
+                                                  child: Text("$diet")))
                                               .toList(),
                                           onChanged: (value) {
                                             setState(() {
@@ -3753,7 +3784,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
-
                                 // Padding(
                                 //   padding: const EdgeInsets.all(5.0),
                                 //   child: GestureDetector(
@@ -3806,98 +3836,121 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                       if (_fbKey.currentState
                                           .saveAndValidate()) {
                                         ing1 != null
-                                            ? ingridients.insert(0, ing1)
+                                            ? recipeIngridients.insert(0, ing1)
                                             : {};
                                         ing2 != null
-                                            ? ingridients.insert(1, ing2)
+                                            ? recipeIngridients.insert(1, ing2)
                                             : {};
                                         ing3 != null
-                                            ? ingridients.insert(2, ing3)
+                                            ? recipeIngridients.insert(2, ing3)
                                             : {};
                                         ing4 != null
-                                            ? ingridients.insert(3, ing4)
+                                            ? recipeIngridients.insert(3, ing4)
                                             : {};
                                         ing5 != null
-                                            ? ingridients.insert(4, ing5)
+                                            ? recipeIngridients.insert(4, ing5)
                                             : {};
                                         ing6 != null
-                                            ? ingridients.insert(5, ing6)
+                                            ? recipeIngridients.insert(5, ing6)
                                             : {};
                                         ing7 != null
-                                            ? ingridients.insert(6, ing7)
+                                            ? recipeIngridients.insert(6, ing7)
                                             : {};
                                         ing8 != null
-                                            ? ingridients.insert(7, ing8)
+                                            ? recipeIngridients.insert(7, ing8)
                                             : {};
                                         ing9 != null
-                                            ? ingridients.insert(8, ing9)
+                                            ? recipeIngridients.insert(8, ing9)
                                             : {};
                                         ing10 != null
-                                            ? ingridients.insert(9, ing10)
+                                            ? recipeIngridients.insert(9, ing10)
                                             : {};
                                         ing11 != null
-                                            ? ingridients.insert(10, ing11)
+                                            ? recipeIngridients.insert(
+                                                10, ing11)
                                             : {};
                                         ing12 != null
-                                            ? ingridients.insert(11, ing12)
+                                            ? recipeIngridients.insert(
+                                                11, ing12)
                                             : {};
                                         ing13 != null
-                                            ? ingridients.insert(12, ing13)
+                                            ? recipeIngridients.insert(
+                                                12, ing13)
                                             : {};
                                         ing14 != null
-                                            ? ingridients.insert(13, ing14)
+                                            ? recipeIngridients.insert(
+                                                13, ing14)
                                             : {};
                                         ing15 != null
-                                            ? ingridients.insert(14, ing15)
+                                            ? recipeIngridients.insert(
+                                                14, ing15)
                                             : {};
                                         ing16 != null
-                                            ? ingridients.insert(15, ing16)
+                                            ? recipeIngridients.insert(
+                                                15, ing16)
                                             : {};
                                         ing17 != null
-                                            ? ingridients.insert(16, ing17)
+                                            ? recipeIngridients.insert(
+                                                16, ing17)
                                             : {};
                                         ing18 != null
-                                            ? ingridients.insert(17, ing18)
+                                            ? recipeIngridients.insert(
+                                                17, ing18)
                                             : {};
                                         ing19 != null
-                                            ? ingridients.insert(18, ing19)
+                                            ? recipeIngridients.insert(
+                                                18, ing19)
                                             : {};
                                         ing20 != null
-                                            ? ingridients.insert(19, ing20)
+                                            ? recipeIngridients.insert(
+                                                19, ing20)
                                             : {};
                                         ing21 != null
-                                            ? ingridients.insert(20, ing21)
+                                            ? recipeIngridients.insert(
+                                                20, ing21)
                                             : {};
                                         ing22 != null
-                                            ? ingridients.insert(21, ing22)
+                                            ? recipeIngridients.insert(
+                                                21, ing22)
                                             : {};
                                         ing23 != null
-                                            ? ingridients.insert(22, ing23)
+                                            ? recipeIngridients.insert(
+                                                22, ing23)
                                             : {};
                                         ing24 != null
-                                            ? ingridients.insert(23, ing24)
+                                            ? recipeIngridients.insert(
+                                                23, ing24)
                                             : {};
                                         ing25 != null
-                                            ? ingridients.insert(24, ing25)
+                                            ? recipeIngridients.insert(
+                                                24, ing25)
                                             : {};
                                         ing26 != null
-                                            ? ingridients.insert(25, ing26)
+                                            ? recipeIngridients.insert(
+                                                25, ing26)
                                             : {};
                                         ing27 != null
-                                            ? ingridients.insert(26, ing27)
+                                            ? recipeIngridients.insert(
+                                                26, ing27)
                                             : {};
                                         ing28 != null
-                                            ? ingridients.insert(27, ing28)
+                                            ? recipeIngridients.insert(
+                                                27, ing28)
                                             : {};
                                         ing29 != null
-                                            ? ingridients.insert(28, ing29)
+                                            ? recipeIngridients.insert(
+                                                28, ing29)
                                             : {};
                                         ing30 != null
-                                            ? ingridients.insert(29, ing30)
+                                            ? recipeIngridients.insert(
+                                                29, ing30)
                                             : {};
 
-                                        print(_fbKey
-                                            .currentState.value.runtimeType);
+                                        print(_fbKey.currentState.value);
+                                        sendRecipe();
+                                        _fbKey.currentState.reset();
+                                        Navigator.pop(context);
+
                                       }
                                     },
                                     child: Container(
