@@ -13,6 +13,7 @@ import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
+import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:lcl/utils/utilities.dart';
 import 'package:provider/provider.dart';
@@ -138,9 +139,10 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: Text("LUNCHALIZE",
-                        style: TextStyles.editPageLogoTextStyle,
-                        textAlign: TextAlign.center),
+                    child:  Text(
+                                Strings.APP_NAME,
+                                style: TextStyles.appNameTextStyle,
+                              ),
                     // GradientText("FAVEEZ",
                     //     gradient: LinearGradient(colors: [
                     //       UniversalVariables.gold1,
