@@ -20,6 +20,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:lcl/utils/uniColors.dart';
 import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/language_pickers.dart';
+import 'package:lcl/widgets/CustomTile.dart';
 import 'package:lcl/widgets/nmBarButton.dart';
 import 'package:lcl/widgets/nmBox.dart';
 import 'package:lcl/widgets/nmButton.dart';
@@ -28,6 +29,7 @@ import 'package:provider/provider.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:floating_action_row/floating_action_row.dart';
 import 'package:flutter_web_browser/flutter_web_browser.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -51,7 +53,13 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   List<User> filterList;
 
-   List<Recipe> recipeList;
+  List<Recipe> recipeList;
+
+  //For search
+
+  List<Recipe> allRecipeList;
+  String query = "";
+  TextEditingController searchController = TextEditingController();
 
   String loggedInname;
   String loggedInprofilePhoto;
@@ -95,6 +103,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   void initState() {
+    
     getLocation();
     isVega = false;
     isVege = true;
@@ -130,6 +139,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       _repository.fetchBatch(user).then((List<User> list) {
         setState(() {
           filterList = list;
+
           // for (var i = 0; i < 1; i++) {
           // if (list[i].isInfluencer == true && list[i].isInfCert == true) {
           // filterList.add(list[i]);
@@ -140,11 +150,11 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
 
     _repository.fetchRecipeBatch().then((List<Recipe> recipes) {
-        setState(() {
-          recipeList = recipes;
-  
-        });
+      setState(() {
+        recipeList = recipes;
+        allRecipeList = recipes;
       });
+    });
 
     // TODO: implement initState
     super.initState();
@@ -198,6 +208,143 @@ class _DashboardScreenState extends State<DashboardScreen>
     controller.forward();
   }
 
+  searchAppBar(BuildContext context) {
+    return GradientAppBar(
+      backgroundColorStart: uniColors.standardWhite,
+      backgroundColorEnd: uniColors.standardWhite,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back, color: uniColors.grey1),
+        onPressed: () =>{
+           setState(() {
+             FocusScope.of(context).unfocus();
+             showSearchPage=false;
+             showLunchalizePage=true;
+           })
+        }
+      ),
+      elevation: 0,
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight + 20),
+        child: Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: TextField(
+            controller: searchController,
+            onChanged: (val) {
+              setState(() {
+                query = val;
+              });
+            },
+            cursorColor: uniColors.black,
+            autofocus: true,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: uniColors.lcRedLight,
+              fontSize: 25,
+            ),
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon: Icon(Icons.close, color: uniColors.grey1),
+                onPressed: () {
+                  WidgetsBinding.instance
+                      .addPostFrameCallback((_) => searchController.clear());
+                      FocusScope.of(context).unfocus();
+                },
+              ),
+              border: InputBorder.none,
+              hintText: "Search",
+              hintStyle: TextStyles.searchText
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  buildSuggestions(String query) {
+    //for hashtags
+    // final List<Recipe> suggestionCuisineList = (query.isEmpty)
+    //     ? []
+    //     : allRecipeList.where((Recipe recipe) {
+    //         String _getCuisine = recipe.recipeCuisine==null? "none" : recipe.recipeCuisine.toLowerCase();
+    //         String _filteredCuisine = _getCuisine.replaceAll("#", "");
+    //         String _filteredQuery = query.replaceAll("#", "");
+    //         _filteredQuery = _filteredQuery.toLowerCase();
+    //         bool matchesCuisines = _filteredCuisine.contains(_filteredQuery);
+    //         return (matchesCuisines);
+    //       }).toList();
+
+    final List<Recipe> suggestionList = (query.isEmpty)
+        ? []
+        : allRecipeList.where((Recipe recipe) {
+            String _query = query.toLowerCase();
+            String _getName = recipe.recipeName == null
+                ? "none"
+                : recipe.recipeName.toLowerCase();
+
+            bool matchesName = _getName.contains(_query);
+            return (matchesName);
+          }).toList();
+
+    print(allRecipeList);
+
+    return ListView.builder(
+      //withHashtags
+      // itemCount: suggestionCuisineList.length>0?suggestionCuisineList.length:suggestionList.length,
+      // itemBuilder: ((context, index) {
+      //   User searchedUser = User(
+      //       uid: suggestionCuisineList.length>0?suggestionHashList[index].uid:suggestionList[index].uid,
+      //       profilePhoto: suggestionCuisineList.length>0?suggestionHashList[index].profilePhoto:suggestionList[index].profilePhoto,
+      //       name: suggestionCuisineList.length>0?suggestionHashList[index].name:suggestionList[index].name,
+      //       username: suggestionCuisineList.length>0?suggestionHashList[index].username:suggestionList[index].username);
+
+      itemCount: suggestionList.length,
+      itemBuilder: ((context, index) {
+        //can add more details here which should be displayed
+        Recipe searchedRecipe = Recipe(
+          recipeId: suggestionList[index].recipeId,
+          recipePicture: suggestionList[index].recipePicture,
+          recipeName: suggestionList[index].recipeName,
+        );
+
+        return CustomTile(
+          mini: false,
+          onTap: () {
+            // Navigator.of(context).push(MaterialPageRoute(
+            //     builder: (context) =>
+            //         InfluencerDetails(selectedInfluencer: searchedUser)));
+          },
+          leading: CircleAvatar(
+            backgroundImage: (searchedRecipe.recipePicture == "dummyNoImage" ||
+                    searchedRecipe.recipePicture == null)
+                ? AssetImage("assets/plate.jpg")
+                : NetworkImage("${searchedRecipe.recipePicture}"),
+            backgroundColor: Colors.grey,
+          ),
+          title: (searchedRecipe.recipeName == "" ||
+                  searchedRecipe.recipeName == null)
+              ? Text(
+                  "LC Recipe",
+                  style: TextStyles.searchTextResult
+                )
+              : Text(
+                  searchedRecipe.recipeName,
+                  style: TextStyles.searchTextResult
+                ),
+          subtitle: (searchedRecipe.recipeDifficulty == "" ||
+                  searchedRecipe.recipeDifficulty == null)
+              ? Text(
+                  "",
+                  style: TextStyles.searchSubTextResult
+                )
+              : Text(
+                  searchedRecipe.recipeDifficulty,
+                  style: TextStyles.searchSubTextResult
+                ),
+        );
+      }),
+    );
+  }
+
   void showLunchalizePageNow() {
     controller.reverse();
 
@@ -248,16 +395,13 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-    Future<Null> refreshReci() {
-    return   _repository.fetchRecipeBatch().then((List<Recipe> recipes) {
-        setState(() {
-          recipeList = recipes;
-  
-        });
+  Future<Null> refreshReci() {
+    return _repository.fetchRecipeBatch().then((List<Recipe> recipes) {
+      setState(() {
+        recipeList = recipes;
       });
+    });
   }
-
-  
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -368,6 +512,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             // horizontalSwipeMinVelocity: 200.0
           ),
           child: Scaffold(
+            appBar: showSearchPage ? searchAppBar(context) : null,
             key: _scaffoldKey,
             drawer: Drawer(
               elevation: 15,
@@ -745,542 +890,565 @@ class _DashboardScreenState extends State<DashboardScreen>
             //   ),
             // ),
             backgroundColor: Colors.white,
-            body: RefreshIndicator(
-              key: _refreshIndicatorKey,
-              onRefresh: refresh,
-              child: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  Hero(
-                    tag: "AvailableUserDetail",
-                    child: FractionallySizedBox(
-                      alignment: Alignment.topCenter,
-                      heightFactor: 0.40,
-                      child: Container(
-                        child: Stack(
-                          children: <Widget>[
-                            //Image.asset(
-                            // "assets/banner2.jpg",
-                            //  width: MediaQuery.of(context).size.width,
-                            //  height: 500,
-                            //  fit: BoxFit.fitWidth,
-                            // ),
-                            Column(
-                              children: <Widget>[
-                                MainScreenBar(
-                                  opacity: 1,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // _scaffoldKey.currentState.openDrawer();
-                                    showModalBottomSheetCustom(
-                                      //   isScrollControlled: true,
-                                      context: context,
-                                      //   backgroundColor: uniColors.white1,
-                                      builder: (context) =>
-                                          RecipeMakerContainer(),
-                                    );
-                                  },
-                                  child: Text(
-                                    Strings.APP_NAME,
-                                    style: TextStyles.appNameTextStyle,
-                                  ),
-                                ),
-                                // Expanded(
-                                //  child: Align(
-                                //   alignment: Alignment(0, -0.6),
-                                //child: Text(
-                                // Strings.welcomeToAPlanet,
-                                //  style: TextStyles.bigHeadingTextStyle,
-                                //   textAlign: TextAlign.center,
-                                //  ),
-                                //  ),
-                                // ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  FractionallySizedBox(
-                    alignment: Alignment.bottomCenter,
-                    heightFactor: 0.85,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(40),
-                        ),
-                        color: uniColors.lcRed,
-                      ),
-                      child: Opacity(
-                        opacity: controller.value,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 25,
-                                vertical: 16,
-                              ),
-                              // child: Text(
-                              //   Strings.relatedToYou,
-                              //   style: TextStyles.buttonTextStyle,
-                              // ),
-                            ),
-                            Visibility(
-                              visible: showRecipePage,
-                              child: Container(
-                                //margin: EdgeInsets.only(top: 20),
-                                height:
-                                    MediaQuery.of(context).size.height - 300.0,
-                                child: GridView.count(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 3,
-                                  mainAxisSpacing: 0,
-                                  childAspectRatio: 0.88,
-                                  primary: false,
-                                  children: <Widget>[
-                                    if (refreshLunchalize)
-                                      if (recipeList != null)
-                                        ...recipeList.map((e) {
-                                          print(recipeList);
-                                          return buildRecipeGrid(e);
-                                        }).toList(),
-                                    // Text("Main screen"),
-                                    // CupertinoButton(
-                                    //     child: Text("update data"),
-                                    //     onPressed: () {
-                                    //       _repository.getCurrentUser().then((FirebaseUser user) {
-                                    //         print(user.displayName);
-                                    //         _repository.updateDatatoDb(
-                                    //             user, user.displayName, user.displayName, 6);
-                                    //       });
-                                    //     }),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: showSearchPage,
-                              child: Container(
-                                  //margin: EdgeInsets.only(top: 20),
-                                  height: MediaQuery.of(context).size.height -
-                                      300.0,
-                                  child: Center(child: Text("SearchPage"))),
-                            ),
-
-                            Visibility(
-                              visible: showLunchalizePage,
-                              child: Container(
-                                //margin: EdgeInsets.only(top: 20),
-                                height:
-                                    MediaQuery.of(context).size.height - 300.0,
-                                child: GridView.count(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 3,
-                                  mainAxisSpacing: 0,
-                                  childAspectRatio: 0.88,
-                                  primary: false,
-                                  children: <Widget>[
-                                    if (refreshLunchalize)
-                                      if (filterList != null)
-                                        ...filterList.map((e) {
-                                          print(filterList);
-                                          return buildFilterGrid(e);
-                                        }).toList(),
-                                    // Text("Main screen"),
-                                    // CupertinoButton(
-                                    //     child: Text("update data"),
-                                    //     onPressed: () {
-                                    //       _repository.getCurrentUser().then((FirebaseUser user) {
-                                    //         print(user.displayName);
-                                    //         _repository.updateDatatoDb(
-                                    //             user, user.displayName, user.displayName, 6);
-                                    //       });
-                                    //     }),
-                                  ],
-                                ),
-                              ),
-                            ),
-
-                            Visibility(
-                              visible: showFavsPage,
-                              child: Container(
-                                  //margin: EdgeInsets.only(top: 20),
-                                  height: MediaQuery.of(context).size.height -
-                                      300.0,
-                                  child: Center(child: Text("FavouritesPage"))),
-                            ),
-
-                            Visibility(
-                              visible: showAccountPage,
-                              child: Container(
-                                  //margin: EdgeInsets.only(top: 20),
-                                  height: MediaQuery.of(context).size.height -
-                                      300.0,
-                                  child: Center(child: Text("AccountPage"))),
-                            ),
-
-                            // Expanded(
-                            //   child: SingleChildScrollView(
-                            //     scrollDirection: Axis.horizontal,
-                            //     child: Row(
-                            //       children: <Widget>[
-                            //         Container(
-                            //           margin: const EdgeInsets.only(left: 16),
-                            //           width: MediaQuery.of(context).size.width * 0.5,
-                            //            height: MediaQuery.of(context).size.height *0.3,
-                            //           child: Column(
-                            //             crossAxisAlignment: CrossAxisAlignment.start,
-                            //             children: <Widget>[
-                            //               Expanded(
-                            //                 child: ClipRRect(
-                            //                   child: Image.asset(
-                            //                     "assets/man3.jpg",
-                            //                     fit: BoxFit.fill,
-                            //                     width: MediaQuery.of(context).size.width *0.5,
-                            //                    // height: MediaQuery.of(context).size.height *0.2,
-                            //                   ),
-                            //                   borderRadius: BorderRadius.circular(12),
-                            //                 ),
-                            //               ),
-                            //               Padding(
-                            //                 padding:
-                            //                     const EdgeInsets.symmetric(vertical: 6),
-                            //                 child: Text(
-                            //                   Strings.lifeWithATiger,
-                            //                   style: TextStyles.titleTextStyle,
-                            //                 ),
-                            //               ),
-                            //               Padding(
-                            //                 padding:
-                            //                     const EdgeInsets.symmetric(vertical: 6),
-                            //                 child: Text(
-                            //                   Strings.loremIpsum1,
-                            //                   style: TextStyles.body3TextStyle,
-                            //                 ),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //         SizedBox(
-                            //           width: 20,
-                            //         ),
-                            //         Container(
-                            //           width: MediaQuery.of(context).size.width * 0.5,
-                            //           child: Column(
-                            //             crossAxisAlignment: CrossAxisAlignment.start,
-                            //             children: <Widget>[
-                            //               Expanded(
-                            //                 child: ClipRRect(
-                            //                   child: Image.asset(
-                            //                     "assets/woman1.jpg",
-                            //                     width: MediaQuery.of(context).size.width *
-                            //                         0.5,
-                            //                     fit: BoxFit.cover,
-                            //                   ),
-                            //                   borderRadius: BorderRadius.circular(12),
-                            //                 ),
-                            //               ),
-                            //               Padding(
-                            //                 padding:
-                            //                     const EdgeInsets.symmetric(vertical: 6),
-                            //                 child: Text(
-                            //                   Strings.wildAnimals,
-                            //                   style: TextStyles.titleTextStyle,
-                            //                 ),
-                            //               ),
-                            //               Padding(
-                            //                 padding:
-                            //                     const EdgeInsets.symmetric(vertical: 6),
-                            //                 child: Text(
-                            //                   Strings.loremIpsum2,
-                            //                   style: TextStyles.body3TextStyle,
-                            //                 ),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(
-                            //     horizontal: 16,
-                            //     vertical: 16,
-                            //   ),
-                            //   child: Text(
-                            //     Strings.quickCategories,
-                            //     style: TextStyles.titleTextStyle,
-                            //   ),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //     mainAxisSize: MainAxisSize.max,
-                            //     children: <Widget>[
-                            //       Column(
-                            //         children: <Widget>[
-                            //           GestureDetector(
-                            //             onTap: () {
-                            //               getLocation();
-                            //               _scaffoldKey.currentState.openDrawer();
-                            //               // showDialog(
-                            //               //   context: context,
-                            //               //   barrierDismissible:
-                            //               //       false, // user must tap button!
-                            //               //   builder: (BuildContext context) {
-                            //               //     return AlertDialog(
-                            //               //       title: Center(child: Text('Distance')),
-                            //               //       elevation: 2.5,
-                            //               //       backgroundColor:
-                            //               //           Colors.white.withOpacity(0.8),
-                            //               //       shape: RoundedRectangleBorder(
-                            //               //           borderRadius: BorderRadius.only(
-                            //               //         topRight: Radius.circular(20),
-                            //               //         topLeft: Radius.circular(20),
-                            //               //         bottomLeft: Radius.circular(10),
-                            //               //         bottomRight: Radius.circular(10),
-                            //               //       )),
-                            //               //       content: SingleChildScrollView(
-                            //               //         child: ListBody(
-                            //               //           children: <Widget>[
-                            //               //             Text("$distance"),
-                            //               //             Slider(
-                            //               //               value: distance.toDouble(),
-                            //               //               min: 0.0,
-                            //               //               max: 220.0,
-                            //               //               activeColor: uniColors.lcRed,
-                            //               //               inactiveColor:
-                            //               //                   uniColors.standardWhite,
-                            //               //               onChanged: (double newValue) {
-                            //               //                 setState(() {
-                            //               //                   distance = newValue.round();
-                            //               //                 });
-                            //               //               },
-                            //               //             ),
-                            //               //           ],
-                            //               //         ),
-                            //               //       ),
-                            //               //       actions: <Widget>[
-                            //               //         Row(
-                            //               //           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //               //           children: <Widget>[
-                            //               //             FlatButton(
-                            //               //               child: Text('CANCEL'),
-                            //               //               onPressed: () {
-                            //               //                 Navigator.of(context).pop();
-                            //               //               },
-                            //               //             ),
-                            //               //             FlatButton(
-                            //               //               child: Text('SUBMIT'),
-                            //               //               onPressed: () {
-                            //               //                 Navigator.of(context).pop();
-                            //               //               },
-                            //               //             ),
-                            //               //           ],
-                            //               //         ),
-                            //               //       ],
-                            //               //     );
-                            //               //   },
-                            //               // );
-                            //             },
-                            //             child: Container(
-                            //               padding: const EdgeInsets.all(12),
-                            //               decoration: BoxDecoration(
-                            //                   borderRadius: BorderRadius.circular(8),
-                            //                   color: Colors.white),
-                            //               // child: Image.asset(
-                            //               //   "assets/city1.png",
-                            //               //   height: 50,
-                            //               //   width: 50,
-                            //               // ),
-                            //             ),
-                            //           ),
-                            //           SizedBox(
-                            //             height: 4,
-                            //           ),
-                            //           Text(
-                            //             Strings.location,
-                            //             style: TextStyles.body2TextStyle,
-                            //           ),
-                            //         ],
-                            //       ),
-                            //       Column(
-                            //         children: <Widget>[
-                            //           Container(
-                            //             padding: const EdgeInsets.all(12),
-                            //             decoration: BoxDecoration(
-                            //                 borderRadius: BorderRadius.circular(8),
-                            //                 color: Colors.white),
-                            //             // child: Image.asset(
-                            //             //   "assets/time2.png",
-                            //             //   height: 50,
-                            //             //   width: 50,
-                            //             // ),
-                            //           ),
-                            //           SizedBox(
-                            //             height: 4,
-                            //           ),
-                            //           Text(
-                            //             Strings.lion,
-                            //             style: TextStyles.body2TextStyle,
-                            //           ),
-                            //         ],
-                            //       ),
-                            //       // Column(
-                            //       //   children: <Widget>[
-                            //       //     Container(
-                            //       //       padding: const EdgeInsets.all(12),
-                            //       //       decoration: BoxDecoration(
-                            //       //         borderRadius: BorderRadius.circular(8),
-                            //       //         color: Colors.white
-                            //       //       ),
-                            //       //       child: Image.asset(
-                            //       //         "assets/meal2.png",
-                            //       //         height: 50,
-                            //       //         width: 50,
-                            //       //       ),
-                            //       //     ),
-                            //       //     SizedBox(
-                            //       //       height: 4,
-                            //       //     ),
-                            //       //     Text(
-                            //       //       Strings.reptiles,
-                            //       //       style: TextStyles.body2TextStyle,
-                            //       //     ),
-                            //       //   ],
-                            //       // ),
-                            //       Column(
-                            //         children: <Widget>[
-                            //           Container(
-                            //             padding: const EdgeInsets.all(12),
-                            //             decoration: BoxDecoration(
-                            //                 borderRadius: BorderRadius.circular(8),
-                            //                 color: Colors.white),
-                            //             // child: Image.asset(
-                            //             //   "assets/mode.png",
-                            //             //   height: 50,
-                            //             //   width: 50,
-                            //             // ),
-                            //           ),
-                            //           SizedBox(
-                            //             height: 4,
-                            //           ),
-                            //           Text(
-                            //             Strings.pets,
-                            //             style: TextStyles.body2TextStyle,
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: 32,
-                            // ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Visibility(
-                    visible: (showRecipePage),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        //  height:80,
-                        margin: EdgeInsets.only(bottom: 55),
-                        child: FloatingActionRow(
-                          color: uniColors.white2,
-                          children: <Widget>[
-                            // FloatingActionRowButton(
-                            //     icon: Icon(Icons.add), onTap: () {}),
-                            // FloatingActionRowDivider(),
-                            FloatingActionRowButton(
-                                icon: Icon(
-                                  Icons.favorite,
-                                  color: uniColors.lcRed,
-                                  size: 25,
-                                ),
-                                onTap: () {}),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: FloatingActionRowButton(
-                                  icon: Icon(
-                                    Icons.refresh,
-                                    color: uniColors.lcRed,
-                                    size: 60,
-                                  ),
-                                  onTap: () {
-                                    refreshReci();
-                                  }),
-                            ),
-                            FloatingActionRowButton(
-                                icon: Icon(
-                                  Icons.atm,
-                                  color: uniColors.lcRed,
-                                  size: 25,
-                                ),
-                                onTap: () {}),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  
-                  Visibility(
-                    visible: (showLunchalizePage),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        //  height:80,
-                        margin: EdgeInsets.only(bottom: 55),
-                        child: FloatingActionRow(
-                          color: uniColors.white2,
-                          children: <Widget>[
-                            // FloatingActionRowButton(
-                            //     icon: Icon(Icons.add), onTap: () {}),
-                            // FloatingActionRowDivider(),
-                            FloatingActionRowButton(
-                                icon: Icon(
-                                  Icons.favorite,
-                                  color: uniColors.lcRed,
-                                  size: 25,
-                                ),
-                                onTap: () {}),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: FloatingActionRowButton(
-                                  icon: Icon(
-                                    Icons.refresh,
-                                    color: uniColors.lcRed,
-                                    size: 60,
-                                  ),
-                                  onTap: () {
-                                    refresh();
-                                  }),
-                            ),
-                            FloatingActionRowButton(
-                                icon: Icon(
-                                  Icons.location_on,
-                                  color: uniColors.lcRed,
-                                  size: 25,
-                                ),
-                                onTap: () {}),
-                          ],
-                        ),
-                      ),
-                    ),
+            body: showSearchPage
+                ? Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: buildSuggestions(query),
                   )
-                ],
-              ),
-            ),
+                : RefreshIndicator(
+                    key: _refreshIndicatorKey,
+                    onRefresh: refresh,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: <Widget>[
+                        Hero(
+                          tag: "AvailableUserDetail",
+                          child: FractionallySizedBox(
+                            alignment: Alignment.topCenter,
+                            heightFactor: 0.40,
+                            child: Container(
+                              child: Stack(
+                                children: <Widget>[
+                                  //Image.asset(
+                                  // "assets/banner2.jpg",
+                                  //  width: MediaQuery.of(context).size.width,
+                                  //  height: 500,
+                                  //  fit: BoxFit.fitWidth,
+                                  // ),
+                                  Column(
+                                    children: <Widget>[
+                                      MainScreenBar(
+                                        opacity: 1,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          // _scaffoldKey.currentState.openDrawer();
+                                          showModalBottomSheetCustom(
+                                            //   isScrollControlled: true,
+                                            context: context,
+                                            //   backgroundColor: uniColors.white1,
+                                            builder: (context) =>
+                                                RecipeMakerContainer(),
+                                          );
+                                        },
+                                        child: Text(
+                                          Strings.APP_NAME,
+                                          style: TextStyles.appNameTextStyle,
+                                        ),
+                                      ),
+                                      // Expanded(
+                                      //  child: Align(
+                                      //   alignment: Alignment(0, -0.6),
+                                      //child: Text(
+                                      // Strings.welcomeToAPlanet,
+                                      //  style: TextStyles.bigHeadingTextStyle,
+                                      //   textAlign: TextAlign.center,
+                                      //  ),
+                                      //  ),
+                                      // ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        FractionallySizedBox(
+                          alignment: Alignment.bottomCenter,
+                          heightFactor: 0.85,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(40),
+                              ),
+                              color: uniColors.lcRed,
+                            ),
+                            child: Opacity(
+                              opacity: controller.value,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 25,
+                                      vertical: 16,
+                                    ),
+                                    // child: Text(
+                                    //   Strings.relatedToYou,
+                                    //   style: TextStyles.buttonTextStyle,
+                                    // ),
+                                  ),
+                                  Visibility(
+                                    visible: showRecipePage,
+                                    child: Container(
+                                      //margin: EdgeInsets.only(top: 20),
+                                      height:
+                                          MediaQuery.of(context).size.height -
+                                              300.0,
+                                      child: GridView.count(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 3,
+                                        mainAxisSpacing: 0,
+                                        childAspectRatio: 0.88,
+                                        primary: false,
+                                        children: <Widget>[
+                                          if (refreshLunchalize)
+                                            if (recipeList != null)
+                                              ...recipeList.map((e) {
+                                                print(recipeList);
+                                                return buildRecipeGrid(e);
+                                              }).toList(),
+                                          // Text("Main screen"),
+                                          // CupertinoButton(
+                                          //     child: Text("update data"),
+                                          //     onPressed: () {
+                                          //       _repository.getCurrentUser().then((FirebaseUser user) {
+                                          //         print(user.displayName);
+                                          //         _repository.updateDatatoDb(
+                                          //             user, user.displayName, user.displayName, 6);
+                                          //       });
+                                          //     }),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  //searcho
+                                  Visibility(
+                                    visible: showSearchPage,
+                                    child: Center(
+                                      child: Container(
+                                          color: Colors.yellow,
+                                          //margin: EdgeInsets.only(top: 20),
+                                          height: screenHeight * 0.7,
+                                          width: screenWidth * 0.99,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              //     searchAppBar(context),
+                                              Center(
+                                                child: buildSuggestions(query),
+                                              ),
+                                            ],
+                                          )),
+                                    ),
+                                  ),
+
+                                  Visibility(
+                                    visible: showLunchalizePage,
+                                    child: Container(
+                                      //margin: EdgeInsets.only(top: 20),
+                                      height:
+                                          MediaQuery.of(context).size.height -
+                                              300.0,
+                                      child: GridView.count(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 3,
+                                        mainAxisSpacing: 0,
+                                        childAspectRatio: 0.88,
+                                        primary: false,
+                                        children: <Widget>[
+                                          if (refreshLunchalize)
+                                            if (filterList != null)
+                                              ...filterList.map((e) {
+                                                print(filterList);
+                                                return buildFilterGrid(e);
+                                              }).toList(),
+                                          // Text("Main screen"),
+                                          // CupertinoButton(
+                                          //     child: Text("update data"),
+                                          //     onPressed: () {
+                                          //       _repository.getCurrentUser().then((FirebaseUser user) {
+                                          //         print(user.displayName);
+                                          //         _repository.updateDatatoDb(
+                                          //             user, user.displayName, user.displayName, 6);
+                                          //       });
+                                          //     }),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+
+                                  Visibility(
+                                    visible: showFavsPage,
+                                    child: Container(
+                                        //margin: EdgeInsets.only(top: 20),
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                300.0,
+                                        child: Center(
+                                            child: Text("FavouritesPage"))),
+                                  ),
+
+                                  Visibility(
+                                    visible: showAccountPage,
+                                    child: Container(
+                                        //margin: EdgeInsets.only(top: 20),
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                300.0,
+                                        child:
+                                            Center(child: Text("AccountPage"))),
+                                  ),
+
+                                  // Expanded(
+                                  //   child: SingleChildScrollView(
+                                  //     scrollDirection: Axis.horizontal,
+                                  //     child: Row(
+                                  //       children: <Widget>[
+                                  //         Container(
+                                  //           margin: const EdgeInsets.only(left: 16),
+                                  //           width: MediaQuery.of(context).size.width * 0.5,
+                                  //            height: MediaQuery.of(context).size.height *0.3,
+                                  //           child: Column(
+                                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                                  //             children: <Widget>[
+                                  //               Expanded(
+                                  //                 child: ClipRRect(
+                                  //                   child: Image.asset(
+                                  //                     "assets/man3.jpg",
+                                  //                     fit: BoxFit.fill,
+                                  //                     width: MediaQuery.of(context).size.width *0.5,
+                                  //                    // height: MediaQuery.of(context).size.height *0.2,
+                                  //                   ),
+                                  //                   borderRadius: BorderRadius.circular(12),
+                                  //                 ),
+                                  //               ),
+                                  //               Padding(
+                                  //                 padding:
+                                  //                     const EdgeInsets.symmetric(vertical: 6),
+                                  //                 child: Text(
+                                  //                   Strings.lifeWithATiger,
+                                  //                   style: TextStyles.titleTextStyle,
+                                  //                 ),
+                                  //               ),
+                                  //               Padding(
+                                  //                 padding:
+                                  //                     const EdgeInsets.symmetric(vertical: 6),
+                                  //                 child: Text(
+                                  //                   Strings.loremIpsum1,
+                                  //                   style: TextStyles.body3TextStyle,
+                                  //                 ),
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //         ),
+                                  //         SizedBox(
+                                  //           width: 20,
+                                  //         ),
+                                  //         Container(
+                                  //           width: MediaQuery.of(context).size.width * 0.5,
+                                  //           child: Column(
+                                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                                  //             children: <Widget>[
+                                  //               Expanded(
+                                  //                 child: ClipRRect(
+                                  //                   child: Image.asset(
+                                  //                     "assets/woman1.jpg",
+                                  //                     width: MediaQuery.of(context).size.width *
+                                  //                         0.5,
+                                  //                     fit: BoxFit.cover,
+                                  //                   ),
+                                  //                   borderRadius: BorderRadius.circular(12),
+                                  //                 ),
+                                  //               ),
+                                  //               Padding(
+                                  //                 padding:
+                                  //                     const EdgeInsets.symmetric(vertical: 6),
+                                  //                 child: Text(
+                                  //                   Strings.wildAnimals,
+                                  //                   style: TextStyles.titleTextStyle,
+                                  //                 ),
+                                  //               ),
+                                  //               Padding(
+                                  //                 padding:
+                                  //                     const EdgeInsets.symmetric(vertical: 6),
+                                  //                 child: Text(
+                                  //                   Strings.loremIpsum2,
+                                  //                   style: TextStyles.body3TextStyle,
+                                  //                 ),
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //     horizontal: 16,
+                                  //     vertical: 16,
+                                  //   ),
+                                  //   child: Text(
+                                  //     Strings.quickCategories,
+                                  //     style: TextStyles.titleTextStyle,
+                                  //   ),
+                                  // ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                  //   child: Row(
+                                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //     mainAxisSize: MainAxisSize.max,
+                                  //     children: <Widget>[
+                                  //       Column(
+                                  //         children: <Widget>[
+                                  //           GestureDetector(
+                                  //             onTap: () {
+                                  //               getLocation();
+                                  //               _scaffoldKey.currentState.openDrawer();
+                                  //               // showDialog(
+                                  //               //   context: context,
+                                  //               //   barrierDismissible:
+                                  //               //       false, // user must tap button!
+                                  //               //   builder: (BuildContext context) {
+                                  //               //     return AlertDialog(
+                                  //               //       title: Center(child: Text('Distance')),
+                                  //               //       elevation: 2.5,
+                                  //               //       backgroundColor:
+                                  //               //           Colors.white.withOpacity(0.8),
+                                  //               //       shape: RoundedRectangleBorder(
+                                  //               //           borderRadius: BorderRadius.only(
+                                  //               //         topRight: Radius.circular(20),
+                                  //               //         topLeft: Radius.circular(20),
+                                  //               //         bottomLeft: Radius.circular(10),
+                                  //               //         bottomRight: Radius.circular(10),
+                                  //               //       )),
+                                  //               //       content: SingleChildScrollView(
+                                  //               //         child: ListBody(
+                                  //               //           children: <Widget>[
+                                  //               //             Text("$distance"),
+                                  //               //             Slider(
+                                  //               //               value: distance.toDouble(),
+                                  //               //               min: 0.0,
+                                  //               //               max: 220.0,
+                                  //               //               activeColor: uniColors.lcRed,
+                                  //               //               inactiveColor:
+                                  //               //                   uniColors.standardWhite,
+                                  //               //               onChanged: (double newValue) {
+                                  //               //                 setState(() {
+                                  //               //                   distance = newValue.round();
+                                  //               //                 });
+                                  //               //               },
+                                  //               //             ),
+                                  //               //           ],
+                                  //               //         ),
+                                  //               //       ),
+                                  //               //       actions: <Widget>[
+                                  //               //         Row(
+                                  //               //           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //               //           children: <Widget>[
+                                  //               //             FlatButton(
+                                  //               //               child: Text('CANCEL'),
+                                  //               //               onPressed: () {
+                                  //               //                 Navigator.of(context).pop();
+                                  //               //               },
+                                  //               //             ),
+                                  //               //             FlatButton(
+                                  //               //               child: Text('SUBMIT'),
+                                  //               //               onPressed: () {
+                                  //               //                 Navigator.of(context).pop();
+                                  //               //               },
+                                  //               //             ),
+                                  //               //           ],
+                                  //               //         ),
+                                  //               //       ],
+                                  //               //     );
+                                  //               //   },
+                                  //               // );
+                                  //             },
+                                  //             child: Container(
+                                  //               padding: const EdgeInsets.all(12),
+                                  //               decoration: BoxDecoration(
+                                  //                   borderRadius: BorderRadius.circular(8),
+                                  //                   color: Colors.white),
+                                  //               // child: Image.asset(
+                                  //               //   "assets/city1.png",
+                                  //               //   height: 50,
+                                  //               //   width: 50,
+                                  //               // ),
+                                  //             ),
+                                  //           ),
+                                  //           SizedBox(
+                                  //             height: 4,
+                                  //           ),
+                                  //           Text(
+                                  //             Strings.location,
+                                  //             style: TextStyles.body2TextStyle,
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //       Column(
+                                  //         children: <Widget>[
+                                  //           Container(
+                                  //             padding: const EdgeInsets.all(12),
+                                  //             decoration: BoxDecoration(
+                                  //                 borderRadius: BorderRadius.circular(8),
+                                  //                 color: Colors.white),
+                                  //             // child: Image.asset(
+                                  //             //   "assets/time2.png",
+                                  //             //   height: 50,
+                                  //             //   width: 50,
+                                  //             // ),
+                                  //           ),
+                                  //           SizedBox(
+                                  //             height: 4,
+                                  //           ),
+                                  //           Text(
+                                  //             Strings.lion,
+                                  //             style: TextStyles.body2TextStyle,
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //       // Column(
+                                  //       //   children: <Widget>[
+                                  //       //     Container(
+                                  //       //       padding: const EdgeInsets.all(12),
+                                  //       //       decoration: BoxDecoration(
+                                  //       //         borderRadius: BorderRadius.circular(8),
+                                  //       //         color: Colors.white
+                                  //       //       ),
+                                  //       //       child: Image.asset(
+                                  //       //         "assets/meal2.png",
+                                  //       //         height: 50,
+                                  //       //         width: 50,
+                                  //       //       ),
+                                  //       //     ),
+                                  //       //     SizedBox(
+                                  //       //       height: 4,
+                                  //       //     ),
+                                  //       //     Text(
+                                  //       //       Strings.reptiles,
+                                  //       //       style: TextStyles.body2TextStyle,
+                                  //       //     ),
+                                  //       //   ],
+                                  //       // ),
+                                  //       Column(
+                                  //         children: <Widget>[
+                                  //           Container(
+                                  //             padding: const EdgeInsets.all(12),
+                                  //             decoration: BoxDecoration(
+                                  //                 borderRadius: BorderRadius.circular(8),
+                                  //                 color: Colors.white),
+                                  //             // child: Image.asset(
+                                  //             //   "assets/mode.png",
+                                  //             //   height: 50,
+                                  //             //   width: 50,
+                                  //             // ),
+                                  //           ),
+                                  //           SizedBox(
+                                  //             height: 4,
+                                  //           ),
+                                  //           Text(
+                                  //             Strings.pets,
+                                  //             style: TextStyles.body2TextStyle,
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 32,
+                                  // ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: (showRecipePage),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              //  height:80,
+                              margin: EdgeInsets.only(bottom: 55),
+                              child: FloatingActionRow(
+                                color: uniColors.white2,
+                                children: <Widget>[
+                                  // FloatingActionRowButton(
+                                  //     icon: Icon(Icons.add), onTap: () {}),
+                                  // FloatingActionRowDivider(),
+                                  // FloatingActionRowButton(
+                                  //     icon: Icon(
+                                  //       Icons.favorite,
+                                  //       color: uniColors.lcRed,
+                                  //       size: 25,
+                                  //     ),
+                                  //     onTap: () {}),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    child: FloatingActionRowButton(
+                                        icon: Icon(
+                                          Icons.refresh,
+                                          color: uniColors.lcRed,
+                                          size: 50,
+                                        ),
+                                        onTap: () {
+                                          refreshReci();
+                                        }),
+                                  ),
+                                  // FloatingActionRowButton(
+                                  //     icon: Icon(
+                                  //       Icons.atm,
+                                  //       color: uniColors.lcRed,
+                                  //       size: 25,
+                                  //     ),
+                                  //     onTap: () {}),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: (showLunchalizePage),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              //  height:80,
+                              margin: EdgeInsets.only(bottom: 55),
+                              child: FloatingActionRow(
+                                color: uniColors.white2,
+                                children: <Widget>[
+                                  // FloatingActionRowButton(
+                                  //     icon: Icon(Icons.add), onTap: () {}),
+                                  // FloatingActionRowDivider(),
+                                  FloatingActionRowButton(
+                                      icon: Icon(
+                                        Icons.favorite,
+                                        color: uniColors.lcRed,
+                                        size: 25,
+                                      ),
+                                      onTap: () {}),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: FloatingActionRowButton(
+                                        icon: Icon(
+                                          Icons.refresh,
+                                          color: uniColors.lcRed,
+                                          size: 60,
+                                        ),
+                                        onTap: () {
+                                          refresh();
+                                        }),
+                                  ),
+                                  FloatingActionRowButton(
+                                      icon: Icon(
+                                        Icons.location_on,
+                                        color: uniColors.lcRed,
+                                        size: 25,
+                                      ),
+                                      onTap: () {}),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
             // floatingActionButton: Visibility(
             //     visible: showBottomBar,
             //     child: FloatingActionButton(
@@ -1383,14 +1551,14 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
             ),
           ),
-          onSwipeUp: () => 
-          (showRecipePage)?
-          showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: uniColors.white1,
-                builder: (context) => RecipeMakerContainer(),
-              ):{}
+          onSwipeUp: () => (showRecipePage)
+              ? showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: uniColors.white1,
+                  builder: (context) => RecipeMakerContainer(),
+                )
+              : {}
 
           // showModalBottomSheetCustom(
           //   //   isScrollControlled: true,
@@ -1502,7 +1670,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-    buildRecipeGrid(Recipe availableRecipes) {
+  buildRecipeGrid(Recipe availableRecipes) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
@@ -1534,7 +1702,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                       topRight: Radius.circular(25.0),
                     ),
                     image: DecorationImage(
-                        image: (availableRecipes.recipePicture == "dummyNoImage" || availableRecipes.recipePicture == null) ? AssetImage("assets/plate.jpg"): NetworkImage("${availableRecipes.recipePicture}"),
+                        image: (availableRecipes.recipePicture ==
+                                    "dummyNoImage" ||
+                                availableRecipes.recipePicture == null)
+                            ? AssetImage("assets/plate.jpg")
+                            : NetworkImage("${availableRecipes.recipePicture}"),
                         fit: BoxFit.fitWidth),
                   ),
                 ),
@@ -1571,13 +1743,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   const EdgeInsets.symmetric(vertical: 2.0),
                               child: Align(
                                 alignment: Alignment.center,
-                                child: (availableRecipes.recipeName == "dummyNoImage" || availableRecipes.recipeName == null)?
-                                Text("LC RECIPE",
-                                    style: TextStyles.mainScreenProfileName,
-                                    textAlign: TextAlign.center):
-                                Text(availableRecipes.recipeName,
-                                    style: TextStyles.mainScreenProfileName,
-                                    textAlign: TextAlign.center),
+                                child: (availableRecipes.recipeName == "" ||
+                                        availableRecipes.recipeName == null)
+                                    ? Text("LC RECIPE",
+                                        style: TextStyles.mainScreenProfileName,
+                                        textAlign: TextAlign.center)
+                                    : Text(availableRecipes.recipeName,
+                                        style: TextStyles.mainScreenProfileName,
+                                        textAlign: TextAlign.center),
                               ),
                             ),
                           ),

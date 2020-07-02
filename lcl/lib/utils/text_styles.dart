@@ -23,6 +23,28 @@ class TextStyles {
     color: uniColors.lcRed,
     fontFamily: 'CaviarDreams',
   );
+
+  static final TextStyle searchText = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.w900,
+    color: uniColors.lcRedLight,
+    fontFamily: 'Homizio',
+  );
+
+    static final TextStyle searchTextResult = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: uniColors.black,
+    fontFamily: 'Raleway',
+  );
+
+static final TextStyle searchSubTextResult = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    color: uniColors.lcRed,
+    fontFamily: 'Raleway',
+  );
+
   static final TextStyle loginPageLogoTextStyle = TextStyle(
     fontSize: 50,
     fontWeight: FontWeight.w900,

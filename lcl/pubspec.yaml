@@ -47,6 +47,8 @@ dependencies:
   floating_action_row: ^0.1.0
   flutter_web_browser: "^0.11.0"
   flutter_open_browser: ^1.0.3
+  gradient_app_bar: ^0.0.1
+  
 
 
 
