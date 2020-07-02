@@ -93,16 +93,14 @@ class FirebaseMethods {
     return userList;
   }
 
-    Future<List<Recipe>> fetchRecipeBatch() async {
+  Future<List<Recipe>> fetchRecipeBatch() async {
     List<Recipe> recipeList = List<Recipe>();
 
     QuerySnapshot querySnapshot =
         await firestore.collection(RECIPE_COLLECTION).getDocuments();
 
     for (var i = 0; i < querySnapshot.documents.length; i++) {
-     
-        recipeList.add(Recipe.fromMap(querySnapshot.documents[i].data));
-      
+      recipeList.add(Recipe.fromMap(querySnapshot.documents[i].data));
     }
     return recipeList;
   }
@@ -176,8 +174,6 @@ class FirebaseMethods {
     setImageMsg(url, receiverId, senderId);
   }
 
-
-
   void changeProfilePhoto(File image, ImageUploadProvider imageUploadProvider,
       FirebaseUser currentUser) async {
     // Set some loading value to db and show it to user
@@ -226,7 +222,6 @@ class FirebaseMethods {
         .add(map);
   }
 
- 
   Future<void> signOut() async {
     print("signed out start");
     await _googleSignIn.disconnect();
@@ -234,45 +229,42 @@ class FirebaseMethods {
     return await _auth.signOut();
   }
 
-    Future<void> updateProfiletoDb(
-    FirebaseUser currentUser,
-    String name,
-    String email,
-    String username,
-    String status,
-    int state,
-    String profilePhoto,
-    String gender,
-    String bio,
-    String position,
-    int age,
-    int abusiveFlag,
-    int usageFlag,
-    List cuisines,
-
+  Future<void> updateProfiletoDb(
+    FirebaseUser loggedUser,
+    String loggedUserName,
+    String loggedUserEmail,
+    String loggedUserUsername,
+    String loggedUserStatus,
+    int loggedUserState,
+    String loggedUserProfilePhoto,
+    String loggedUserGender,
+    String loggedUserBio,
+    String loggedUserPosition,
+    int loggedUserAge,
+    int loggedUserAbusiveFlag,
+    int loggedUserUsageFlag,
+    List loggedUserCategory,
   ) async {
     user = User(
-      uid: currentUser.uid,
-      name: name,
-      email:email,
-      username: username,
-      status:status,
-      state:state,
-      profilePhoto: profilePhoto,
-      gender: gender,
-      bio: bio,
-      position: position,
-      age: age,
-      abusiveFlag: abusiveFlag,
-      usageFlag: usageFlag,
-      cuisines: cuisines,
+      uid: user.uid,
+      name: loggedUserName,
+      email: loggedUserEmail,
+      username: loggedUserUsername,
+      status: loggedUserStatus,
+      state: loggedUserState,
+      profilePhoto: loggedUserProfilePhoto,
+      gender: loggedUserGender,
+      bio: loggedUserBio,
+      position: loggedUserPosition,
+      age: loggedUserAge,
+      abusiveFlag: loggedUserAbusiveFlag,
+      usageFlag: loggedUserUsageFlag,
+      cuisines: loggedUserCategory,
     );
 
     firestore
         .collection(USERS_COLLECTION)
-        .document(currentUser.uid)
+        .document(loggedUser.uid)
         .updateData(user.toMap(user));
   }
-
-
 }

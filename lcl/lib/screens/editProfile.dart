@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:lcl/constants/constantStrings.dart';
+import 'package:lcl/models/user.dart';
 
 import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/resources/firebase_repository.dart';
@@ -91,23 +94,23 @@ class _EditProfileState extends State<EditProfile> {
 
     super.initState();
   }
-    StorageReference _storageReference;
-     Future<String> uploadImageToStorage(File tempRecipePicture) async {
-      try {
-        _storageReference = FirebaseStorage.instance
-            .ref()
-            .child('${DateTime.now().millisecondsSinceEpoch}');
 
-        StorageUploadTask storageUploadTask =
-            _storageReference.putFile(tempRecipePicture);
-        var url =
-            await (await storageUploadTask.onComplete).ref.getDownloadURL();
+  StorageReference _storageReference;
+  Future<String> uploadImageToStorage(File tempRecipePicture) async {
+    try {
+      _storageReference = FirebaseStorage.instance
+          .ref()
+          .child('${DateTime.now().millisecondsSinceEpoch}');
 
-        return url;
-      } catch (e) {
-        return null;
-      }
+      StorageUploadTask storageUploadTask =
+          _storageReference.putFile(tempRecipePicture);
+      var url = await (await storageUploadTask.onComplete).ref.getDownloadURL();
+
+      return url;
+    } catch (e) {
+      return null;
     }
+  }
 
   Future<File> pickImage({@required ImageSource source}) async {
     File selectedProPic = await Utils.pickImage(source: source);
@@ -123,19 +126,22 @@ class _EditProfileState extends State<EditProfile> {
 
     // // compImgHigh = await compressImageHigh(selectedImg);
 
-     tempProfilePictureUrl = await uploadImageToStorage(tempProfilePicture);
+    tempProfilePictureUrl = await uploadImageToStorage(tempProfilePicture);
 
-     setState(() {
-       loggedUserProfilePhoto=tempProfilePictureUrl;
-     });
+    setState(() {
+      loggedUserProfilePhoto = tempProfilePictureUrl;
+    });
   }
 
-  void updateProfileToDb() {
-    _settingsFormKey.currentState.save();
+  static final Firestore firestore = Firestore.instance;
 
+  User user = User();
+
+  void updateProfileDataToDb() {
+    _settingsFormKey.currentState.save();
     _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.updateProfiletoDb(
-        loggedUser,
+        user,
         loggedUserName,
         loggedUserEmail,
         loggedUserUsername,
@@ -175,10 +181,14 @@ class _EditProfileState extends State<EditProfile> {
                     child: Row(
                       children: <Widget>[
                         InkWell(
-                          onTap: (){
-                            updateProfileToDb();
+                          onTap: () {
+                            updateProfileDataToDb();
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return DashboardScreen();
+                            }));
                           },
-                                                  child: Icon(
+                          child: Icon(
                             Icons.arrow_back,
                             size: 35,
                             color: uniColors.lcRed,
@@ -268,6 +278,9 @@ class _EditProfileState extends State<EditProfile> {
                             Container(
                               width: screenWidth * 0.45,
                               child: FormBuilderTextField(
+                                initialValue: loggedUserName != null
+                                    ? loggedUserName
+                                    : "",
                                 attribute: "loggedUserName",
                                 //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
                                 keyboardType: TextInputType.text,
@@ -301,7 +314,8 @@ class _EditProfileState extends State<EditProfile> {
                               child: FormBuilderTouchSpin(
                                 // decoration: InputDecoration(labelText: "Stepper"),
                                 attribute: "loggedUserAge",
-                                initialValue: 18,
+                                initialValue:
+                                    loggedUserAge != null ? loggedUserAge : 18,
                                 min: 18,
                                 step: 1,
 
@@ -332,14 +346,17 @@ class _EditProfileState extends State<EditProfile> {
                               child: FormBuilderDropdown(
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
-                                // initialValue: 'Male',
+                                initialValue: loggedUserGender != null
+                                    ? loggedUserGender
+                                    : "",
                                 //  hint: Text('Select Gender'),
                                 // validators: [FormBuilderValidators.required()],
                                 items: [
                                   'Male',
                                   'Female',
-                                  'Other',
-                                  'Prefer not to say'
+                                  'Non-Binary',
+                                  'Transgender',
+                                  'Other'
                                 ]
                                     .map((gender) => DropdownMenuItem(
                                         value: gender, child: Text("$gender")))
@@ -370,6 +387,8 @@ class _EditProfileState extends State<EditProfile> {
                             Container(
                               width: screenWidth * 0.70,
                               child: FormBuilderTextField(
+                                initialValue:
+                                    loggedUserBio != null ? loggedUserBio : "",
                                 attribute: "loggedUserBio",
                                 //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
                                 keyboardType: TextInputType.multiline,
@@ -400,6 +419,9 @@ class _EditProfileState extends State<EditProfile> {
                               width: screenWidth * 0.70,
                               child: FormBuilderFilterChip(
                                 attribute: "loggedUserCategory",
+                                initialValue: loggedUserCategory != null
+                                    ? loggedUserCategory
+                                    : null,
                                 options: [
                                   FormBuilderFieldOption(
                                       child: Text("Vegan"), value: "Vegan"),
@@ -449,406 +471,31 @@ class _EditProfileState extends State<EditProfile> {
                           ],
                         ),
                       ),
-
-                      SizedBox(height: 200),
                     ],
                   ),
                 ),
-                Row(
-                  children: <Widget>[
-                    MaterialButton(
-                      child: Text("Submit"),
-                      onPressed: () {
-                        if (_settingsFormKey.currentState.saveAndValidate()) {
-                          print(_settingsFormKey.currentState.value);
-                        }
-                      },
-                    ),
-                    MaterialButton(
-                      child: Text("Reset"),
-                      onPressed: () {
-                        _settingsFormKey.currentState.reset();
-                      },
-                    ),
-                  ],
-                )
+                // Row(
+                //   children: <Widget>[
+                //     MaterialButton(
+                //       child: Text("Submit"),
+                //       onPressed: () {
+                //         if (_settingsFormKey.currentState.saveAndValidate()) {
+                //           print(_settingsFormKey.currentState.value);
+                //         }
+                //       },
+                //     ),
+                //     MaterialButton(
+                //       child: Text("Reset"),
+                //       onPressed: () {
+                //         _settingsFormKey.currentState.reset();
+                //       },
+                //     ),
+                //   ],
+                // )
               ],
             ),
           ),
         ),
-        // Form(
-        //   key: _formKey,
-        //   autovalidate: _autoValidate,
-        //   child: ListView(
-        //     children: <Widget>[
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: <Widget>[
-        //           Align(
-        //             alignment: Alignment.topLeft,
-        //             child: IconButton(
-        //               icon: Icon(
-        //                 Icons.close,
-        //                 color: uniColors.grey2,
-        //               ),
-        //               onPressed: () {
-        //                 Navigator.pushReplacement(context,
-        //                     MaterialPageRoute(builder: (context) {
-        //                   return DashboardScreen();
-        //                 }));
-        //               },
-        //             ),
-        //           ),
-        //           Align(
-        //             alignment: Alignment.center,
-        //             child:  Text(
-        //                         Strings.APP_NAME,
-        //                         style: TextStyles.appNameTextStyle,
-        //                       ),
-        //             // GradientText("FAVEEZ",
-        //             //     gradient: LinearGradient(colors: [
-        //             //       UniversalVariables.gold1,
-        //             //       UniversalVariables.gold2,
-        //             //       UniversalVariables.gold3,
-        //             //       UniversalVariables.gold4
-        //             //     ]),
-        //             //     style: TextStyles.appNameLogoStyle,
-        //             //     textAlign: TextAlign.center),
-        //           ),
-        //           Align(
-        //             alignment: Alignment.topRight,
-        //             child: IconButton(
-        //               icon: Icon(
-        //                 Icons.done,
-        //                 color: uniColors.grey2,
-        //               ),
-        //               onPressed: () {
-        //                 if (!_formKey.currentState.validate()) {
-        //                   return;
-        //                 }
-
-        //                 _formKey.currentState.save();
-
-        //                 // _repository.getCurrentUser().then((FirebaseUser user) {
-
-        //                 //   _repository.updateProfiletoDb(
-        //                 //     user,
-        //                 //     loggedUserDisplayName,
-        //                 //     loggedUserEmail,
-        //                 //     loggedUserUserName,
-        //                 //     loggedUserStatus,
-        //                 //     loggedUserState,
-        //                 //     loggedUserProfilePic,
-        //                 //     loggedUseranswerPrice1,
-        //                 //     loggedUseranswerPrice2,
-        //                 //     loggedUseranswerPrice3,
-        //                 //     loggedUseranswerDuration,
-        //                 //     loggedUserBio,
-        //                 //     loggedUserisInfCert,
-        //                 //     loggedUsermaxQuestionCharcount,
-        //                 //     loggedUserRating,
-        //                 //     loggedUserCategory,
-        //                 //     loggedUserReviews,
-        //                 //     loggedUserinfWorth,
-        //                 //     loggedUserinfSent,
-        //                 //     loggedUserinfReceived,
-        //                 //     loggedUserisInfluencer,
-        //                 //     loggedUserHashtags,
-        //                 //   );
-        //                 // });
-
-        //                 Navigator.pushNamed(context, "/dashboard_screen");
-        //               },
-        //             ),
-        //           )
-        //         ],
-        //       ),
-        //       SizedBox(height: 25),
-        //       // CupertinoButton(child: Text("Squueze"), onPressed: ()=>{
-        //       //    print(_imageUploadProvider.runtimeType)
-        //       // }),
-        //       Center(
-        //         child: Container(
-        //           child: Column(
-        //             children: <Widget>[
-        //               Container(
-        //                 //add image here
-
-        //                 child: Container(
-        //                   width: 160.0,
-        //                   height: 160.0,
-        //                   decoration: BoxDecoration(
-        //                     shape: BoxShape.circle,
-        //                     image: DecorationImage(
-        //                       fit: BoxFit.cover,
-        //                       image: NetworkImage(loggedUserProfilePic != null
-        //                           ? loggedUserProfilePic
-        //                           : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Crystal_Clear_kdm_user_female.svg/1200px-Crystal_Clear_kdm_user_female.svg.png"),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //               Container(
-        //                 child: OutlineButton(
-        //                   onPressed: () => {
-        //                     //buttonDisabled
-        //                     //pickProfilePhoto(source: ImageSource.gallery),
-        //                   },
-        //                   child: Text(
-        //                     "Change Profile Picture",
-        //                     style: TextStyles.editHeadingName,
-        //                   ),
-        //                 ),
-        //               ),
-        //               Padding(
-        //                 padding: const EdgeInsets.all(15.0),
-        //                 child: Container(
-        //                   child: Column(
-        //                     children: <Widget>[
-        //                       Row(
-        //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //                         children: <Widget>[
-        //                           Expanded(
-        //                             flex: 3,
-        //                             child: Text("Name:",
-        //                                 style: TextStyles.editHeadingName,
-        //                                 textAlign: TextAlign.left),
-        //                           ),
-        //                           Expanded(
-        //                             flex: 5,
-        //                             child: TextField(
-        //                               cursorColor: uniColors.gold2,
-        //                               decoration: InputDecoration(
-        //                                 contentPadding:
-        //                                     EdgeInsets.only(bottom: 10),
-        //                                 hintText: loggedUserDisplayName,
-        //                                 hintStyle: TextStyles.hintTextStyle,
-        //                               ),
-        //                               maxLength: 20,
-        //                               style: TextStyles.whileEditing,
-        //                               // validator: (String value) {
-        //                               //   if (value.isEmpty) {
-        //                               //     return 'Name is Required';
-        //                               //   }
-
-        //                               //   return null;
-        //                               // },
-        //                               onChanged: (String value) {
-        //                                 setState(() {
-        //                                   loggedUserDisplayName = value;
-        //                                 });
-        //                               },
-        //                             ),
-        //                           )
-        //                           // Text(loggedUserDisplayName)
-        //                         ],
-        //                       ),
-        //                       Row(
-        //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //                         children: <Widget>[
-        //                           Expanded(
-        //                             flex: 3,
-        //                             child: Text("Username:",
-        //                                 style: TextStyles.editHeadingName,
-        //                                 textAlign: TextAlign.left),
-        //                           ),
-        //                           Expanded(
-        //                             flex: 5,
-        //                             child: TextFormField(
-        //                               cursorColor: uniColors.lcRed,
-        //                               decoration: InputDecoration(
-        //                                 contentPadding:
-        //                                     EdgeInsets.only(bottom: 10),
-        //                                 hintText: loggedUserUserName,
-        //                                 hintStyle: TextStyles.hintTextStyle,
-        //                               ),
-        //                               maxLength: 10,
-        //                               style: TextStyles.whileEditing,
-        //                               // validator: (String value) {
-
-        //                               //   if (value.isEmpty) {
-        //                               //     return 'Enter username';
-        //                               //   }
-        //                               //   return null;
-        //                               // },
-        //                               onChanged: (String value) {
-        //                                 setState(() {
-        //                                   loggedUserUserName = value;
-        //                                   _autoValidate = true;
-        //                                 });
-        //                               },
-        //                             ),
-        //                           )
-        //                         ],
-        //                       ),
-        //                       Row(
-        //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //                         children: <Widget>[
-        //                           Expanded(
-        //                             flex: 3,
-        //                             child: Text("Bio:",
-        //                                 style: TextStyles.editHeadingName,
-        //                                 textAlign: TextAlign.left),
-        //                           ),
-        //                           Expanded(
-        //                             flex: 5,
-        //                             child: TextField(
-        //                               cursorColor: uniColors.lcRed,
-        //                               decoration: InputDecoration(
-        //                                 contentPadding:
-        //                                     EdgeInsets.only(bottom: 10),
-        //                                 hintText: loggedUserBio,
-        //                                 hintStyle: TextStyles.hintTextStyle,
-        //                               ),
-        //                               maxLength: 120,
-        //                               style: TextStyles.whileEditing,
-        //                               // validator: (String value) {
-        //                               //   if (value.isEmpty) {
-        //                               //     return 'Enter bio';
-        //                               //   }
-
-        //                               //   return null;
-        //                               // },
-        //                               onChanged: (String value) {
-        //                                 setState(() {
-        //                                   loggedUserBio = value;
-        //                                 });
-        //                               },
-        //                             ),
-        //                           )
-        //                         ],
-        //                       ),
-        //                       // Row(
-        //                       //   children: <Widget>[
-        //                       //     Expanded(
-        //                       //       flex: 3,
-        //                       //       child: Column(
-        //                       //         crossAxisAlignment: CrossAxisAlignment.start,
-        //                       //         children: <Widget>[
-        //                       //           Text("Text Reply Price:",
-        //                       //               style: TextStyles.editHeadingName,
-        //                       //               textAlign: TextAlign.left),
-        //                       //               SizedBox(height:5),
-        //                       //           // Text("\$${loggedUseranswerPrice1*0.65} (post-charges)",
-        //                       //           //     style: TextStyles.postCommissionsPrice,
-        //                       //           //     textAlign: TextAlign.left),
-
-        //                       //         ],
-        //                       //       ),
-        //                       //     ),
-        //                       //     Expanded(
-        //                       //       flex: 5,
-        //                       //       child: TextField(
-        //                       //           cursorColor: UniversalVariables.gold2,
-        //                       //           decoration: InputDecoration(
-        //                       //             contentPadding:
-        //                       //                 EdgeInsets.only(bottom: 10),
-        //                       //             hintText: '\$$loggedUseranswerPrice1',
-        //                       //             hintStyle: TextStyles.hintTextStyle,
-        //                       //           ),
-        //                       //           keyboardType: TextInputType.number,
-        //                       //           style: TextStyles.whileEditing,
-        //                       //           inputFormatters: <TextInputFormatter>[
-        //                       //             WhitelistingTextInputFormatter
-        //                       //                 .digitsOnly
-        //                       //           ],
-        //                       //           maxLength: 9,
-        //                       //           onChanged: (input) => {
-        //                       //                 loggedUseranswerPrice1 =
-        //                       //                     num.tryParse(input)
-        //                       //               }),
-        //                       //     )
-        //                       //   ],
-        //                       // ),
-        //                       // Row(
-        //                       //   children: <Widget>[
-        //                       //     Expanded(
-        //                       //       flex: 3,
-        //                       //       child: Column(
-        //                       //         crossAxisAlignment: CrossAxisAlignment.start,
-        //                       //         children: <Widget>[
-        //                       //           Text("Video Reply Price:",
-        //                       //               style: TextStyles.editHeadingName,
-        //                       //               textAlign: TextAlign.left),
-        //                       //                SizedBox(height:5),
-        //                       //           // Text("\$${loggedUseranswerPrice2*0.65} (post-charges)",
-        //                       //           //     style: TextStyles.postCommissionsPrice,
-        //                       //           //     textAlign: TextAlign.left),
-        //                       //         ],
-        //                       //       ),
-        //                       //     ),
-        //                       //     Expanded(
-        //                       //       flex: 5,
-        //                       //       child: TextField(
-        //                       //           cursorColor: UniversalVariables.gold2,
-        //                       //           decoration: InputDecoration(
-        //                       //             contentPadding:
-        //                       //                 EdgeInsets.only(bottom: 10),
-        //                       //             hintText: '\$$loggedUseranswerPrice2',
-        //                       //             hintStyle: TextStyles.hintTextStyle,
-        //                       //           ),
-        //                       //           keyboardType: TextInputType.number,
-        //                       //           style: TextStyles.whileEditing,
-        //                       //           inputFormatters: <TextInputFormatter>[
-        //                       //             WhitelistingTextInputFormatter
-        //                       //                 .digitsOnly
-        //                       //           ],
-        //                       //           maxLength: 9,
-        //                       //           onChanged: (input) => {
-        //                       //                 loggedUseranswerPrice2 =
-        //                       //                     num.tryParse(input)
-        //                       //               }),
-        //                       //     )
-        //                       //   ],
-        //                       // ),
-        //                       Row(
-        //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //                         children: <Widget>[
-        //                           Expanded(
-        //                             flex: 3,
-        //                             child: Text("Hashtags:",
-        //                                 style: TextStyles.editHeadingName,
-        //                                 textAlign: TextAlign.left),
-        //                           ),
-        //                           Expanded(
-        //                             flex: 5,
-        //                             child: TextField(
-        //                               cursorColor: uniColors.lcRed,
-        //                               decoration: InputDecoration(
-        //                                 contentPadding:
-        //                                     EdgeInsets.only(bottom: 10),
-        //                                 hintText: loggedUserHashtags,
-        //                                 hintStyle: TextStyles.hintTextStyle,
-        //                               ),
-        //                               maxLength: 120,
-        //                               style: TextStyles.whileEditing,
-        //                               // validator: (String value) {
-        //                               //   if (value.isEmpty) {
-        //                               //     return 'Enter bio';
-        //                               //   }
-
-        //                               //   return null;
-        //                               // },
-        //                               onChanged: (String value) {
-        //                                 setState(() {
-        //                                   loggedUserHashtags = value;
-        //                                 });
-        //                               },
-        //                             ),
-        //                           )
-        //                         ],
-        //                       ),
-        //                     ],
-        //                   ),
-        //                 ),
-        //               )
-        //             ],
-        //           ),
-        //         ),
-        //       )
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }

@@ -164,6 +164,9 @@ class _DashboardScreenState extends State<DashboardScreen>
     romanticMode = false;
     businessMode = false;
 
+
+
+
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
@@ -922,14 +925,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          // _scaffoldKey.currentState.openDrawer();
-                                          showModalBottomSheetCustom(
-                                            //   isScrollControlled: true,
-                                            context: context,
-                                            //   backgroundColor: uniColors.white1,
-                                            builder: (context) =>
-                                                RecipeMakerContainer(),
-                                          );
+                                           _scaffoldKey.currentState.openDrawer();
+                                          // showModalBottomSheetCustom(
+                                          //   //   isScrollControlled: true,
+                                          //   context: context,
+                                          //   //   backgroundColor: uniColors.white1,
+                                          //   builder: (context) =>
+                                          //       RecipeMakerContainer(),
+                                          // );
                                         },
                                         child: Text(
                                           Strings.APP_NAME,

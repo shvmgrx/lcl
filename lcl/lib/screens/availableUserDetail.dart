@@ -713,7 +713,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                                         ),
                                                         image: DecorationImage(
                                                             image: NetworkImage(
-                                                                "${widget.selectedAvailableUser.pic1}"),
+                                                                "${widget.selectedAvailableUser.profilePhoto}"),
                                                             fit: BoxFit.cover),
                                                       ),
                                                     ),
@@ -744,7 +744,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                                         ),
                                                         image: DecorationImage(
                                                             image: NetworkImage(
-                                                                "${widget.selectedAvailableUser.pic2}"),
+                                                                "${widget.selectedAvailableUser.profilePhoto}"),
                                                             fit: BoxFit.cover),
                                                       ),
                                                     ),
@@ -775,7 +775,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                                         ),
                                                         image: DecorationImage(
                                                             image: NetworkImage(
-                                                                "${widget.selectedAvailableUser.pic3}"),
+                                                                "${widget.selectedAvailableUser.profilePhoto}"),
                                                             fit: BoxFit.cover),
                                                       ),
                                                     ),

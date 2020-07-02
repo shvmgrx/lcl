@@ -28,7 +28,7 @@ class FirebaseRepository {
   Future<List<User>> fetchBatch(FirebaseUser user) =>
       _firebaseMethods.fetchBatch(user);
 
-   Future<List<Recipe>> fetchRecipeBatch() =>
+  Future<List<Recipe>> fetchRecipeBatch() =>
       _firebaseMethods.fetchRecipeBatch();
 
   void uploadImage(
@@ -38,8 +38,6 @@ class FirebaseRepository {
           @required ImageUploadProvider imageUploadProvider}) =>
       _firebaseMethods.uploadImage(
           image, receiverId, senderId, imageUploadProvider);
-
-
 
   void changeProfilePhoto(
           {@required File image,
@@ -68,38 +66,36 @@ class FirebaseRepository {
   Future<void> addDataToDb(FirebaseUser user) =>
       _firebaseMethods.addDataToDb(user);
 
-
-
-    Future<void> updateProfiletoDb(
-    FirebaseUser currentUser,
-    String name,
-    String email,
-    String username,
-    String status,
-    int state,
-    String profilePhoto,
-    String gender,
-    String bio,
-    String position,
-    int age,
-    int abusiveFlag,
-    int usageFlag,
-    List cuisines,
+  Future<void> updateProfiletoDb(
+    FirebaseUser user,
+    String loggedUserName,
+    String loggedUserEmail,
+    String loggedUserUsername,
+    String loggedUserStatus,
+    int loggedUserState,
+    String loggedUserProfilePhoto,
+    String loggedUserGender,
+    String loggedUserBio,
+    String loggedUserPosition,
+    int loggedUserAge,
+    int loggedUserAbusiveFlag,
+    int loggedUserUsageFlag,
+    List loggedUserCategory,
   ) =>
       _firebaseMethods.updateProfiletoDb(
-          currentUser,
-          name,
-          email,
-          username,
-          status,
-          state,
-          profilePhoto,
-          gender,
-          bio,
-          position,
-          age,
-          abusiveFlag,
-          usageFlag,
-          cuisines,
-);
+        user,
+        loggedUserName,
+        loggedUserEmail,
+        loggedUserUsername,
+        loggedUserStatus,
+        loggedUserState,
+        loggedUserProfilePhoto,
+        loggedUserGender,
+        loggedUserBio,
+        loggedUserPosition,
+        loggedUserAge,
+        loggedUserAbusiveFlag,
+        loggedUserUsageFlag,
+        loggedUserCategory,
+      );
 }
