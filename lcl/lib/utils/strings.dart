@@ -40,4 +40,11 @@ class Strings {
    static const String RECIPE_TYPE = "Type";
    static const String RECIPE_CUISINE = "Cuisine";
    static const String RECIPE_CALORIES = "Calories";
+
+
+   static const String LOGGEDUSER_NAME = "Name";
+   static const String LOGGEDUSER_AGE = "Age";
+   static const String LOGGEDUSER_GENDER = "Gender";
+   static const String LOGGEDUSER_CATEGORY = "Category";
+   static const String LOGGEDUSER_BIO = "Bio";
 }
