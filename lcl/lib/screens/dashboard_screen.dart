@@ -566,7 +566,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             },
                             child: NMButton(
                               down: profilePressed,
-                              icon: Icons.settings,
+                              icon: Icons.mode_edit,
                             ),
                           ),
                           InkWell(
@@ -581,7 +581,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             },
                             child: NMButton(
                               down: settingsPressed,
-                              icon: Icons.mode_edit,
+                              icon: Icons.settings,
                             ),
                           ),
                           InkWell(
