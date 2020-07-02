@@ -26,7 +26,7 @@ class QuietBox extends StatelessWidget {
               ),
               SizedBox(height: 25),
               Text(
-                "Keep Lunchalizing to incrase your matches.",
+                "Keep Lunchalizing to increase your matches.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   letterSpacing: 1.2,

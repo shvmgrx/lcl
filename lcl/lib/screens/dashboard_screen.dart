@@ -904,58 +904,52 @@ class _DashboardScreenState extends State<DashboardScreen>
                     child: Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
-                        Hero(
-                          tag: "AvailableUserDetail",
-                          child: FractionallySizedBox(
-                            alignment: Alignment.topCenter,
-                            heightFactor: 0.40,
-                            child: Container(
-                              child: Stack(
-                                children: <Widget>[
-                                  //Image.asset(
-                                  // "assets/banner2.jpg",
-                                  //  width: MediaQuery.of(context).size.width,
-                                  //  height: 500,
-                                  //  fit: BoxFit.fitWidth,
-                                  // ),
-                                  Column(
-                                    children: <Widget>[
-                                      MainScreenBar(
-                                        opacity: 1,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                           _scaffoldKey.currentState.openDrawer();
-                                          // showModalBottomSheetCustom(
-                                          //   //   isScrollControlled: true,
-                                          //   context: context,
-                                          //   //   backgroundColor: uniColors.white1,
-                                          //   builder: (context) =>
-                                          //       RecipeMakerContainer(),
-                                          // );
-                                        },
-                                        child: Text(
-                                          Strings.APP_NAME,
-                                          style: TextStyles.appNameTextStyle,
-                                        ),
-                                      ),
-                                      // Expanded(
-                                      //  child: Align(
-                                      //   alignment: Alignment(0, -0.6),
-                                      //child: Text(
-                                      // Strings.welcomeToAPlanet,
-                                      //  style: TextStyles.bigHeadingTextStyle,
-                                      //   textAlign: TextAlign.center,
-                                      //  ),
-                                      //  ),
-                                      // ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+              Positioned(
+                width: screenWidth,
+                top: 50,
+                child: Container(
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        GestureDetector(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left:8.0),
+                            child: Icon(
+                              Icons.menu,
+                              color: Colors.red,
                             ),
                           ),
+                          onTap: () {
+                           _scaffoldKey.currentState.openDrawer();
+                          },
                         ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            Strings.APP_NAME,
+                            style: TextStyles.appNameTextStyle,
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right:8.0),
+                            child: Icon(
+                              Icons.message,
+                              color: Colors.red,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/chatList_screen");
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
                         FractionallySizedBox(
                           alignment: Alignment.bottomCenter,
                           heightFactor: 0.85,
@@ -1443,7 +1437,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         color: uniColors.lcRed,
                                         size: 25,
                                       ),
-                                      onTap: () {}),
+                                      onTap: () {
+                                        getLocation();
+                                        print(position);
+                                      }),
                                 ],
                               ),
                             ),
@@ -1480,7 +1477,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.menu, color: uniColors.lcRed, size: 35),
+                      icon: Icon(Icons.fastfood, color: uniColors.lcRed, size: 35),
                       onPressed: () {
                         // setState(() {
                         //   showRecipePage = true;
@@ -1522,7 +1519,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.favorite,
+                      icon: Icon(Icons.star,
                           color: uniColors.lcRed, size: 35),
                       onPressed: () {
                         // setState(() {

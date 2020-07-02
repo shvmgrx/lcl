@@ -3,7 +3,6 @@ import 'package:lcl/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class MainScreenBar extends StatelessWidget {
-
   final double opacity;
 
   const MainScreenBar({Key key, this.opacity = 0.8}) : super(key: key);
@@ -23,14 +22,13 @@ class MainScreenBar extends StatelessWidget {
             ),
             Spacer(),
             GestureDetector(
-                          child: Icon(
+              child: Icon(
                 Icons.message,
                 color: Colors.red,
               ),
-             onTap: () {
-               Navigator.pushNamed(
-                                context, "/chatList_screen");
-      },
+              onTap: () {
+                Navigator.pushNamed(context, "/chatList_screen");
+              },
             ),
           ],
         ),
