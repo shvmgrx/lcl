@@ -914,7 +914,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       children: <Widget>[
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:8.0),
+                            padding: const EdgeInsets.only(left:15.0),
                             child: Icon(
                               Icons.menu,
                               color: Colors.red,
@@ -935,7 +935,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         Spacer(),
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(right:8.0),
+                            padding: const EdgeInsets.only(right:15.0),
                             child: Icon(
                               Icons.message,
                               color: Colors.red,

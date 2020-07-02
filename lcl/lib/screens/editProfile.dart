@@ -183,10 +183,17 @@ class _EditProfileState extends State<EditProfile> {
                         InkWell(
                           onTap: () {
                             updateProfileDataToDb();
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return DashboardScreen();
-                            }));
+                          
+                             Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DashboardScreen()),
+                              (Route<dynamic> route) => false,
+                            );
+
+
+
+
                           },
                           child: Icon(
                             Icons.arrow_back,

@@ -9,6 +9,7 @@ import 'package:lcl/resources/authMethods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/chatScreens/chatScreen.dart';
+import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/login_screen.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
@@ -338,14 +339,21 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                       children: <Widget>[
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(left:8.0),
+                            padding: const EdgeInsets.only(left: 15.0),
                             child: Icon(
                               Icons.arrow_back,
                               color: Colors.red,
                             ),
                           ),
                           onTap: () {
-                            Navigator.pushNamed(context, "/dashboard_screen");
+                            //    Navigator.pushNamed(context, "/dashboard_screen");
+
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DashboardScreen()),
+                              (Route<dynamic> route) => false,
+                            );
                           },
                         ),
                         Spacer(),
@@ -359,7 +367,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                         Spacer(),
                         GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.only(right:8.0),
+                            padding: const EdgeInsets.only(right: 15.0),
                             child: Icon(
                               Icons.message,
                               color: Colors.red,
