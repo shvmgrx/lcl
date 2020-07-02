@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:lcl/models/message.dart';
+import 'package:lcl/models/recipe.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,6 +27,9 @@ class FirebaseRepository {
 
   Future<List<User>> fetchBatch(FirebaseUser user) =>
       _firebaseMethods.fetchBatch(user);
+
+   Future<List<Recipe>> fetchRecipeBatch() =>
+      _firebaseMethods.fetchRecipeBatch();
 
   void uploadImage(
           {@required File image,

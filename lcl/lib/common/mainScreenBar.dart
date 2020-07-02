@@ -18,7 +18,7 @@ class MainScreenBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Icon(
-              Icons.apps,
+              Icons.menu,
               color: Colors.red,
             ),
             Spacer(),

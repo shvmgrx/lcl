@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lcl/constants/constantStrings.dart';
 import 'package:lcl/models/message.dart';
+import 'package:lcl/models/recipe.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/utils/utilities.dart';
@@ -90,6 +91,20 @@ class FirebaseMethods {
       }
     }
     return userList;
+  }
+
+    Future<List<Recipe>> fetchRecipeBatch() async {
+    List<Recipe> recipeList = List<Recipe>();
+
+    QuerySnapshot querySnapshot =
+        await firestore.collection(RECIPE_COLLECTION).getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+     
+        recipeList.add(Recipe.fromMap(querySnapshot.documents[i].data));
+      
+    }
+    return recipeList;
   }
 
   Future<String> uploadImageToStorage(File imageFile) async {

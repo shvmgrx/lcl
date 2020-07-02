@@ -349,7 +349,8 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                             ),
                             GestureDetector(
                               onTap: () {
-                                _scaffoldKey.currentState.openDrawer();
+                                
+                               
                               },
                               child: Text(
                                 Strings.APP_NAME,
