@@ -226,28 +226,47 @@ class FirebaseMethods {
         .add(map);
   }
 
-  Future<void> updateDatatoDb(
-      FirebaseUser currentUser,
-      String name,
-      String username,
-      String bio,
-      bool isVegan,
-      bool isVegetarian,
-      bool isNVegetarian,
-      String position,
-      List languages,
-      String profilePhoto) async {
+ 
+  Future<void> signOut() async {
+    print("signed out start");
+    await _googleSignIn.disconnect();
+    await _googleSignIn.signOut();
+    return await _auth.signOut();
+  }
+
+    Future<void> updateProfiletoDb(
+    FirebaseUser currentUser,
+    String name,
+    String email,
+    String username,
+    String status,
+    int state,
+    String profilePhoto,
+    String gender,
+    String bio,
+    String position,
+    int age,
+    int abusiveFlag,
+    int usageFlag,
+    List cuisines,
+
+  ) async {
     user = User(
-        uid: currentUser.uid,
-        name: name,
-        username: username,
-        bio: bio,
-        isVegan: isVegan,
-        isVegetarian: isVegetarian,
-        isNVegetarian: isNVegetarian,
-        position: position,
-        languages: languages,
-        profilePhoto: profilePhoto);
+      uid: currentUser.uid,
+      name: name,
+      email:email,
+      username: username,
+      status:status,
+      state:state,
+      profilePhoto: profilePhoto,
+      gender: gender,
+      bio: bio,
+      position: position,
+      age: age,
+      abusiveFlag: abusiveFlag,
+      usageFlag: usageFlag,
+      cuisines: cuisines,
+    );
 
     firestore
         .collection(USERS_COLLECTION)
@@ -255,10 +274,5 @@ class FirebaseMethods {
         .updateData(user.toMap(user));
   }
 
-  Future<void> signOut() async {
-    print("signed out start");
-    await _googleSignIn.disconnect();
-    await _googleSignIn.signOut();
-    return await _auth.signOut();
-  }
+
 }

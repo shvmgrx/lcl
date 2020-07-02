@@ -3200,20 +3200,16 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     Future<File> pickImage({@required ImageSource source}) async {
       File selectedImg = await Utils.pickImage(source: source);
 
-
-
-
-
       //File compImgHigh;
-   //   File compImgLow;
+      //   File compImgLow;
 
-    // compImgLow = await compressImageLow(selectedImg);
+      // compImgLow = await compressImageLow(selectedImg);
 
       setState(() {
         tempRecipePicture = selectedImg;
       });
 
-     // compImgHigh = await compressImageHigh(selectedImg);
+      // compImgHigh = await compressImageHigh(selectedImg);
 
       tempoRecipePicture = await uploadImageToStorage(tempRecipePicture);
     }
@@ -3250,21 +3246,25 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
         context: context,
         builder: (BuildContext context) => new CupertinoAlertDialog(
           // title: new Text("Discard"),
-          content: new Text("Do you want to discard?",style: TextStyles.recipe),
+          content:
+              new Text("Do you want to discard?", style: TextStyles.recipe),
           actions: [
             CupertinoDialogAction(
-              onPressed: (){
+              onPressed: () {
                 Navigator.pop(context);
                 _fbKey.currentState.reset();
                 Navigator.pop(context);
               },
-                isDefaultAction: true, child: new Text("Yes", style: TextStyles.alertConfirmation),),
+              isDefaultAction: true,
+              child: new Text("Yes", style: TextStyles.alertConfirmation),
+            ),
             CupertinoDialogAction(
-              onPressed: (){
+              onPressed: () {
                 Navigator.pop(context);
-               
               },
-                isDefaultAction: true, child: new Text("No", style: TextStyles.alertConfirmation),),
+              isDefaultAction: true,
+              child: new Text("No", style: TextStyles.alertConfirmation),
+            ),
           ],
         ),
       );
@@ -3285,20 +3285,19 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 height: screenHeight * 0.08,
                 child: Row(
                   children: <Widget>[
-                   
-                      Padding(
-                        padding: const EdgeInsets.only(left:8.0),
-                        child: InkWell(
-                          onTap: () {
-                            displayCloseDialog();
-                          },
-                          child: Icon(
-                            Icons.close,
-                            color: uniColors.white1,
-                          ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: InkWell(
+                        onTap: () {
+                          displayCloseDialog();
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: uniColors.white1,
                         ),
                       ),
-                   
+                    ),
+
                     Expanded(
                       flex: 7,
                       child: Center(

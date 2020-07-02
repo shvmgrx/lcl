@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -34,6 +35,8 @@ class _EditProfileState extends State<EditProfile> {
 
   bool _autoValidate = false;
   ImageUploadProvider _imageUploadProvider;
+  File tempProfilePicture;
+  String tempProfilePictureUrl;
 
   FirebaseUser loggedUser;
 
@@ -43,27 +46,16 @@ class _EditProfileState extends State<EditProfile> {
   String loggedUserBio;
   List loggedUserCategory;
   String loggedUserProfilePhoto;
-  // String loggedUserDisplayName;
-  // String loggedUserEmail;
-  // String loggedUserUserName;
-  // String loggedUserStatus;
-  // int loggedUserState;
-  // String loggedUserProfilePic;
-  // int loggedUseranswerPrice1;
-  // int loggedUseranswerPrice2;
-  // int loggedUseranswerPrice3;
-  // int loggedUseranswerDuration;
-  // String loggedUserBio;
-  // bool loggedUserisInfCert;
-  // int loggedUsermaxQuestionCharcount;
-  // int loggedUserRating;
-  // String loggedUserCategory;
-  // int loggedUserReviews;
-  // int loggedUserinfWorth;
-  // int loggedUserinfSent;
-  // int loggedUserinfReceived;
-  // bool loggedUserisInfluencer;
-  // String loggedUserHashtags;
+
+  String loggedUserEmail;
+  String loggedUserUsername;
+  String loggedUserStatus;
+  int loggedUserState;
+
+  String loggedUserPosition;
+
+  int loggedUserAbusiveFlag;
+  int loggedUserUsageFlag;
 
   void pickProfilePhoto({@required ImageSource source}) async {
     File selectedImage = await Utils.pickImage(source: source);
@@ -81,21 +73,83 @@ class _EditProfileState extends State<EditProfile> {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
           loggedUserName = loggedUser['name'];
-          loggedUserAge = loggedUser['age'];
+          loggedUserEmail = loggedUser['email'];
+          loggedUserUsername = loggedUser['username'];
+          loggedUserStatus = loggedUser['status'];
+          loggedUserState = loggedUser['state'];
+          loggedUserProfilePhoto = loggedUser['profile_photo'];
           loggedUserGender = loggedUser['gender'];
           loggedUserBio = loggedUser['bio'];
+          loggedUserPosition = loggedUser['position'];
+          loggedUserAge = loggedUser['age'];
+          loggedUserAbusiveFlag = loggedUser['abusiveFlag'];
+          loggedUserUsageFlag = loggedUser['usageFlag'];
           loggedUserCategory = loggedUser['cuisines'];
-
-
         });
       });
     });
 
     super.initState();
+  }
+    StorageReference _storageReference;
+     Future<String> uploadImageToStorage(File tempRecipePicture) async {
+      try {
+        _storageReference = FirebaseStorage.instance
+            .ref()
+            .child('${DateTime.now().millisecondsSinceEpoch}');
+
+        StorageUploadTask storageUploadTask =
+            _storageReference.putFile(tempRecipePicture);
+        var url =
+            await (await storageUploadTask.onComplete).ref.getDownloadURL();
+
+        return url;
+      } catch (e) {
+        return null;
+      }
+    }
+
+  Future<File> pickImage({@required ImageSource source}) async {
+    File selectedProPic = await Utils.pickImage(source: source);
+
+    //File compImgHigh;
+    //   File compImgLow;
+
+    // compImgLow = await compressImageLow(selectedImg);
+
+    setState(() {
+      tempProfilePicture = selectedProPic;
+    });
+
+    // // compImgHigh = await compressImageHigh(selectedImg);
+
+     tempProfilePictureUrl = await uploadImageToStorage(tempProfilePicture);
+
+     setState(() {
+       loggedUserProfilePhoto=tempProfilePictureUrl;
+     });
+  }
+
+  void updateProfileToDb() {
+    _settingsFormKey.currentState.save();
 
     _repository.getCurrentUser().then((FirebaseUser user) {
-      loggedUserProfilePhoto = user.photoUrl;
-    
+      _repository.updateProfiletoDb(
+        loggedUser,
+        loggedUserName,
+        loggedUserEmail,
+        loggedUserUsername,
+        loggedUserStatus,
+        loggedUserState,
+        loggedUserProfilePhoto,
+        loggedUserGender,
+        loggedUserBio,
+        loggedUserPosition,
+        loggedUserAge,
+        loggedUserAbusiveFlag,
+        loggedUserUsageFlag,
+        loggedUserCategory,
+      );
     });
   }
 
@@ -111,9 +165,34 @@ class _EditProfileState extends State<EditProfile> {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.only(top: 100),
+            padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      children: <Widget>[
+                        InkWell(
+                          onTap: (){
+                            updateProfileToDb();
+                          },
+                                                  child: Icon(
+                            Icons.arrow_back,
+                            size: 35,
+                            color: uniColors.lcRed,
+                          ),
+                        ),
+                        SizedBox(width: 20),
+                        Text(
+                          Strings.EDIT_PROFILE,
+                          style: TextStyles.editProfile,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 FormBuilder(
                   key: _settingsFormKey,
                   initialValue: {
@@ -123,9 +202,61 @@ class _EditProfileState extends State<EditProfile> {
                   autovalidate: true,
                   child: Column(
                     children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: Container(
+                          //add image here
+
+                          child: Stack(
+                            children: <Widget>[
+                              loggedUserProfilePhoto == "notUploadedYet"
+                                  ? Container(
+                                      width: 160.0,
+                                      height: 160.0,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: AssetImage(
+                                              "assets/defaultUserPicture.png"),
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      width: 160.0,
+                                      height: 160.0,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                              loggedUserProfilePhoto),
+                                        ),
+                                      ),
+                                    ),
+                              Positioned(
+                                top: 126,
+                                bottom: 0,
+                                right: 9,
+                                child: InkWell(
+                                  onTap: () {
+                                    pickImage(source: ImageSource.gallery);
+                                  },
+                                  child: Icon(
+                                    Icons.add_circle,
+                                    size: 43,
+                                    color: uniColors.lcRed,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+
                       //NAME
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0,top:20),
+                        padding: const EdgeInsets.only(left: 10.0, top: 20),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -156,7 +287,7 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       //AGE
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0,top:20),
+                        padding: const EdgeInsets.only(left: 10.0, top: 20),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -187,7 +318,7 @@ class _EditProfileState extends State<EditProfile> {
 
                       //GENDER
                       Padding(
-                         padding: const EdgeInsets.only(left: 10.0,top:20),
+                        padding: const EdgeInsets.only(left: 10.0, top: 20),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -202,7 +333,7 @@ class _EditProfileState extends State<EditProfile> {
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
                                 // initialValue: 'Male',
-                              //  hint: Text('Select Gender'),
+                                //  hint: Text('Select Gender'),
                                 // validators: [FormBuilderValidators.required()],
                                 items: [
                                   'Male',
@@ -227,7 +358,7 @@ class _EditProfileState extends State<EditProfile> {
 
                       //Bio
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0,top:20),
+                        padding: const EdgeInsets.only(left: 10.0, top: 20),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -242,7 +373,7 @@ class _EditProfileState extends State<EditProfile> {
                                 attribute: "loggedUserBio",
                                 //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
                                 keyboardType: TextInputType.multiline,
-                               
+
                                 onChanged: (value) {
                                   setState(() {
                                     loggedUserBio = value;
@@ -256,7 +387,7 @@ class _EditProfileState extends State<EditProfile> {
 
                       //Category
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0,top:15),
+                        padding: const EdgeInsets.only(left: 10.0, top: 15),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -273,33 +404,41 @@ class _EditProfileState extends State<EditProfile> {
                                   FormBuilderFieldOption(
                                       child: Text("Vegan"), value: "Vegan"),
                                   FormBuilderFieldOption(
-                                      child: Text("Vegetarian"), value: "Vegetarian"),
+                                      child: Text("Vegetarian"),
+                                      value: "Vegetarian"),
                                   FormBuilderFieldOption(
-                                      child: Text("Non-Vegetarian"), value: "Non-Vegetarian"),
+                                      child: Text("Non-Vegetarian"),
+                                      value: "Non-Vegetarian"),
                                   FormBuilderFieldOption(
                                       child: Text("Keto"), value: "Keto"),
-                                   FormBuilderFieldOption(
-                                      child: Text("Organic"), value: "Organic"),
-                                   FormBuilderFieldOption(
-                                      child: Text("Healthy Eater"), value: "Healthy Eater"),
-                                   FormBuilderFieldOption(
-                                      child: Text("Lactose-free"), value: "Lactose-free"),
-                                   FormBuilderFieldOption(
-                                      child: Text("Gluten-free"), value: "Gluten-free"),
-                                    FormBuilderFieldOption(
-                                      child: Text("Gourmet"), value: "Gourmet"),
-                                   FormBuilderFieldOption(
-                                      child: Text("Chef Pro"), value: "Chef Pro"),
                                   FormBuilderFieldOption(
-                                      child: Text("Sweet Tooth"), value: "Sweet Tooth"),
+                                      child: Text("Organic"), value: "Organic"),
+                                  FormBuilderFieldOption(
+                                      child: Text("Healthy Eater"),
+                                      value: "Healthy Eater"),
+                                  FormBuilderFieldOption(
+                                      child: Text("Lactose-free"),
+                                      value: "Lactose-free"),
+                                  FormBuilderFieldOption(
+                                      child: Text("Gluten-free"),
+                                      value: "Gluten-free"),
+                                  FormBuilderFieldOption(
+                                      child: Text("Gourmet"), value: "Gourmet"),
+                                  FormBuilderFieldOption(
+                                      child: Text("Chef Pro"),
+                                      value: "Chef Pro"),
+                                  FormBuilderFieldOption(
+                                      child: Text("Sweet Tooth"),
+                                      value: "Sweet Tooth"),
                                   FormBuilderFieldOption(
                                       child: Text("Raw"), value: "Raw"),
                                   FormBuilderFieldOption(
                                       child: Text("Paleo"), value: "Paleo"),
                                   FormBuilderFieldOption(
-                                      child: Text("Intermittent Fasting"), value: "Intermittent Fasting"),
+                                      child: Text("Intermittent Fasting"),
+                                      value: "Intermittent Fasting"),
                                 ],
-                                 onChanged: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     print(value);
                                     loggedUserCategory = value;
@@ -312,117 +451,6 @@ class _EditProfileState extends State<EditProfile> {
                       ),
 
                       SizedBox(height: 200),
-                      FormBuilderDateTimePicker(
-                        attribute: "date",
-                        inputType: InputType.date,
-                        format: DateFormat("yyyy-MM-dd"),
-                        decoration:
-                            InputDecoration(labelText: "Appointment Time"),
-                      ),
-                      FormBuilderSlider(
-                        attribute: "slider",
-                        validators: [FormBuilderValidators.min(6)],
-                        min: 0.0,
-                        max: 10.0,
-                        initialValue: 1.0,
-                        divisions: 20,
-                        decoration:
-                            InputDecoration(labelText: "Number of things"),
-                      ),
-                      FormBuilderCheckbox(
-                        attribute: 'accept_terms',
-                        label: Text(
-                            "I have read and agree to the terms and conditions"),
-                        validators: [
-                          FormBuilderValidators.requiredTrue(
-                            errorText:
-                                "You must accept terms and conditions to continue",
-                          ),
-                        ],
-                      ),
-                      FormBuilderDropdown(
-                        attribute: "gender",
-                        decoration: InputDecoration(labelText: "Gender"),
-                        // initialValue: 'Male',
-                        hint: Text('Select Gender'),
-                        validators: [FormBuilderValidators.required()],
-                        items: ['Male', 'Female', 'Other']
-                            .map((gender) => DropdownMenuItem(
-                                value: gender, child: Text("$gender")))
-                            .toList(),
-                      ),
-                      FormBuilderTextField(
-                        attribute: "age",
-                        decoration: InputDecoration(labelText: "Age"),
-                        validators: [
-                          FormBuilderValidators.numeric(),
-                          FormBuilderValidators.max(70),
-                        ],
-                      ),
-                      FormBuilderSegmentedControl(
-                        decoration:
-                            InputDecoration(labelText: "Movie Rating (Archer)"),
-                        attribute: "movie_rating",
-                        options: List.generate(5, (i) => i + 1)
-                            .map((number) =>
-                                FormBuilderFieldOption(value: number))
-                            .toList(),
-                      ),
-                      FormBuilderSwitch(
-                        label: Text('I Accept the tems and conditions'),
-                        attribute: "accept_terms_switch",
-                        initialValue: true,
-                      ),
-                      FormBuilderTouchSpin(
-                        decoration: InputDecoration(labelText: "Stepper"),
-                        attribute: "stepper",
-                        initialValue: 10,
-                        step: 1,
-                      ),
-                      FormBuilderCheckboxList(
-                        decoration: InputDecoration(
-                            labelText: "The language of my people"),
-                        attribute: "languages",
-                        initialValue: ["Dart"],
-                        options: [
-                          FormBuilderFieldOption(value: "Dart"),
-                          FormBuilderFieldOption(value: "Kotlin"),
-                          FormBuilderFieldOption(value: "Java"),
-                          FormBuilderFieldOption(value: "Swift"),
-                          FormBuilderFieldOption(value: "Objective-C"),
-                        ],
-                      ),
-                      FormBuilderChoiceChip(
-                        attribute: "favorite_ice_cream",
-                        options: [
-                          FormBuilderFieldOption(
-                              child: Text("Vanilla"), value: "vanilla"),
-                          FormBuilderFieldOption(
-                              child: Text("Chocolate"), value: "chocolate"),
-                          FormBuilderFieldOption(
-                              child: Text("Strawberry"), value: "strawberry"),
-                          FormBuilderFieldOption(
-                              child: Text("Peach"), value: "peach"),
-                        ],
-                      ),
-                      FormBuilderFilterChip(
-                        attribute: "pets",
-                        options: [
-                          FormBuilderFieldOption(
-                              child: Text("Cats"), value: "cats"),
-                          FormBuilderFieldOption(
-                              child: Text("Dogs"), value: "dogs"),
-                          FormBuilderFieldOption(
-                              child: Text("Rodents"), value: "rodents"),
-                          FormBuilderFieldOption(
-                              child: Text("Birds"), value: "birds"),
-                        ],
-                      ),
-                      FormBuilderSignaturePad(
-                        decoration: InputDecoration(labelText: "Signature"),
-                        attribute: "signature",
-                        height: 100,
-                      ),
                     ],
                   ),
                 ),

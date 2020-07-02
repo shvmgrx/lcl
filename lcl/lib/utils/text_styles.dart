@@ -323,6 +323,20 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+
+     static final TextStyle editProfile = TextStyle(
+    fontSize: 24,
+    //fontWeight: FontWeight.w400,
+    letterSpacing: 2.0,
+    color: uniColors.lcRed,
+    fontFamily: 'CaviarDreams',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
         static final TextStyle recipe = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w500,

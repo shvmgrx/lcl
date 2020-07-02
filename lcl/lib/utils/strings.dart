@@ -41,7 +41,7 @@ class Strings {
    static const String RECIPE_CUISINE = "Cuisine";
    static const String RECIPE_CALORIES = "Calories";
 
-
+   static const String EDIT_PROFILE = "Edit Profile";
    static const String LOGGEDUSER_NAME = "Name";
    static const String LOGGEDUSER_AGE = "Age";
    static const String LOGGEDUSER_GENDER = "Gender";
