@@ -190,10 +190,6 @@ class _EditProfileState extends State<EditProfile> {
                                   builder: (context) => DashboardScreen()),
                               (Route<dynamic> route) => false,
                             );
-
-
-
-
                           },
                           child: Icon(
                             Icons.arrow_back,
