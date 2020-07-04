@@ -103,6 +103,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+      static final TextStyle selfProfileRecipeName = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w800,
+    color: uniColors.black,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
     static final TextStyle editHeadingName = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w400,
@@ -169,6 +182,45 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+    static final TextStyle selfProfileUserName = TextStyle(
+    fontSize: 25,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.white2,
+    fontFamily: 'CaviarDreams',
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 2.0,
+        color: uniColors.white1,
+      ),
+    ],
+  );
+
+      static final TextStyle selfProfileUserBio = TextStyle(
+    fontSize: 15,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.white2,
+    fontFamily: 'Raleway',
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 2.0,
+        color: uniColors.white1,
+      ),
+    ],
+  );
+
+      static final TextStyle selfProfileUserEdit = TextStyle(
+    fontSize: 15,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.lcRed,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
     static final TextStyle chatBubble = TextStyle(
     fontSize: 20,
     //fontWeight: FontWeight.w400,
@@ -212,6 +264,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     fontSize: 15,
     //fontWeight: FontWeight.w400,
     color: uniColors.black,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
+      static final TextStyle profileChipStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    color: uniColors.lcRed,
     fontFamily: 'Raleway',
     // shadows: <Shadow>[
     //   Shadow(

@@ -55,6 +55,9 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   List<Recipe> recipeList;
 
+  List<Recipe> selfRecipeList;
+
+
   //For search
 
   List<Recipe> allRecipeList;
@@ -103,8 +106,8 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   void initState() {
-    
     getLocation();
+
     isVega = false;
     isVege = true;
     isNVege = false;
@@ -156,6 +159,19 @@ class _DashboardScreenState extends State<DashboardScreen>
       });
     });
 
+  
+
+        _repository.getCurrentUser().then((FirebaseUser user) {
+          String currUserId = user.uid;
+      _repository.fetchSelfRecipeBatch(currUserId).then((List<Recipe> selfRecipes) {
+      setState(() {
+       
+        selfRecipeList = selfRecipes;
+      });
+    });
+    });
+
+
     // TODO: implement initState
     super.initState();
     distance = 5;
@@ -163,9 +179,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     buddyMode = true;
     romanticMode = false;
     businessMode = false;
-
-
-
 
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
@@ -216,15 +229,14 @@ class _DashboardScreenState extends State<DashboardScreen>
       backgroundColorStart: uniColors.standardWhite,
       backgroundColorEnd: uniColors.standardWhite,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: uniColors.grey1),
-        onPressed: () =>{
-           setState(() {
-             FocusScope.of(context).unfocus();
-             showSearchPage=false;
-             showLunchalizePage=true;
-           })
-        }
-      ),
+          icon: Icon(Icons.arrow_back, color: uniColors.grey1),
+          onPressed: () => {
+                setState(() {
+                  FocusScope.of(context).unfocus();
+                  showSearchPage = false;
+                  showLunchalizePage = true;
+                })
+              }),
       elevation: 0,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight + 20),
@@ -245,18 +257,17 @@ class _DashboardScreenState extends State<DashboardScreen>
               fontSize: 25,
             ),
             decoration: InputDecoration(
-              suffixIcon: IconButton(
-                icon: Icon(Icons.close, color: uniColors.grey1),
-                onPressed: () {
-                  WidgetsBinding.instance
-                      .addPostFrameCallback((_) => searchController.clear());
-                      FocusScope.of(context).unfocus();
-                },
-              ),
-              border: InputBorder.none,
-              hintText: "Search",
-              hintStyle: TextStyles.searchText
-            ),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.close, color: uniColors.grey1),
+                  onPressed: () {
+                    WidgetsBinding.instance
+                        .addPostFrameCallback((_) => searchController.clear());
+                    FocusScope.of(context).unfocus();
+                  },
+                ),
+                border: InputBorder.none,
+                hintText: "Search",
+                hintStyle: TextStyles.searchText),
           ),
         ),
       ),
@@ -325,24 +336,14 @@ class _DashboardScreenState extends State<DashboardScreen>
           ),
           title: (searchedRecipe.recipeName == "" ||
                   searchedRecipe.recipeName == null)
-              ? Text(
-                  "LC Recipe",
-                  style: TextStyles.searchTextResult
-                )
-              : Text(
-                  searchedRecipe.recipeName,
-                  style: TextStyles.searchTextResult
-                ),
+              ? Text("LC Recipe", style: TextStyles.searchTextResult)
+              : Text(searchedRecipe.recipeName,
+                  style: TextStyles.searchTextResult),
           subtitle: (searchedRecipe.recipeDifficulty == "" ||
                   searchedRecipe.recipeDifficulty == null)
-              ? Text(
-                  "",
-                  style: TextStyles.searchSubTextResult
-                )
-              : Text(
-                  searchedRecipe.recipeDifficulty,
-                  style: TextStyles.searchSubTextResult
-                ),
+              ? Text("", style: TextStyles.searchSubTextResult)
+              : Text(searchedRecipe.recipeDifficulty,
+                  style: TextStyles.searchSubTextResult),
         );
       }),
     );
@@ -374,6 +375,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     controller.forward();
   }
 
+  var list = ["one", "two", "three", "four"];
   void showAccountPageNow() {
     controller.reverse();
 
@@ -386,6 +388,28 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
     controller.forward();
   }
+
+  Widget chipMaker(int chipLength) {
+
+    List<Widget> list = new List<Widget>();
+
+     for(var i = 0; i < chipLength; i++){
+        list.add(Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 3.0),
+            child: userProvider.getUser.cuisines[i] != null
+                ? Chip(
+                    backgroundColor: uniColors.white2,
+                    label: Text(userProvider.getUser.cuisines[i],
+                        style: TextStyles.profileChipStyle),
+                  )
+                : Container(),
+          ),);
+    }
+    return new Row(children: list);
+
+  }
+
+  
 
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
@@ -474,6 +498,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     setState(() {
       position = currentPosition;
     });
+
+    print(position);
   }
 
   @override
@@ -904,52 +930,55 @@ class _DashboardScreenState extends State<DashboardScreen>
                     child: Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
-              Positioned(
-                width: screenWidth,
-                top: 50,
-                child: Container(
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        GestureDetector(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left:15.0),
-                            child: Icon(
-                              Icons.menu,
-                              color: Colors.red,
+                        Positioned(
+                          width: screenWidth,
+                          top: 50,
+                          child: Container(
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 15.0),
+                                      child: Icon(
+                                        Icons.menu,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      _scaffoldKey.currentState.openDrawer();
+                                    },
+                                  ),
+                                  Spacer(),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Text(
+                                      Strings.APP_NAME,
+                                      style: TextStyles.appNameTextStyle,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  GestureDetector(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 15.0),
+                                      child: Icon(
+                                        Icons.message,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/chatList_screen");
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          onTap: () {
-                           _scaffoldKey.currentState.openDrawer();
-                          },
                         ),
-                        Spacer(),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            Strings.APP_NAME,
-                            style: TextStyles.appNameTextStyle,
-                          ),
-                        ),
-                        Spacer(),
-                        GestureDetector(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right:15.0),
-                            child: Icon(
-                              Icons.message,
-                              color: Colors.red,
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(context, "/chatList_screen");
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
                         FractionallySizedBox(
                           alignment: Alignment.bottomCenter,
                           heightFactor: 0.85,
@@ -1079,13 +1108,220 @@ class _DashboardScreenState extends State<DashboardScreen>
 
                                   Visibility(
                                     visible: showAccountPage,
-                                    child: Container(
-                                        //margin: EdgeInsets.only(top: 20),
-                                        height:
-                                            MediaQuery.of(context).size.height -
-                                                300.0,
-                                        child:
-                                            Center(child: Text("AccountPage"))),
+                                    child: Column(
+                                      children: <Widget>[
+                                        // Container(
+                                        //   height: MediaQuery.of(context)
+                                        //           .size
+                                        //           .height -
+                                        //       300.0,
+                                        //   child: Center(
+                                        //     child: Text("AccountPage"),
+                                        //   ),
+                                        // ),
+                                        //User details
+                                        Container(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10.0),
+                                                child: Container(
+                                                  //  color: uniColors.white1,
+                                                  height: screenWidth / 2.7,
+                                                  width: screenWidth / 2.7,
+                                                  decoration: BoxDecoration(
+                                                    color: uniColors.white1,
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(25.0),
+                                                      topRight:
+                                                          Radius.circular(25.0),
+                                                      bottomLeft:
+                                                          Radius.circular(25.0),
+                                                      bottomRight:
+                                                          Radius.circular(25.0),
+                                                    ),
+                                                    image: DecorationImage(
+                                                        image: (userProvider
+                                                                        .getUser
+                                                                        .profilePhoto ==
+                                                                    "" ||
+                                                                userProvider
+                                                                        .getUser
+                                                                        .profilePhoto ==
+                                                                    null)
+                                                            ? AssetImage(
+                                                                "assets/plate.jpg")
+                                                            : NetworkImage(
+                                                                "${userProvider.getUser.profilePhoto}"),
+                                                        fit: BoxFit.fitWidth),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 1.0),
+                                                child: Container(
+                                                  //   color: uniColors.gold1,
+                                                  //  height: screenWidth / 2.0,
+                                                  width: screenWidth * 0.58,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 15.0),
+                                                          child: Container(
+                                                            child: (userProvider
+                                                                            .getUser
+                                                                            .name ==
+                                                                        null ||
+                                                                    userProvider
+                                                                            .getUser
+                                                                            .name ==
+                                                                        "")
+                                                                ? Text(
+                                                                    "LC User Name",
+                                                                    style: TextStyles
+                                                                        .selfProfileUserName,
+                                                                  )
+                                                                : Text(
+                                                                    "${userProvider.getUser.name}",
+                                                                    style: TextStyles
+                                                                        .selfProfileUserName,
+                                                                  ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 10.0),
+                                                          child: Container(
+                                                            child: (userProvider
+                                                                            .getUser
+                                                                            .bio ==
+                                                                        null ||
+                                                                    userProvider
+                                                                            .getUser
+                                                                            .bio ==
+                                                                        "")
+                                                                ? Text(
+                                                                    "The bio of LC User",
+                                                                    style: TextStyles
+                                                                        .selfProfileUserBio,
+                                                                  )
+                                                                : Text(
+                                                                    "${userProvider.getUser.bio}",
+                                                                    style: TextStyles
+                                                                        .selfProfileUserBio,
+                                                                  ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 1.0),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              CupertinoButton(
+                                                                onPressed: () {
+                                                                  Navigator.pushNamed(
+                                      context, "/edit_profile_screen");
+                                                                },
+                                                                color: uniColors
+                                                                    .standardWhite,
+
+                                                                // borderSide: BorderSide.solid,
+                                                                child: Text(
+                                                                    "EDIT PROFILE",
+                                                                    style: TextStyles
+                                                                        .selfProfileUserEdit),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        //User chips
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                         
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                chipMaker(userProvider.getUser.cuisines.length),
+                                                
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        //User recipes
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                          //  color: uniColors.gold4,
+                                            height: screenHeight*0.45,
+                                            width: screenWidth,
+                                            decoration: BoxDecoration(
+                                              color: uniColors.backgroundGrey,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(25.0),
+                                                        topRight:
+                                                            Radius.circular(25.0),
+                                                        // bottomLeft:
+                                                        //     Radius.circular(25.0),
+                                                        // bottomRight:
+                                                        //     Radius.circular(25.0),
+                                                      ),
+
+                                            ),
+                                            
+                                            child: GridView.count(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 0.5,
+                                        mainAxisSpacing: 0,
+                                        childAspectRatio: 0.85,
+                                        primary: false,
+                                        children: <Widget>[
+                                       
+                                            if (selfRecipeList != null)
+                                              ...selfRecipeList.map((e) {
+                                               
+                                                return buildSelfRecipeGrid(e);
+                                              }).toList(),
+                                          
+                                        ],
+                                      ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
 
                                   // Expanded(
@@ -1477,7 +1713,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.fastfood, color: uniColors.lcRed, size: 35),
+                      icon: Icon(Icons.fastfood,
+                          color: uniColors.lcRed, size: 35),
                       onPressed: () {
                         // setState(() {
                         //   showRecipePage = true;
@@ -1519,8 +1756,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.star,
-                          color: uniColors.lcRed, size: 35),
+                      icon: Icon(Icons.star, color: uniColors.lcRed, size: 35),
                       onPressed: () {
                         // setState(() {
                         //   showRecipePage = false;
@@ -1576,9 +1812,17 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(CupertinoPageRoute(
-            builder: (context) =>
-                AvailableUserDetail(selectedAvailableUser: availableUsers)));
+        // Navigator.of(context).push(CupertinoPageRoute(
+        //     builder: (context) =>
+        //         AvailableUserDetail(selectedAvailableUser: availableUsers)));
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(
+              builder: (context) =>
+                  AvailableUserDetail(selectedAvailableUser: availableUsers)),
+          (Route<dynamic> route) => false,
+        );
       },
       child: Padding(
         padding: EdgeInsets.all(6.0),
@@ -1729,13 +1973,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          // Expanded(
-                          //   flex: 1,
-                          //   child: Icon(
-                          //     Icons.close,
-                          //     color: uniColors.lcRed,
-                          //   ),
-                          // ),
+                      
                           Expanded(
                             flex: 2,
                             child: Padding(
@@ -1754,20 +1992,98 @@ class _DashboardScreenState extends State<DashboardScreen>
                               ),
                             ),
                           ),
-                          // Expanded(
-                          //   flex: 1,
-                          //   child: IconButton(
-                          //     icon: Icon(Icons.restaurant,
-                          //         color: uniColors.lcRed, size: 30),
-                          //     onPressed: () {
-                          //       // setState(() {
-                          //       //   showRecipePage = true;
-                          //       //   showLunchalizePage = false;
-                          //       //   showFavsPage = false;
-                          //       // });
-                          //     },
-                          //   ),
-                          // ),
+                          
+                        ],
+                      ),
+                    ),
+                  ],
+                ))
+          ],
+        ),
+      ),
+    );
+  }
+
+    buildSelfRecipeGrid(Recipe selfRecipeList) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
+
+    return GestureDetector(
+      onTap: () {
+        // Navigator.of(context).push(CupertinoPageRoute(
+        //     builder: (context) =>
+        //         AvailableUserDetail(selectedAvailableUser: availableUsers)));
+      },
+      child: Padding(
+        padding: EdgeInsets.all(6.0),
+        child: Stack(
+          children: <Widget>[
+            Container(
+                //height: 250,
+                // width: screenWidth / 1.75,
+                color: uniColors.transparent),
+            Positioned(
+              left: 1.0,
+              top: 1.0,
+              child: Opacity(
+                opacity: 1,
+                child: Container(
+                  height: screenWidth / 4,
+                  width: screenWidth / 3.5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0),
+                    ),
+                    image: DecorationImage(
+                        image: (selfRecipeList.recipePicture ==
+                                    "dummyNoImage" ||
+                                selfRecipeList.recipePicture == null)
+                            ? AssetImage("assets/plate.jpg")
+                            : NetworkImage("${selfRecipeList.recipePicture}"),
+                        fit: BoxFit.fitWidth),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+                left: 1.0,
+                top: 104.0,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 40.0,
+                      width: screenWidth / 3.5,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(25.0),
+                            bottomRight: Radius.circular(25.0),
+                          ),
+                          color: uniColors.white2),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                        
+                      
+                          Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 2.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: (selfRecipeList.recipeName == "" ||
+                                        selfRecipeList.recipeName == null)
+                                    ? Text("LC RECIPE",
+                                        style: TextStyles.selfProfileRecipeName,
+                                        textAlign: TextAlign.center)
+                                    : Text(selfRecipeList.recipeName,
+                                        style: TextStyles.selfProfileRecipeName,
+                                        textAlign: TextAlign.center),
+                              ),
+                            ),
+                          ),
+                          
                         ],
                       ),
                     ),

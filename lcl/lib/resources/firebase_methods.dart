@@ -105,6 +105,22 @@ class FirebaseMethods {
     return recipeList;
   }
 
+   Future<List<Recipe>> fetchSelfRecipeBatch(String currentUserId) async {
+    List<Recipe> userRecipeList = List<Recipe>();
+
+    QuerySnapshot querySnapshot =
+        await 
+        firestore
+        .collection(RECIPE_COLLECTION)
+        .where(USER_ID, isEqualTo: user.uid)
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      userRecipeList.add(Recipe.fromMap(querySnapshot.documents[i].data));
+    }
+    return userRecipeList;
+  }
+
   Future<String> uploadImageToStorage(File imageFile) async {
     // mention try catch later on
     try {

@@ -289,7 +289,7 @@ class _EditProfileState extends State<EditProfile> {
                                 keyboardType: TextInputType.text,
                                 validators: [
                                   // FormBuilderValidators.
-                                  FormBuilderValidators.max(25),
+                                  FormBuilderValidators.max(18),
                                 ],
                                 onChanged: (value) {
                                   setState(() {
@@ -395,6 +395,10 @@ class _EditProfileState extends State<EditProfile> {
                                 attribute: "loggedUserBio",
                                 //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
                                 keyboardType: TextInputType.multiline,
+                                validators: [
+                                  // FormBuilderValidators.
+                                  FormBuilderValidators.max(114),
+                                ],
 
                                 onChanged: (value) {
                                   setState(() {
