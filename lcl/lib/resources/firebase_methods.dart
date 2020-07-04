@@ -105,6 +105,22 @@ class FirebaseMethods {
     return recipeList;
   }
 
+    Future<List<Recipe>> fetchRecipeBatchById(String userId) async {
+    List<Recipe> recipeIdList = List<Recipe>();
+
+    QuerySnapshot querySnapshot =
+        await firestore
+        .collection(RECIPE_COLLECTION)
+        .where(USER_ID, isEqualTo: userId)
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      recipeIdList.add(Recipe.fromMap(querySnapshot.documents[i].data));
+    }
+    return recipeIdList;
+  }
+
+
    Future<List<Recipe>> fetchSelfRecipeBatch(String currentUserId) async {
     List<Recipe> userRecipeList = List<Recipe>();
 

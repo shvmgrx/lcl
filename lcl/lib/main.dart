@@ -24,10 +24,11 @@ class _MyAppState extends State<MyApp> {
   FirebaseRepository _repository = FirebaseRepository();
 
  
-
+ 
   @override
   Widget build(BuildContext context) {
     
+    // _repository.signOut();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ImageUploadProvider()),

@@ -3,6 +3,7 @@ import 'package:floating_action_row/floating_action_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lcl/common/mainScreenBar.dart';
 import 'package:lcl/enum/userState.dart';
+import 'package:lcl/models/recipe.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/resources/authMethods.dart';
@@ -45,6 +46,8 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
   List<User> refreshList;
 
   List<User> filterList;
+
+  List<Recipe> selectedUserProfileRecipes;
 
   String loggedInname;
   String loggedInprofilePhoto;
@@ -127,6 +130,85 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     buddyMode = true;
     romanticMode = false;
     businessMode = false;
+  }
+
+  Widget chipMaker(User selectedAvailableUser) {
+
+    int categoryLength= selectedAvailableUser.cuisines.length;
+
+    List<Widget> list = new List<Widget>();
+
+     for(var i = 0; i < categoryLength; i++){
+        list.add(Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 3.0),
+            child: selectedAvailableUser.cuisines[i] != null
+                ? Chip(
+                    backgroundColor: uniColors.white2,
+                    label: Text(selectedAvailableUser.cuisines[i],
+                        style: TextStyles.profileChipStyle),
+                  )
+                : Container(),
+          ),);
+    }
+    return new Row(children: list);
+
+  }
+
+
+
+  Widget recipeDisplayMaker(User selectedAvailableUser) {
+    String userIdd = selectedAvailableUser.uid;
+
+    _repository
+        .fetchRecipeBatchById(userIdd)
+        .then((List<Recipe> profileRecipes) {
+      setState(() {
+        selectedUserProfileRecipes = profileRecipes;
+      });
+    });
+    
+
+    List<Widget> list = new List<Widget>();
+
+    print(selectedUserProfileRecipes.length);
+    for (var i = 0; i < selectedUserProfileRecipes.length; i++) 
+    {
+      selectedUserProfileRecipes[i].recipeName != null?
+      list.add(
+       
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(selectedUserProfileRecipes[i].recipeName,
+                    style: TextStyles.recipeName),
+              ),
+              Container(
+                height: 150,
+                width: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5.0),
+                    topRight: Radius.circular(5.0),
+                    bottomLeft: Radius.circular(5.0),
+                    bottomRight: Radius.circular(5.0),
+                  ),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          "${selectedUserProfileRecipes[i].recipePicture}"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ],
+          ),
+        ),
+      )
+      :
+      list.add(Container());
+    }
+    return new Row(children: list);
   }
 
   Future<Null> refresh() {
@@ -471,44 +553,8 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                     ),
                                   ]),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 350.0,
-                                    width: 350.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(25.0),
-                                        topRight: Radius.circular(25.0),
-                                        bottomLeft: Radius.circular(25.0),
-                                        bottomRight: Radius.circular(25.0),
-                                      ),
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              "${widget.selectedAvailableUser.profilePhoto}"),
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 350.0,
-                                    width: 350.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(25.0),
-                                        topRight: Radius.circular(25.0),
-                                        bottomLeft: Radius.circular(25.0),
-                                        bottomRight: Radius.circular(25.0),
-                                      ),
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              "${widget.selectedAvailableUser.profilePhoto}"),
-                                          fit: BoxFit.cover),
-                                    ),
-                                  ),
-                                ),
+                                
+                            
                               ],
                             ),
                           ),
@@ -588,42 +634,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                                   left: 5.0, top: 5),
                                               child: Row(
                                                 children: <Widget>[
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 2.0),
-                                                    child: Chip(
-                                                      backgroundColor:
-                                                          uniColors.lcRedLight,
-                                                      label: Text('Keto',
-                                                          style: TextStyles
-                                                              .chipStyle),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 2.0),
-                                                    child: Chip(
-                                                      backgroundColor:
-                                                          uniColors.lcRedLight,
-                                                      label: Text('Gourmet',
-                                                          style: TextStyles
-                                                              .chipStyle),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 2.0),
-                                                    child: Chip(
-                                                      backgroundColor:
-                                                          uniColors.lcRedLight,
-                                                      label: Text('Healthy',
-                                                          style: TextStyles
-                                                              .chipStyle),
-                                                    ),
-                                                  ),
+                                                  chipMaker(widget.selectedAvailableUser)
                                                 ],
                                               ),
                                             )
@@ -632,45 +643,45 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                       ),
                                     ),
                                     //   Spacer(),
-                                    Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Container(
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          color: uniColors.lcRed,
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(25.0),
-                                            topRight: Radius.circular(25.0),
-                                            bottomLeft: Radius.circular(25.0),
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Row(
-                                                children: <Widget>[
-                                                  Icon(
-                                                    Icons.chat,
-                                                    color: uniColors.white2,
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 8.0),
-                                                    child: Text("CHAT",
-                                                        style: TextStyles
-                                                            .chatBubble),
-                                                  )
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                    // Padding(
+                                    //   padding: const EdgeInsets.all(5.0),
+                                    //   child: Container(
+                                    //     height: 40,
+                                    //     decoration: BoxDecoration(
+                                    //       color: uniColors.lcRed,
+                                    //       borderRadius: BorderRadius.only(
+                                    //         topLeft: Radius.circular(25.0),
+                                    //         topRight: Radius.circular(25.0),
+                                    //         bottomLeft: Radius.circular(25.0),
+                                    //       ),
+                                    //     ),
+                                    //     child: Padding(
+                                    //       padding: const EdgeInsets.all(8.0),
+                                    //       child: Column(
+                                    //         mainAxisAlignment:
+                                    //             MainAxisAlignment.center,
+                                    //         children: <Widget>[
+                                    //           Row(
+                                    //             children: <Widget>[
+                                    //               Icon(
+                                    //                 Icons.chat,
+                                    //                 color: uniColors.white2,
+                                    //               ),
+                                    //               Padding(
+                                    //                 padding: const EdgeInsets
+                                    //                         .symmetric(
+                                    //                     horizontal: 8.0),
+                                    //                 child: Text("CHAT",
+                                    //                     style: TextStyles
+                                    //                         .chatBubble),
+                                    //               )
+                                    //             ],
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                                 Divider(),
@@ -691,135 +702,138 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5.0),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 8.0),
-                                                      child: Text(
-                                                          "Farmer's Salad",
-                                                          style: TextStyles
-                                                              .recipeName),
-                                                    ),
-                                                    Container(
-                                                      height: 150,
-                                                      width: 150,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                        ),
-                                                        image: DecorationImage(
-                                                            image: NetworkImage(
-                                                                "${widget.selectedAvailableUser.profilePhoto}"),
-                                                            fit: BoxFit.cover),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5.0),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 8.0),
-                                                      child: Text(
-                                                          "Avocado Toast",
-                                                          style: TextStyles
-                                                              .recipeName),
-                                                    ),
-                                                    Container(
-                                                      height: 150,
-                                                      width: 150,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                        ),
-                                                        image: DecorationImage(
-                                                            image: NetworkImage(
-                                                                "${widget.selectedAvailableUser.profilePhoto}"),
-                                                            fit: BoxFit.cover),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5.0),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 8.0),
-                                                      child: Text(
-                                                          "Farmer's Salad",
-                                                          style: TextStyles
-                                                              .recipeName),
-                                                    ),
-                                                    Container(
-                                                      height: 150,
-                                                      width: 150,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  5.0),
-                                                        ),
-                                                        image: DecorationImage(
-                                                            image: NetworkImage(
-                                                                "${widget.selectedAvailableUser.profilePhoto}"),
-                                                            fit: BoxFit.cover),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                              recipeDisplayMaker(
+                                                  widget.selectedAvailableUser)
+
+                                              // Padding(
+                                              //   padding:
+                                              //       const EdgeInsets.symmetric(
+                                              //           horizontal: 5.0),
+                                              //   child: Column(
+                                              //     children: <Widget>[
+                                              //       Padding(
+                                              //         padding:
+                                              //             const EdgeInsets.only(
+                                              //                 bottom: 8.0),
+                                              //         child: Text(
+                                              //             "Farmer's Salad",
+                                              //             style: TextStyles
+                                              //                 .recipeName),
+                                              //       ),
+                                              //       Container(
+                                              //         height: 150,
+                                              //         width: 150,
+                                              //         decoration: BoxDecoration(
+                                              //           borderRadius:
+                                              //               BorderRadius.only(
+                                              //             topLeft:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             topRight:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             bottomLeft:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             bottomRight:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //           ),
+                                              //           image: DecorationImage(
+                                              //               image: NetworkImage(
+                                              //                   "${widget.selectedAvailableUser.profilePhoto}"),
+                                              //               fit: BoxFit.cover),
+                                              //         ),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // ),
+                                              // Padding(
+                                              //   padding:
+                                              //       const EdgeInsets.symmetric(
+                                              //           horizontal: 5.0),
+                                              //   child: Column(
+                                              //     children: <Widget>[
+                                              //       Padding(
+                                              //         padding:
+                                              //             const EdgeInsets.only(
+                                              //                 bottom: 8.0),
+                                              //         child: Text(
+                                              //             "Avocado Toast",
+                                              //             style: TextStyles
+                                              //                 .recipeName),
+                                              //       ),
+                                              //       Container(
+                                              //         height: 150,
+                                              //         width: 150,
+                                              //         decoration: BoxDecoration(
+                                              //           borderRadius:
+                                              //               BorderRadius.only(
+                                              //             topLeft:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             topRight:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             bottomLeft:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             bottomRight:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //           ),
+                                              //           image: DecorationImage(
+                                              //               image: NetworkImage(
+                                              //                   "${widget.selectedAvailableUser.profilePhoto}"),
+                                              //               fit: BoxFit.cover),
+                                              //         ),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // ),
+                                              // Padding(
+                                              //   padding:
+                                              //       const EdgeInsets.symmetric(
+                                              //           horizontal: 5.0),
+                                              //   child: Column(
+                                              //     children: <Widget>[
+                                              //       Padding(
+                                              //         padding:
+                                              //             const EdgeInsets.only(
+                                              //                 bottom: 8.0),
+                                              //         child: Text(
+                                              //             "Farmer's Salad",
+                                              //             style: TextStyles
+                                              //                 .recipeName),
+                                              //       ),
+                                              //       Container(
+                                              //         height: 150,
+                                              //         width: 150,
+                                              //         decoration: BoxDecoration(
+                                              //           borderRadius:
+                                              //               BorderRadius.only(
+                                              //             topLeft:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             topRight:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             bottomLeft:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //             bottomRight:
+                                              //                 Radius.circular(
+                                              //                     5.0),
+                                              //           ),
+                                              //           image: DecorationImage(
+                                              //               image: NetworkImage(
+                                              //                   "${widget.selectedAvailableUser.profilePhoto}"),
+                                              //               fit: BoxFit.cover),
+                                              //         ),
+                                              //       ),
+                                              //     ],
+                                              //   ),
+                                              // ),
                                             ],
                                           ),
                                         ),

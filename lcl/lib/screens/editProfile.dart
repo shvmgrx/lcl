@@ -349,9 +349,9 @@ class _EditProfileState extends State<EditProfile> {
                               child: FormBuilderDropdown(
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
-                                initialValue: loggedUserGender != null
-                                    ? loggedUserGender
-                                    : "",
+                                // initialValue: loggedUserGender != null
+                                //     ? loggedUserGender
+                                //     : "",
                                 //  hint: Text('Select Gender'),
                                 // validators: [FormBuilderValidators.required()],
                                 items: [

@@ -172,7 +172,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
 
 
-    // TODO: implement initState
+    
     super.initState();
     distance = 5;
     time = 0;
@@ -1232,7 +1232,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                           padding:
                                                               const EdgeInsets
                                                                       .only(
-                                                                  top: 1.0),
+                                                                  top: 10.0),
                                                           child: Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -1240,8 +1240,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                             children: <Widget>[
                                                               CupertinoButton(
                                                                 onPressed: () {
-                                                                  Navigator.pushNamed(
-                                      context, "/edit_profile_screen");
+                                                                  Navigator.pushNamed(context, "/edit_profile_screen");
                                                                 },
                                                                 color: uniColors
                                                                     .standardWhite,
@@ -1273,7 +1272,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
-                                                chipMaker(userProvider.getUser.cuisines.length),
+                                          userProvider.getUser.cuisines !=null? chipMaker(userProvider.getUser.cuisines.length):Container(),
                                                 
                                               ],
                                             ),
@@ -1281,10 +1280,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         ),
                                         //User recipes
                                         Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.only(top:15.0,left:5,right:5),
                                           child: Container(
                                           //  color: uniColors.gold4,
-                                            height: screenHeight*0.45,
+                                            height: screenHeight*0.43,
                                             width: screenWidth,
                                             decoration: BoxDecoration(
                                               color: uniColors.backgroundGrey,
