@@ -57,7 +57,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   List<Recipe> selfRecipeList;
 
-
   //For search
 
   List<Recipe> allRecipeList;
@@ -159,20 +158,17 @@ class _DashboardScreenState extends State<DashboardScreen>
       });
     });
 
-  
-
-        _repository.getCurrentUser().then((FirebaseUser user) {
-          String currUserId = user.uid;
-      _repository.fetchSelfRecipeBatch(currUserId).then((List<Recipe> selfRecipes) {
-      setState(() {
-       
-        selfRecipeList = selfRecipes;
+    _repository.getCurrentUser().then((FirebaseUser user) {
+      String currUserId = user.uid;
+      _repository
+          .fetchSelfRecipeBatch(currUserId)
+          .then((List<Recipe> selfRecipes) {
+        setState(() {
+          selfRecipeList = selfRecipes;
+        });
       });
     });
-    });
 
-
-    
     super.initState();
     distance = 5;
     time = 0;
@@ -390,26 +386,24 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget chipMaker(int chipLength) {
-
     List<Widget> list = new List<Widget>();
 
-     for(var i = 0; i < chipLength; i++){
-        list.add(Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 3.0),
-            child: userProvider.getUser.cuisines[i] != null
-                ? Chip(
-                    backgroundColor: uniColors.white2,
-                    label: Text(userProvider.getUser.cuisines[i],
-                        style: TextStyles.profileChipStyle),
-                  )
-                : Container(),
-          ),);
+    for (var i = 0; i < chipLength; i++) {
+      list.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3.0),
+          child: userProvider.getUser.cuisines[i] != null
+              ? Chip(
+                  backgroundColor: uniColors.white2,
+                  label: Text(userProvider.getUser.cuisines[i],
+                      style: TextStyles.profileChipStyle),
+                )
+              : Container(),
+        ),
+      );
     }
     return new Row(children: list);
-
   }
-
-  
 
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
@@ -1240,7 +1234,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                             children: <Widget>[
                                                               CupertinoButton(
                                                                 onPressed: () {
-                                                                  Navigator.pushNamed(context, "/edit_profile_screen");
+                                                                  Navigator.pushNamed(
+                                                                      context,
+                                                                      "/edit_profile_screen");
                                                                 },
                                                                 color: uniColors
                                                                     .standardWhite,
@@ -1265,58 +1261,57 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         //User chips
                                         Container(
                                           alignment: Alignment.centerLeft,
-                                         
                                           child: SingleChildScrollView(
                                             scrollDirection: Axis.horizontal,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
-                                          userProvider.getUser.cuisines !=null? chipMaker(userProvider.getUser.cuisines.length):Container(),
-                                                
+                                                userProvider.getUser.cuisines !=
+                                                        null
+                                                    ? chipMaker(userProvider
+                                                        .getUser
+                                                        .cuisines
+                                                        .length)
+                                                    : Container(),
                                               ],
                                             ),
                                           ),
                                         ),
                                         //User recipes
                                         Padding(
-                                          padding: const EdgeInsets.only(top:15.0,left:5,right:5),
+                                          padding: const EdgeInsets.only(
+                                              top: 15.0, left: 5, right: 5),
                                           child: Container(
-                                          //  color: uniColors.gold4,
-                                            height: screenHeight*0.43,
+                                            //  color: uniColors.gold4,
+                                            height: screenHeight * 0.43,
                                             width: screenWidth,
                                             decoration: BoxDecoration(
                                               color: uniColors.backgroundGrey,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(25.0),
-                                                        topRight:
-                                                            Radius.circular(25.0),
-                                                        // bottomLeft:
-                                                        //     Radius.circular(25.0),
-                                                        // bottomRight:
-                                                        //     Radius.circular(25.0),
-                                                      ),
-
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(25.0),
+                                                topRight: Radius.circular(25.0),
+                                                // bottomLeft:
+                                                //     Radius.circular(25.0),
+                                                // bottomRight:
+                                                //     Radius.circular(25.0),
+                                              ),
                                             ),
-                                            
+
                                             child: GridView.count(
-                                        crossAxisCount: 3,
-                                        crossAxisSpacing: 0.5,
-                                        mainAxisSpacing: 0,
-                                        childAspectRatio: 0.85,
-                                        primary: false,
-                                        children: <Widget>[
-                                       
-                                            if (selfRecipeList != null)
-                                              ...selfRecipeList.map((e) {
-                                               
-                                                return buildSelfRecipeGrid(e);
-                                              }).toList(),
-                                          
-                                        ],
-                                      ),
+                                              crossAxisCount: 3,
+                                              crossAxisSpacing: 0.5,
+                                              mainAxisSpacing: 0,
+                                              childAspectRatio: 0.85,
+                                              primary: false,
+                                              children: <Widget>[
+                                                if (selfRecipeList != null)
+                                                  ...selfRecipeList.map((e) {
+                                                    return buildSelfRecipeGrid(
+                                                        e);
+                                                  }).toList(),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -1972,7 +1967,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                      
                           Expanded(
                             flex: 2,
                             child: Padding(
@@ -1991,7 +1985,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                               ),
                             ),
                           ),
-                          
                         ],
                       ),
                     ),
@@ -2003,7 +1996,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-    buildSelfRecipeGrid(Recipe selfRecipeList) {
+  buildSelfRecipeGrid(Recipe selfRecipeList) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
@@ -2062,8 +2055,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                        
-                      
                           Expanded(
                             flex: 2,
                             child: Padding(
@@ -2082,7 +2073,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                               ),
                             ),
                           ),
-                          
                         ],
                       ),
                     ),

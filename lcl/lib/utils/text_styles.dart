@@ -106,7 +106,7 @@ static final TextStyle searchSubTextResult = TextStyle(
       static final TextStyle selfProfileRecipeName = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w800,
-    color: uniColors.black,
+    color: uniColors.lcRed,
     fontFamily: 'Raleway',
     // shadows: <Shadow>[
     //   Shadow(
@@ -195,6 +195,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     ],
   );
 
+      static final TextStyle selectedProfileName = TextStyle(
+    fontSize: 25,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.white2,
+    fontFamily: 'CaviarDreams',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
       static final TextStyle selfProfileUserBio = TextStyle(
     fontSize: 15,
     //fontWeight: FontWeight.w400,
@@ -206,6 +219,19 @@ static final TextStyle searchSubTextResult = TextStyle(
         color: uniColors.white1,
       ),
     ],
+  );
+
+       static final TextStyle selectedProfileUserBio = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    color: uniColors.white2,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.white1,
+    //   ),
+    // ],
   );
 
       static final TextStyle selfProfileUserEdit = TextStyle(
@@ -288,7 +314,7 @@ static final TextStyle searchSubTextResult = TextStyle(
         static final TextStyle recipeName = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w800,
-    color: uniColors.black,
+    color: uniColors.lcRed,
     fontFamily: 'Raleway',
     // shadows: <Shadow>[
     //   Shadow(
