@@ -208,6 +208,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+      static final TextStyle profileChat = TextStyle(
+    fontSize: 17,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.white2,
+    fontFamily: 'CaviarDreams',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
       static final TextStyle selfProfileUserBio = TextStyle(
     fontSize: 15,
     //fontWeight: FontWeight.w400,
@@ -233,6 +246,72 @@ static final TextStyle searchSubTextResult = TextStyle(
     //   ),
     // ],
   );
+
+ static final TextStyle selectedRecipePortion = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: uniColors.white2,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.white1,
+    //   ),
+    // ],
+  );
+
+   static final TextStyle selectedRecipeIngridients = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: uniColors.lcRed,
+   // fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
+  
+
+ static final TextStyle selectedRecipeIngridientAmt = TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w700,
+    color: uniColors.lcRed,
+   // fontFamily: 'Raleway',
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 1.0,
+        color: uniColors.lcRed,
+      ),
+    ],
+  );
+   static final TextStyle selectedRecipeIngridientUnit = TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w900,
+    color: uniColors.black,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.black,
+    //   ),
+    // ],
+  );
+     static final TextStyle selectedRecipeIngridientName = TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w900,
+    color: uniColors.black,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.standardBlack,
+    //   ),
+    // ],
+  );
+
 
       static final TextStyle selfProfileUserEdit = TextStyle(
     fontSize: 15,

@@ -12,6 +12,7 @@ import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/login_screen.dart';
 import 'package:lcl/screens/recipeScreens/bottomSheetCustom.dart';
+import 'package:lcl/screens/recipeScreens/recipeDetails.dart';
 import 'package:lcl/screens/recipeScreens/recipeMakerContainer.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
@@ -1911,9 +1912,13 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).push(CupertinoPageRoute(
-        //     builder: (context) =>
-        //         AvailableUserDetail(selectedAvailableUser: availableUsers)));
+         Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(
+              builder: (context) =>
+                  RecipeDetails(selectedRecipe: availableRecipes)),
+          (Route<dynamic> route) => false,
+        );
       },
       child: Padding(
         padding: EdgeInsets.all(6.0),
@@ -1992,17 +1997,18 @@ class _DashboardScreenState extends State<DashboardScreen>
       ),
     );
   }
-
+  //recipe grid
   buildSelfRecipeGrid(Recipe selfRecipeList) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).push(CupertinoPageRoute(
-        //     builder: (context) =>
-        //         AvailableUserDetail(selectedAvailableUser: availableUsers)));
+        
+    
       },
+
+      
       child: Padding(
         padding: EdgeInsets.all(6.0),
         child: Stack(
@@ -2016,21 +2022,27 @@ class _DashboardScreenState extends State<DashboardScreen>
               top: 1.0,
               child: Opacity(
                 opacity: 1,
-                child: Container(
-                  height: screenWidth / 4,
-                  width: screenWidth / 3.5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
+                child: GestureDetector(
+                  onTap: (){
+                  
+       
+                  },
+                                  child: Container(
+                    height: screenWidth / 4,
+                    width: screenWidth / 3.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0),
+                      ),
+                      image: DecorationImage(
+                          image: (selfRecipeList.recipePicture ==
+                                      "dummyNoImage" ||
+                                  selfRecipeList.recipePicture == null)
+                              ? AssetImage("assets/plate.jpg")
+                              : NetworkImage("${selfRecipeList.recipePicture}"),
+                          fit: BoxFit.fitWidth),
                     ),
-                    image: DecorationImage(
-                        image: (selfRecipeList.recipePicture ==
-                                    "dummyNoImage" ||
-                                selfRecipeList.recipePicture == null)
-                            ? AssetImage("assets/plate.jpg")
-                            : NetworkImage("${selfRecipeList.recipePicture}"),
-                        fit: BoxFit.fitWidth),
                   ),
                 ),
               ),

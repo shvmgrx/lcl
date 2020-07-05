@@ -73,7 +73,6 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
   bool category3Pressed = false;
   bool category4Pressed = false;
 
-
   bool showBottomBar = true;
 
   bool refreshLunchalize = true;
@@ -88,9 +87,9 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     isVege = true;
     isNVege = false;
 
-     String userIdd = widget.selectedAvailableUser.uid;
+    String userIdd = widget.selectedAvailableUser.uid;
 
-     _repository
+    _repository
         .fetchRecipeBatchById(userIdd)
         .then((List<Recipe> profileRecipes) {
       setState(() {
@@ -141,8 +140,6 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     buddyMode = true;
     romanticMode = false;
     businessMode = false;
-
-    
   }
 
   Widget chipMaker(User selectedAvailableUser) {
@@ -167,7 +164,6 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     return new Row(children: list);
   }
 
-
   Widget chipMakerr(User selectedAvailableUser) {
     int categoryLength = selectedAvailableUser.cuisines.length;
 
@@ -188,16 +184,13 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
       );
     }
     return new Row(children: list);
-
-
   }
-  Widget recipeDisplayMaker() {
 
+  Widget recipeDisplayMaker() {
     List<Widget> list = new List<Widget>();
 
     print(selectedUserProfileRecipes.length);
-     for (var i in selectedUserProfileRecipes) { 
-
+    for (var i in selectedUserProfileRecipes) {
       i.recipeName != null
           ? list.add(
               Padding(
@@ -220,16 +213,10 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                           bottomRight: Radius.circular(5.0),
                         ),
                         image: DecorationImage(
-                            image: (i.recipePicture ==
-                                    "dummyNoImage" ||
-                                i.recipePicture == null)
-                            ? AssetImage("assets/defaultUserPicture.png")
-                            :  NetworkImage(
-                                "${i.recipePicture}"),
-                            
-                            
-                            
-                        
+                            image: (i.recipePicture == "dummyNoImage" ||
+                                    i.recipePicture == null)
+                                ? AssetImage("assets/defaultUserPicture.png")
+                                : NetworkImage("${i.recipePicture}"),
                             fit: BoxFit.cover),
                       ),
                     ),
@@ -239,7 +226,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
             )
           : list.add(Container());
     }
-   
+
     return new Row(children: list);
   }
 
@@ -501,7 +488,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                 heightFactor: 0.85,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                                  child: Container(
+                  child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(40),
@@ -520,10 +507,11 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                 children: <Widget>[
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Stack(children: <Widget>[
+                                    child: Stack(
+                                      children: <Widget>[
                                       Container(
-                                        height: screenHeight*0.4,
-                                        width:  screenHeight*0.4,
+                                        height: screenHeight * 0.4,
+                                        width: screenHeight * 0.4,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(25.0),
@@ -564,28 +552,54 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                       Positioned(
                                         right: 10,
                                         bottom: 10,
-                                        child: Container(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: <Widget>[
-                                              FloatingActionRow(
-                                                color: uniColors.online,
-                                                children: <Widget>[
-                                                  FloatingActionRowButton(
-                                                      icon: Icon(
-                                                        Icons.done,
-                                                        color: uniColors.white2,
-                                                        size: 25,
-                                                      ),
-                                                      onTap: () {}),
-                                                ],
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChatScreen(
+                                                  receiver: widget
+                                                      .selectedAvailableUser,
+                                                ),
                                               ),
-                                            ],
+                                            );
+                                          },
+                                          child: Container(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: <Widget>[
+                                                FloatingActionRow(
+                                                  color: uniColors.online,
+                                                  children: <Widget>[
+                                                    FloatingActionRowButton(
+                                                        icon: Icon(
+                                                          Icons.message,
+                                                          color:
+                                                              uniColors.white2,
+                                                          size: 25,
+                                                        ),
+                                                        onTap: () {}),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 8.0),
+                                                      child: Text(
+                                                        "CHAT",
+                                                        style: TextStyles
+                                                            .profileChat,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ]),
+                                    ]
+                                    ),
                                   ),
                                 ],
                               ),
@@ -603,123 +617,111 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                     bottomLeft: Radius.circular(25.0),
                                     bottomRight: Radius.circular(25.0),
                                   ),
-                               //   color: uniColors.standardWhite,
+                                  //   color: uniColors.standardWhite,
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Container(
-                                     decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25.0),
-                                    topRight: Radius.circular(25.0),
-                                    bottomLeft: Radius.circular(25.0),
-                                    bottomRight: Radius.circular(25.0),
-                                  ),
-                                 // color: uniColors.standardWhite,
-                                ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(25.0),
+                                          topRight: Radius.circular(25.0),
+                                          bottomLeft: Radius.circular(25.0),
+                                          bottomRight: Radius.circular(25.0),
+                                        ),
+                                        // color: uniColors.standardWhite,
+                                      ),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(left:10,
-                                                                    top: 15.0),
-                                                            child: Container(
-                                                              child: (userProvider
-                                                                              .getUser
-                                                                              .name ==
-                                                                          null ||
-                                                                      userProvider
-                                                                              .getUser
-                                                                              .name ==
-                                                                          "")
-                                                                  ? Text(
-                                                                      "LC User Name",
-                                                                      style: TextStyles
-                                                                          .selectedProfileName,
-                                                                    )
-                                                                  : Text(
-                                                                      "${widget.selectedAvailableUser.name}",
-                                                                      style: TextStyles
-                                                                          .selectedProfileName,
-                                                                    ),
-                                                            ),
-                                                          ),
+                                            padding: const EdgeInsets.only(
+                                                left: 10, top: 15.0),
+                                            child: Container(
+                                              child:
+                                                  (userProvider.getUser.name ==
+                                                              null ||
+                                                          userProvider.getUser
+                                                                  .name ==
+                                                              "")
+                                                      ? Text(
+                                                          "LC User Name",
+                                                          style: TextStyles
+                                                              .selectedProfileName,
+                                                        )
+                                                      : Text(
+                                                          "${widget.selectedAvailableUser.name}",
+                                                          style: TextStyles
+                                                              .selectedProfileName,
+                                                        ),
+                                            ),
+                                          ),
                                           Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    top: 10.0,
-                                                                    left:15
-                                                                    ),
-                                                            child: Container(
-                                                              child: (userProvider
-                                                                              .getUser
-                                                                              .bio ==
-                                                                          null ||
-                                                                      userProvider
-                                                                              .getUser
-                                                                              .bio ==
-                                                                          "")
-                                                                  ? Text(
-                                                                      "The bio of LC User",
-                                                                      style: TextStyles
-                                                                          .selectedProfileUserBio,
-                                                                    )
-                                                                  : Text(
-                                                                      "${widget.selectedAvailableUser.bio}",
-                                                                      style: TextStyles
-                                                                          .selectedProfileUserBio,
-                                                                    ),
-                                                            ),
-                                                          ),
-
-
-
-
-
+                                            padding: const EdgeInsets.only(
+                                                top: 10.0, left: 15),
+                                            child: Container(
+                                              child:
+                                                  (userProvider.getUser.bio ==
+                                                              null ||
+                                                          userProvider.getUser
+                                                                  .bio ==
+                                                              "")
+                                                      ? Text(
+                                                          "The bio of LC User",
+                                                          style: TextStyles
+                                                              .selectedProfileUserBio,
+                                                        )
+                                                      : Text(
+                                                          "${widget.selectedAvailableUser.bio}",
+                                                          style: TextStyles
+                                                              .selectedProfileUserBio,
+                                                        ),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top:8.0),
+                                      padding: const EdgeInsets.only(top: 8.0),
                                       child: Container(
-                                        //width: screenWidth,
-                                        //color: uniColors.white2,
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Container(
-                                            color: uniColors.lcRed,
-                                            child:chipMaker(widget.selectedAvailableUser),),
-                                        )
-                                      ),
+                                          //width: screenWidth,
+                                          //color: uniColors.white2,
+                                          child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Container(
+                                          color: uniColors.lcRed,
+                                          child: chipMaker(
+                                              widget.selectedAvailableUser),
+                                        ),
+                                      )),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top:8.0),
+                                      padding: const EdgeInsets.only(top: 8.0),
                                       child: Container(
-                                        height:screenHeight*0.25,
-                                      //  width: screenWidth*0.9,
-                                        
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Container(
-                                            //width: screenWidth*0.9,
-                                            decoration: BoxDecoration(
-                                              color:uniColors.transparent,
-                                              
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(8.0),
-                                            topRight: Radius.circular(8.0),
-                                            bottomLeft: Radius.circular(8.0),
-                                            bottomRight: Radius.circular(8.0),
-                                          ),
-                                         
-                                        ),
-                                            child:recipeDisplayMaker(),),
-                                        )
-                                      ),
+                                          height: screenHeight * 0.25,
+                                          //  width: screenWidth*0.9,
+
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Container(
+                                              //width: screenWidth*0.9,
+                                              decoration: BoxDecoration(
+                                                color: uniColors.transparent,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(8.0),
+                                                  topRight:
+                                                      Radius.circular(8.0),
+                                                  bottomLeft:
+                                                      Radius.circular(8.0),
+                                                  bottomRight:
+                                                      Radius.circular(8.0),
+                                                ),
+                                              ),
+                                              child: recipeDisplayMaker(),
+                                            ),
+                                          )),
                                     ),
 
                                     //For insta pics
@@ -728,7 +730,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                     //   child: Container(
                                     //     height:screenHeight*0.15,
                                     //    width: screenWidth*0.9,
-                                        
+
                                     //     child: SingleChildScrollView(
                                     //       scrollDirection: Axis.horizontal,
                                     //       child: Container(
@@ -740,18 +742,14 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                     //         bottomLeft: Radius.circular(8.0),
                                     //         bottomRight: Radius.circular(8.0),
                                     //       ),
-                                         
+
                                     //     ),
                                     //         child:recipeDisplayMaker(),),
                                     //     )
                                     //   ),
                                     // ),
-
-                                  
                                   ],
-                                )
-                                
-                                ),
+                                )),
                           ),
                         ],
                       ),
@@ -765,5 +763,4 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
       ),
     );
   }
-
 }

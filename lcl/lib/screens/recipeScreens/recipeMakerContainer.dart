@@ -256,6 +256,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'kg',
                 'ml',
                 'lt'
+                'piece',
+                'pkg'
                 'teaspoon',
                 'tablespoon',
                 'cup',
