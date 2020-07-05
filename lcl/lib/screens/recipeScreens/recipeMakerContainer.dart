@@ -255,6 +255,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt'
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -3198,7 +3199,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     }
 
     Future<File> pickImage({@required ImageSource source}) async {
-      File selectedImg = await Utils.pickImage(source: source);
+      File selectedImg = await Utils.pickImage(source: ImageSource.gallery);
 
       //File compImgHigh;
       //   File compImgLow;
@@ -3375,8 +3376,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                         right: 18,
                                         child: InkWell(
                                           onTap: () {
-                                            pickImage(
-                                                source: ImageSource.gallery);
+                                            pickImage(source: ImageSource.gallery);
                                           },
                                           child: Icon(
                                             Icons.add_circle,
@@ -3443,7 +3443,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                           items: [
                                             'Vegan',
                                             'Vegatarian',
-                                            'Non-Vegatarian',
+                                            
                                             'Low-Carb/Keto',
                                             'Lactose-free',
                                             'Gluten-free',
@@ -3519,122 +3519,122 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                       SizedBox(width: 10),
                                       Column(
                                         children: <Widget>[
-                                          makeIg1(screenWidth),
+                                          makeIg1(screenWidth*0.9),
                                           Visibility(
                                             visible: showIg2,
-                                            child: makeIg2(screenWidth),
+                                            child: makeIg2(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg3,
-                                            child: makeIg3(screenWidth),
+                                            child: makeIg3(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg4,
-                                            child: makeIg4(screenWidth),
+                                            child: makeIg4(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg5,
-                                            child: makeIg5(screenWidth),
+                                            child: makeIg5(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg6,
-                                            child: makeIg6(screenWidth),
+                                            child: makeIg6(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg7,
-                                            child: makeIg7(screenWidth),
+                                            child: makeIg7(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg8,
-                                            child: makeIg8(screenWidth),
+                                            child: makeIg8(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg9,
-                                            child: makeIg9(screenWidth),
+                                            child: makeIg9(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg10,
-                                            child: makeIg10(screenWidth),
+                                            child: makeIg10(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg11,
-                                            child: makeIg11(screenWidth),
+                                            child: makeIg11(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg12,
-                                            child: makeIg12(screenWidth),
+                                            child: makeIg12(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg13,
-                                            child: makeIg13(screenWidth),
+                                            child: makeIg13(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg14,
-                                            child: makeIg14(screenWidth),
+                                            child: makeIg14(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg15,
-                                            child: makeIg15(screenWidth),
+                                            child: makeIg15(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg16,
-                                            child: makeIg16(screenWidth),
+                                            child: makeIg16(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg17,
-                                            child: makeIg17(screenWidth),
+                                            child: makeIg17(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg18,
-                                            child: makeIg18(screenWidth),
+                                            child: makeIg18(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg19,
-                                            child: makeIg19(screenWidth),
+                                            child: makeIg19(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg20,
-                                            child: makeIg20(screenWidth),
+                                            child: makeIg20(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg21,
-                                            child: makeIg21(screenWidth),
+                                            child: makeIg21(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg22,
-                                            child: makeIg22(screenWidth),
+                                            child: makeIg22(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg23,
-                                            child: makeIg23(screenWidth),
+                                            child: makeIg23(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg24,
-                                            child: makeIg24(screenWidth),
+                                            child: makeIg24(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg25,
-                                            child: makeIg25(screenWidth),
+                                            child: makeIg25(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg26,
-                                            child: makeIg26(screenWidth),
+                                            child: makeIg26(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg27,
-                                            child: makeIg27(screenWidth),
+                                            child: makeIg27(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg28,
-                                            child: makeIg28(screenWidth),
+                                            child: makeIg28(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg29,
-                                            child: makeIg29(screenWidth),
+                                            child: makeIg29(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg30,
-                                            child: makeIg30(screenWidth),
+                                            child: makeIg30(screenWidth*0.9),
                                           ),
                                           Visibility(
                                             visible: showIg31,
@@ -3666,7 +3666,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                         child: Text(Strings.RECIPE_INSTRUCTIONS,
                                             style: TextStyles.recipe),
                                       ),
-                                      SizedBox(width: 30),
+                                      SizedBox(width: 20),
                                       Container(
                                         width: screenWidth * 0.60,
                                         child: FormBuilderTextField(
@@ -3675,8 +3675,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               labelText: "",
                                               helperStyle: TextStyles.recipe),
                                           keyboardType: TextInputType.multiline,
-                                          textCapitalization:
-                                              TextCapitalization.characters,
+                                      //    textCapitalization:TextCapitalization.characters,
                                           // validators: [
                                           //   // FormBuilderValidators.
                                           //   FormBuilderValidators.max(25),
@@ -3832,11 +3831,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               InputDecoration(labelText: ""),
                                           items: [
                                             'Fool proof',
-                                            'Quick & Easy',
-                                            'Fastfood',
+                                            'Average',
                                             'Pro',
-                                            'Fine Dining',
-                                            'Festive',
+                                           
                                           ]
                                               .map((difficulty) =>
                                                   DropdownMenuItem(
@@ -3877,8 +3874,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               InputDecoration(labelText: ""),
                                           items: [
                                             'Breakfast',
-                                            'Lunch',
-                                            'Dinner',
+                                            'Lunch/Dinner',
+                                            
                                             'Snack',
                                             'Main course',
                                             'Dessert',
@@ -3921,18 +3918,25 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                           decoration:
                                               InputDecoration(labelText: ""),
                                           items: [
-                                            'Indian',
-                                            'Turkish',
-                                            'Mediterranean',
-                                            'Spanish',
-                                            'Asian',
-                                            'French',
-                                            'American',
                                             'African',
-                                            'Mexican',
-                                            'Scandinavian',
-                                            'Middle Eastern',
+                                            'American',
+                                            'Asian',
                                             'Eastern European',
+                                            'French',
+                                            'Indian',
+                                            'Mediterranean',
+                                            'Middle Eastern',
+                                            
+                                            'Scandinavian',
+                                            'Spanish',
+                                            'Turkish',
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
                                             'Other',
                                           ]
                                               .map((cuisine) =>

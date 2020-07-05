@@ -16,7 +16,7 @@ class Utils {
    static Future<File> pickImage({@required ImageSource source}) async {
     File _image;
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     _image = File(pickedFile.path);
 

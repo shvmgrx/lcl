@@ -67,6 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   String loggedInprofilePhoto;
   String loggedInUsername;
   String loggedInBio;
+  List loggedInCategories;
 
   int distance;
   int time;
@@ -130,6 +131,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           loggedInUsername = loggedUser['username'];
           loggedInBio = loggedUser['bio'];
           loggedInprofilePhoto = loggedUser['profile_photo'];
+          loggedInCategories = loggedUser['cuisines'];
           // isVega = loggedUser['isVegan'];
           // isVege = loggedUser['isVegetarian'];
           // isNVege = loggedUser['isNVegetarian'];
@@ -1138,18 +1140,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                           Radius.circular(25.0),
                                                     ),
                                                     image: DecorationImage(
-                                                        image: (userProvider
-                                                                        .getUser
-                                                                        .profilePhoto ==
-                                                                    "" ||
-                                                                userProvider
-                                                                        .getUser
-                                                                        .profilePhoto ==
+                                                        image: (
+                                                                loggedInprofilePhoto ==
                                                                     null)
                                                             ? AssetImage(
-                                                                "assets/plate.jpg")
+                                                                "assets/defaultUserPicture.png")
                                                             : NetworkImage(
-                                                                "${userProvider.getUser.profilePhoto}"),
+                                                                "${loggedInprofilePhoto}"),
                                                         fit: BoxFit.fitWidth),
                                                   ),
                                                 ),
@@ -1176,13 +1173,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                       .only(
                                                                   top: 15.0),
                                                           child: Container(
-                                                            child: (userProvider
-                                                                            .getUser
-                                                                            .name ==
+                                                            child: (loggedInname ==
                                                                         null ||
-                                                                    userProvider
-                                                                            .getUser
-                                                                            .name ==
+                                                                    loggedInname==
                                                                         "")
                                                                 ? Text(
                                                                     "LC User Name",
@@ -1190,7 +1183,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                         .selfProfileUserName,
                                                                   )
                                                                 : Text(
-                                                                    "${userProvider.getUser.name}",
+                                                                    "${loggedInname}",
                                                                     style: TextStyles
                                                                         .selfProfileUserName,
                                                                   ),
@@ -1202,13 +1195,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                       .only(
                                                                   top: 10.0),
                                                           child: Container(
-                                                            child: (userProvider
-                                                                            .getUser
-                                                                            .bio ==
+                                                            child: (loggedInBio ==
                                                                         null ||
-                                                                    userProvider
-                                                                            .getUser
-                                                                            .bio ==
+                                                                    loggedInBio==
                                                                         "")
                                                                 ? Text(
                                                                     "The bio of LC User",
@@ -1216,7 +1205,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                         .selfProfileUserBio,
                                                                   )
                                                                 : Text(
-                                                                    "${userProvider.getUser.bio}",
+                                                                    "${loggedInBio}",
                                                                     style: TextStyles
                                                                         .selfProfileUserBio,
                                                                   ),
@@ -1267,7 +1256,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
-                                                userProvider.getUser.cuisines !=
+                                                loggedInCategories !=
                                                         null
                                                     ? chipMaker(userProvider
                                                         .getUser
@@ -1840,7 +1829,15 @@ class _DashboardScreenState extends State<DashboardScreen>
                       topRight: Radius.circular(25.0),
                     ),
                     image: DecorationImage(
-                        image: NetworkImage("${availableUsers.profilePhoto}"),
+                        image: (availableUsers.profilePhoto ==
+                                                                    null)
+                                                            ? AssetImage(
+                                                                "assets/defaultUserPicture.png")
+                                                            : NetworkImage(
+                                                                "${availableUsers.profilePhoto}"),
+                        
+                        
+                       
                         fit: BoxFit.fitWidth),
                   ),
                 ),
