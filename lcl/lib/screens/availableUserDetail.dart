@@ -73,6 +73,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
   bool category3Pressed = false;
   bool category4Pressed = false;
 
+
   bool showBottomBar = true;
 
   bool refreshLunchalize = true;
@@ -86,6 +87,16 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     isVega = false;
     isVege = true;
     isNVege = false;
+
+     String userIdd = widget.selectedAvailableUser.uid;
+
+     _repository
+        .fetchRecipeBatchById(userIdd)
+        .then((List<Recipe> profileRecipes) {
+      setState(() {
+        selectedUserProfileRecipes = profileRecipes;
+      });
+    });
 
     controller =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
@@ -130,6 +141,8 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     buddyMode = true;
     romanticMode = false;
     businessMode = false;
+
+    
   }
 
   Widget chipMaker(User selectedAvailableUser) {
@@ -154,22 +167,38 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     return new Row(children: list);
   }
 
-  Widget recipeDisplayMaker(User selectedAvailableUser) {
-    String userIdd = selectedAvailableUser.uid;
 
-    _repository
-        .fetchRecipeBatchById(userIdd)
-        .then((List<Recipe> profileRecipes) {
-      setState(() {
-        selectedUserProfileRecipes = profileRecipes;
-      });
-    });
+  Widget chipMakerr(User selectedAvailableUser) {
+    int categoryLength = selectedAvailableUser.cuisines.length;
+
+    List<Widget> list = new List<Widget>();
+
+    for (var i = 0; i < categoryLength; i++) {
+      list.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3.0),
+          child: selectedAvailableUser.cuisines[i] != null
+              ? Chip(
+                  backgroundColor: uniColors.white2,
+                  label: Text(selectedAvailableUser.cuisines[i],
+                      style: TextStyles.profileChipStyle),
+                )
+              : Container(),
+        ),
+      );
+    }
+    return new Row(children: list);
+
+
+  }
+  Widget recipeDisplayMaker() {
 
     List<Widget> list = new List<Widget>();
 
     print(selectedUserProfileRecipes.length);
-    for (var i = 0; i < selectedUserProfileRecipes.length; i++) {
-      selectedUserProfileRecipes[i].recipeName != null
+     for (var i in selectedUserProfileRecipes) { 
+
+      i.recipeName != null
           ? list.add(
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -177,8 +206,8 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(selectedUserProfileRecipes[i].recipeName,
-                          style: TextStyles.recipeName),
+                      child: Text(i.recipeName,
+                          style: TextStyles.recipeProfileName),
                     ),
                     Container(
                       height: 150,
@@ -191,8 +220,16 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                           bottomRight: Radius.circular(5.0),
                         ),
                         image: DecorationImage(
-                            image: NetworkImage(
-                                "${selectedUserProfileRecipes[i].recipePicture}"),
+                            image: (i.recipePicture ==
+                                    "dummyNoImage" ||
+                                i.recipePicture == null)
+                            ? AssetImage("assets/defaultUserPicture.png")
+                            :  NetworkImage(
+                                "${i.recipePicture}"),
+                            
+                            
+                            
+                        
                             fit: BoxFit.cover),
                       ),
                     ),
@@ -202,6 +239,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
             )
           : list.add(Container());
     }
+   
     return new Row(children: list);
   }
 
@@ -461,381 +499,434 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
               FractionallySizedBox(
                 alignment: Alignment.bottomCenter,
                 heightFactor: 0.85,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(40),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(40),
+                      ),
+                      color: uniColors.lcRed.withOpacity(controller.value),
                     ),
-                    color: uniColors.lcRed.withOpacity(controller.value),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Stack(children: <Widget>[
-                                    Container(
-                                      height: 350.0,
-                                      width: 350.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(25.0),
-                                          topRight: Radius.circular(25.0),
-                                          bottomLeft: Radius.circular(25.0),
-                                          bottomRight: Radius.circular(25.0),
-                                        ),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                "${widget.selectedAvailableUser.profilePhoto}"),
-                                            fit: BoxFit.cover),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      left: 10,
-                                      bottom: 10,
-                                      child: Container(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: <Widget>[
-                                            FloatingActionRow(
-                                              color: uniColors.lcRed,
-                                              children: <Widget>[
-                                                FloatingActionRowButton(
-                                                    icon: Icon(
-                                                      Icons.close,
-                                                      color: uniColors.white2,
-                                                      size: 25,
-                                                    ),
-                                                    onTap: () {}),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      right: 10,
-                                      bottom: 10,
-                                      child: Container(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: <Widget>[
-                                            FloatingActionRow(
-                                              color: uniColors.online,
-                                              children: <Widget>[
-                                                FloatingActionRowButton(
-                                                    icon: Icon(
-                                                      Icons.done,
-                                                      color: uniColors.white2,
-                                                      size: 25,
-                                                    ),
-                                                    onTap: () {}),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ]),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Opacity(
-                          opacity: controller.value,
-                          child: Container(
-                              // height: 150.0,
-                              // width: screenWidth*0.8,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25.0),
-                                  topRight: Radius.circular(25.0),
-                                  bottomLeft: Radius.circular(25.0),
-                                  bottomRight: Radius.circular(25.0),
-                                ),
-                             //   color: uniColors.standardWhite,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
                                 children: <Widget>[
-                                  Container(
-                                   decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25.0),
-                                  topRight: Radius.circular(25.0),
-                                  bottomLeft: Radius.circular(25.0),
-                                  bottomRight: Radius.circular(25.0),
-                                ),
-                               // color: uniColors.standardWhite,
-                              ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(left:10,
-                                                                  top: 15.0),
-                                                          child: Container(
-                                                            child: (userProvider
-                                                                            .getUser
-                                                                            .name ==
-                                                                        null ||
-                                                                    userProvider
-                                                                            .getUser
-                                                                            .name ==
-                                                                        "")
-                                                                ? Text(
-                                                                    "LC User Name",
-                                                                    style: TextStyles
-                                                                        .selectedProfileName,
-                                                                  )
-                                                                : Text(
-                                                                    "${widget.selectedAvailableUser.name}",
-                                                                    style: TextStyles
-                                                                        .selectedProfileName,
-                                                                  ),
-                                                          ),
-                                                        ),
-                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  top: 10.0,
-                                                                  left:15
-                                                                  ),
-                                                          child: Container(
-                                                            child: (userProvider
-                                                                            .getUser
-                                                                            .bio ==
-                                                                        null ||
-                                                                    userProvider
-                                                                            .getUser
-                                                                            .bio ==
-                                                                        "")
-                                                                ? Text(
-                                                                    "The bio of LC User",
-                                                                    style: TextStyles
-                                                                        .selectedProfileUserBio,
-                                                                  )
-                                                                : Text(
-                                                                    "${widget.selectedAvailableUser.bio}",
-                                                                    style: TextStyles
-                                                                        .selectedProfileUserBio,
-                                                                  ),
-                                                          ),
-                                                        ),
-
-
-
-
-
-                                      ],
-                                    ),
-                                  ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top:8.0),
-                                    child: Container(
-                                      //width: screenWidth,
-                                      color: uniColors.white2,
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Stack(children: <Widget>[
+                                      Container(
+                                        height: screenHeight*0.4,
+                                        width:  screenHeight*0.4,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(25.0),
+                                            topRight: Radius.circular(25.0),
+                                            bottomLeft: Radius.circular(25.0),
+                                            bottomRight: Radius.circular(25.0),
+                                          ),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "${widget.selectedAvailableUser.profilePhoto}"),
+                                              fit: BoxFit.cover),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 10,
+                                        bottom: 10,
                                         child: Container(
-                                          color: uniColors.lcRed,
-                                          child:chipMaker(widget.selectedAvailableUser),),
-                                      )
-                                    ),
-                                  ),
-
-                                  Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 15.0, left: 5, right: 5),
-                                          child: Container(
-                                            //  color: uniColors.gold4,
-                                            height:screenHeight*0.2,
-                                            width: screenWidth,
-                                            decoration: BoxDecoration(
-                                              color: uniColors.backgroundGrey,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(25.0),
-                                                bottomLeft: Radius.circular(25.0),
-                                                bottomRight: Radius.circular(25.0),
-                                                topRight: Radius.circular(25.0),
-                                                // bottomLeft:
-                                                //     Radius.circular(25.0),
-                                                // bottomRight:
-                                                //     Radius.circular(25.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                              FloatingActionRow(
+                                                color: uniColors.lcRed,
+                                                children: <Widget>[
+                                                  FloatingActionRowButton(
+                                                      icon: Icon(
+                                                        Icons.close,
+                                                        color: uniColors.white2,
+                                                        size: 25,
+                                                      ),
+                                                      onTap: () {}),
+                                                ],
                                               ),
-                                            ),
-
-                                            child: SingleChildScrollView(
-                                              child:Row(
-                                               children: <Widget>[
-                                                if (selectedUserProfileRecipes != null)
-                                                  ...selectedUserProfileRecipes.map((e) {
-                                                    return buildSelfRecipeGrid(e);
-                                                  }).toList(),
-                                              ],
-                                              )
-                                            )
+                                            ],
                                           ),
                                         ),
+                                      ),
+                                      Positioned(
+                                        right: 10,
+                                        bottom: 10,
+                                        child: Container(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                              FloatingActionRow(
+                                                color: uniColors.online,
+                                                children: <Widget>[
+                                                  FloatingActionRowButton(
+                                                      icon: Icon(
+                                                        Icons.done,
+                                                        color: uniColors.white2,
+                                                        size: 25,
+                                                      ),
+                                                      onTap: () {}),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
                                 ],
-                              )
-                              // child: Column(
-                              //   children: <Widget>[
-                              //     Row(
-                              //       mainAxisAlignment: MainAxisAlignment.start,
-                              //       children: <Widget>[
-                              //         Padding(
-                              //           padding: const EdgeInsets.only(
-                              //               top: 15.0, left: 10),
-                              //           child: Container(
-                              //             child: Column(
-                              //               crossAxisAlignment:
-                              //                   CrossAxisAlignment.start,
-                              //               children: <Widget>[
-                              //                 InkWell(
-                              //                   onTap: () {
-                              //                     Navigator.push(
-                              //                       context,
-                              //                       MaterialPageRoute(
-                              //                         builder: (context) =>
-                              //                             ChatScreen(
-                              //                           receiver: widget
-                              //                               .selectedAvailableUser,
-                              //                         ),
-                              //                       ),
-                              //                     );
-                              //                   },
-                              //                   child: Row(
-                              //                     children: <Widget>[
-                              //                       Text(
-                              //                         " ${widget.selectedAvailableUser.name}, ${widget.selectedAvailableUser.age}",
-                              //                         style: TextStyles
-                              //                             .profileUserName,
-                              //                       ),
-                              //                       Padding(
-                              //                         padding: const EdgeInsets
-                              //                                 .symmetric(
-                              //                             horizontal: 3.0),
-                              //                         child: Text(
-                              //                           "(45 kms)",
-                              //                           style: TextStyles
-                              //                               .profileUserDistance,
-                              //                         ),
-                              //                       ),
-                              //                     ],
-                              //                   ),
-                              //                 ),
-                              //                 Padding(
-                              //                   padding: const EdgeInsets.only(
-                              //                       top: 8.0, left: 10),
-                              //                   child: Text(
-                              //                     widget
-                              //                         .selectedAvailableUser.bio,
-                              //                     style: TextStyles.mainScreenBio,
-                              //                     // textAlign: TextAlign.left
-                              //                   ),
-                              //                 ),
-                              //                 Padding(
-                              //                   padding: const EdgeInsets.only(
-                              //                       left: 5.0, top: 5),
-                              //                   child: Row(
-                              //                     children: <Widget>[
-                              //                       chipMaker(widget.selectedAvailableUser)
-                              //                     ],
-                              //                   ),
-                              //                 )
-                              //               ],
-                              //             ),
-                              //           ),
-                              //         ),
-                              //         //   Spacer(),
-                              //         // Padding(
-                              //         //   padding: const EdgeInsets.all(5.0),
-                              //         //   child: Container(
-                              //         //     height: 40,
-                              //         //     decoration: BoxDecoration(
-                              //         //       color: uniColors.lcRed,
-                              //         //       borderRadius: BorderRadius.only(
-                              //         //         topLeft: Radius.circular(25.0),
-                              //         //         topRight: Radius.circular(25.0),
-                              //         //         bottomLeft: Radius.circular(25.0),
-                              //         //       ),
-                              //         //     ),
-                              //         //     child: Padding(
-                              //         //       padding: const EdgeInsets.all(8.0),
-                              //         //       child: Column(
-                              //         //         mainAxisAlignment:
-                              //         //             MainAxisAlignment.center,
-                              //         //         children: <Widget>[
-                              //         //           Row(
-                              //         //             children: <Widget>[
-                              //         //               Icon(
-                              //         //                 Icons.chat,
-                              //         //                 color: uniColors.white2,
-                              //         //               ),
-                              //         //               Padding(
-                              //         //                 padding: const EdgeInsets
-                              //         //                         .symmetric(
-                              //         //                     horizontal: 8.0),
-                              //         //                 child: Text("CHAT",
-                              //         //                     style: TextStyles
-                              //         //                         .chatBubble),
-                              //         //               )
-                              //         //             ],
-                              //         //           ),
-                              //         //         ],
-                              //         //       ),
-                              //         //     ),
-                              //         //   ),
-                              //         // )
-                              //       ],
-                              //     ),
-                              //     Divider(),
-                              //     Padding(
-                              //       padding: const EdgeInsets.only(
-                              //           left: 15, bottom: 10, top: 10),
-                              //       child: Container(
-                              //           child: SingleChildScrollView(
-                              //         scrollDirection: Axis.horizontal,
-                              //         child: Row(
-                              //           children: <Widget>[
-                              //             Container(
-                              //               width: screenWidth,
-                              //               height: screenHeight * 0.2,
-                              //               child: Row(
-                              //                 mainAxisAlignment:
-                              //                     MainAxisAlignment.start,
-                              //                 crossAxisAlignment:
-                              //                     CrossAxisAlignment.start,
-                              //                 children: <Widget>[
-                              //                   // recipeDisplayMaker(
-                              //                   //     widget.selectedAvailableUser)
-
-                              //                 ],
-                              //               ),
-                              //             ),
-                              //           ],
-                              //         ),
-                              //       )),
-                              //     )
-                              //   ],
-                              // ),
                               ),
-                        ),
-                      ],
+                            ),
+                          ),
+                          Opacity(
+                            opacity: controller.value,
+                            child: Container(
+                                // height: 150.0,
+                                // width: screenWidth*0.8,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(25.0),
+                                    topRight: Radius.circular(25.0),
+                                    bottomLeft: Radius.circular(25.0),
+                                    bottomRight: Radius.circular(25.0),
+                                  ),
+                               //   color: uniColors.standardWhite,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                     decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(25.0),
+                                    topRight: Radius.circular(25.0),
+                                    bottomLeft: Radius.circular(25.0),
+                                    bottomRight: Radius.circular(25.0),
+                                  ),
+                                 // color: uniColors.standardWhite,
+                                ),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(left:10,
+                                                                    top: 15.0),
+                                                            child: Container(
+                                                              child: (userProvider
+                                                                              .getUser
+                                                                              .name ==
+                                                                          null ||
+                                                                      userProvider
+                                                                              .getUser
+                                                                              .name ==
+                                                                          "")
+                                                                  ? Text(
+                                                                      "LC User Name",
+                                                                      style: TextStyles
+                                                                          .selectedProfileName,
+                                                                    )
+                                                                  : Text(
+                                                                      "${widget.selectedAvailableUser.name}",
+                                                                      style: TextStyles
+                                                                          .selectedProfileName,
+                                                                    ),
+                                                            ),
+                                                          ),
+                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 10.0,
+                                                                    left:15
+                                                                    ),
+                                                            child: Container(
+                                                              child: (userProvider
+                                                                              .getUser
+                                                                              .bio ==
+                                                                          null ||
+                                                                      userProvider
+                                                                              .getUser
+                                                                              .bio ==
+                                                                          "")
+                                                                  ? Text(
+                                                                      "The bio of LC User",
+                                                                      style: TextStyles
+                                                                          .selectedProfileUserBio,
+                                                                    )
+                                                                  : Text(
+                                                                      "${widget.selectedAvailableUser.bio}",
+                                                                      style: TextStyles
+                                                                          .selectedProfileUserBio,
+                                                                    ),
+                                                            ),
+                                                          ),
+
+
+
+
+
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top:8.0),
+                                      child: Container(
+                                        //width: screenWidth,
+                                        //color: uniColors.white2,
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Container(
+                                            color: uniColors.lcRed,
+                                            child:chipMaker(widget.selectedAvailableUser),),
+                                        )
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top:8.0),
+                                      child: Container(
+                                        height:screenHeight*0.25,
+                                      //  width: screenWidth*0.9,
+                                        
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Container(
+                                            //width: screenWidth*0.9,
+                                            decoration: BoxDecoration(
+                                              color:uniColors.transparent,
+                                              
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(8.0),
+                                            topRight: Radius.circular(8.0),
+                                            bottomLeft: Radius.circular(8.0),
+                                            bottomRight: Radius.circular(8.0),
+                                          ),
+                                         
+                                        ),
+                                            child:recipeDisplayMaker(),),
+                                        )
+                                      ),
+                                    ),
+
+                                    //For insta pics
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(top:8.0),
+                                    //   child: Container(
+                                    //     height:screenHeight*0.15,
+                                    //    width: screenWidth*0.9,
+                                        
+                                    //     child: SingleChildScrollView(
+                                    //       scrollDirection: Axis.horizontal,
+                                    //       child: Container(
+                                    //         decoration: BoxDecoration(
+                                    //           color:uniColors.transparent,
+                                    //       borderRadius: BorderRadius.only(
+                                    //         topLeft: Radius.circular(8.0),
+                                    //         topRight: Radius.circular(8.0),
+                                    //         bottomLeft: Radius.circular(8.0),
+                                    //         bottomRight: Radius.circular(8.0),
+                                    //       ),
+                                         
+                                    //     ),
+                                    //         child:recipeDisplayMaker(),),
+                                    //     )
+                                    //   ),
+                                    // ),
+
+                                    // Padding(
+                                    //         padding: const EdgeInsets.only(
+                                    //             top: 15.0, left: 5, right: 5),
+                                    //         child: Container(
+                                    //           //  color: uniColors.gold4,
+                                    //           height:screenHeight*0.2,
+                                    //           width: screenWidth,
+                                    //           decoration: BoxDecoration(
+                                    //             color: uniColors.backgroundGrey,
+                                    //             borderRadius: BorderRadius.only(
+                                    //               topLeft: Radius.circular(25.0),
+                                    //               bottomLeft: Radius.circular(25.0),
+                                    //               bottomRight: Radius.circular(25.0),
+                                    //               topRight: Radius.circular(25.0),
+                                    //               // bottomLeft:
+                                    //               //     Radius.circular(25.0),
+                                    //               // bottomRight:
+                                    //               //     Radius.circular(25.0),
+                                    //             ),
+                                    //           ),
+
+                                    //           child: SingleChildScrollView(
+                                    //             child:Row(
+                                    //              children: <Widget>[
+                                    //               if (selectedUserProfileRecipes != null)
+                                    //                 ...selectedUserProfileRecipes.map((e) {
+                                    //                   return buildSelfRecipeGrid(e);
+                                    //                 }).toList(),
+                                    //             ],
+                                    //             )
+                                    //           )
+                                    //         ),
+                                    //       ),
+                                  ],
+                                )
+                                // child: Column(
+                                //   children: <Widget>[
+                                //     Row(
+                                //       mainAxisAlignment: MainAxisAlignment.start,
+                                //       children: <Widget>[
+                                //         Padding(
+                                //           padding: const EdgeInsets.only(
+                                //               top: 15.0, left: 10),
+                                //           child: Container(
+                                //             child: Column(
+                                //               crossAxisAlignment:
+                                //                   CrossAxisAlignment.start,
+                                //               children: <Widget>[
+                                //                 InkWell(
+                                //                   onTap: () {
+                                //                     Navigator.push(
+                                //                       context,
+                                //                       MaterialPageRoute(
+                                //                         builder: (context) =>
+                                //                             ChatScreen(
+                                //                           receiver: widget
+                                //                               .selectedAvailableUser,
+                                //                         ),
+                                //                       ),
+                                //                     );
+                                //                   },
+                                //                   child: Row(
+                                //                     children: <Widget>[
+                                //                       Text(
+                                //                         " ${widget.selectedAvailableUser.name}, ${widget.selectedAvailableUser.age}",
+                                //                         style: TextStyles
+                                //                             .profileUserName,
+                                //                       ),
+                                //                       Padding(
+                                //                         padding: const EdgeInsets
+                                //                                 .symmetric(
+                                //                             horizontal: 3.0),
+                                //                         child: Text(
+                                //                           "(45 kms)",
+                                //                           style: TextStyles
+                                //                               .profileUserDistance,
+                                //                         ),
+                                //                       ),
+                                //                     ],
+                                //                   ),
+                                //                 ),
+                                //                 Padding(
+                                //                   padding: const EdgeInsets.only(
+                                //                       top: 8.0, left: 10),
+                                //                   child: Text(
+                                //                     widget
+                                //                         .selectedAvailableUser.bio,
+                                //                     style: TextStyles.mainScreenBio,
+                                //                     // textAlign: TextAlign.left
+                                //                   ),
+                                //                 ),
+                                //                 Padding(
+                                //                   padding: const EdgeInsets.only(
+                                //                       left: 5.0, top: 5),
+                                //                   child: Row(
+                                //                     children: <Widget>[
+                                //                       chipMaker(widget.selectedAvailableUser)
+                                //                     ],
+                                //                   ),
+                                //                 )
+                                //               ],
+                                //             ),
+                                //           ),
+                                //         ),
+                                //         //   Spacer(),
+                                //         // Padding(
+                                //         //   padding: const EdgeInsets.all(5.0),
+                                //         //   child: Container(
+                                //         //     height: 40,
+                                //         //     decoration: BoxDecoration(
+                                //         //       color: uniColors.lcRed,
+                                //         //       borderRadius: BorderRadius.only(
+                                //         //         topLeft: Radius.circular(25.0),
+                                //         //         topRight: Radius.circular(25.0),
+                                //         //         bottomLeft: Radius.circular(25.0),
+                                //         //       ),
+                                //         //     ),
+                                //         //     child: Padding(
+                                //         //       padding: const EdgeInsets.all(8.0),
+                                //         //       child: Column(
+                                //         //         mainAxisAlignment:
+                                //         //             MainAxisAlignment.center,
+                                //         //         children: <Widget>[
+                                //         //           Row(
+                                //         //             children: <Widget>[
+                                //         //               Icon(
+                                //         //                 Icons.chat,
+                                //         //                 color: uniColors.white2,
+                                //         //               ),
+                                //         //               Padding(
+                                //         //                 padding: const EdgeInsets
+                                //         //                         .symmetric(
+                                //         //                     horizontal: 8.0),
+                                //         //                 child: Text("CHAT",
+                                //         //                     style: TextStyles
+                                //         //                         .chatBubble),
+                                //         //               )
+                                //         //             ],
+                                //         //           ),
+                                //         //         ],
+                                //         //       ),
+                                //         //     ),
+                                //         //   ),
+                                //         // )
+                                //       ],
+                                //     ),
+                                //     Divider(),
+                                //     Padding(
+                                //       padding: const EdgeInsets.only(
+                                //           left: 15, bottom: 10, top: 10),
+                                //       child: Container(
+                                //           child: SingleChildScrollView(
+                                //         scrollDirection: Axis.horizontal,
+                                //         child: Row(
+                                //           children: <Widget>[
+                                //             Container(
+                                //               width: screenWidth,
+                                //               height: screenHeight * 0.2,
+                                //               child: Row(
+                                //                 mainAxisAlignment:
+                                //                     MainAxisAlignment.start,
+                                //                 crossAxisAlignment:
+                                //                     CrossAxisAlignment.start,
+                                //                 children: <Widget>[
+                                //                   // recipeDisplayMaker(
+                                //                   //     widget.selectedAvailableUser)
+
+                                //                 ],
+                                //               ),
+                                //             ),
+                                //           ],
+                                //         ),
+                                //       )),
+                                //     )
+                                //   ],
+                                // ),
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -939,7 +1030,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     );
   }
 
-  buildSelfRecipeGrid(Recipe selfRecipeList) {
+  buildSelfRecipeGrid(Recipe selectedUserProfileRecipes) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
@@ -971,11 +1062,11 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                       topRight: Radius.circular(25.0),
                     ),
                     image: DecorationImage(
-                        image: (selfRecipeList.recipePicture ==
+                        image: (selectedUserProfileRecipes.recipePicture ==
                                     "dummyNoImage" ||
-                                selfRecipeList.recipePicture == null)
+                                selectedUserProfileRecipes.recipePicture == null)
                             ? AssetImage("assets/plate.jpg")
-                            : NetworkImage("${selfRecipeList.recipePicture}"),
+                            : NetworkImage("${selectedUserProfileRecipes.recipePicture}"),
                         fit: BoxFit.fitWidth),
                   ),
                 ),
@@ -1005,12 +1096,12 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                   const EdgeInsets.symmetric(vertical: 2.0),
                               child: Align(
                                 alignment: Alignment.center,
-                                child: (selfRecipeList.recipeName == "" ||
-                                        selfRecipeList.recipeName == null)
+                                child: (selectedUserProfileRecipes.recipeName == "" ||
+                                        selectedUserProfileRecipes.recipeName == null)
                                     ? Text("LC RECIPE",
                                         style: TextStyles.selfProfileRecipeName,
                                         textAlign: TextAlign.center)
-                                    : Text(selfRecipeList.recipeName,
+                                    : Text(selectedUserProfileRecipes.recipeName,
                                         style: TextStyles.selfProfileRecipeName,
                                         textAlign: TextAlign.center),
                               ),

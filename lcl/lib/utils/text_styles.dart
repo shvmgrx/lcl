@@ -324,6 +324,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+        static final TextStyle recipeProfileName = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w800,
+    color: uniColors.white2,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
           static final TextStyle error = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w800,
