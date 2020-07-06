@@ -1141,9 +1141,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                           Radius.circular(25.0),
                                                     ),
                                                     image: DecorationImage(
-                                                        image: (
-                                                                loggedInprofilePhoto ==
-                                                                    null)
+                                                        image: (loggedInprofilePhoto ==
+                                                                null)
                                                             ? AssetImage(
                                                                 "assets/defaultUserPicture.png")
                                                             : NetworkImage(
@@ -1176,7 +1175,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                           child: Container(
                                                             child: (loggedInname ==
                                                                         null ||
-                                                                    loggedInname==
+                                                                    loggedInname ==
                                                                         "")
                                                                 ? Text(
                                                                     "LC User Name",
@@ -1198,7 +1197,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                           child: Container(
                                                             child: (loggedInBio ==
                                                                         null ||
-                                                                    loggedInBio==
+                                                                    loggedInBio ==
                                                                         "")
                                                                 ? Text(
                                                                     "The bio of LC User",
@@ -1257,8 +1256,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
-                                                loggedInCategories !=
-                                                        null
+                                                loggedInCategories != null
                                                     ? chipMaker(userProvider
                                                         .getUser
                                                         .cuisines
@@ -1830,15 +1828,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                       topRight: Radius.circular(25.0),
                     ),
                     image: DecorationImage(
-                        image: (availableUsers.profilePhoto ==
-                                                                    null)
-                                                            ? AssetImage(
-                                                                "assets/defaultUserPicture.png")
-                                                            : NetworkImage(
-                                                                "${availableUsers.profilePhoto}"),
-                        
-                        
-                       
+                        image: (availableUsers.profilePhoto == null)
+                            ? AssetImage("assets/defaultUserPicture.png")
+                            : NetworkImage("${availableUsers.profilePhoto}"),
                         fit: BoxFit.fitWidth),
                   ),
                 ),
@@ -1912,7 +1904,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     return GestureDetector(
       onTap: () {
-         Navigator.pushAndRemoveUntil(
+        Navigator.pushAndRemoveUntil(
           context,
           CupertinoPageRoute(
               builder: (context) =>
@@ -1997,98 +1989,98 @@ class _DashboardScreenState extends State<DashboardScreen>
       ),
     );
   }
+
   //recipe grid
   buildSelfRecipeGrid(Recipe selfRecipeList) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    return GestureDetector(
-      onTap: () {
-        
-    
-      },
+    return Padding(
+      padding: EdgeInsets.all(6.0),
+      child: Stack(
+        children: <Widget>[
+          Container(
+              //height: 250,
+              // width: screenWidth / 1.75,
+              color: uniColors.transparent),
+          Positioned(
+            left: 1.0,
+            top: 1.0,
+            child: Opacity(
+              opacity: 1,
+              child: GestureDetector(
+                onTap: () {
 
-      
-      child: Padding(
-        padding: EdgeInsets.all(6.0),
-        child: Stack(
-          children: <Widget>[
-            Container(
-                //height: 250,
-                // width: screenWidth / 1.75,
-                color: uniColors.transparent),
-            Positioned(
-              left: 1.0,
-              top: 1.0,
-              child: Opacity(
-                opacity: 1,
-                child: GestureDetector(
-                  onTap: (){
-                  
-       
-                  },
-                                  child: Container(
-                    height: screenWidth / 4,
-                    width: screenWidth / 3.5,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25.0),
-                        topRight: Radius.circular(25.0),
-                      ),
-                      image: DecorationImage(
-                          image: (selfRecipeList.recipePicture ==
-                                      "dummyNoImage" ||
-                                  selfRecipeList.recipePicture == null)
-                              ? AssetImage("assets/plate.jpg")
-                              : NetworkImage("${selfRecipeList.recipePicture}"),
-                          fit: BoxFit.fitWidth),
+                print("object");
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) =>
+                          RecipeDetails(selectedRecipe: selfRecipeList)),
+                  (Route<dynamic> route) => false,
+                );
+                },
+                child: Container(
+                  height: screenWidth / 4,
+                  width: screenWidth / 3.5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0),
                     ),
+                    image: DecorationImage(
+                        image: (selfRecipeList.recipePicture ==
+                                    "dummyNoImage" ||
+                                selfRecipeList.recipePicture == null)
+                            ? AssetImage("assets/plate.jpg")
+                            : NetworkImage("${selfRecipeList.recipePicture}"),
+                        fit: BoxFit.fitWidth),
                   ),
                 ),
               ),
             ),
-            Positioned(
-                left: 1.0,
-                top: 104.0,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 40.0,
-                      width: screenWidth / 3.5,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(25.0),
-                            bottomRight: Radius.circular(25.0),
-                          ),
-                          color: uniColors.white2),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 2,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 2.0),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: (selfRecipeList.recipeName == "" ||
-                                        selfRecipeList.recipeName == null)
-                                    ? Text("LC RECIPE",
-                                        style: TextStyles.selfProfileRecipeName,
-                                        textAlign: TextAlign.center)
-                                    : Text(selfRecipeList.recipeName,
-                                        style: TextStyles.selfProfileRecipeName,
-                                        textAlign: TextAlign.center),
-                              ),
+          ),
+          Positioned(
+              left: 1.0,
+              top: 104.0,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 40.0,
+                    width: screenWidth / 3.5,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(25.0),
+                          bottomRight: Radius.circular(25.0),
+                        ),
+                        color: uniColors.white2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 2.0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: (selfRecipeList.recipeName == "" ||
+                                      selfRecipeList.recipeName == null)
+                                  ? Text("LC RECIPE",
+                                      style: TextStyles.selfProfileRecipeName,
+                                      textAlign: TextAlign.center)
+                                  : Text(selfRecipeList.recipeName,
+                                      style: TextStyles.selfProfileRecipeName,
+                                      textAlign: TextAlign.center),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ))
-          ],
-        ),
+                  ),
+                ],
+              ))
+        ],
       ),
     );
   }

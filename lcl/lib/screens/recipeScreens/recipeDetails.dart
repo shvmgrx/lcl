@@ -536,30 +536,31 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 12.0, top: 0),
-                                  child:
-                                      //Text("for 2 people",style: TextStyles.selectedRecipePortion),
+                                //portion
+                                // Padding(
+                                //   padding:
+                                //       const EdgeInsets.only(left: 12.0, top: 0),
+                                //   child:
+                                //       //Text("for 2 people",style: TextStyles.selectedRecipePortion),
 
-                                      FormBuilderTouchSpin(
-                                    decoration:
-                                        const InputDecoration(labelText: ''),
-                                    attribute: 'portion',
-                                    initialValue: 1,
-                                    step: 1,
-                                    iconSize: 48.0,
-                                    addIcon: const Icon(Icons.arrow_right,
-                                        color: Colors.white),
-                                    subtractIcon: const Icon(Icons.arrow_left,
-                                        color: Colors.white),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        localPortion = value;
-                                      });
-                                    },
-                                  ),
-                                ),
+                                //       FormBuilderTouchSpin(
+                                //     decoration:
+                                //         const InputDecoration(labelText: ''),
+                                //     attribute: 'portion',
+                                //     initialValue: 1,
+                                //     step: 1,
+                                //     iconSize: 48.0,
+                                //     addIcon: const Icon(Icons.arrow_right,
+                                //         color: Colors.white),
+                                //     subtractIcon: const Icon(Icons.arrow_left,
+                                //         color: Colors.white),
+                                //     onChanged: (value) {
+                                //       setState(() {
+                                //         localPortion = value;
+                                //       });
+                                //     },
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
