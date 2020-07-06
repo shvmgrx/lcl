@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_action_row/floating_action_row.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:lcl/common/mainScreenBar.dart';
 import 'package:lcl/enum/userState.dart';
 import 'package:lcl/models/recipe.dart';
@@ -37,6 +38,7 @@ class RecipeDetails extends StatefulWidget {
 class _RecipeDetailsState extends State<RecipeDetails>
     with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<FormBuilderState> _portionKey = GlobalKey<FormBuilderState>();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
 
@@ -137,80 +139,86 @@ class _RecipeDetailsState extends State<RecipeDetails>
     businessMode = false;
   }
 
+  Widget ingridientMaker(localPortion) {
 
-
-    Widget ingridientMaker(localPortion) {
+  
     int recipeIngridientCount = widget.selectedRecipe.recipeIngridients.length;
-    
 
     List<Widget> list = new List<Widget>();
 
+    for (var i = 0; i < recipeIngridientCount - 1; i++) {
+      var amt =
+          widget.selectedRecipe.recipeIngridients[i]['igAmt${i + 1}'] != null
+              ? widget.selectedRecipe.recipeIngridients[i]['igAmt${i + 1}']
+              : "portion";
+      var unit =
+          widget.selectedRecipe.recipeIngridients[i]['igUnit${i + 1}'] != null
+              ? widget.selectedRecipe.recipeIngridients[i]['igUnit${i + 1}']
+              : "";
+      var name =
+          widget.selectedRecipe.recipeIngridients[i]['igName${i + 1}'] != null
+              ? widget.selectedRecipe.recipeIngridients[i]['igName${i + 1}']
+              : "";
+ 
+      // var amtPortion;
+      // var thePortion;
+      // if (amt != "portion") {
+      //   amtPortion =  double.parse(amt);
 
-    for (var i = 0; i < recipeIngridientCount; i++) {
-      var amt = widget.selectedRecipe.recipeIngridients[i]['igAmt${i}'];
-      var unit = widget.selectedRecipe.recipeIngridients[i]['igUnit${i}'];
-      var name = widget.selectedRecipe.recipeIngridients[i]['igName${i}'];
+      //   if(amtPortion.runtimeType ==double){
+      //     thePortion=amtPortion*localPortion;
+      //   }
+        
+      // } else {
+      //   amtPortion = "";
+      //   thePortion="";
+      // }
 
-      var amtPortion = double.parse(amt)*localPortion;
-
-  
-   
-    if(name!=null){
-      list.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 3.0),
-          child: widget.selectedRecipe.recipeIngridients[i] != null
-              ? Padding(
-                                  padding: const EdgeInsets.symmetric(vertical:8.0),
-                                  child: Row(
-                                    mainAxisAlignment:MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      
-                                      Container(
-                                      
-                                      child: Row(
-                                        //mainAxisAlignment:MainAxisAlignment.spaceAround,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.only(left:1.0),
-                                            child: Text(
-                                         "$amtPortion",
-                                         style: TextStyles
-                                         .selectedRecipeIngridientAmt),
-                                          ),
-                                          Padding(
-                                             padding: const EdgeInsets.only(left:8.0),
-                                            child: Text(
-                                                "$unit",
-                                                style: TextStyles
-                                                    .selectedRecipeIngridientUnit),
-                                          ),
-                                          Padding(
-                                             padding: const EdgeInsets.only(left:8.0),
-                                            child: Text(
-                                                "$name",
-                                                style: TextStyles
-                                                    .selectedRecipeIngridientName),
-                                          ),
-                                        ],
-                                      ),
-                                        ),
-                                    ],
-                                  ),
-                                )
-              : Container(),
-        ),
-      );
-    }
-
-      
+      if (name != "") {
+        list.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 3.0),
+            child: widget.selectedRecipe.recipeIngridients[i] != null
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          child: Row(
+                            //mainAxisAlignment:MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 1.0),
+                                child: Text("$amt",
+                                    style:
+                                        TextStyles.selectedRecipeIngridientAmt),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text("$unit",
+                                    style: TextStyles
+                                        .selectedRecipeIngridientUnit),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text("$name",
+                                    style: TextStyles
+                                        .selectedRecipeIngridientName),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Text("f"),
+          ),
+        );
+      }
     }
     return new Column(children: list);
   }
-
-
-
-
 
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
@@ -328,80 +336,57 @@ class _RecipeDetailsState extends State<RecipeDetails>
                 heightFactor: 0.85,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(40),
+                  child: FormBuilder(
+                    key: _portionKey,
+                    
+                      child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(40),
+                        ),
+                        color: uniColors.lcRed,
                       ),
-                      color: uniColors.lcRed,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: Stack(children: <Widget>[
-                            Container(
-                              height: screenHeight * 0.4,
-                              //  width: screenHeight * 0.4,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25.0),
-                                  topRight: Radius.circular(25.0),
-                                  // bottomLeft: Radius.circular(25.0),
-                                  //  bottomRight: Radius.circular(25.0),
-                                ),
-                                image: DecorationImage(
-                                    image: (widget.selectedRecipe
-                                                    .recipePicture ==
-                                                "dummyNoImage" ||
-                                            widget.selectedRecipe
-                                                    .recipePicture ==
-                                                null)
-                                        ? AssetImage("assets/plate.jpg")
-                                        : NetworkImage(
-                                            "${widget.selectedRecipe.recipePicture}"),
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
-                            Positioned(
-                              left: 10,
-                              bottom: 10,
-                              child: Container(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    FloatingActionRow(
-                                      color: uniColors.lcRed,
-                                      children: <Widget>[
-                                        FloatingActionRowButton(
-                                            icon: Icon(
-                                              Icons.close,
-                                              color: uniColors.white2,
-                                              size: 25,
-                                            ),
-                                            onTap: () {}),
-                                      ],
-                                    ),
-                                  ],
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: Stack(children: <Widget>[
+                              Container(
+                                height: screenHeight * 0.4,
+                                //  width: screenHeight * 0.4,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(25.0),
+                                    topRight: Radius.circular(25.0),
+                                    // bottomLeft: Radius.circular(25.0),
+                                    //  bottomRight: Radius.circular(25.0),
+                                  ),
+                                  image: DecorationImage(
+                                      image: (widget.selectedRecipe
+                                                      .recipePicture ==
+                                                  "dummyNoImage" ||
+                                              widget.selectedRecipe
+                                                      .recipePicture ==
+                                                  null)
+                                          ? AssetImage("assets/plate.jpg")
+                                          : NetworkImage(
+                                              "${widget.selectedRecipe.recipePicture}"),
+                                      fit: BoxFit.cover),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              right: 10,
-                              bottom: 10,
-                              child: GestureDetector(
-                                onTap: () {},
+                              Positioned(
+                                left: 10,
+                                bottom: 10,
                                 child: Container(
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
                                       FloatingActionRow(
-                                        color: uniColors.black.withOpacity(0.9),
+                                        color: uniColors.lcRed,
                                         children: <Widget>[
                                           FloatingActionRowButton(
                                               icon: Icon(
-                                                Icons.tag_faces,
+                                                Icons.close,
                                                 color: uniColors.white2,
                                                 size: 25,
                                               ),
@@ -412,63 +397,134 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                   ),
                                 ),
                               ),
-                            ),
-                          ]),
-                        ),
-                        //name container
-                        Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 12.0, top: 12),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    (widget.selectedRecipe.recipeName == null ||
-                                            widget.selectedRecipe.recipeName ==
-                                                "")
-                                        ? Text(
-                                            "LC Recipe Name",
-                                            style:
-                                                TextStyles.selectedProfileName,
-                                          )
-                                        : Row(
-                                            children: <Widget>[
-                                              Text(
-                                                "${widget.selectedRecipe.recipeName}",
-                                                style: TextStyles
-                                                    .selectedProfileName,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Icon(
-                                                  Icons.star_border,
-                                                  size: 40,
+                              Positioned(
+                                right: 10,
+                                bottom: 10,
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        FloatingActionRow(
+                                          color: uniColors.black.withOpacity(0.9),
+                                          children: <Widget>[
+                                            FloatingActionRowButton(
+                                                icon: Icon(
+                                                  Icons.tag_faces,
                                                   color: uniColors.white2,
+                                                  size: 25,
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                  ],
+                                                onTap: () {}),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 12.0, top: 8),
-                                child: Text("for 2 people",
-                                    style: TextStyles.selectedRecipePortion),
-                              ),
-                            ],
+                            ]),
                           ),
-                        ),
-                        //ingridients container
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, left: 12, right: 12),
-                          child: Container(
+                          //name container
+                          Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 12.0, top: 12),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      (widget.selectedRecipe.recipeName == null ||
+                                              widget.selectedRecipe.recipeName ==
+                                                  "")
+                                          ? Text(
+                                              "LC Recipe Name",
+                                              style:
+                                                  TextStyles.selectedProfileName,
+                                            )
+                                          : Row(
+                                              children: <Widget>[
+                                                Text(
+                                                  "${widget.selectedRecipe.recipeName}",
+                                                  style: TextStyles
+                                                      .selectedProfileName,
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      left: 8.0),
+                                                  child: Icon(
+                                                    Icons.star_border,
+                                                    size: 40,
+                                                    color: uniColors.white2,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 12.0, top: 8),
+                                  child: 
+                                  //Text("for 2 people",style: TextStyles.selectedRecipePortion),
+
+                                  FormBuilderTouchSpin(
+                    decoration: const InputDecoration(labelText: 'Stepper'),
+                    attribute: 'stepper',
+                    initialValue: 1,
+                    step: 1,
+                    iconSize: 48.0,
+                    addIcon: const Icon(Icons.arrow_right,color: Colors.white),
+                    subtractIcon: const Icon(Icons.arrow_left,color: Colors.white),
+                    onChanged: (value) {
+                                  setState(() {
+                                    localPortion = value;
+                                  });
+                                },
+                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          //ingridients container
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20.0, left: 12, right: 12),
+                            child: Container(
+                              width: screenWidth,
+                              decoration: BoxDecoration(
+                                color: uniColors.white2,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8.0),
+                                  topRight: Radius.circular(8.0),
+                                  bottomLeft: Radius.circular(8.0),
+                                  bottomRight: Radius.circular(8.0),
+                                ),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 10),
+                                    child: Container(
+                                      child: Text("Ingridients",
+                                          style: TextStyles
+                                              .selectedRecipeIngridients),
+                                    ),
+                                  ),
+                                  
+                                  ingridientMaker(localPortion),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          //instructions container
+                          Container(
                             width: screenWidth,
                             decoration: BoxDecoration(
                               color: uniColors.white2,
@@ -481,49 +537,23 @@ class _RecipeDetailsState extends State<RecipeDetails>
                             ),
                             child: Column(
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(top:8.0,bottom:10),
-                                  child: Container(child:Text("Ingridients",style: TextStyles
-                                                    .selectedRecipeIngridients),),
-                                ),
-                                ingridientMaker(2),
-                               
-                                Text("d"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
+                                Text("data"),
                               ],
                             ),
                           ),
-                        ),
-                        SizedBox(height: 20),
-                        //instructions container
-                        Container(
-                          width: screenWidth,
-                          decoration: BoxDecoration(
-                            color: uniColors.white2,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(8.0),
-                              topRight: Radius.circular(8.0),
-                              bottomLeft: Radius.circular(8.0),
-                              bottomRight: Radius.circular(8.0),
-                            ),
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                              Text("data"),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

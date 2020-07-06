@@ -30,6 +30,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<FormBuilderState> _portionKey = GlobalKey<FormBuilderState>();
 
   FirebaseRepository _repository = FirebaseRepository();
 
