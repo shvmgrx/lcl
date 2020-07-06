@@ -1861,13 +1861,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: Icon(
-                              Icons.close,
-                              color: uniColors.lcRed,
-                            ),
-                          ),
+                          // Expanded(
+                          //   flex: 1,
+                          //   child: Icon(
+                          //     Icons.close,
+                          //     color: uniColors.lcRed,
+                          //   ),
+                          // ),
                           Expanded(
                             flex: 2,
                             child: Padding(
@@ -1881,20 +1881,20 @@ class _DashboardScreenState extends State<DashboardScreen>
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: IconButton(
-                              icon: Icon(Icons.restaurant,
-                                  color: uniColors.lcRed, size: 30),
-                              onPressed: () {
-                                // setState(() {
-                                //   showRecipePage = true;
-                                //   showLunchalizePage = false;
-                                //   showFavsPage = false;
-                                // });
-                              },
-                            ),
-                          ),
+                          // Expanded(
+                          //   flex: 1,
+                          //   child: IconButton(
+                          //     icon: Icon(Icons.restaurant,
+                          //         color: uniColors.lcRed, size: 30),
+                          //     onPressed: () {
+                          //       // setState(() {
+                          //       //   showRecipePage = true;
+                          //       //   showLunchalizePage = false;
+                          //       //   showFavsPage = false;
+                          //       // });
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

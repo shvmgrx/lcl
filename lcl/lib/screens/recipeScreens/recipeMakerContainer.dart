@@ -402,7 +402,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+            //  textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName2 = value;

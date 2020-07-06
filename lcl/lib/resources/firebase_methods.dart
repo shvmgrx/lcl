@@ -41,6 +41,8 @@ class FirebaseMethods {
     return User.fromMap(documentSnapshot.data);
   }
 
+  
+
   Future<FirebaseUser> signIn() async {
     GoogleSignInAccount _signInAccount = await _googleSignIn.signIn();
     GoogleSignInAuthentication _signInAuthentication =
@@ -93,6 +95,17 @@ class FirebaseMethods {
     return userList;
   }
 
+    Future<User> fetchUserById(String userId) async {
+    User wantedUser = User();
+
+  DocumentSnapshot documentSnapshot =
+        await _userCollection.document(userId).get();
+
+    return User.fromMap(documentSnapshot.data);
+   
+  }
+
+
   Future<List<Recipe>> fetchRecipeBatch() async {
     List<Recipe> recipeList = List<Recipe>();
 
@@ -119,6 +132,8 @@ class FirebaseMethods {
     }
     return recipeIdList;
   }
+
+
 
 
    Future<List<Recipe>> fetchSelfRecipeBatch(String currentUserId) async {

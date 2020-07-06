@@ -143,7 +143,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
   }
 
   Widget chipMaker(User selectedAvailableUser) {
-    int categoryLength = selectedAvailableUser.cuisines.length;
+    int categoryLength = selectedAvailableUser.cuisines !=null? selectedAvailableUser.cuisines.length:0;
 
     List<Widget> list = new List<Widget>();
 
@@ -525,35 +525,35 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                               fit: BoxFit.cover),
                                         ),
                                       ),
-                                      Positioned(
-                                        left: 10,
-                                        bottom: 10,
-                                        child: Container(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: <Widget>[
-                                              FloatingActionRow(
-                                                color: uniColors.lcRed,
-                                                children: <Widget>[
-                                                  FloatingActionRowButton(
-                                                      icon: Icon(
-                                                        Icons.close,
-                                                        color: uniColors.white2,
-                                                        size: 25,
-                                                      ),
-                                                      onTap: () {}),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                      // Positioned(
+                                      //   left: 10,
+                                      //   bottom: 10,
+                                      //   child: Container(
+                                      //     child: Row(
+                                      //       mainAxisAlignment:
+                                      //           MainAxisAlignment.spaceAround,
+                                      //       children: <Widget>[
+                                      //         FloatingActionRow(
+                                      //           color: uniColors.lcRed,
+                                      //           children: <Widget>[
+                                      //             FloatingActionRowButton(
+                                      //                 icon: Icon(
+                                      //                   Icons.close,
+                                      //                   color: uniColors.white2,
+                                      //                   size: 25,
+                                      //                 ),
+                                      //                 onTap: () {}),
+                                      //           ],
+                                      //         ),
+                                      //       ],
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       Positioned(
                                         right: 10,
                                         bottom: 10,
                                         child: GestureDetector(
-                                          onTap: () {
+                                          onTap: (){
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -565,22 +565,33 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                               ),
                                             );
                                           },
-                                          child: Container(
+                                                                                  child: Container(
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
                                               children: <Widget>[
                                                 FloatingActionRow(
-                                                  color: uniColors.online,
+                                                  color: uniColors.white2,
                                                   children: <Widget>[
                                                     FloatingActionRowButton(
                                                         icon: Icon(
                                                           Icons.message,
                                                           color:
-                                                              uniColors.white2,
+                                                              uniColors.lcRed,
                                                           size: 25,
                                                         ),
-                                                        onTap: () {}),
+                                                        onTap: () {
+                                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChatScreen(
+                                                  receiver: widget
+                                                      .selectedAvailableUser,
+                                                ),
+                                              ),
+                                            );
+                                                        }),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(

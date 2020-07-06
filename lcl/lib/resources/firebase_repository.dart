@@ -13,6 +13,7 @@ class FirebaseRepository {
   FirebaseMethods _firebaseMethods = FirebaseMethods();
 
   Future<FirebaseUser> getCurrentUser() => _firebaseMethods.getCurrentUser();
+  Future<User> fetchUserById(String id) => _firebaseMethods.fetchUserById(id);
 
   Future<FirebaseUser> signIn() => _firebaseMethods.signIn();
   Future<void> signOut() => _firebaseMethods.signOut();

@@ -93,7 +93,7 @@ static final TextStyle searchSubTextResult = TextStyle(
     static final TextStyle mainScreenProfileName = TextStyle(
     fontSize: 14,
     //fontWeight: FontWeight.w400,
-    color: uniColors.grey2,
+    color: uniColors.standardBlack,
     fontFamily: 'Raleway',
     // shadows: <Shadow>[
     //   Shadow(
@@ -157,17 +157,17 @@ static final TextStyle searchSubTextResult = TextStyle(
 
   
       static final TextStyle cookTime = TextStyle(
-    fontSize: 10,
-    fontWeight: FontWeight.w600,
-    color: uniColors.grey2,
+    fontSize: 20,
+    fontWeight: FontWeight.w300,
+    color: uniColors.black,
     fontFamily: 'Bebas',
-    letterSpacing: 1.5
-    // shadows: <Shadow>[
-    //   Shadow(
-    //     blurRadius: 2.0,
-    //     color: UniversalVariables.gold2,
-    //   ),
-    // ],
+    letterSpacing: 1.5,
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 4.0,
+        color: uniColors.standardBlack,
+      ),
+    ],
   );
   static final TextStyle profileUserName = TextStyle(
     fontSize: 25,
@@ -211,7 +211,7 @@ static final TextStyle searchSubTextResult = TextStyle(
       static final TextStyle profileChat = TextStyle(
     fontSize: 17,
     //fontWeight: FontWeight.w400,
-    color: uniColors.white2,
+    color: uniColors.lcRed,
     fontFamily: 'CaviarDreams',
     // shadows: <Shadow>[
     //   Shadow(
@@ -260,6 +260,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+   static final TextStyle selectedRecipeCreator = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: uniColors.white2,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.white1,
+    //   ),
+    // ],
+  );
+
    static final TextStyle selectedRecipeIngridients = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
@@ -273,7 +286,18 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
-  
+   static final TextStyle selectedRecipeInstructions = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: uniColors.standardBlack,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
 
  static final TextStyle selectedRecipeIngridientAmt = TextStyle(
     fontSize: 19,

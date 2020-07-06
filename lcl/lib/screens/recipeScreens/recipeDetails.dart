@@ -9,6 +9,7 @@ import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/resources/authMethods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
+import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/chatScreens/chatScreen.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
@@ -85,6 +86,8 @@ class _RecipeDetailsState extends State<RecipeDetails>
   Language _selectedDropdownLanguage =
       LanguagePickerUtils.getLanguageByIsoCode('en');
 
+  User recipeChef;
+
   @override
   void initState() {
     getLocation();
@@ -117,6 +120,13 @@ class _RecipeDetailsState extends State<RecipeDetails>
       });
     });
 
+    _repository
+      ..fetchUserById(widget.selectedRecipe.userId).then((user) {
+        setState(() {
+          recipeChef = user;
+        });
+      });
+
     _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.fetchBatch(user).then((List<User> list) {
         setState(() {
@@ -140,8 +150,6 @@ class _RecipeDetailsState extends State<RecipeDetails>
   }
 
   Widget ingridientMaker(localPortion) {
-
-  
     int recipeIngridientCount = widget.selectedRecipe.recipeIngridients.length;
 
     List<Widget> list = new List<Widget>();
@@ -159,7 +167,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
           widget.selectedRecipe.recipeIngridients[i]['igName${i + 1}'] != null
               ? widget.selectedRecipe.recipeIngridients[i]['igName${i + 1}']
               : "";
- 
+
       // var amtPortion;
       // var thePortion;
       // if (amt != "portion") {
@@ -168,7 +176,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
       //   if(amtPortion.runtimeType ==double){
       //     thePortion=amtPortion*localPortion;
       //   }
-        
+
       // } else {
       //   amtPortion = "";
       //   thePortion="";
@@ -218,6 +226,47 @@ class _RecipeDetailsState extends State<RecipeDetails>
       }
     }
     return new Column(children: list);
+  }
+
+  Widget instructionMaker() {
+    Widget instruc = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 31.0, vertical: 10),
+      child: widget.selectedRecipe.recipeInstructions != null
+          ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 1.0),
+                  child: Text("${widget.selectedRecipe.recipeInstructions}",
+                      style: TextStyles.selectedRecipeInstructions),
+                ),
+              ),
+            )
+          : Text(""),
+    );
+
+    return instruc;
+  }
+
+  Widget timeMaker() {
+    var prepTime = widget.selectedRecipe.recipePreparationTime;
+    var cookTime = widget.selectedRecipe.recipeCookingTime;
+    var restTime = widget.selectedRecipe.recipeRestTime;
+
+    var duPrep = double.parse(prepTime);
+    var duCook = double.parse(cookTime);
+    var duRest = double.parse(restTime);
+
+    var totalTime = duPrep + duCook + duRest;
+
+    Widget instruc = totalTime > 0
+        ? Text(
+            "Time: ${totalTime.toInt()} mins",
+            style: TextStyles.cookTime,
+          )
+        : Text("");
+
+    return instruc;
   }
 
   Future<Null> refresh() {
@@ -338,8 +387,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
                   scrollDirection: Axis.vertical,
                   child: FormBuilder(
                     key: _portionKey,
-                    
-                      child: Container(
+                    child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(40),
@@ -381,18 +429,11 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
-                                      FloatingActionRow(
-                                        color: uniColors.lcRed,
-                                        children: <Widget>[
-                                          FloatingActionRowButton(
-                                              icon: Icon(
-                                                Icons.close,
-                                                color: uniColors.white2,
-                                                size: 25,
-                                              ),
-                                              onTap: () {}),
-                                        ],
-                                      ),
+                                      Container(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: timeMaker(),
+                                      ))
                                     ],
                                   ),
                                 ),
@@ -408,7 +449,8 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                           MainAxisAlignment.spaceAround,
                                       children: <Widget>[
                                         FloatingActionRow(
-                                          color: uniColors.black.withOpacity(0.9),
+                                          color:
+                                              uniColors.black.withOpacity(0.9),
                                           children: <Widget>[
                                             FloatingActionRowButton(
                                                 icon: Icon(
@@ -432,33 +474,61 @@ class _RecipeDetailsState extends State<RecipeDetails>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 12.0, top: 12),
+                                  padding: const EdgeInsets.only(
+                                      left: 12.0, top: 12),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    //mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
-                                      (widget.selectedRecipe.recipeName == null ||
-                                              widget.selectedRecipe.recipeName ==
+                                      (widget.selectedRecipe.recipeName ==
+                                                  null ||
+                                              widget.selectedRecipe
+                                                      .recipeName ==
                                                   "")
                                           ? Text(
                                               "LC Recipe Name",
-                                              style:
-                                                  TextStyles.selectedProfileName,
+                                              style: TextStyles
+                                                  .selectedProfileName,
                                             )
-                                          : Row(
+                                          : Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                Text(
-                                                  "${widget.selectedRecipe.recipeName}",
-                                                  style: TextStyles
-                                                      .selectedProfileName,
+                                                Row(
+                                                  children: <Widget>[
+                                                    Text(
+                                                      "${widget.selectedRecipe.recipeName}",
+                                                      style: TextStyles
+                                                          .selectedProfileName,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 8.0),
+                                                      child: Icon(
+                                                        Icons.star_border,
+                                                        size: 40,
+                                                        color: uniColors.white2,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 8.0),
-                                                  child: Icon(
-                                                    Icons.star_border,
-                                                    size: 40,
-                                                    color: uniColors.white2,
+                                                GestureDetector(
+                                                  onTap: (){
+                                                    Navigator.of(context).push(
+                                                            CupertinoPageRoute(
+                                                                builder: (context) =>
+                                                                    AvailableUserDetail(
+                                                                        selectedAvailableUser:
+                                                                            recipeChef)));
+                                                  },
+                                                    child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 8.0, right: 0),
+                                                    child: Text(
+                                                        "by ${widget.selectedRecipe.recipeCreatorName}",
+                                                        style: TextStyles
+                                                            .selfProfileUserBio),
                                                   ),
                                                 ),
                                               ],
@@ -468,24 +538,27 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.only(left: 12.0, top: 8),
-                                  child: 
-                                  //Text("for 2 people",style: TextStyles.selectedRecipePortion),
+                                      const EdgeInsets.only(left: 12.0, top: 0),
+                                  child:
+                                      //Text("for 2 people",style: TextStyles.selectedRecipePortion),
 
-                                  FormBuilderTouchSpin(
-                    decoration: const InputDecoration(labelText: 'Stepper'),
-                    attribute: 'stepper',
-                    initialValue: 1,
-                    step: 1,
-                    iconSize: 48.0,
-                    addIcon: const Icon(Icons.arrow_right,color: Colors.white),
-                    subtractIcon: const Icon(Icons.arrow_left,color: Colors.white),
-                    onChanged: (value) {
-                                  setState(() {
-                                    localPortion = value;
-                                  });
-                                },
-                  ),
+                                      FormBuilderTouchSpin(
+                                    decoration:
+                                        const InputDecoration(labelText: ''),
+                                    attribute: 'portion',
+                                    initialValue: 1,
+                                    step: 1,
+                                    iconSize: 48.0,
+                                    addIcon: const Icon(Icons.arrow_right,
+                                        color: Colors.white),
+                                    subtractIcon: const Icon(Icons.arrow_left,
+                                        color: Colors.white),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        localPortion = value;
+                                      });
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
@@ -505,21 +578,23 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                   bottomRight: Radius.circular(8.0),
                                 ),
                               ),
-                              child: Column(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8.0, bottom: 10),
-                                    child: Container(
-                                      child: Text("Ingridients",
-                                          style: TextStyles
-                                              .selectedRecipeIngridients),
-                                    ),
-                                  ),
-                                  
-                                  ingridientMaker(localPortion),
-                                ],
-                              ),
+                              child: widget.selectedRecipe.recipeIngridients !=
+                                      null
+                                  ? Column(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0, bottom: 10),
+                                          child: Container(
+                                            child: Text("Ingridients",
+                                                style: TextStyles
+                                                    .selectedRecipeIngridients),
+                                          ),
+                                        ),
+                                        ingridientMaker(localPortion),
+                                      ],
+                                    )
+                                  : Container(),
                             ),
                           ),
                           SizedBox(height: 20),
@@ -537,18 +612,9 @@ class _RecipeDetailsState extends State<RecipeDetails>
                             ),
                             child: Column(
                               children: <Widget>[
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
-                                Text("data"),
+                                Container(
+                                  child: instructionMaker(),
+                                ),
                               ],
                             ),
                           ),
