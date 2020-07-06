@@ -27,6 +27,7 @@ import 'package:lcl/widgets/nmButton.dart';
 import 'package:gradient_text/gradient_text.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RecipeDetails extends StatefulWidget {
   final Recipe selectedRecipe;
@@ -269,6 +270,58 @@ class _RecipeDetailsState extends State<RecipeDetails>
     return instruc;
   }
 
+  Widget difficultyMaker() {
+   
+   Widget diffi;
+
+    List<Widget> list = new List<Widget>();
+
+    if (widget.selectedRecipe.recipeDifficulty != "Fool proof") {
+     diffi = Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SvgPicture.asset("assets/chefFi.svg",
+              height: 30, width: 30, color: uniColors.standardBlack),
+          SvgPicture.asset("assets/chefEm.svg",
+              height: 30, width: 30, color: uniColors.white2),
+          SvgPicture.asset("assets/chefEm.svg",
+              height: 30, width: 30, color: uniColors.white2)
+        ],
+      );
+    }
+
+        if (widget.selectedRecipe.recipeDifficulty != "Average") {
+      diffi = Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SvgPicture.asset("assets/chefFi.svg",
+              height: 30, width: 30, color: uniColors.standardBlack),
+          SvgPicture.asset("assets/chefFi.svg",
+              height: 30, width: 30, color: uniColors.white2),
+          SvgPicture.asset("assets/chefEm.svg",
+              height: 30, width: 30, color: uniColors.standardBlack)
+        ],
+      );
+    }
+
+    if (widget.selectedRecipe.recipeDifficulty != "Pro") {
+      diffi = Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SvgPicture.asset("assets/chefFi.svg",
+              height: 30, width: 30, color: uniColors.standardBlack),
+          SvgPicture.asset("assets/chefFi.svg",
+              height: 30, width: 30, color: uniColors.standardBlack),
+          SvgPicture.asset("assets/chefFi.svg",
+              height: 30, width: 30, color: uniColors.standardBlack)
+        ],
+      );
+    }
+
+
+    return diffi;
+  }
+
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.fetchBatch(user).then((List<User> list) {
@@ -444,25 +497,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                 child: GestureDetector(
                                   onTap: () {},
                                   child: Container(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        FloatingActionRow(
-                                          color:
-                                              uniColors.black.withOpacity(0.9),
-                                          children: <Widget>[
-                                            FloatingActionRowButton(
-                                                icon: Icon(
-                                                  Icons.tag_faces,
-                                                  color: uniColors.white2,
-                                                  size: 25,
-                                                ),
-                                                onTap: () {}),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                    child: widget.selectedRecipe.recipeDifficulty!=null? difficultyMaker():Container(),
                                   ),
                                 ),
                               ),
@@ -513,15 +548,15 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                                   ],
                                                 ),
                                                 GestureDetector(
-                                                  onTap: (){
+                                                  onTap: () {
                                                     Navigator.of(context).push(
-                                                            CupertinoPageRoute(
-                                                                builder: (context) =>
-                                                                    AvailableUserDetail(
-                                                                        selectedAvailableUser:
-                                                                            recipeChef)));
+                                                        CupertinoPageRoute(
+                                                            builder: (context) =>
+                                                                AvailableUserDetail(
+                                                                    selectedAvailableUser:
+                                                                        recipeChef)));
                                                   },
-                                                    child: Padding(
+                                                  child: Padding(
                                                     padding:
                                                         const EdgeInsets.only(
                                                             top: 8.0, right: 0),

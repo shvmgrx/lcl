@@ -159,15 +159,15 @@ static final TextStyle searchSubTextResult = TextStyle(
       static final TextStyle cookTime = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w300,
-    color: uniColors.black,
+    color: uniColors.white2,
     fontFamily: 'Bebas',
     letterSpacing: 1.5,
-    shadows: <Shadow>[
-      Shadow(
-        blurRadius: 4.0,
-        color: uniColors.standardBlack,
-      ),
-    ],
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 4.0,
+    //     color: uniColors.standardBlack,
+    //   ),
+    // ],
   );
   static final TextStyle profileUserName = TextStyle(
     fontSize: 25,
