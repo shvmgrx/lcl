@@ -189,9 +189,9 @@ class _RecipeDetailsState extends State<RecipeDetails>
             padding: const EdgeInsets.symmetric(horizontal: 3.0),
             child: widget.selectedRecipe.recipeIngridients[i] != null
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           child: Row(
