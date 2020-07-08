@@ -47,4 +47,10 @@ class Strings {
    static const String LOGGEDUSER_GENDER = "Gender";
    static const String LOGGEDUSER_CATEGORY = "Category";
    static const String LOGGEDUSER_BIO = "Bio";
+
+   static const String EDIT_SETTINGS = "Preferences";
+   static const String INTERESTED_IN = "Interested in";
+   static const String MODE = "Mode";
+   static const String DISTANCE = "Distance";
+   static const String AGE = "Age";
 }

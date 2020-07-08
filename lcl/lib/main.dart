@@ -4,6 +4,7 @@ import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/chatScreens/chatScreen.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/editProfile.dart';
+import 'package:lcl/screens/editSettings.dart';
 import 'package:lcl/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
           '/available_userDetail_screen': (context) => AvailableUserDetail(),
           '/login_screen': (context) => LoginScreen(),
           '/edit_profile_screen': (context) => EditProfile(),
+          '/edit_settings_screen': (context) => EditSettings(),
            '/chatList_screen': (context) => ChatListScreen(),
            
         },

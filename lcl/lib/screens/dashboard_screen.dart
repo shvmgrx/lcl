@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lcl/common/mainScreenBar.dart';
 import 'package:lcl/enum/userState.dart';
 import 'package:lcl/models/recipe.dart';
@@ -601,7 +602,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 settingsPressed = !settingsPressed;
                                 if (settingsPressed) {
                                   Navigator.pushNamed(
-                                      context, "/settings_screen");
+                                      context, "/edit_settings_screen");
                                 }
                               });
                             },
@@ -614,11 +615,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                             onTap: () {
                               setState(() {
                                 paymentPressed = !paymentPressed;
+                                showAboutDialog(context: context);
                               });
                             },
                             child: NMButton(
                                 down: paymentPressed,
-                                icon: Icons.restaurant_menu),
+                                icon: Icons.info),
                           ),
                         ],
                       ),
@@ -636,10 +638,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         ),
-                        trailing: new Icon(
-                          Icons.attach_money,
-                          color: uniColors.standardBlack,
-                        ),
+                        trailing:  SvgPicture.asset("assets/donation.svg",
+              height: 30, width: 30, color: uniColors.grey2),
                         onTap: () {
                           //   Navigator.of(context).pop();
 
