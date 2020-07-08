@@ -3213,8 +3213,11 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
       });
 
       // compImgHigh = await compressImageHigh(selectedImg);
+     
 
       tempoRecipePicture = await uploadImageToStorage(tempRecipePicture);
+      print("drfv");
+       print(tempoRecipePicture);
     }
 
     void sendRecipe() async {

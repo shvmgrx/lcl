@@ -48,6 +48,7 @@ dependencies:
   flutter_web_browser: "^0.11.0"
   flutter_open_browser: ^1.0.3
   gradient_app_bar: ^0.0.1
+  flutter_svg: ^0.17.1
   
 
 
