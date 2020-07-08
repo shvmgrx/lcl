@@ -218,7 +218,7 @@ class _EditSettingsState extends State<EditSettings> {
                     children: <Widget>[
                       //AGE
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.only(left: 10.0,top:10),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -250,7 +250,7 @@ class _EditSettingsState extends State<EditSettings> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: const EdgeInsets.only(left: 10.0, top:10),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -282,7 +282,7 @@ class _EditSettingsState extends State<EditSettings> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 20),
+                        padding: const EdgeInsets.only(left: 10.0, top: 30),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -319,7 +319,7 @@ class _EditSettingsState extends State<EditSettings> {
 
                       //MODE
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 20),
+                        padding: const EdgeInsets.only(left: 10.0, top: 30),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -353,7 +353,55 @@ class _EditSettingsState extends State<EditSettings> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 235),
+                      SizedBox(height: 240),
+                      // ListTile(
+                      //   title: new Text(
+                      //     "Privacy Policy",
+                      //     style: TextStyle(
+                      //         color: uniColors.standardBlack,
+                      //         fontWeight: FontWeight.w600,
+                      //         fontSize: 16),
+                      //   ),
+                      //   trailing: new Icon(
+                      //     Icons.description,
+                      //     color: uniColors.standardBlack,
+                      //   ),
+                      //   onTap: () {
+                      //    // Navigator.of(context).pop();
+                      //     //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
+                      //   }),
+                      //   ListTile(
+                      //   title: new Text(
+                      //     "Licenses",
+                      //     style: TextStyle(
+                      //         color: uniColors.standardBlack,
+                      //         fontWeight: FontWeight.w600,
+                      //         fontSize: 16),
+                      //   ),
+                      //   trailing: new Icon(
+                      //     Icons.description,
+                      //     color: uniColors.standardBlack,
+                      //   ),
+                      //   onTap: () {
+                      //    // Navigator.of(context).pop();
+                      //     //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
+                      //   }),
+                      // ListTile(
+                      //   title: new Text(
+                      //     "Terms of Service",
+                      //     style: TextStyle(
+                      //         color: uniColors.standardBlack,
+                      //         fontWeight: FontWeight.w600,
+                      //         fontSize: 16),
+                      //   ),
+                      //   trailing: new Icon(
+                      //     Icons.description,
+                      //     color: uniColors.standardBlack,
+                      //   ),
+                      //   onTap: () {
+                      //    // Navigator.of(context).pop();
+                      //     //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
+                      //   }),
                       Stack(
                         children: <Widget>[
                           Container(
