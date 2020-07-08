@@ -249,26 +249,26 @@ class _RecipeDetailsState extends State<RecipeDetails>
     return instruc;
   }
 
-  Widget timeMaker() {
-    var prepTime = widget.selectedRecipe.recipePreparationTime;
-    var cookTime = widget.selectedRecipe.recipeCookingTime;
-    var restTime = widget.selectedRecipe.recipeRestTime;
+  // Widget timeMaker() {
+  //   var prepTime = widget.selectedRecipe.recipePreparationTime;
+  //   var cookTime = widget.selectedRecipe.recipeCookingTime;
+  //   var restTime = widget.selectedRecipe.recipeRestTime;
 
-    var duPrep = double.parse(prepTime);
-    var duCook = double.parse(cookTime);
-    var duRest = double.parse(restTime);
+  //   var duPrep = double.parse(prepTime);
+  //   var duCook = double.parse(cookTime);
+  //   var duRest = double.parse(restTime);
 
-    var totalTime = duPrep + duCook + duRest;
+  //   var totalTime = duPrep + duCook + duRest;
 
-    Widget instruc = totalTime > 0
-        ? Text(
-            "Time: ${totalTime.toInt()} mins",
-            style: TextStyles.cookTime,
-          )
-        : Text("");
+  //   Widget instruc = totalTime > 0
+  //       ? Text(
+  //           "Time: ${totalTime.toInt()} mins",
+  //           style: TextStyles.cookTime,
+  //         )
+  //       : Text("");
 
-    return instruc;
-  }
+  //   return instruc;
+  // }
 
   Widget difficultyMaker() {
    
@@ -474,23 +474,23 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                       fit: BoxFit.cover),
                                 ),
                               ),
-                              Positioned(
-                                left: 10,
-                                bottom: 10,
-                                child: Container(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      Container(
-                                          child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: timeMaker(),
-                                      ))
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              // Positioned(
+                              //   left: 10,
+                              //   bottom: 10,
+                              //   child: Container(
+                              //     child: Row(
+                              //       mainAxisAlignment:
+                              //           MainAxisAlignment.spaceAround,
+                              //       children: <Widget>[
+                              //         Container(
+                              //             child: Padding(
+                              //           padding: const EdgeInsets.all(8.0),
+                              //           // child: timeMaker(),
+                              //         ))
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                               Positioned(
                                 right: 10,
                                 bottom: 10,

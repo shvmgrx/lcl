@@ -255,9 +255,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
-                'lt'
+                'lt',
                 'piece',
-                'pkg'
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -308,7 +308,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+             // textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName1 = value;
@@ -352,6 +352,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -446,6 +449,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -496,7 +502,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+           //   textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName3 = value;
@@ -540,6 +546,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -590,7 +599,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+           //   textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName4 = value;
@@ -634,6 +643,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -684,7 +696,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+             // textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName5 = value;
@@ -728,6 +740,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -778,7 +793,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+           //   textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName6 = value;
@@ -822,6 +837,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -872,7 +890,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+            //  textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName7 = value;
@@ -916,6 +934,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -966,7 +987,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+           //   textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName8 = value;
@@ -1010,6 +1031,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1060,7 +1084,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+            //  textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName9 = value;
@@ -1104,6 +1128,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1202,6 +1229,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1300,6 +1330,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1350,7 +1383,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName12 = value;
@@ -1398,6 +1431,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1428,7 +1464,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt13 = value;
@@ -1448,7 +1484,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName13 = value;
@@ -1496,6 +1532,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1526,7 +1565,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt14 = value;
@@ -1546,7 +1585,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName14 = value;
@@ -1594,6 +1633,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1624,7 +1666,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt15 = value;
@@ -1644,7 +1686,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName15 = value;
@@ -1692,6 +1734,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1722,7 +1767,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt16 = value;
@@ -1742,7 +1787,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName16 = value;
@@ -1790,6 +1835,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1820,7 +1868,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt17 = value;
@@ -1840,7 +1888,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName17 = value;
@@ -1888,6 +1936,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -1918,7 +1969,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt18 = value;
@@ -1938,7 +1989,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName18 = value;
@@ -1986,6 +2037,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2016,7 +2070,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt19 = value;
@@ -2036,7 +2090,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName19 = value;
@@ -2084,6 +2138,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2114,7 +2171,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt20 = value;
@@ -2134,7 +2191,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName20 = value;
@@ -2182,6 +2239,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2212,7 +2272,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt21 = value;
@@ -2232,7 +2292,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName21 = value;
@@ -2280,6 +2340,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2310,7 +2373,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt22 = value;
@@ -2330,7 +2393,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName22 = value;
@@ -2378,6 +2441,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2408,7 +2474,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt23 = value;
@@ -2428,7 +2494,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName23 = value;
@@ -2476,6 +2542,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2506,7 +2575,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt24 = value;
@@ -2526,7 +2595,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName24 = value;
@@ -2574,6 +2643,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2604,7 +2676,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt25 = value;
@@ -2624,7 +2696,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName25 = value;
@@ -2672,6 +2744,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2702,7 +2777,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt26 = value;
@@ -2722,7 +2797,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName26 = value;
@@ -2770,6 +2845,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2800,7 +2878,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt27 = value;
@@ -2820,7 +2898,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName27 = value;
@@ -2868,6 +2946,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2898,7 +2979,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt28 = value;
@@ -2918,7 +2999,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName28 = value;
@@ -2966,6 +3047,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -2996,7 +3080,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt29 = value;
@@ -3016,7 +3100,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName29 = value;
@@ -3064,6 +3148,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'gm',
                 'kg',
                 'ml',
+                'lt',
+                'piece',
+                'pkg',
                 'teaspoon',
                 'tablespoon',
                 'cup',
@@ -3094,7 +3181,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 decoration: InputDecoration(
                     labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
+                //  //textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
                   setState(() {
                     igAmt30 = value;
@@ -3114,7 +3201,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingridient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+              //textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName30 = value;
@@ -3925,22 +4012,16 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             'Asian',
                                             'Eastern European',
                                             'French',
-                                            'Fusion'
+                                            'Fusion',
                                             'Indian',
                                             'Mediterranean',
                                             'Middle Eastern',
                                             
                                             'Scandinavian',
-                                            'South American'
+                                            'South American',
                                             'Spanish',
                                             'Turkish',
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
+
                                             'Other',
                                           ]
                                               .map((cuisine) =>
