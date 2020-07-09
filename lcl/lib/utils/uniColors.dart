@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class uniColors {
 
-  static final Color lcRed = Color(0xFFEC2639);
-  static final Color lcRedLight = Color(0xffff5757);
+  static final Color lcRed = Color(0xFFff5200);
+  static final Color lcRedLight = Color(0xFFff5200).withOpacity(0.8);
   static final Color standardWhite = Colors.white;
    static final Color standardBlack = Color(0xff58585e);
     static final Color black = Colors.black;
    
+
+  //  static final Color lcRed = Color(0xFFff5200); orangy
 
   static final Color backgroundGrey = Colors.grey[200];
 

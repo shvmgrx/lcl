@@ -619,8 +619,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                               });
                             },
                             child: NMButton(
-                                down: paymentPressed,
-                                icon: Icons.info),
+                                down: paymentPressed, icon: Icons.info),
                           ),
                         ],
                       ),
@@ -638,8 +637,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         ),
-                        trailing:  SvgPicture.asset("assets/donation.svg",
-              height: 30, width: 30, color: uniColors.grey2),
+                        trailing: SvgPicture.asset("assets/donateNew.svg",
+                            height: 30,
+                            width: 30,
+                            color: uniColors.standardBlack),
                         onTap: () {
                           //   Navigator.of(context).pop();
 
@@ -654,10 +655,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         ),
-                        trailing: new Icon(
-                          Icons.description,
-                          color: uniColors.standardBlack,
-                        ),
+                        trailing: SvgPicture.asset("assets/terms.svg",
+                            height: 30,
+                            width: 30,
+                            color: uniColors.standardBlack),
                         onTap: () {
                           Navigator.of(context).pop();
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
@@ -672,10 +673,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                               fontWeight: FontWeight.w600,
                               fontSize: 16),
                         ),
-                        trailing: new Icon(
-                          Icons.exit_to_app,
-                          color: uniColors.standardBlack,
-                        ),
+                        trailing: SvgPicture.asset("assets/logout.svg",
+                            height: 30,
+                            width: 30,
+                            color: uniColors.standardBlack),
                       ),
                     ),
 
@@ -941,7 +942,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           const EdgeInsets.only(left: 15.0),
                                       child: Icon(
                                         Icons.menu,
-                                        color: Colors.red,
+                                        color: uniColors.lcRed 
                                       ),
                                     ),
                                     onTap: () {
@@ -961,10 +962,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     child: Padding(
                                       padding:
                                           const EdgeInsets.only(right: 15.0),
-                                      child: Icon(
-                                        Icons.message,
-                                        color: Colors.red,
-                                      ),
+                                      child: SvgPicture.asset(
+                                          "assets/message.svg",
+                                          height: 30,
+                                          width: 30,
+                                          color: uniColors.lcRed),
                                     ),
                                     onTap: () {
                                       Navigator.pushNamed(
@@ -1635,7 +1637,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         color: uniColors.lcRed,
                                         size: 25,
                                       ),
-                                      onTap: () {}),
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                      context, "/initial_screen");
+                                      }),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20.0),
@@ -1695,8 +1700,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.fastfood,
-                          color: uniColors.lcRed, size: 35),
+                      icon: SvgPicture.asset("assets/recipe.svg",
+                          height: 30, width: 30, color: uniColors.lcRed),
                       onPressed: () {
                         // setState(() {
                         //   showRecipePage = true;
@@ -1708,6 +1713,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         print('Star it');
                       },
                     ),
+
                     IconButton(
                       icon:
                           Icon(Icons.search, color: uniColors.lcRed, size: 35),
@@ -1722,20 +1728,35 @@ class _DashboardScreenState extends State<DashboardScreen>
                         print('Star it');
                       },
                     ),
-                    IconButton(
-                      icon: Icon(Icons.restaurant,
-                          color: uniColors.lcRed, size: 35),
-                      onPressed: () {
-                        refresh();
-                        // setState(() {
-                        //   showRecipePage = false;
-                        //   showLunchalizePage = true;
-                        //   showFavsPage = false;
-                        // });
-                        showLunchalizePageNow();
+                    //           IconButton(
+                    //             icon: Image.asset("assets/LCO.png",
+                    // height:200,width:300),
+                    //             onPressed: () {
+                    //               refresh();
+                    //               // setState(() {
+                    //               //   showRecipePage = false;
+                    //               //   showLunchalizePage = true;
+                    //               //   showFavsPage = false;
+                    //               // });
+                    //               showLunchalizePageNow();
 
-                        print('Star it');
-                      },
+                    //               print('Star it');
+                    //             },
+                    //           ),
+                    GestureDetector(
+                      onTap: () {
+                                  refresh();
+                                  // setState(() {
+                                  //   showRecipePage = false;
+                                  //   showLunchalizePage = true;
+                                  //   showFavsPage = false;
+                                  // });
+                                  showLunchalizePageNow();
+
+                                  print('Star it');
+                                },
+                      child:
+                          Image.asset("assets/LCO.png", height: 150, width: 80),
                     ),
                     IconButton(
                       icon: Icon(Icons.star, color: uniColors.lcRed, size: 35),
@@ -2010,15 +2031,14 @@ class _DashboardScreenState extends State<DashboardScreen>
               opacity: 1,
               child: GestureDetector(
                 onTap: () {
-
-                print("object");
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) =>
-                          RecipeDetails(selectedRecipe: selfRecipeList)),
-                  (Route<dynamic> route) => false,
-                );
+                  print("object");
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) =>
+                            RecipeDetails(selectedRecipe: selfRecipeList)),
+                    (Route<dynamic> route) => false,
+                  );
                 },
                 child: Container(
                   height: screenWidth / 4,
@@ -2060,8 +2080,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 2.0),
+                            padding: const EdgeInsets.symmetric(vertical: 2.0),
                             child: Align(
                               alignment: Alignment.center,
                               child: (selfRecipeList.recipeName == "" ||

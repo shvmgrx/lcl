@@ -276,7 +276,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
     List<Widget> list = new List<Widget>();
 
-    if (widget.selectedRecipe.recipeDifficulty != "Fool proof") {
+    if (widget.selectedRecipe.recipeDifficulty == "Fool proof") {
      diffi = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -290,7 +290,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
       );
     }
 
-        if (widget.selectedRecipe.recipeDifficulty != "Average") {
+        if (widget.selectedRecipe.recipeDifficulty == "Average") {
       diffi = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -304,7 +304,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
       );
     }
 
-    if (widget.selectedRecipe.recipeDifficulty != "Pro") {
+    if (widget.selectedRecipe.recipeDifficulty == "Pro") {
       diffi = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

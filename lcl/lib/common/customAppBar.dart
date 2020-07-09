@@ -32,10 +32,7 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
             Spacer(),
-            Icon(
-              Icons.message,
-              color: Colors.red,
-            ),
+           
           ],
         ),
       ),

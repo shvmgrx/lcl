@@ -480,14 +480,32 @@ static final TextStyle searchSubTextResult = TextStyle(
   static final TextStyle headingTextStyle = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w600,
-    color: Colors.white,
+    color:uniColors.lcRed,
     fontFamily: 'Ubuntu',
   );
   static final TextStyle subscriptionTextStyle = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    color: Colors.white,
-    fontFamily: 'Ubuntu',
+    fontSize: 30,
+    fontWeight: FontWeight.w400,
+    color: uniColors.white2,
+    fontFamily: 'Homizio',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+    static final TextStyle donationTextStyle = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.w100,
+    color: uniColors.online,
+    fontFamily: 'Homizio',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
   );
   static final TextStyle subscriptionAmountTextStyle = TextStyle(
     fontSize: 26,

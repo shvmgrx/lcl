@@ -25,6 +25,13 @@ class Strings {
   static const String loremIpsum1 = "Wants to grab a drink along";
   static const String loremIpsum2 = "Wants to have dinner together";
 
+  static const String DONATE = "Donate";
+
+  static const String AGE_PREFERENCE = "Age Preference";
+  static const String DISTANCE_PREFERENCE = "Distance";
+  static const String LANGUAGES = "Languages";
+  static const String MODE_PREFERENCE = "Mode";
+
 
 
    static const String RECIPE_MAKER = "Recipe Maker";
