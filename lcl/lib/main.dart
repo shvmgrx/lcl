@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/login_screen.dart';
 import 'package:lcl/screens/pageviews/chat_list_screen.dart';
+import 'package:lcl/screens/splashScreen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
           '/edit_settings_screen': (context) => EditSettings(),
            '/chatList_screen': (context) => ChatListScreen(),
            '/initial_screen': (context) => InitialSettings(),
+           '/splash_screen': (context) => SplashScreen(),
            
         },
         home: FutureBuilder(

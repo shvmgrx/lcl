@@ -24,7 +24,7 @@ class InitialSettings extends StatelessWidget {
                 CustomAppBar(),
                
                 Padding(
-                  padding: const EdgeInsets.only(top:50.0),
+                  padding: const EdgeInsets.only(top:30.0),
                   child: SettingsContainer(
                     text: Strings.AGE_PREFERENCE,
                     imagePath: "assets/ageGroup.jpg",
@@ -32,15 +32,15 @@ class InitialSettings extends StatelessWidget {
                 ),
                  SettingsContainer(
                   text: Strings.DISTANCE_PREFERENCE,
-                  imagePath: "assets/locationGroup.jpg",
+                  imagePath: "assets/loc.jpg",
                 ),
                  SettingsContainer(
                   text: Strings.LANGUAGES,
-                  imagePath: "assets/languageGroup.jpg",
+                  imagePath: "assets/lang.jpg",
                 ),
                  SettingsContainer(
                   text: Strings.MODE_PREFERENCE,
-                  imagePath: "assets/modeChoose.png",
+                  imagePath: "assets/conv.jpg",
                 ),
 
                 Padding(

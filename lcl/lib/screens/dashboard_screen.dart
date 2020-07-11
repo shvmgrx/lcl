@@ -30,7 +30,6 @@ import 'package:gradient_text/gradient_text.dart';
 import 'package:provider/provider.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:floating_action_row/floating_action_row.dart';
-import 'package:flutter_web_browser/flutter_web_browser.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -1127,8 +1126,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                     left: 10.0),
                                                 child: Container(
                                                   //  color: uniColors.white1,
-                                                  height: screenWidth / 2.7,
-                                                  width: screenWidth / 2.7,
+                                                  
+                                                  height:  screenWidth *0.35,
+                                                  width: screenWidth *0.3,
                                                   decoration: BoxDecoration(
                                                     color: uniColors.white1,
                                                     borderRadius:
@@ -1165,6 +1165,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: Column(
+                                                    
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
@@ -1218,29 +1219,71 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                               const EdgeInsets
                                                                       .only(
                                                                   top: 10.0),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              CupertinoButton(
-                                                                onPressed: () {
-                                                                  Navigator.pushNamed(
-                                                                      context,
-                                                                      "/edit_profile_screen");
-                                                                },
-                                                                color: uniColors
-                                                                    .standardWhite,
+                                                          child: Container(
+                                                            width:screenWidth*0.58,
+                                                            decoration: BoxDecoration(
+                                                              borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(100.0),
+                                                      topRight:
+                                                          Radius.circular(25.0),
+                                                      bottomLeft:
+                                                          Radius.circular(25.0),
+                                                      bottomRight:
+                                                          Radius.circular(25.0),
+                                                    ),
+                                                            ),
+                                                            child: MaterialButton(
+                                                                  onPressed: () {
+                                                                    Navigator.pushNamed(
+                                                                        context,
+                                                                        "/edit_profile_screen");
+                                                                  },
+                                                                  color: uniColors
+                                                                      .standardWhite,
 
-                                                                // borderSide: BorderSide.solid,
-                                                                child: Text(
-                                                                    "EDIT PROFILE",
-                                                                    style: TextStyles
-                                                                        .selfProfileUserEdit),
-                                                              ),
-                                                            ],
+                                                                  // borderSide: BorderSide.solid,
+                                                                  child: Text(
+                                                                      "EDIT PROFILE",
+                                                                      style: TextStyles
+                                                                          .selfProfileUserEdit,
+                                                                          
+                                                                          ),
+                                                                ),
                                                           ),
                                                         ),
+                                                        // Padding(
+                                                        //   padding:
+                                                        //       const EdgeInsets
+                                                        //               .only(
+                                                        //           top: 10.0),
+                                                        //   child: Container(
+                                                        //     child: Row(
+                                                        //       mainAxisSize: MainAxisSize.min,
+                                                        //       mainAxisAlignment:
+                                                        //           MainAxisAlignment
+                                                        //               .center,
+                                                        //       children: <Widget>[
+                                                        //         CupertinoButton(
+                                                        //           onPressed: () {
+                                                        //             Navigator.pushNamed(
+                                                        //                 context,
+                                                        //                 "/edit_profile_screen");
+                                                        //           },
+                                                        //           color: uniColors
+                                                        //               .standardWhite,
+
+                                                        //           // borderSide: BorderSide.solid,
+                                                        //           child: Text(
+                                                        //               "EDIT PROFILE",
+                                                        //               style: TextStyles
+                                                        //                   .selfProfileUserEdit),
+                                                        //         ),
+                                                        //       ],
+                                                        //     ),
+                                                        //   ),
+                                                        // ),
                                                       ],
                                                     ),
                                                   ),
@@ -1663,6 +1706,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       onTap: () {
                                         getLocation();
                                         print(position);
+                                        Navigator.pushNamed(context, "/splash_screen");
                                       }),
                                 ],
                               ),

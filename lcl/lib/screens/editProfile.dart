@@ -288,10 +288,10 @@ class _EditProfileState extends State<EditProfile> {
                                 attribute: "loggedUserName",
                                 //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
                                 keyboardType: TextInputType.text,
-                                validators: [
-                                  // FormBuilderValidators.
-                                  FormBuilderValidators.max(18),
-                                ],
+                                 validators: [
+           
+              FormBuilderValidators.max(15),
+            ],
                                 onChanged: (value) {
                                   setState(() {
                                     loggedUserName = value;

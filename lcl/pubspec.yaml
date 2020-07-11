@@ -31,7 +31,7 @@ dependencies:
   cloud_firestore: ^0.13.6
   cached_network_image: ^2.1.0+1
   rxdart: ^0.24.0
-  permission_handler: 2.2.0
+  permission_handler: 3.0.0
   firebase_auth: ^0.16.1
   google_sign_in: ^4.5.1
   geolocator: ^5.3.1
@@ -45,8 +45,6 @@ dependencies:
   swipedetector: ^1.2.0
   flutter_form_builder: ^3.11.3
   floating_action_row: ^0.1.0
-  flutter_web_browser: "^0.11.0"
-  flutter_open_browser: ^1.0.3
   gradient_app_bar: ^0.0.1
   flutter_svg: ^0.17.1
   

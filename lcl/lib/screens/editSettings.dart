@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -353,7 +354,7 @@ class _EditSettingsState extends State<EditSettings> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 240),
+                      SizedBox(height: 200),
                       // ListTile(
                       //   title: new Text(
                       //     "Privacy Policy",
@@ -410,13 +411,18 @@ class _EditSettingsState extends State<EditSettings> {
                             width: screenWidth,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage("assets/charity.jpg"),
+                                colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.70),
+                BlendMode.srcATop,
+              ),
+                                image: AssetImage("assets/donateCrop.png"),
                                 fit: BoxFit.cover,
                               ),
                             ),
+       
                           ),
                           Positioned(
-                            left: 2,
+                            left: 1,
                             bottom: 50,
                             child: Container(
                               child: Row(
@@ -426,13 +432,40 @@ class _EditSettingsState extends State<EditSettings> {
                                   Container(
                                       child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: RaisedButton(
-                                      color:uniColors.white2,
-                                      
-                                      onPressed: () {},
-                                      child: const Text('Donate',
-                                          style: TextStyle(fontSize: 20)),
-                                    ),
+                                    child: Padding(
+                  padding: const EdgeInsets.only(left:18.0,top:30),
+                  child: FlatButton(
+                  color: uniColors.backgroundGrey,
+                 
+                    
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          SvgPicture.asset("assets/donateNew.svg",
+                            height: 30,
+                            width: 30,
+                            color: uniColors.online),
+                          Padding(
+                            padding: const EdgeInsets.only(left:15.0),
+                            child: Text(Strings.DONATE,style: TextStyles.donationTextStyle,),
+                          ),
+                        ],
+                      ),
+                    ),
+                 
+                  onPressed: () => {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => DashboardScreen(),
+                  //   ),
+                  // ),
+                  }
+              ),
+                ),
+            
                                   ))
                                 ],
                               ),
