@@ -417,17 +417,20 @@ class _RecipeDetailsState extends State<RecipeDetails>
                         ),
                         Spacer(),
                         GestureDetector(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
-                            child: Icon(
-                              Icons.message,
-                              color: Colors.red,
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(context, "/chatList_screen");
-                          },
-                        ),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 15.0),
+                                      child: SvgPicture.asset(
+                                          "assets/message.svg",
+                                          height: 30,
+                                          width: 30,
+                                          color: uniColors.lcRed),
+                                    ),
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/chatList_screen");
+                                    },
+                                  ),
                       ],
                     ),
                   ),
@@ -648,6 +651,15 @@ class _RecipeDetailsState extends State<RecipeDetails>
                             ),
                             child: Column(
                               children: <Widget>[
+                                Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0, bottom: 10),
+                                          child: Container(
+                                            child: Text("Instructions",
+                                                style: TextStyles
+                                                    .selectedRecipeIngridients),
+                                          ),
+                                        ),
                                 Container(
                                   child: instructionMaker(),
                                 ),

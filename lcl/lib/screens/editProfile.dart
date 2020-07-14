@@ -284,15 +284,15 @@ class _EditProfileState extends State<EditProfile> {
                             children: <Widget>[
                               loggedUserProfilePhoto == "notUploadedYet"
                                   ? Container(
-                                      width: 160.0,
-                                      height: 160.0,
+                                      width: 170.0,
+                                      height: 170.0,
                                       decoration: BoxDecoration(
                                         // shape: BoxShape.circle,
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(8.0),
                                           topRight: Radius.circular(8.0),
                                           bottomLeft: Radius.circular(8.0),
-                                          bottomRight: Radius.circular(8.0),
+                                          bottomRight: Radius.circular(25.0),
                                         ),
                                         image: DecorationImage(
                                           fit: BoxFit.cover,

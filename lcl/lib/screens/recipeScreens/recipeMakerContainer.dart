@@ -243,6 +243,28 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
       children: <Widget>[
+        
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt1 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -258,8 +280,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -276,28 +298,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             ),
           ),
         ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt1 = value;
-                  });
-                },
-              ),
-            ),
-          ),
-        ),
+        
         SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 14.0),
@@ -340,6 +341,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg2(screenWidth) {
     Widget ig2 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt2 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -355,8 +377,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -370,28 +392,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit2 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt2 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -437,6 +437,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg3(screenWidth) {
     Widget ig3 = Row(
       children: <Widget>[
+      Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt3 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -452,8 +473,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -467,28 +488,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit3 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt3 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -534,6 +533,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg4(screenWidth) {
     Widget ig4 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt4 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -549,8 +569,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -564,28 +584,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit4 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt4 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -631,6 +629,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg5(screenWidth) {
     Widget ig5 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt5 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -646,8 +665,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -661,28 +680,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit5 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt5 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -728,6 +725,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg6(screenWidth) {
     Widget ig6 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt6 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -743,8 +761,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -758,28 +776,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit6 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt6 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -825,6 +821,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg7(screenWidth) {
     Widget ig7 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt7 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -840,8 +857,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -855,28 +872,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit7 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt7 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -922,6 +917,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg8(screenWidth) {
     Widget ig8 = Row(
       children: <Widget>[
+       Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt8 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -937,8 +953,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -952,28 +968,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit8 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt8 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1019,6 +1013,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg9(screenWidth) {
     Widget ig9 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt9 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1034,8 +1049,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1049,28 +1064,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit9 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt9 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1116,6 +1109,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg10(screenWidth) {
     Widget ig10 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt10 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1131,8 +1145,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1146,28 +1160,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit10 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt10 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1217,6 +1209,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg11(screenWidth) {
     Widget ig11 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt11 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1232,8 +1245,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1247,28 +1260,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit11 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt11 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1318,6 +1309,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg12(screenWidth) {
     Widget ig12 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt12 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1333,8 +1345,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1348,28 +1360,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit12 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt12 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1419,6 +1409,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg13(screenWidth) {
     Widget ig13 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt13 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1434,8 +1445,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1449,28 +1460,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit13 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt13 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1520,6 +1509,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg14(screenWidth) {
     Widget ig14 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt14 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1535,8 +1545,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1550,28 +1560,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit14 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt14 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1621,6 +1609,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg15(screenWidth) {
     Widget ig15 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt15 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1636,8 +1645,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1651,28 +1660,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit15 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt15 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1722,6 +1709,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg16(screenWidth) {
     Widget ig16 = Row(
       children: <Widget>[
+      Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt16 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1737,8 +1745,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1752,28 +1760,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit16 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt16 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1823,6 +1809,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg17(screenWidth) {
     Widget ig17 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt17 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1838,8 +1845,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1853,28 +1860,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit17 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt17 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -1924,6 +1909,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg18(screenWidth) {
     Widget ig18 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt18 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -1939,8 +1945,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -1954,28 +1960,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit18 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt18 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2025,6 +2009,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg19(screenWidth) {
     Widget ig19 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt19 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2040,8 +2045,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2055,28 +2060,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit19 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt19 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2126,6 +2109,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg20(screenWidth) {
     Widget ig20 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt20 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2141,8 +2145,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2156,28 +2160,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit20 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt20 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2227,6 +2209,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg21(screenWidth) {
     Widget ig21 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt21 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2242,8 +2245,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2257,28 +2260,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit21 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt21 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2328,6 +2309,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg22(screenWidth) {
     Widget ig22 = Row(
       children: <Widget>[
+         Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt22 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2343,8 +2345,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2358,28 +2360,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit22 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt22 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2429,6 +2409,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg23(screenWidth) {
     Widget ig23 = Row(
       children: <Widget>[
+         Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt23 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2444,8 +2445,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2459,28 +2460,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit23 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt23 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2530,6 +2509,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg24(screenWidth) {
     Widget ig24 = Row(
       children: <Widget>[
+         Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt24 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2545,8 +2545,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2560,28 +2560,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit24 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt24 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2631,6 +2609,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg25(screenWidth) {
     Widget ig25 = Row(
       children: <Widget>[
+         Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt25 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2646,8 +2645,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2661,28 +2660,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit25 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt25 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2732,6 +2709,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg26(screenWidth) {
     Widget ig26 = Row(
       children: <Widget>[
+         Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt26 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2747,8 +2745,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2762,28 +2760,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit26 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt26 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2833,6 +2809,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg27(screenWidth) {
     Widget ig27 = Row(
       children: <Widget>[
+         Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt27 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2848,8 +2845,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2863,28 +2860,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit27 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt27 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -2934,6 +2909,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg28(screenWidth) {
     Widget ig28 = Row(
       children: <Widget>[
+         Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt28 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -2949,8 +2945,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -2964,28 +2960,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit28 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt28 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -3035,6 +3009,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg29(screenWidth) {
     Widget ig29 = Row(
       children: <Widget>[
+         Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt29 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -3050,8 +3045,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -3065,28 +3060,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit29 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt29 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -3136,6 +3109,27 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg30(screenWidth) {
     Widget ig30 = Row(
       children: <Widget>[
+        Container(
+          width: screenWidth * 0.1,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Container(
+              width: screenWidth * 0.30,
+              child: FormBuilderTextField(
+                attribute: "amount",
+                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                keyboardType: TextInputType.text,
+                //  textCapitalization: TextCapitalization.characters,
+                onChanged: (value) {
+                  setState(() {
+                    igAmt30 = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Container(
@@ -3151,8 +3145,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                 'lt',
                 'piece',
                 'pkg',
-                'teaspoon',
-                'tablespoon',
+                'tsp',
+                'tbsp',
                 'cup',
                 'mm',
                 'cm',
@@ -3166,28 +3160,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                   igUnit30 = value;
                 });
               },
-            ),
-          ),
-        ),
-        SizedBox(width: 5),
-        Container(
-          width: screenWidth * 0.1,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Container(
-              width: screenWidth * 0.30,
-              child: FormBuilderTextField(
-                attribute: "amount",
-                decoration: InputDecoration(
-                    labelText: "amt", helperStyle: TextStyles.recipe),
-                keyboardType: TextInputType.text,
-                //  //textCapitalization: TextCapitalization.characters,
-                onChanged: (value) {
-                  setState(() {
-                    igAmt30 = value;
-                  });
-                },
-              ),
             ),
           ),
         ),
@@ -3436,10 +3408,16 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                     children: <Widget>[
                                       tempoRecipePicture == "notUploadedYet"
                                           ? Container(
-                                              width: 160.0,
-                                              height: 160.0,
+                                              width: 170.0,
+                                              height: 170.0,
                                               decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
+                                              //  shape: BoxShape.circle,
+                                              borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8.0),
+                                          topRight: Radius.circular(8.0),
+                                          bottomLeft: Radius.circular(8.0),
+                                          bottomRight: Radius.circular(25.0),
+                                        ),
                                                 image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: AssetImage(
@@ -3448,10 +3426,16 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               ),
                                             )
                                           : Container(
-                                              width: 160.0,
-                                              height: 160.0,
+                                              width: 170.0,
+                                              height: 170.0,
                                               decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
+                                              //  shape: BoxShape.circle,
+                                              borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8.0),
+                                          topRight: Radius.circular(8.0),
+                                          bottomLeft: Radius.circular(8.0),
+                                          bottomRight: Radius.circular(25.0),
+                                        ),
                                                 image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: NetworkImage(
@@ -3460,9 +3444,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               ),
                                             ),
                                       Positioned(
-                                        // top:75,
-                                        bottom: 0,
-                                        right: 18,
+                                        top: 137,
+                                bottom: 0,
+                                left: 125,
                                         child: InkWell(
                                           onTap: () {
                                             pickImage(source: ImageSource.gallery);
@@ -4062,7 +4046,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                           min: 0.0,
                                           max: 1500.0,
                                           initialValue: 100.0,
-                                          divisions: 10,
+                                          divisions: 1500,
                                           decoration:
                                               InputDecoration(labelText: ""),
                                           onChanged: (value) {
