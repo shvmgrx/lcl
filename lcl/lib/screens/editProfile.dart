@@ -183,14 +183,20 @@ class _EditProfileState extends State<EditProfile> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            updateProfileDataToDb();
-                          
-                             Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DashboardScreen()),
-                              (Route<dynamic> route) => false,
-                            );
+                            if (_settingsFormKey.currentState
+                                .saveAndValidate()) {
+                              print(_settingsFormKey.currentState.value);
+                              updateProfileDataToDb();
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DashboardScreen()),
+                                (Route<dynamic> route) => false,
+                              );
+                            } else {
+                              print(_settingsFormKey.currentState.value);
+                              print('validation failed');
+                            }
                           },
                           child: Icon(
                             Icons.arrow_back,
@@ -209,11 +215,12 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 FormBuilder(
                   key: _settingsFormKey,
-                  initialValue: {
-                    'date': DateTime.now(),
-                    'accept_terms': false,
-                  },
                   autovalidate: true,
+                  // initialValue: {
+                  //   'date': DateTime.now(),
+                  //   'accept_terms': false,
+                  // },
+
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -288,10 +295,9 @@ class _EditProfileState extends State<EditProfile> {
                                 attribute: "loggedUserName",
                                 //    decoration:InputDecoration(labelText: "Recipe Name",helperStyle: TextStyles.recipe),
                                 keyboardType: TextInputType.text,
-                                 validators: [
-           
-              FormBuilderValidators.max(15),
-            ],
+                                validators: [
+                                  FormBuilderValidators.max(15),
+                                ],
                                 onChanged: (value) {
                                   setState(() {
                                     loggedUserName = value;

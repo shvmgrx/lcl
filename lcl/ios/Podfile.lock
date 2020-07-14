@@ -309,11 +309,7 @@ PODS:
   - Flutter (1.0.0)
   - flutter_keyboard_visibility (0.7.0):
     - Flutter
-  - flutter_open_browser (0.0.1):
-    - Flutter
   - flutter_plugin_android_lifecycle (0.0.1):
-    - Flutter
-  - flutter_web_browser (0.11.0):
     - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -431,9 +427,7 @@ DEPENDENCIES:
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
-  - flutter_open_browser (from `.symlinks/plugins/flutter_open_browser/ios`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
-  - flutter_web_browser (from `.symlinks/plugins/flutter_web_browser/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - google_api_availability (from `.symlinks/plugins/google_api_availability/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
@@ -497,12 +491,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_keyboard_visibility:
     :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
-  flutter_open_browser:
-    :path: ".symlinks/plugins/flutter_open_browser/ios"
   flutter_plugin_android_lifecycle:
     :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
-  flutter_web_browser:
-    :path: ".symlinks/plugins/flutter_web_browser/ios"
   geolocator:
     :path: ".symlinks/plugins/geolocator/ios"
   google_api_availability:
@@ -551,9 +541,7 @@ SPEC CHECKSUMS:
   FirebaseStorage: af7bdbd12177cf567df00904e3e3a93704f25b15
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_keyboard_visibility: 6195387fb6d8f46e5cd6dda4a4154e41f800f545
-  flutter_open_browser: 7a3e5a5f61dd8f6c2f4e6ca7efadbbf08a03f495
   flutter_plugin_android_lifecycle: dc0b544e129eebb77a6bfb1239d4d1c673a60a35
-  flutter_web_browser: bdea232160dec44dec86540bee05168cc844ef7c
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   geolocator: f7622e0e7e2a24718285b73916d60c4a54b9f5b6
   google_api_availability: 15fa42a8cd83c0a6738507ffe6e87096f12abcb8

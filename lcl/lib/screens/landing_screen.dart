@@ -40,7 +40,7 @@ class LandingScreen extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: Strings.READY_TO_LUNCHALIZE,
-                        style: TextStyles.bigHeadingTextStyle,
+                        style: TextStyles.landingTextStyle,
                       ),
                       TextSpan(text: "\n"),
                       TextSpan(text: "\n"),

@@ -109,7 +109,7 @@ class LoginScreenState extends State<LoginScreen>
                         // style: TextStyles.appNameLogoStyle,
                         // textAlign: TextAlign.center),
 
-                        Text("LUNCHALIZE",
+                        Text(Strings.APP_NAME,
                           
                             style: TextStyles.bigHeadingTextStyle,
                             textAlign: TextAlign.center),

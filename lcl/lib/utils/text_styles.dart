@@ -9,7 +9,13 @@ class TextStyles {
     fontSize: 26,
     fontWeight: FontWeight.w800,
     color: uniColors.lcRed,
-    fontFamily: 'PT',
+    fontFamily: 'PTT',
+  );
+    static final TextStyle landingTextStyle = TextStyle(
+    fontSize: 46,
+  //  fontWeight: FontWeight.w800,
+    color: uniColors.lcRed,
+    fontFamily: 'CaviarDreams',
   );
   static final TextStyle tagLineTextStyle = TextStyle(
     fontSize: 12,
@@ -21,7 +27,7 @@ class TextStyles {
     fontSize: 50,
     fontWeight: FontWeight.w900,
     color: uniColors.lcRed,
-    fontFamily: 'CaviarDreams',
+    fontFamily: 'PTT',
   );
 
   static final TextStyle searchText = TextStyle(
