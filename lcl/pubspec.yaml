@@ -47,6 +47,9 @@ dependencies:
   floating_action_row: ^0.1.0
   gradient_app_bar: ^0.0.1
   flutter_svg: ^0.17.1
+  image_cropper: ^1.2.3
+
+
   
 
 

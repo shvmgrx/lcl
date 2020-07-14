@@ -5,12 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-
+import 'dart:async';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:lcl/constants/constantStrings.dart';
+import 'package:lcl/enum/cropState.dart';
 import 'package:lcl/models/user.dart';
 
 import 'package:lcl/provider/image_upload_provider.dart';
@@ -23,6 +25,7 @@ import 'package:lcl/utils/utilities.dart';
 import 'package:provider/provider.dart';
 import 'package:lcl/utils/uniColors.dart';
 
+
 class EditProfile extends StatefulWidget {
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -31,6 +34,9 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final GlobalKey<FormBuilderState> _portionKey = GlobalKey<FormBuilderState>();
+
+  CropState state;
+  File imageFile;
 
   FirebaseRepository _repository = FirebaseRepository();
 
@@ -73,6 +79,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void initState() {
+    state = CropState.free;
     _repository.getCurrentUser().then((user) {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
@@ -125,6 +132,11 @@ class _EditProfileState extends State<EditProfile> {
       tempProfilePicture = selectedProPic;
     });
 
+    if (selectedProPic != null) {
+      setState(() {
+        state = CropState.picked;
+      });
+    }
     // // compImgHigh = await compressImageHigh(selectedImg);
 
     tempProfilePictureUrl = await uploadImageToStorage(tempProfilePicture);
@@ -132,6 +144,46 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       loggedUserProfilePhoto = tempProfilePictureUrl;
     });
+  }
+
+   Future<Null> _cropImage() async {
+     print("cropping start");
+    File croppedFile = await ImageCropper.cropImage(
+        sourcePath: imageFile.path,
+        aspectRatioPresets: Platform.isAndroid
+            ? [
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio16x9
+              ]
+            : [
+                CropAspectRatioPreset.original,
+                CropAspectRatioPreset.square,
+                CropAspectRatioPreset.ratio3x2,
+                CropAspectRatioPreset.ratio4x3,
+                CropAspectRatioPreset.ratio5x3,
+                CropAspectRatioPreset.ratio5x4,
+                CropAspectRatioPreset.ratio7x5,
+                CropAspectRatioPreset.ratio16x9
+              ],
+        androidUiSettings: AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        iosUiSettings: IOSUiSettings(
+          title: 'Cropper',
+        ));
+    if (croppedFile != null) {
+      imageFile = croppedFile;
+      setState(() {
+        state = CropState.cropped;
+      });
+    }
+     print("cropping end");
   }
 
   static final Firestore firestore = Firestore.instance;
@@ -235,7 +287,13 @@ class _EditProfileState extends State<EditProfile> {
                                       width: 160.0,
                                       height: 160.0,
                                       decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
+                                        // shape: BoxShape.circle,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8.0),
+                                          topRight: Radius.circular(8.0),
+                                          bottomLeft: Radius.circular(8.0),
+                                          bottomRight: Radius.circular(8.0),
+                                        ),
                                         image: DecorationImage(
                                           fit: BoxFit.cover,
                                           image: AssetImage(
@@ -244,10 +302,16 @@ class _EditProfileState extends State<EditProfile> {
                                       ),
                                     )
                                   : Container(
-                                      width: 160.0,
-                                      height: 160.0,
+                                      width: 170.0,
+                                      height: 170.0,
                                       decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
+                                        // shape: BoxShape.circle,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8.0),
+                                          topRight: Radius.circular(8.0),
+                                          bottomLeft: Radius.circular(8.0),
+                                          bottomRight: Radius.circular(25.0),
+                                        ),
                                         image: DecorationImage(
                                           fit: BoxFit.cover,
                                           image: NetworkImage(
@@ -256,17 +320,21 @@ class _EditProfileState extends State<EditProfile> {
                                       ),
                                     ),
                               Positioned(
-                                top: 126,
+                                top: 137,
                                 bottom: 0,
-                                right: 9,
+                                left: 125,
                                 child: InkWell(
                                   onTap: () {
-                                    pickImage(source: ImageSource.gallery);
+                                 
+                                      pickImage(source: ImageSource.gallery);
+                               
+                                    //  _cropImage();
+                                    // pickImage(source: ImageSource.gallery);
                                   },
                                   child: Icon(
                                     Icons.add_circle,
                                     size: 43,
-                                    color: uniColors.lcRed,
+                                    color: uniColors.standardBlack,
                                   ),
                                 ),
                               )
@@ -443,9 +511,6 @@ class _EditProfileState extends State<EditProfile> {
                                       child: Text("Vegetarian"),
                                       value: "Vegetarian"),
                                   FormBuilderFieldOption(
-                                      child: Text("Non-Vegetarian"),
-                                      value: "Non-Vegetarian"),
-                                  FormBuilderFieldOption(
                                       child: Text("Keto"), value: "Keto"),
                                   FormBuilderFieldOption(
                                       child: Text("Organic"), value: "Organic"),
@@ -461,8 +526,7 @@ class _EditProfileState extends State<EditProfile> {
                                   FormBuilderFieldOption(
                                       child: Text("Gourmet"), value: "Gourmet"),
                                   FormBuilderFieldOption(
-                                      child: Text("Chef Pro"),
-                                      value: "Chef Pro"),
+                                      child: Text("Chef"), value: "Chef"),
                                   FormBuilderFieldOption(
                                       child: Text("Sweet Tooth"),
                                       value: "Sweet Tooth"),

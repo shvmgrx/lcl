@@ -3288,7 +3288,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     }
 
     Future<File> pickImage({@required ImageSource source}) async {
-      File selectedImg = await Utils.pickImage(source: ImageSource.gallery);
+      File selectedImg = await Utils.pickImage(source: ImageSource.gallery,);
 
       //File compImgHigh;
       //   File compImgLow;
