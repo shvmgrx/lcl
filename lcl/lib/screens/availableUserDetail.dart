@@ -197,11 +197,19 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: Column(
                   children: <Widget>[
-                    Padding(
+                   i.recipeName.length<10 ?
+                      Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(i.recipeName,
-                          style: TextStyles.recipeProfileName),
+                      child: Text(i.recipeName,style: TextStyles.recipeProfileName),
+                    ):
+                     
+                      Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text("${i.recipeName.substring(0,11)}...",style: TextStyles.recipeProfileName),
                     ),
+                  
+
+                 
                     Container(
                       height: 150,
                       width: 150,
@@ -620,7 +628,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                             opacity: controller.value,
                             child: Container(
                                 // height: 150.0,
-                                // width: screenWidth*0.8,
+                                 width: screenWidth*0.8,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(25.0),
@@ -628,7 +636,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                     bottomLeft: Radius.circular(25.0),
                                     bottomRight: Radius.circular(25.0),
                                   ),
-                                  //   color: uniColors.standardWhite,
+                                   //  color: uniColors.standardWhite,
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -641,7 +649,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                           bottomLeft: Radius.circular(25.0),
                                           bottomRight: Radius.circular(25.0),
                                         ),
-                                        // color: uniColors.standardWhite,
+                                       //  color: uniColors.standardWhite,
                                       ),
                                       child: Column(
                                         crossAxisAlignment:

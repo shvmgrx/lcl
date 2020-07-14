@@ -563,7 +563,15 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: Align(
                         alignment: Alignment.center,
                         child: loggedInname != null
-                            ? GradientText(loggedInname,
+                            ? loggedInname.length<15 ? GradientText(loggedInname,
+                                gradient: LinearGradient(colors: [
+                                  uniColors.lcRed,
+                                  uniColors.lcRedLight,
+                                  uniColors.lcRed,
+                                ]),
+                                style: TextStyles.drawerNameTextStyle,
+                                textAlign: TextAlign.center):
+                                GradientText("${loggedInname.substring(0,14)}...",
                                 gradient: LinearGradient(colors: [
                                   uniColors.lcRed,
                                   uniColors.lcRedLight,
@@ -1185,11 +1193,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                     style: TextStyles
                                                                         .selfProfileUserName,
                                                                   )
-                                                                : Text(
-                                                                    "${loggedInname}",
-                                                                    style: TextStyles
-                                                                        .selfProfileUserName,
-                                                                  ),
+                                                                : loggedInname.length<15 ?Text("${loggedInname}",style: TextStyles.selfProfileUserName,): Text("${loggedInname.substring(0,14)}...",style: TextStyles.selfProfileUserName,),
                                                           ),
                                                         ),
                                                         Padding(
@@ -2038,9 +2042,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     ? Text("LC RECIPE",
                                         style: TextStyles.mainScreenProfileName,
                                         textAlign: TextAlign.center)
-                                    : Text(availableRecipes.recipeName,
-                                        style: TextStyles.mainScreenProfileName,
-                                        textAlign: TextAlign.center),
+                                    : availableRecipes.recipeName.length<=16 ? Text(availableRecipes.recipeName, style: TextStyles.mainScreenProfileName,textAlign: TextAlign.center):Text("${availableRecipes.recipeName.substring(0,15)}...", style: TextStyles.mainScreenProfileName,textAlign: TextAlign.center),
                               ),
                             ),
                           ),

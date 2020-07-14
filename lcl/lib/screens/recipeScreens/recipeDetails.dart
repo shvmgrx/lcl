@@ -209,6 +209,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                     style: TextStyles
                                         .selectedRecipeIngridientUnit),
                               ),
+                              
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Text("$name",
@@ -533,11 +534,32 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                               children: <Widget>[
                                                 Row(
                                                   children: <Widget>[
-                                                    Text(
-                                                      "${widget.selectedRecipe.recipeName}",
-                                                      style: TextStyles
-                                                          .selectedProfileName,
-                                                    ),
+                                                    
+                                                    
+                                                    widget.selectedRecipe.recipeName.length<18 ? Text(widget.selectedRecipe.recipeName,style: TextStyles.selectedProfileName):Text("${widget.selectedRecipe.recipeName.substring(0,18)}...",style: TextStyles.selectedProfileName),
+                                                     
+
+                                                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                   
+                                                    // Text(
+                                                    //   "${widget.selectedRecipe.recipeName}",
+                                                    //   style: TextStyles
+                                                    //       .selectedProfileName,
+                                                    // ),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
