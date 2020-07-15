@@ -1645,6 +1645,31 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         horizontal: 10.0),
                                     child: FloatingActionRowButton(
                                         icon: Icon(
+                                          Icons.add,
+                                          color: uniColors.lcRed,
+                                          size: 50,
+                                        ),
+                                        onTap: () {
+                                         
+                                         showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: uniColors.white1,
+                  builder: (context) => RecipeMakerContainer(),
+                );
+
+
+
+
+
+                                        }),
+                                  ),
+                                  FloatingActionRowDivider(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    child: FloatingActionRowButton(
+                                        icon: Icon(
                                           Icons.refresh,
                                           color: uniColors.lcRed,
                                           size: 50,
@@ -1653,6 +1678,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           refreshReci();
                                         }),
                                   ),
+                                  
                                   // FloatingActionRowButton(
                                   //     icon: Icon(
                                   //       Icons.atm,
@@ -1922,13 +1948,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          // Expanded(
-                          //   flex: 1,
-                          //   child: Icon(
-                          //     Icons.close,
-                          //     color: uniColors.lcRed,
-                          //   ),
-                          // ),
+                          Expanded(
+                            flex: 1,
+                            child: Icon(
+                              Icons.close,
+                              color: uniColors.lcRed,
+                            ),
+                          ),
                           Expanded(
                             flex: 2,
                             child: Padding(
@@ -1936,26 +1962,22 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   const EdgeInsets.symmetric(vertical: 2.0),
                               child: Align(
                                 alignment: Alignment.center,
-                                child: Text(availableUsers.name,
+                                child: availableUsers.name.length<13? Text(availableUsers.name,
+                                    style: TextStyles.mainScreenProfileName,
+                                    textAlign: TextAlign.center):Text("${availableUsers.name.substring(0,12)}...",
                                     style: TextStyles.mainScreenProfileName,
                                     textAlign: TextAlign.center),
                               ),
                             ),
                           ),
-                          // Expanded(
-                          //   flex: 1,
-                          //   child: IconButton(
-                          //     icon: Icon(Icons.restaurant,
-                          //         color: uniColors.lcRed, size: 30),
-                          //     onPressed: () {
-                          //       // setState(() {
-                          //       //   showRecipePage = true;
-                          //       //   showLunchalizePage = false;
-                          //       //   showFavsPage = false;
-                          //       // });
-                          //     },
-                          //   ),
-                          // ),
+                          
+                           Expanded(
+                            flex: 1,
+                            child: Icon(
+                              Icons.done,
+                              color: uniColors.lcRed,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1991,16 +2013,18 @@ class _DashboardScreenState extends State<DashboardScreen>
                 color: uniColors.transparent),
             Positioned(
               left: 1.0,
-              top: 5.0,
+              top: 1.0,
               child: Opacity(
                 opacity: 1,
                 child: Container(
-                  height: screenWidth / 2.4,
-                  width: screenWidth / 2.2,
+                  height:screenWidth *0.45 ,
+                  width: screenWidth *0.45 ,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25.0),
                       topRight: Radius.circular(25.0),
+                      bottomLeft: Radius.circular(25.0),
+                      bottomRight: Radius.circular(25.0),
                     ),
                     image: DecorationImage(
                         image: (availableRecipes.recipePicture ==
@@ -2020,7 +2044,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   children: <Widget>[
                     Container(
                       height: 40.0,
-                      width: screenWidth / 2.2,
+                      width: screenWidth *0.45,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(25.0),

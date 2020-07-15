@@ -214,6 +214,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+        static final TextStyle selectedProfileAge = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w800,
+    color: uniColors.white2,
+    fontFamily: 'CaviarDreams',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
       static final TextStyle profileChat = TextStyle(
     fontSize: 17,
     //fontWeight: FontWeight.w400,

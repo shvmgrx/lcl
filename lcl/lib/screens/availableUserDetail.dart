@@ -658,23 +658,47 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 left: 10, top: 15.0),
-                                            child: Container(
-                                              child:
-                                                  (userProvider.getUser.name ==
-                                                              null ||
-                                                          userProvider.getUser
-                                                                  .name ==
-                                                              "")
-                                                      ? Text(
-                                                          "LC User Name",
-                                                          style: TextStyles
-                                                              .selectedProfileName,
-                                                        )
-                                                      : Text(
-                                                          "${widget.selectedAvailableUser.name}",
-                                                          style: TextStyles
-                                                              .selectedProfileName,
-                                                        ),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  child:
+                                                      (widget.selectedAvailableUser.name ==
+                                                                  null ||
+                                                              widget.selectedAvailableUser.name ==
+                                                                  "")
+                                                          ? Text(
+                                                              "LC User Name",
+                                                              style: TextStyles
+                                                                  .selectedProfileName,
+                                                            )
+                                                          : widget.selectedAvailableUser.name.length<15? Text(
+                                                              "${widget.selectedAvailableUser.name}",
+                                                              style: TextStyles
+                                                                  .selectedProfileName,
+                                                            ):
+                                                            Text(
+                                                              "${widget.selectedAvailableUser.name.substring(0,14)}...",
+                                                              style: TextStyles
+                                                                  .selectedProfileName,
+                                                            ),
+                                                ),
+                                                Container(
+                                                  child:
+                                                      (widget.selectedAvailableUser.age ==
+                                                                  null ||
+                                                              widget.selectedAvailableUser.age == "")
+                                                          ? Text(
+                                                              "",
+                                                              style: TextStyles
+                                                                  .selectedProfileAge,
+                                                            )
+                                                          : Text(
+                                                              "  ${widget.selectedAvailableUser.age}",
+                                                              style: TextStyles
+                                                                  .selectedProfileAge,
+                                                            )
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           Padding(

@@ -232,12 +232,12 @@ class _EditSettingsState extends State<EditSettings> {
                             Container(
                               width: screenWidth * 0.65,
                               child: FormBuilderSlider(
-                                attribute: "calories",
+                                attribute: "age",
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 18.0,
                                 max: 100.0,
                                 initialValue: 18.0,
-                                divisions: 1,
+                                divisions: 100,
                                 decoration: InputDecoration(labelText: ""),
                                 onChanged: (value) {
                                   setState(() {
@@ -264,12 +264,12 @@ class _EditSettingsState extends State<EditSettings> {
                             Container(
                               width: screenWidth * 0.65,
                               child: FormBuilderSlider(
-                                attribute: "calories",
+                                attribute: "distance",
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 0.0,
                                 max: 200.0,
                                 initialValue: 5.0,
-                                divisions: 5,
+                                divisions: 200,
                                 decoration: InputDecoration(labelText: ""),
                                 onChanged: (value) {
                                   setState(() {
@@ -302,7 +302,7 @@ class _EditSettingsState extends State<EditSettings> {
                                 //     : "",
                                 //  hint: Text('Select Gender'),
                                 // validators: [FormBuilderValidators.required()],
-                                items: ['Men', 'Woman', 'Other']
+                                items: ['Men', 'Woman', 'Non-binary', 'Others']
                                     .map((gender) => DropdownMenuItem(
                                         value: gender, child: Text("$gender")))
                                     .toList(),
@@ -339,7 +339,7 @@ class _EditSettingsState extends State<EditSettings> {
                                 //     : "",
                                 //  hint: Text('Select Gender'),
                                 // validators: [FormBuilderValidators.required()],
-                                items: ['Buddy Mode', 'Flirt Mode', 'Other']
+                                items: ['Friend Mode', 'Flirt Mode']
                                     .map((gender) => DropdownMenuItem(
                                         value: gender, child: Text("$gender")))
                                     .toList(),
