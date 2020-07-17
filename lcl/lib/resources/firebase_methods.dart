@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lcl/constants/constantStrings.dart';
 import 'package:lcl/models/message.dart';
 import 'package:lcl/models/recipe.dart';
+import 'package:lcl/models/settings.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/utils/utilities.dart';
@@ -22,6 +23,9 @@ class FirebaseMethods {
 
   static final CollectionReference _userCollection =
       _firestore.collection(USERS_COLLECTION);
+
+  final CollectionReference _settingsCollection = _firestore.collection(SETTINGS_COLLECTION);
+
 
   //user class
   User user = User();
@@ -150,6 +154,13 @@ class FirebaseMethods {
       userRecipeList.add(Recipe.fromMap(querySnapshot.documents[i].data));
     }
     return userRecipeList;
+  }
+
+    
+
+    Future<void> addSettingsToDb(Settings setting) async {
+    var map = setting.toMap(setting);
+    _firestore.collection(SETTINGS_COLLECTION).document(setting.sId).setData(map);
   }
 
   Future<String> uploadImageToStorage(File imageFile) async {

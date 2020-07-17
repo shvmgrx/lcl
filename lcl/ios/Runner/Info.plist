@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow app to use location for recommendations</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Allow app to use location for recommendations</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -31,13 +35,13 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>EnableBackgroundLocationUpdates</key>
+	<true/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow app to use load camera picture</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow app to use location for recommendations</string>
-	<key>NSLocationUsageDescription</key>
 	<string>Allow app to use location for recommendations</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow app to use microphone for videocall.</string>
@@ -48,6 +52,8 @@
 		<string>audio</string>
 		<string>fetch</string>
 		<string>location</string>
+		<string>processing</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

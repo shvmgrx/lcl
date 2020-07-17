@@ -107,7 +107,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   void initState() {
-    getLocation();
 
     isVega = false;
     isVege = true;
@@ -487,15 +486,16 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   void getLocation() async {
+    print("comes here");
     GeolocationStatus geolocationStatus =
         await Geolocator().checkGeolocationPermissionStatus();
 
     Position currentPosition = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
     setState(() {
       position = currentPosition;
     });
-
+    print("TAS");
     print(position);
   }
 
@@ -1733,10 +1733,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         color: uniColors.lcRed,
                                         size: 25,
                                       ),
-                                      onTap: () {
-                                        getLocation();
-                                        print(position);
-                                        Navigator.pushNamed(context, "/splash_screen");
+                                      onTap: () async{
+                                       getLocation();
+                                        // Navigator.pushNamed(context, "/splash_screen");
                                       }),
                                 ],
                               ),

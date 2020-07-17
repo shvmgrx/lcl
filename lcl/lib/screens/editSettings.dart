@@ -6,19 +6,19 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:image_picker/image_picker.dart';
-
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:lcl/models/settings.dart';
 import 'package:lcl/models/user.dart';
 
 import 'package:lcl/provider/image_upload_provider.dart';
+import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/resources/firebase_repository.dart';
+import 'package:lcl/resources/settingsMethods.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
-import 'package:lcl/utils/utilities.dart';
 import 'package:provider/provider.dart';
 import 'package:lcl/utils/uniColors.dart';
 
@@ -29,9 +29,10 @@ class EditSettings extends StatefulWidget {
 
 class _EditSettingsState extends State<EditSettings> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final GlobalKey<FormBuilderState> _portionKey = GlobalKey<FormBuilderState>();
 
   FirebaseRepository _repository = FirebaseRepository();
+
+   final SettingsMethods _settingsMethods = SettingsMethods();
 
   final GlobalKey<FormBuilderState> _settingsFormKey =
       GlobalKey<FormBuilderState>();
@@ -66,6 +67,7 @@ class _EditSettingsState extends State<EditSettings> {
   int tempDistance;
   String loggedUserInterestedIn;
   String loggedUserMode;
+  Position position;
 
   void ageRangeMaker(value) {
     var a = value.toString();
@@ -81,26 +83,31 @@ class _EditSettingsState extends State<EditSettings> {
     
   
   tempDistance=value.round();
- 
-    // var tempDist = int.parse(tempDistance);
+
 
     setState(() {
      loggedUserDistance = tempDistance;
     });
   }
 
+    void getLocation() async {
+    GeolocationStatus geolocationStatus =
+        await Geolocator().checkGeolocationPermissionStatus();
+
+    Position currentPosition = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
+    setState(() {
+      position = currentPosition;
+    });
+  }
+
+
   void initState() {
+     getLocation();
     _repository.getCurrentUser().then((user) {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
-          loggedUserName = loggedUser['name'];
-          loggedUserEmail = loggedUser['email'];
-          loggedUserUsername = loggedUser['username'];
-          loggedUserStatus = loggedUser['status'];
-          loggedUserState = loggedUser['state'];
-          loggedUserProfilePhoto = loggedUser['profile_photo'];
-          loggedUserGender = loggedUser['gender'];
-          loggedUserBio = loggedUser['bio'];
+       
           loggedUserPosition = loggedUser['position'];
           loggedUserAge = loggedUser['age'];
           loggedUserAbusiveFlag = loggedUser['abusiveFlag'];
@@ -108,12 +115,14 @@ class _EditSettingsState extends State<EditSettings> {
           loggedUserCategory = loggedUser['cuisines'];
         });
       });
+
+      
     });
 
     super.initState();
   }
 
-  static final Firestore firestore = Firestore.instance;
+ 
 
   User user = User();
 
@@ -144,6 +153,26 @@ class _EditSettingsState extends State<EditSettings> {
     _imageUploadProvider = Provider.of<ImageUploadProvider>(context);
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+
+      void sendSettings() async {
+  
+      Settings _settings = Settings(
+        
+        sId: userProvider.getUser.uid,
+        sAge;
+        sDistance;
+        sGender;  
+        sInterestedIn;
+        sMode;
+        sLocation;
+      );
+
+      _settingsMethods.addSettingsToDb(_settings);
+    }
+
+
+    
     return PickupLayout(
       scaffold: Scaffold(
         key: _scaffoldKey,
@@ -300,11 +329,6 @@ class _EditSettingsState extends State<EditSettings> {
                                 
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
-                                // initialValue: loggedUserGender != null
-                                //     ? loggedUserGender
-                                //     : "",
-                                //  hint: Text('Select Gender'),
-                                // validators: [FormBuilderValidators.required()],
                                 items: ['Men', 'Woman', 'Everyone']
                                     .map((gender) => DropdownMenuItem(
                                         value: gender, child: Text("$gender")))
@@ -325,7 +349,7 @@ class _EditSettingsState extends State<EditSettings> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0, top: 30),
                         child: Column(
-                          //   mainAxisSize: MainAxisSize.min,
+              
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
@@ -343,11 +367,6 @@ class _EditSettingsState extends State<EditSettings> {
                               child: FormBuilderDropdown(
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
-                                // initialValue: loggedUserGender != null
-                                //     ? loggedUserGender
-                                //     : "",
-                                //  hint: Text('Select Gender'),
-                                // validators: [FormBuilderValidators.required()],
                                 items: ['Friend Mode', 'Flirt Mode']
                                     .map((gender) => DropdownMenuItem(
                                         value: gender, child: Text("$gender")))
@@ -375,10 +394,10 @@ class _EditSettingsState extends State<EditSettings> {
                               width: screenWidth,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  // colorFilter: ColorFilter.mode(
-                                  //   //Colors.black.withOpacity(0.70),
-                                  //  // BlendMode.srcATop,
-                                  // ),
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.10),
+                                   BlendMode.srcATop,
+                                  ),
                                   image: AssetImage("assets/donateCrop.png"),
                                   fit: BoxFit.cover,
                                 ),
@@ -424,12 +443,9 @@ class _EditSettingsState extends State<EditSettings> {
                                               ),
                                             ),
                                             onPressed: () => {
-                                                  // Navigator.push(
-                                                  //   context,
-                                                  //   MaterialPageRoute(
-                                                  //     builder: (context) => DashboardScreen(),
-                                                  //   ),
-                                                  // ),
+                                                 print("f"),
+                                             getLocation(),
+                                                  print("fe"),
                                                 }),
                                       ),
                                     ))
@@ -453,12 +469,7 @@ class _EditSettingsState extends State<EditSettings> {
                 //         }
                 //       },
                 //     ),
-                //     MaterialButton(
-                //       child: Text("Reset"),
-                //       onPressed: () {
-                //         _settingsFormKey.currentState.reset();
-                //       },
-                //     ),
+                //    
                 //   ],
                 // )
               ],

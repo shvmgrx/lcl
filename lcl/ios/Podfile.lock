@@ -356,6 +356,8 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.6.0):
     - GoogleUtilities/Logger
+  - gps (0.0.1):
+    - Flutter
   - "gRPC-C++ (1.28.2)":
     - "gRPC-C++/Implementation (= 1.28.2)"
     - "gRPC-C++/Interface (= 1.28.2)"
@@ -436,6 +438,7 @@ DEPENDENCIES:
   - google_api_availability (from `.symlinks/plugins/google_api_availability/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
   - google_sign_in_web (from `.symlinks/plugins/google_sign_in_web/ios`)
+  - gps (from `.symlinks/plugins/gps/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
@@ -507,6 +510,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_sign_in/ios"
   google_sign_in_web:
     :path: ".symlinks/plugins/google_sign_in_web/ios"
+  gps:
+    :path: ".symlinks/plugins/gps/ios"
   image_cropper:
     :path: ".symlinks/plugins/image_cropper/ios"
   image_picker:
@@ -560,6 +565,7 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 489c1265d2c85b68187a83a911913d190012158d
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
+  gps: b9dd5f2faf776a4ef3df65166a6702dd1cd21ff2
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
