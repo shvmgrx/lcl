@@ -63,6 +63,7 @@ class _EditSettingsState extends State<EditSettings> {
   int loggedUserAge1;
   int loggedUserAge2;
   int loggedUserDistance;
+  int tempDistance;
   String loggedUserInterestedIn;
   String loggedUserMode;
 
@@ -70,14 +71,22 @@ class _EditSettingsState extends State<EditSettings> {
     var a = value.toString();
     String b = a[12] + a[13];
     String c = a[18] + a[19];
-
-
-
     setState(() {
       loggedUserAge1 = int.parse(b);
       loggedUserAge2 = int.parse(c);
     });
-   
+  }
+
+  void distanceMaker(value) {
+    
+  
+  tempDistance=value.round();
+ 
+    // var tempDist = int.parse(tempDistance);
+
+    setState(() {
+     loggedUserDistance = tempDistance;
+    });
   }
 
   void initState() {
@@ -171,7 +180,7 @@ class _EditSettingsState extends State<EditSettings> {
                         SizedBox(width: 20),
                         Text(
                           Strings.EDIT_SETTINGS,
-                          style: TextStyles.editProfile,
+                          style: TextStyles.pageHeading,
                         )
                       ],
                     ),
@@ -185,39 +194,41 @@ class _EditSettingsState extends State<EditSettings> {
                   },
                   autovalidate: true,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       //AGE
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 10),
-                        child: Row(
+                        padding: const EdgeInsets.only(left: 25.0, top: 40),
+                        child: Column(
                           //   mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
                               child:
-                                  Text(Strings.AGE, style: TextStyles.recipe),
+                                  Row(
+                                    children: <Widget>[
+                                      Text("${Strings.AGE}:", style: TextStyles.settingHeading),
+                                      (loggedUserAge1 == null || loggedUserAge2 == null) ? Text(" 18",style: TextStyles.settingValue):   Text(" $loggedUserAge1-$loggedUserAge2",style: TextStyles.settingValue),
+                                    ],
+                                  ),
                             ),
-                            SizedBox(width: 65),
+                          
                             Container(
-                              width: screenWidth * 0.65,
+                              width: screenWidth * 0.85,
                               child: FormBuilderRangeSlider(
+                                activeColor: uniColors.lcRed,
                                 attribute: "age",
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 18.0,
                                 max: 99.0,
                                 initialValue: RangeValues(18, 25),
                                 divisions: 81,
-                                decoration: InputDecoration(labelText: ""),
+                                decoration: InputDecoration(labelText: "",focusColor: Colors.yellow,),
+                                displayValues:  DisplayValues.none,
                                 onChanged: (value) {
                                   setState(() {
                                     //recipeCalories = value.toString();
-                                  ageRangeMaker(value);
-
-                                  print(loggedUserAge1);
-                                   print(loggedUserAge2);
-                                  
-                                   
-    
+                                    ageRangeMaker(value);
                                   });
                                 },
                               ),
@@ -227,29 +238,38 @@ class _EditSettingsState extends State<EditSettings> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 10),
-                        child: Row(
+                        padding: const EdgeInsets.only(left: 25.0, top: 40),
+                        child: Column(
                           //   mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              child: Text(Strings.DISTANCE,
-                                  style: TextStyles.recipe),
+                              child: Row(
+                                children: <Widget>[
+                                  Text("${Strings.DISTANCE}:",style: TextStyles.settingHeading),
+                                loggedUserDistance==null? Text(" 5 km",style: TextStyles.settingValue): loggedUserDistance<200?  Text(" $loggedUserDistance km",style: TextStyles.settingValue):Text(" Global",style: TextStyles.settingValue),
+ 
+                                ],
+                              ),
                             ),
-                            SizedBox(width: 20),
+                           
                             Container(
-                              width: screenWidth * 0.65,
+                              width: screenWidth * 0.85,
                               child: FormBuilderSlider(
+                                activeColor: uniColors.lcRed,
                                 attribute: "distance",
                                 // validators: [FormBuilderValidators.min(6)],
-                                min: 0.0,
+                                min: 1.0,
                                 max: 200.0,
                                 initialValue: 5.0,
                                 divisions: 200,
-                                decoration: InputDecoration(labelText: ""),
+                                
+                                decoration: InputDecoration(labelText: "",),
+                                displayValues:  DisplayValues.none,
                                 onChanged: (value) {
                                   setState(() {
-                                    //recipeCalories = value.toString();
+                                   distanceMaker(value);
+                                    //  print(loggedUserDistance.runtimeType);
                                   });
                                 },
                               ),
@@ -258,19 +278,26 @@ class _EditSettingsState extends State<EditSettings> {
                         ),
                       ),
 
+                    
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 30),
-                        child: Row(
+                        padding: const EdgeInsets.only(left: 25.0, top: 30),
+                        child: Column(
                           //   mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              child: Text(Strings.INTERESTED_IN,
-                                  style: TextStyles.recipe),
+                              child: Row(
+                                children: <Widget>[
+                                  Text("${Strings.INTERESTED_IN}: ",
+                                      style: TextStyles.settingHeading),
+                                     loggedUserInterestedIn==null? Text("Everyone",style: TextStyles.settingValue):   Text("$loggedUserInterestedIn",style: TextStyles.settingValue),
+                                ],
+                              ),
                             ),
-                            SizedBox(width: 40),
                             Container(
-                              width: screenWidth * 0.45,
+                              width: screenWidth * 0.85,
                               child: FormBuilderDropdown(
+                                
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
                                 // initialValue: loggedUserGender != null
@@ -278,14 +305,14 @@ class _EditSettingsState extends State<EditSettings> {
                                 //     : "",
                                 //  hint: Text('Select Gender'),
                                 // validators: [FormBuilderValidators.required()],
-                                items: ['Men', 'Woman', 'Non-binary', 'Others']
+                                items: ['Men', 'Woman', 'Everyone']
                                     .map((gender) => DropdownMenuItem(
                                         value: gender, child: Text("$gender")))
                                     .toList(),
 
                                 onChanged: (value) {
                                   setState(() {
-                                    //loggedUserGender = value;
+                                    loggedUserInterestedIn = value;
                                   });
                                 },
                               ),
@@ -296,17 +323,23 @@ class _EditSettingsState extends State<EditSettings> {
 
                       //MODE
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 30),
-                        child: Row(
+                        padding: const EdgeInsets.only(left: 25.0, top: 30),
+                        child: Column(
                           //   mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
                               child:
-                                  Text(Strings.MODE, style: TextStyles.recipe),
+                                  Row(
+                                    children: <Widget>[
+                                      Text("${Strings.MODE}: ", style: TextStyles.settingHeading),
+                                       loggedUserMode==null? Text("Friend Mode",style: TextStyles.settingValue):   Text("$loggedUserMode",style: TextStyles.settingValue),
+                                    ],
+                                  ),
                             ),
-                            SizedBox(width: 40),
+                           
                             Container(
-                              width: screenWidth * 0.45,
+                              width: screenWidth * 0.85,
                               child: FormBuilderDropdown(
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
@@ -322,7 +355,7 @@ class _EditSettingsState extends State<EditSettings> {
 
                                 onChanged: (value) {
                                   setState(() {
-                                    //  loggedUserGender = value;
+                                    loggedUserMode = value;
                                   });
                                 },
                               ),
@@ -330,126 +363,82 @@ class _EditSettingsState extends State<EditSettings> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 200),
-                      // ListTile(
-                      //   title: new Text(
-                      //     "Privacy Policy",
-                      //     style: TextStyle(
-                      //         color: uniColors.standardBlack,
-                      //         fontWeight: FontWeight.w600,
-                      //         fontSize: 16),
-                      //   ),
-                      //   trailing: new Icon(
-                      //     Icons.description,
-                      //     color: uniColors.standardBlack,
-                      //   ),
-                      //   onTap: () {
-                      //    // Navigator.of(context).pop();
-                      //     //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
-                      //   }),
-                      //   ListTile(
-                      //   title: new Text(
-                      //     "Licenses",
-                      //     style: TextStyle(
-                      //         color: uniColors.standardBlack,
-                      //         fontWeight: FontWeight.w600,
-                      //         fontSize: 16),
-                      //   ),
-                      //   trailing: new Icon(
-                      //     Icons.description,
-                      //     color: uniColors.standardBlack,
-                      //   ),
-                      //   onTap: () {
-                      //    // Navigator.of(context).pop();
-                      //     //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
-                      //   }),
-                      // ListTile(
-                      //   title: new Text(
-                      //     "Terms of Service",
-                      //     style: TextStyle(
-                      //         color: uniColors.standardBlack,
-                      //         fontWeight: FontWeight.w600,
-                      //         fontSize: 16),
-                      //   ),
-                      //   trailing: new Icon(
-                      //     Icons.description,
-                      //     color: uniColors.standardBlack,
-                      //   ),
-                      //   onTap: () {
-                      //    // Navigator.of(context).pop();
-                      //     //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
-                      //   }),
-                      Stack(
-                        children: <Widget>[
-                          Container(
-                            alignment: FractionalOffset.bottomCenter,
-                            height: screenHeight / 5,
-                            width: screenWidth,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                colorFilter: ColorFilter.mode(
-                                  Colors.black.withOpacity(0.70),
-                                  BlendMode.srcATop,
+                    
+                   
+                      Align(
+                        heightFactor: 1.5,
+                                              child: Stack(
+                          children: <Widget>[
+                            Container(
+                              alignment: FractionalOffset.bottomCenter,
+                              height: screenHeight / 5,
+                              width: screenWidth,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  // colorFilter: ColorFilter.mode(
+                                  //   //Colors.black.withOpacity(0.70),
+                                  //  // BlendMode.srcATop,
+                                  // ),
+                                  image: AssetImage("assets/donateCrop.png"),
+                                  fit: BoxFit.cover,
                                 ),
-                                image: AssetImage("assets/donateCrop.png"),
-                                fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-                          Positioned(
-                            left: 1,
-                            bottom: 50,
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Container(
+                            Positioned(
+                              left: 1,
+                              bottom: 50,
+                              child: Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Container(
+                                        child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 18.0, top: 30),
-                                      child: FlatButton(
-                                          color: uniColors.backgroundGrey,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                SvgPicture.asset(
-                                                    "assets/donateNew.svg",
-                                                    height: 30,
-                                                    width: 30,
-                                                    color: uniColors.online),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 15.0),
-                                                  child: Text(
-                                                    Strings.DONATE,
-                                                    style: TextStyles
-                                                        .donationTextStyle,
+                                        padding: const EdgeInsets.only(
+                                            left: 18.0, top: 30),
+                                        child: FlatButton(
+                                            color: uniColors.backgroundGrey,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  SvgPicture.asset(
+                                                      "assets/donateNew.svg",
+                                                      height: 30,
+                                                      width: 30,
+                                                      color: uniColors.lcRed),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 15.0),
+                                                    child: Text(
+                                                      Strings.DONATE,
+                                                      style: TextStyles
+                                                          .donationTextStyle,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          onPressed: () => {
-                                                // Navigator.push(
-                                                //   context,
-                                                //   MaterialPageRoute(
-                                                //     builder: (context) => DashboardScreen(),
-                                                //   ),
-                                                // ),
-                                              }),
-                                    ),
-                                  ))
-                                ],
+                                            onPressed: () => {
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //     builder: (context) => DashboardScreen(),
+                                                  //   ),
+                                                  // ),
+                                                }),
+                                      ),
+                                    ))
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

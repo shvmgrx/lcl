@@ -516,8 +516,8 @@ static final TextStyle searchSubTextResult = TextStyle(
   );
     static final TextStyle donationTextStyle = TextStyle(
     fontSize: 30,
-    fontWeight: FontWeight.w100,
-    color: uniColors.online,
+    fontWeight: FontWeight.w500,
+    color: uniColors.lcRed,
     fontFamily: 'Homizio',
     // shadows: <Shadow>[
     //   Shadow(
@@ -581,11 +581,53 @@ static final TextStyle searchSubTextResult = TextStyle(
     //   ),
     // ],
   );
+
+       static final TextStyle pageHeading = TextStyle(
+    fontSize: 30,
+    //fontWeight: FontWeight.w400,
+    letterSpacing: 2.0,
+    color: uniColors.lcRed,
+    fontFamily: 'CaviarDreams',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
         static final TextStyle recipe = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w500,
     letterSpacing: 2.0,
     color: uniColors.lcRed,
+    fontFamily: 'Homizio',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
+          static final TextStyle settingHeading = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w900,
+    letterSpacing: 2.0,
+    color: uniColors.lcRed,
+    fontFamily: 'Homizio',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
+          static final TextStyle settingValue = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w900,
+    
+    color: uniColors.standardBlack,
     fontFamily: 'Homizio',
     // shadows: <Shadow>[
     //   Shadow(

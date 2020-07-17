@@ -59,5 +59,6 @@ class Strings {
    static const String INTERESTED_IN = "Interested in";
    static const String MODE = "Mode";
    static const String DISTANCE = "Distance";
+   static const String GLOBAL = "Global";
    static const String AGE = "Age";
 }
