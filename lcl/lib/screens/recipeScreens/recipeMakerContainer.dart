@@ -4000,7 +4000,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             'Indian',
                                             'Mediterranean',
                                             'Middle Eastern',
-                                            
                                             'Scandinavian',
                                             'South American',
                                             'Spanish',

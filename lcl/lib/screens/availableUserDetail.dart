@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_action_row/floating_action_row.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:lcl/common/mainScreenBar.dart';
 import 'package:lcl/enum/userState.dart';
 import 'package:lcl/models/recipe.dart';
@@ -477,10 +478,11 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                         GestureDetector(
                           child: Padding(
                             padding: const EdgeInsets.only(right: 15.0),
-                            child: Icon(
-                              Icons.message,
-                              color: Colors.red,
-                            ),
+                            child: SvgPicture.asset(
+                                          "assets/message.svg",
+                                          height: 30,
+                                          width: 30,
+                                          color: uniColors.lcRed),
                           ),
                           onTap: () {
                             Navigator.pushNamed(context, "/chatList_screen");

@@ -231,13 +231,13 @@ class _EditSettingsState extends State<EditSettings> {
                             SizedBox(width: 65),
                             Container(
                               width: screenWidth * 0.65,
-                              child: FormBuilderSlider(
+                              child: FormBuilderRangeSlider(
                                 attribute: "age",
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 18.0,
                                 max: 100.0,
-                                initialValue: 18.0,
-                                divisions: 100,
+                                initialValue:RangeValues(18, 25),
+                                divisions:82,                        
                                 decoration: InputDecoration(labelText: ""),
                                 onChanged: (value) {
                                   setState(() {
