@@ -31,13 +31,12 @@ class Settings {
   }
 
   Settings.fromMap(Map settingsMap) {
-    this.callerId = callMap["caller_id"];
-    this.callerName = callMap["caller_name"];
-    this.callerPic = callMap["caller_pic"];
-    this.receiverId = callMap["receiver_id"];
-    this.receiverName = callMap["receiver_name"];
-    this.receiverPic = callMap["receiver_pic"];
-    this.channelId = callMap["channel_id"];
-    this.hasDialled = callMap["has_dialled"];
+    this.sId = settingsMap["sId"];
+    this.sAge = settingsMap["sAge"];
+    this.sDistance = settingsMap["sDistance"];
+    this.sGender = settingsMap["sGender"];
+    this.sInterestedIn = settingsMap["sInterestedIn"];
+    this.sMode = settingsMap["sMode"];
+    this.sLocation = settingsMap["sLocation"];
   }
 }

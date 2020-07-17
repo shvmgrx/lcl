@@ -10,8 +10,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
-import 'package:lcl/constants/constantStrings.dart';
 import 'package:lcl/models/user.dart';
 
 import 'package:lcl/provider/image_upload_provider.dart';
@@ -62,15 +60,24 @@ class _EditSettingsState extends State<EditSettings> {
   int loggedUserAbusiveFlag;
   int loggedUserUsageFlag;
 
-  void pickProfilePhoto({@required ImageSource source}) async {
-    File selectedImage = await Utils.pickImage(source: source);
+  int loggedUserAge1;
+  int loggedUserAge2;
+  int loggedUserDistance;
+  String loggedUserInterestedIn;
+  String loggedUserMode;
 
-    _repository.getCurrentUser().then((user) {
-      _repository.changeProfilePhoto(
-          image: selectedImage,
-          imageUploadProvider: _imageUploadProvider,
-          currentUser: user);
+  void ageRangeMaker(value) {
+    var a = value.toString();
+    String b = a[12] + a[13];
+    String c = a[18] + a[19];
+
+
+
+    setState(() {
+      loggedUserAge1 = int.parse(b);
+      loggedUserAge2 = int.parse(c);
     });
+   
   }
 
   void initState() {
@@ -95,44 +102,6 @@ class _EditSettingsState extends State<EditSettings> {
     });
 
     super.initState();
-  }
-
-  StorageReference _storageReference;
-  Future<String> uploadImageToStorage(File tempRecipePicture) async {
-    try {
-      _storageReference = FirebaseStorage.instance
-          .ref()
-          .child('${DateTime.now().millisecondsSinceEpoch}');
-
-      StorageUploadTask storageUploadTask =
-          _storageReference.putFile(tempRecipePicture);
-      var url = await (await storageUploadTask.onComplete).ref.getDownloadURL();
-
-      return url;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Future<File> pickImage({@required ImageSource source}) async {
-    File selectedProPic = await Utils.pickImage(source: source);
-
-    //File compImgHigh;
-    //   File compImgLow;
-
-    // compImgLow = await compressImageLow(selectedImg);
-
-    setState(() {
-      tempProfilePicture = selectedProPic;
-    });
-
-    // // compImgHigh = await compressImageHigh(selectedImg);
-
-    tempProfilePictureUrl = await uploadImageToStorage(tempProfilePicture);
-
-    setState(() {
-      loggedUserProfilePhoto = tempProfilePictureUrl;
-    });
   }
 
   static final Firestore firestore = Firestore.instance;
@@ -219,7 +188,7 @@ class _EditSettingsState extends State<EditSettings> {
                     children: <Widget>[
                       //AGE
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0,top:10),
+                        padding: const EdgeInsets.only(left: 10.0, top: 10),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -235,13 +204,20 @@ class _EditSettingsState extends State<EditSettings> {
                                 attribute: "age",
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 18.0,
-                                max: 100.0,
-                                initialValue:RangeValues(18, 25),
-                                divisions:82,                        
+                                max: 99.0,
+                                initialValue: RangeValues(18, 25),
+                                divisions: 81,
                                 decoration: InputDecoration(labelText: ""),
                                 onChanged: (value) {
                                   setState(() {
                                     //recipeCalories = value.toString();
+                                  ageRangeMaker(value);
+
+                                  print(loggedUserAge1);
+                                   print(loggedUserAge2);
+                                  
+                                   
+    
                                   });
                                 },
                               ),
@@ -251,7 +227,7 @@ class _EditSettingsState extends State<EditSettings> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top:10),
+                        padding: const EdgeInsets.only(left: 10.0, top: 10),
                         child: Row(
                           //   mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -412,14 +388,13 @@ class _EditSettingsState extends State<EditSettings> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.70),
-                BlendMode.srcATop,
-              ),
+                                  Colors.black.withOpacity(0.70),
+                                  BlendMode.srcATop,
+                                ),
                                 image: AssetImage("assets/donateCrop.png"),
                                 fit: BoxFit.cover,
                               ),
                             ),
-       
                           ),
                           Positioned(
                             left: 1,
@@ -433,39 +408,42 @@ class _EditSettingsState extends State<EditSettings> {
                                       child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Padding(
-                  padding: const EdgeInsets.only(left:18.0,top:30),
-                  child: FlatButton(
-                  color: uniColors.backgroundGrey,
-                 
-                    
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          SvgPicture.asset("assets/donateNew.svg",
-                            height: 30,
-                            width: 30,
-                            color: uniColors.online),
-                          Padding(
-                            padding: const EdgeInsets.only(left:15.0),
-                            child: Text(Strings.DONATE,style: TextStyles.donationTextStyle,),
-                          ),
-                        ],
-                      ),
-                    ),
-                 
-                  onPressed: () => {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => DashboardScreen(),
-                  //   ),
-                  // ),
-                  }
-              ),
-                ),
-            
+                                      padding: const EdgeInsets.only(
+                                          left: 18.0, top: 30),
+                                      child: FlatButton(
+                                          color: uniColors.backgroundGrey,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                SvgPicture.asset(
+                                                    "assets/donateNew.svg",
+                                                    height: 30,
+                                                    width: 30,
+                                                    color: uniColors.online),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 15.0),
+                                                  child: Text(
+                                                    Strings.DONATE,
+                                                    style: TextStyles
+                                                        .donationTextStyle,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          onPressed: () => {
+                                                // Navigator.push(
+                                                //   context,
+                                                //   MaterialPageRoute(
+                                                //     builder: (context) => DashboardScreen(),
+                                                //   ),
+                                                // ),
+                                              }),
+                                    ),
                                   ))
                                 ],
                               ),
