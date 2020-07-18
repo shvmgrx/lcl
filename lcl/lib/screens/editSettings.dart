@@ -62,12 +62,16 @@ class _EditSettingsState extends State<EditSettings> {
   int loggedUserUsageFlag;
 
   int loggedUserAge1;
+  double tempAge1;
+  double tempAge2;
   int loggedUserAge2;
   int loggedUserDistance;
   int tempDistance;
   String loggedUserInterestedIn;
   String loggedUserMode;
   Position position;
+  String loggedUserLat;
+  String loggedUserLon;
 
   void ageRangeMaker(value) {
     var a = value.toString();
@@ -98,7 +102,14 @@ class _EditSettingsState extends State<EditSettings> {
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.medium);
     setState(() {
       position = currentPosition;
+      loggedUserLat=position.latitude.toString();
+      loggedUserLon=position.longitude.toString();
     });
+
+    print(loggedUserLat);
+    print(loggedUserLon);
+
+
   }
 
 
@@ -107,16 +118,23 @@ class _EditSettingsState extends State<EditSettings> {
     _repository.getCurrentUser().then((user) {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
-       
-          loggedUserPosition = loggedUser['position'];
-          loggedUserAge = loggedUser['age'];
-          loggedUserAbusiveFlag = loggedUser['abusiveFlag'];
-          loggedUserUsageFlag = loggedUser['usageFlag'];
-          loggedUserCategory = loggedUser['cuisines'];
+          loggedUserGender = loggedUser['gender'];
         });
       });
 
-      
+      _repository.fetchLoggedUserSettings(user).then((dynamic loggedUser) {
+        setState(() {
+          loggedUserAge1 = loggedUser['sAge1'];
+          loggedUserAge2 = loggedUser['sAge2'];
+          loggedUserDistance = loggedUser['sDistance'];
+          loggedUserInterestedIn = loggedUser['sInterestedIn'];
+          loggedUserMode = loggedUser['sMode'];
+
+          
+        });
+      });
+
+
     });
 
     super.initState();
@@ -125,28 +143,6 @@ class _EditSettingsState extends State<EditSettings> {
  
 
   User user = User();
-
-  void updateProfileDataToDb() {
-    _settingsFormKey.currentState.save();
-    _repository.getCurrentUser().then((FirebaseUser user) {
-      _repository.updateProfiletoDb(
-        user,
-        loggedUserName,
-        loggedUserEmail,
-        loggedUserUsername,
-        loggedUserStatus,
-        loggedUserState,
-        loggedUserProfilePhoto,
-        loggedUserGender,
-        loggedUserBio,
-        loggedUserPosition,
-        loggedUserAge,
-        loggedUserAbusiveFlag,
-        loggedUserUsageFlag,
-        loggedUserCategory,
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,12 +156,14 @@ class _EditSettingsState extends State<EditSettings> {
       Settings _settings = Settings(
         
         sId: userProvider.getUser.uid,
-        sAge;
-        sDistance;
-        sGender;  
-        sInterestedIn;
-        sMode;
-        sLocation;
+        sAge1: loggedUserAge1,
+        sAge2: loggedUserAge2,
+        sDistance: loggedUserDistance,
+        sGender: loggedUserGender,
+        sInterestedIn:loggedUserInterestedIn,
+        sMode: loggedUserMode,
+        sLat: loggedUserLat,
+        sLon: loggedUserLon,
       );
 
       _settingsMethods.addSettingsToDb(_settings);
@@ -250,7 +248,7 @@ class _EditSettingsState extends State<EditSettings> {
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 18.0,
                                 max: 99.0,
-                                initialValue: RangeValues(18, 25),
+                                initialValue:RangeValues( loggedUserAge1.toDouble(),loggedUserAge2.toDouble()) ,
                                 divisions: 81,
                                 decoration: InputDecoration(labelText: "",focusColor: Colors.yellow,),
                                 displayValues:  DisplayValues.none,
@@ -290,7 +288,7 @@ class _EditSettingsState extends State<EditSettings> {
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 1.0,
                                 max: 200.0,
-                                initialValue: 5.0,
+                                initialValue: loggedUserDistance.toDouble(),
                                 divisions: 200,
                                 
                                 decoration: InputDecoration(labelText: "",),
@@ -444,7 +442,7 @@ class _EditSettingsState extends State<EditSettings> {
                                             ),
                                             onPressed: () => {
                                                  print("f"),
-                                             getLocation(),
+                                           sendSettings(),
                                                   print("fe"),
                                                 }),
                                       ),

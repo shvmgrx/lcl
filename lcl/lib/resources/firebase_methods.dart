@@ -85,6 +85,18 @@ class FirebaseMethods {
     return documentSnapshot;
   }
 
+    Future<DocumentSnapshot> fetchLoggedUserSettings(FirebaseUser currentUser) async {
+    user = User(
+      uid: currentUser.uid,
+    );
+    DocumentSnapshot documentSnapshot = await firestore
+        .collection(SETTINGS_COLLECTION)
+        .document(currentUser.uid)
+        .get();
+
+    return documentSnapshot;
+  }
+
   Future<List<User>> fetchBatch(FirebaseUser currentUser) async {
     List<User> userList = List<User>();
 

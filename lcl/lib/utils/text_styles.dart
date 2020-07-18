@@ -503,9 +503,9 @@ static final TextStyle searchSubTextResult = TextStyle(
     fontFamily: 'Ubuntu',
   );
   static final TextStyle subscriptionTextStyle = TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.w400,
-    color: uniColors.white2,
+    fontSize: 25,
+    fontWeight: FontWeight.w900,
+    color: uniColors.lcRed,
     fontFamily: 'Homizio',
     // shadows: <Shadow>[
     //   Shadow(

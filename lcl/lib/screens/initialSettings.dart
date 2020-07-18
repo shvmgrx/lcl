@@ -6,14 +6,23 @@ import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:lcl/utils/uniColors.dart';
-
+import 'package:flutter_beautiful_popup/main.dart';
 import 'dashboard_screen.dart';
 
-class InitialSettings extends StatelessWidget {
+class InitialSettings extends StatefulWidget {
+  @override
+  _InitialSettingsState createState() => _InitialSettingsState();
+}
+
+class _InitialSettingsState extends State<InitialSettings> {
+
+  
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
+
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
@@ -24,10 +33,14 @@ class InitialSettings extends StatelessWidget {
                 CustomAppBar(),
                
                 Padding(
-                  padding: const EdgeInsets.only(top:30.0),
-                  child: SettingsContainer(
-                    text: Strings.AGE_PREFERENCE,
-                    imagePath: "assets/ageGroup.jpg",
+                  padding: const EdgeInsets.only(top:70.0),
+                  child: InkWell(
+                    onTap: () {
+              },
+                      child: SettingsContainer(
+                      text: Strings.AGE_PREFERENCE,
+                      imagePath: "assets/ageGroup.jpg",
+                    ),
                   ),
                 ),
                  SettingsContainer(
@@ -43,39 +56,39 @@ class InitialSettings extends StatelessWidget {
                   imagePath: "assets/conv.jpg",
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.only(left:18.0,top:30),
-                  child: FlatButton(
-                  color: uniColors.backgroundGrey,
+              //   Padding(
+              //     padding: const EdgeInsets.only(left:18.0,top:30),
+              //     child: FlatButton(
+              //     color: uniColors.backgroundGrey,
                  
                     
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          SvgPicture.asset("assets/donateNew.svg",
-                            height: 30,
-                            width: 30,
-                            color: uniColors.online),
-                          Padding(
-                            padding: const EdgeInsets.only(left:15.0),
-                            child: Text(Strings.DONATE,style: TextStyles.donationTextStyle,),
-                          ),
-                        ],
-                      ),
-                    ),
+              //       child: Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: Row(
+              //           mainAxisSize: MainAxisSize.min,
+              //           children: <Widget>[
+              //             SvgPicture.asset("assets/donateNew.svg",
+              //               height: 30,
+              //               width: 30,
+              //               color: uniColors.online),
+              //             Padding(
+              //               padding: const EdgeInsets.only(left:15.0),
+              //               child: Text(Strings.DONATE,style: TextStyles.donationTextStyle,),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
                  
-                  onPressed: () => {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => DashboardScreen(),
-                  //   ),
-                  // ),
-                  }
-              ),
-                ),
+              //     onPressed: () => {
+              //     // Navigator.push(
+              //     //   context,
+              //     //   MaterialPageRoute(
+              //     //     builder: (context) => DashboardScreen(),
+              //     //   ),
+              //     // ),
+              //     }
+              // ),
+              //   ),
             
               ],
             ),

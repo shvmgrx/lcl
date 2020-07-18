@@ -16,7 +16,10 @@ class SettingsMethods {
     Future<void> addSettingsToDb(Settings setting) async {
     var map = setting.toMap(setting);
     _firestore.collection(SETTINGS_COLLECTION).document(setting.sId).setData(map);
+    
   }
+
+
 
 //     Future<Settings> fetchUserSettingsById() async {
     
