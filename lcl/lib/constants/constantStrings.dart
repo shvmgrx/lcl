@@ -5,6 +5,7 @@ const String CALL_COLLECTION = "call";
 const String CONTACTS_COLLECTION = "contacts";
 const String RECIPE_COLLECTION = "recipes";
 const String SETTINGS_COLLECTION = "settings";
+const String FAV_COLLECTION = "favorites";
 const String USER_ID = "userId";
 
 const String TIMESTAMP_FIELD = "timestamp";

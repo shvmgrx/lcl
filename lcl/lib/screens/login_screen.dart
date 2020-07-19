@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:gradient_text/gradient_text.dart';
 //import 'package:infv1/onboarding/text_styles.dart';
 import 'package:lcl/resources/firebase_repository.dart';
+import 'package:lcl/screens/initialSettings.dart';
 //import 'package:infv1/utils/universal_variables.dart';
 //import 'package:infv1/ui_elements/loader.dart';
 import 'package:lcl/ui_elements/delayed_animation.dart';
@@ -231,7 +232,7 @@ class LoginScreenState extends State<LoginScreen>
         _repository.addDataToDb(user).then((value) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return DashboardScreen();
+            return InitialSettings();
           }));
         });
       } else {

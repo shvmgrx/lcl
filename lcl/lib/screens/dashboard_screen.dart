@@ -97,6 +97,11 @@ class _DashboardScreenState extends State<DashboardScreen>
   bool showFavsPage = false;
   bool showAccountPage = false;
 
+  bool showFavRecipes = false;
+  bool showFavPeople = false;
+
+ 
+
   bool refreshLunchalize = true;
   bool refreshRecipes = true;
 
@@ -107,7 +112,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   void initState() {
-
     isVega = false;
     isVege = true;
     isNVege = false;
@@ -563,22 +567,24 @@ class _DashboardScreenState extends State<DashboardScreen>
                       child: Align(
                         alignment: Alignment.center,
                         child: loggedInname != null
-                            ? loggedInname.length<15 ? GradientText(loggedInname,
-                                gradient: LinearGradient(colors: [
-                                  uniColors.lcRed,
-                                  uniColors.lcRedLight,
-                                  uniColors.lcRed,
-                                ]),
-                                style: TextStyles.drawerNameTextStyle,
-                                textAlign: TextAlign.center):
-                                GradientText("${loggedInname.substring(0,14)}...",
-                                gradient: LinearGradient(colors: [
-                                  uniColors.lcRed,
-                                  uniColors.lcRedLight,
-                                  uniColors.lcRed,
-                                ]),
-                                style: TextStyles.drawerNameTextStyle,
-                                textAlign: TextAlign.center)
+                            ? loggedInname.length < 15
+                                ? GradientText(loggedInname,
+                                    gradient: LinearGradient(colors: [
+                                      uniColors.lcRed,
+                                      uniColors.lcRedLight,
+                                      uniColors.lcRed,
+                                    ]),
+                                    style: TextStyles.drawerNameTextStyle,
+                                    textAlign: TextAlign.center)
+                                : GradientText(
+                                    "${loggedInname.substring(0, 14)}...",
+                                    gradient: LinearGradient(colors: [
+                                      uniColors.lcRed,
+                                      uniColors.lcRedLight,
+                                      uniColors.lcRed,
+                                    ]),
+                                    style: TextStyles.drawerNameTextStyle,
+                                    textAlign: TextAlign.center)
                             : Text(""),
                       ),
                     ),
@@ -631,11 +637,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                         ],
                       ),
                     ),
-
                     SizedBox(
                       height: screenHeight * 0.22,
                     ),
-
                     ListTile(
                         title: new Text(
                           "Donate",
@@ -653,7 +657,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
-
                     ListTile(
                         title: new Text(
                           "Terms of Service",
@@ -686,243 +689,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                             color: uniColors.standardBlack),
                       ),
                     ),
-
-                    //  NMBarButton(
-                    //     down: profilePressed,
-                    //     icon: Icons.description,
-                    //     iconText: "Terms and Conditions"),
-                    //     SizedBox(height: 5,),
-                    // NMBarButton(
-                    //     down: profilePressed,
-                    //     icon: Icons.settings,
-                    //     iconText: "Donate"),
                   ],
                 ),
               ),
             ),
-            // drawer: Drawer(
-            //   elevation: 15,
-            //   child: Column(
-            //     children: <Widget>[
-            //       Container(
-
-            //         height: screenHeight / 3,
-            //         width: screenWidth,
-            //         decoration: BoxDecoration(
-            //           image: DecorationImage(
-            //             image: NetworkImage(
-            //                loggedInprofilePhoto!=null? loggedInprofilePhoto: "https://i.pinimg.com/736x/20/fb/5d/20fb5dc251af2d68822bd0420dcb0a8e.jpg"),
-            //             fit: BoxFit.cover,
-            //           ),
-            //         ),
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 3),
-            //         child: Row(
-            //           children: <Widget>[
-            //             Text("Distance"),
-            //             Slider(
-            //               value: distance.toDouble(),
-            //               min: 0.0,
-            //               max: 250.0,
-            //               activeColor: uniColors.lcRed,
-            //               inactiveColor: uniColors.backgroundGrey,
-            //               onChanged: (double newValue) {
-            //                 setState(() {
-            //                   distance = newValue.round();
-            //                 });
-            //               },
-            //             ),
-            //             (distance < 250) ? Text("$distance kms") : Text("Global"),
-            //           ],
-            //         ),
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 3),
-            //         child: Row(
-            //           children: <Widget>[
-            //             Text("Time"),
-            //             Slider(
-            //               value: time.toDouble(),
-            //               min: 0.0,
-            //               max: 60.0,
-            //               activeColor: uniColors.lcRed,
-            //               inactiveColor: uniColors.standardWhite,
-            //               onChanged: (double newTime) {
-            //                 setState(() {
-            //                   time = newTime.round();
-            //                 });
-            //               },
-            //             ),
-            //             (time < 60) ? Text("$time minutes") : Text("No Limit"),
-            //           ],
-            //         ),
-            //       ),
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 3),
-            //         child: Row(
-            //           children: <Widget>[
-            //             Text("Languages:"),
-            //             Text(currentLanguages.toString()),
-            //             LanguagePickerDropdown(
-            //               initialValue: 'en',
-            //               itemBuilder: buildDropdownItem,
-            //               onValuePicked: (Language language) {
-            //                 _selectedDropdownLanguage = language;
-            //                 print(_selectedDropdownLanguage.name);
-            //                 print(_selectedDropdownLanguage.isoCode);
-            //                 setState(() {
-            //                   currentLanguages
-            //                       .add(_selectedDropdownLanguage.name.toString());
-            //                 });
-            //               },
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //       Divider(),
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 5),
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.start,
-            //           children: <Widget>[
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: <Widget>[
-            //                 Row(
-            //                   children: <Widget>[
-            //                     Text("Buddy mode:"),
-            //                     Checkbox(
-            //                         value: buddyMode,
-            //                         onChanged: (bool newBuddyValue) {
-            //                           setState(() {
-            //                             buddyMode = newBuddyValue;
-            //                           });
-            //                         }),
-            //                   ],
-            //                 ),
-            //                 Row(
-            //                   children: <Widget>[
-            //                     Text("Flirt mode:"),
-            //                     Checkbox(
-            //                         value: romanticMode,
-            //                         onChanged: (bool newRomanticValue) {
-            //                           setState(() {
-            //                             romanticMode = newRomanticValue;
-            //                           });
-            //                         }),
-            //                   ],
-            //                 ),
-            //                 Row(
-            //                   children: <Widget>[
-            //                     Text("Business mode:"),
-            //                     Checkbox(
-            //                         value: businessMode,
-            //                         onChanged: (bool newBusinessValue) {
-            //                           setState(() {
-            //                             businessMode = newBusinessValue;
-            //                           });
-            //                         }),
-            //                   ],
-            //                 ),
-            //               ],
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //       Divider(),
-            //       Padding(
-            //         padding: const EdgeInsets.only(left: 5),
-            //         child: Row(
-            //           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //           //crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: <Widget>[
-            //             Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: <Widget>[
-            //                 Row(
-            //                   children: <Widget>[
-            //                     Text("Vegetarian:"),
-            //                     Checkbox(
-            //                         value: isVege,
-            //                         onChanged: (bool vegetarianValue) {
-            //                           setState(() {
-            //                             isVege = vegetarianValue;
-            //                           });
-            //                         }),
-            //                   ],
-            //                 ),
-            //                 Row(
-            //                   children: <Widget>[
-            //                     Text("Vegan:"),
-            //                     Checkbox(
-            //                         value: isVega,
-            //                         onChanged: (bool veganValue) {
-            //                           setState(() {
-            //                             isVega = veganValue;
-            //                           });
-            //                         }),
-            //                   ],
-            //                 ),
-            //                 Row(
-            //                   children: <Widget>[
-            //                     Text("Non-Vegetarian"),
-            //                     Checkbox(
-            //                         value: isNVege,
-            //                         onChanged: (bool nVegeValue) {
-            //                           setState(() {
-            //                             isNVege = nVegeValue;
-            //                           });
-            //                         }),
-            //                   ],
-            //                 ),
-            //               ],
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //       Container(
-            //         color: uniColors.lcRed,
-            //         height: screenHeight / 30,
-            //         width: screenWidth,
-            //         child: FlatButton(
-            //           child: Text('SUBMIT'),
-            //           onPressed: () {
-            //             _repository.getCurrentUser().then((FirebaseUser user) {
-            //               _repository.updateDatatoDb(
-            //                 user,
-            //                 loggedInname,
-            //                 loggedInUsername,
-            //                 loggedInBio,
-            //                 isVega,
-            //                 isVege,
-            //                 isNVege,
-            //                 position.toString(),
-            //                 currentLanguages,
-            //                 loggedInprofilePhoto,
-            //               );
-            //             });
-            //             Navigator.of(context).pop();
-            //           },
-            //         ),
-            //       ),
-            //       SizedBox(
-            //         height: 15,
-            //       ),
-            //       Container(
-            //         color: uniColors.lcRed,
-            //         height: screenHeight / 30,
-            //         width: screenWidth,
-            //         child: FlatButton(
-            //           child: Text('LOGOUT'),
-            //           onPressed: () {
-            //             Navigator.of(context).pop();
-            //           },
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             backgroundColor: Colors.white,
             body: showSearchPage
                 ? Container(
@@ -947,10 +717,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     child: Padding(
                                       padding:
                                           const EdgeInsets.only(left: 15.0),
-                                      child: Icon(
-                                        Icons.menu,
-                                        color: uniColors.lcRed 
-                                      ),
+                                      child: Icon(Icons.menu,
+                                          color: uniColors.lcRed),
                                     ),
                                     onTap: () {
                                       _scaffoldKey.currentState.openDrawer();
@@ -1104,12 +872,102 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   Visibility(
                                     visible: showFavsPage,
                                     child: Container(
-                                        //margin: EdgeInsets.only(top: 20),
+                                        margin: EdgeInsets.only(top: 0),
                                         height:
                                             MediaQuery.of(context).size.height -
                                                 300.0,
-                                        child: Center(
-                                            child: Text("FavouritesPage"))),
+                                        child: Column(
+                                          // mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Container(
+                                              height: 40,
+                                              // color: uniColors.white2,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: <Widget>[
+                                                  InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          showFavRecipes = true;
+                                                        showFavPeople = false;
+                                                        });
+                                                        
+                                                    
+                                                      },
+                                                      child: Container(
+                                                        child: SvgPicture.asset(
+                                                            "assets/recipe.svg",
+                                                            height: 30,
+                                                            width: 30,
+                                                            color: uniColors
+                                                                .white2),
+                                                      )),
+                                                  InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          showFavRecipes = false;
+                                                        showFavPeople = true;
+                                                        });
+                                                        
+                                                  
+                                                      },
+                                                      child: Container(
+                                                        child: SvgPicture.asset(
+                                                            "assets/personOutline.svg",
+                                                            height: 30,
+                                                            width: 30,
+                                                            color: uniColors
+                                                                .white2),
+                                                      ),),
+                                                ],
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: showFavRecipes,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(top:15.0),
+                                                child: Container(
+                                                  width:screenWidth,
+                                                  height: screenHeight*0.6,
+                                                   color:Colors.red,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        child: Text(
+                                                            "Fav Recipe container"),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: showFavPeople,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(top:15.0),
+                                                child: Container(
+                                                  width:screenWidth,
+                                                  height: screenHeight*0.6,
+                                                  color:Colors.red,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        child: Text(
+                                                            "Fav People container"),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )),
                                   ),
 
                                   Visibility(
@@ -1134,9 +992,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                     left: 10.0),
                                                 child: Container(
                                                   //  color: uniColors.white1,
-                                                  
-                                                  height:  screenWidth *0.35,
-                                                  width: screenWidth *0.3,
+
+                                                  height: screenWidth * 0.35,
+                                                  width: screenWidth * 0.3,
                                                   decoration: BoxDecoration(
                                                     color: uniColors.white1,
                                                     borderRadius:
@@ -1173,7 +1031,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: Column(
-                                                    
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
@@ -1193,7 +1050,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                     style: TextStyles
                                                                         .selfProfileUserName,
                                                                   )
-                                                                : loggedInname.length<15 ?Text("${loggedInname}",style: TextStyles.selfProfileUserName,): Text("${loggedInname.substring(0,14)}...",style: TextStyles.selfProfileUserName,),
+                                                                : loggedInname
+                                                                            .length <
+                                                                        15
+                                                                    ? Text(
+                                                                        "${loggedInname}",
+                                                                        style: TextStyles
+                                                                            .selfProfileUserName,
+                                                                      )
+                                                                    : Text(
+                                                                        "${loggedInname.substring(0, 14)}...",
+                                                                        style: TextStyles
+                                                                            .selfProfileUserName,
+                                                                      ),
                                                           ),
                                                         ),
                                                         Padding(
@@ -1224,37 +1093,44 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                       .only(
                                                                   top: 10.0),
                                                           child: Container(
-                                                            width:screenWidth*0.58,
-                                                            decoration: BoxDecoration(
+                                                            width: screenWidth *
+                                                                0.58,
+                                                            decoration:
+                                                                BoxDecoration(
                                                               borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(100.0),
-                                                      topRight:
-                                                          Radius.circular(25.0),
-                                                      bottomLeft:
-                                                          Radius.circular(25.0),
-                                                      bottomRight:
-                                                          Radius.circular(25.0),
-                                                    ),
+                                                                  BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        100.0),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        25.0),
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        25.0),
+                                                                bottomRight: Radius
+                                                                    .circular(
+                                                                        25.0),
+                                                              ),
                                                             ),
-                                                            child: MaterialButton(
-                                                                  onPressed: () {
-                                                                    Navigator.pushNamed(
-                                                                        context,
-                                                                        "/edit_profile_screen");
-                                                                  },
-                                                                  color: uniColors
-                                                                      .standardWhite,
+                                                            child:
+                                                                MaterialButton(
+                                                              onPressed: () {
+                                                                Navigator.pushNamed(
+                                                                    context,
+                                                                    "/edit_profile_screen");
+                                                              },
+                                                              color: uniColors
+                                                                  .standardWhite,
 
-                                                                  // borderSide: BorderSide.solid,
-                                                                  child: Text(
-                                                                      "EDIT PROFILE",
-                                                                      style: TextStyles
-                                                                          .selfProfileUserEdit,
-                                                                          
-                                                                          ),
-                                                                ),
+                                                              // borderSide: BorderSide.solid,
+                                                              child: Text(
+                                                                "EDIT PROFILE",
+                                                                style: TextStyles
+                                                                    .selfProfileUserEdit,
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
                                                         // Padding(
@@ -1650,18 +1526,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           size: 50,
                                         ),
                                         onTap: () {
-                                         
-                                         showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: uniColors.white1,
-                  builder: (context) => RecipeMakerContainer(),
-                );
-
-
-
-
-
+                                          showModalBottomSheet(
+                                            context: context,
+                                            isScrollControlled: true,
+                                            backgroundColor: uniColors.white1,
+                                            builder: (context) =>
+                                                RecipeMakerContainer(),
+                                          );
                                         }),
                                   ),
                                   FloatingActionRowDivider(),
@@ -1678,7 +1549,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           refreshReci();
                                         }),
                                   ),
-                                  
+
                                   // FloatingActionRowButton(
                                   //     icon: Icon(
                                   //       Icons.atm,
@@ -1712,7 +1583,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       ),
                                       onTap: () {
                                         Navigator.pushNamed(
-                                      context, "/initial_screen");
+                                            context, "/initial_screen");
                                       }),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -1733,8 +1604,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         color: uniColors.lcRed,
                                         size: 25,
                                       ),
-                                      onTap: () async{
-                                       getLocation();
+                                      onTap: () async {
+                                        getLocation();
                                         // Navigator.pushNamed(context, "/splash_screen");
                                       }),
                                 ],
@@ -1818,16 +1689,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                     //           ),
                     GestureDetector(
                       onTap: () {
-                                  refresh();
-                                  // setState(() {
-                                  //   showRecipePage = false;
-                                  //   showLunchalizePage = true;
-                                  //   showFavsPage = false;
-                                  // });
-                                  showLunchalizePageNow();
+                        refresh();
+                        // setState(() {
+                        //   showRecipePage = false;
+                        //   showLunchalizePage = true;
+                        //   showFavsPage = false;
+                        // });
+                        showLunchalizePageNow();
 
-                                  print('Star it');
-                                },
+                        print('Star it');
+                      },
                       child:
                           Image.asset("assets/LCO.png", height: 150, width: 80),
                     ),
@@ -1961,16 +1832,18 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   const EdgeInsets.symmetric(vertical: 2.0),
                               child: Align(
                                 alignment: Alignment.center,
-                                child: availableUsers.name.length<13? Text(availableUsers.name,
-                                    style: TextStyles.mainScreenProfileName,
-                                    textAlign: TextAlign.center):Text("${availableUsers.name.substring(0,12)}...",
-                                    style: TextStyles.mainScreenProfileName,
-                                    textAlign: TextAlign.center),
+                                child: availableUsers.name.length < 13
+                                    ? Text(availableUsers.name,
+                                        style: TextStyles.mainScreenProfileName,
+                                        textAlign: TextAlign.center)
+                                    : Text(
+                                        "${availableUsers.name.substring(0, 12)}...",
+                                        style: TextStyles.mainScreenProfileName,
+                                        textAlign: TextAlign.center),
                               ),
                             ),
                           ),
-                          
-                           Expanded(
+                          Expanded(
                             flex: 1,
                             child: Icon(
                               Icons.done,
@@ -2016,8 +1889,8 @@ class _DashboardScreenState extends State<DashboardScreen>
               child: Opacity(
                 opacity: 1,
                 child: Container(
-                  height:screenWidth *0.45 ,
-                  width: screenWidth *0.45 ,
+                  height: screenWidth * 0.45,
+                  width: screenWidth * 0.45,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25.0),
@@ -2043,7 +1916,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   children: <Widget>[
                     Container(
                       height: 40.0,
-                      width: screenWidth *0.45,
+                      width: screenWidth * 0.45,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(25.0),
@@ -2065,7 +1938,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     ? Text("LC RECIPE",
                                         style: TextStyles.mainScreenProfileName,
                                         textAlign: TextAlign.center)
-                                    : availableRecipes.recipeName.length<=16 ? Text(availableRecipes.recipeName, style: TextStyles.mainScreenProfileName,textAlign: TextAlign.center):Text("${availableRecipes.recipeName.substring(0,15)}...", style: TextStyles.mainScreenProfileName,textAlign: TextAlign.center),
+                                    : availableRecipes.recipeName.length <= 16
+                                        ? Text(availableRecipes.recipeName,
+                                            style: TextStyles
+                                                .mainScreenProfileName,
+                                            textAlign: TextAlign.center)
+                                        : Text(
+                                            "${availableRecipes.recipeName.substring(0, 15)}...",
+                                            style: TextStyles
+                                                .mainScreenProfileName,
+                                            textAlign: TextAlign.center),
                               ),
                             ),
                           ),

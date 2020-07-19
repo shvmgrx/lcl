@@ -17,8 +17,6 @@ class User {
   List languages;
   List cuisines;
 
-
-
   User({
     this.uid,
     this.name,

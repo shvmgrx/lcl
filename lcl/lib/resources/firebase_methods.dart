@@ -267,7 +267,9 @@ class FirebaseMethods {
         email: currentUser.email,
         name: currentUser.displayName,
         profilePhoto: currentUser.photoUrl,
-        username: username);
+        username: username,
+        age: 18,
+        );
 
     firestore
         .collection(USERS_COLLECTION)

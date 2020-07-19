@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:lcl/common/mainScreenBar.dart';
 import 'package:lcl/enum/userState.dart';
+import 'package:lcl/models/favs.dart';
 import 'package:lcl/models/recipe.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/resources/authMethods.dart';
+import 'package:lcl/resources/favMethods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
@@ -83,6 +85,10 @@ class _RecipeDetailsState extends State<RecipeDetails>
   bool showBottomBar = true;
 
   bool refreshLunchalize = true;
+
+  List<String> fRecipes = new List<String>();
+  List<String> fPeople = new List<String>();
+
 
   Language _selectedDropdownLanguage =
       LanguagePickerUtils.getLanguageByIsoCode('en');
@@ -353,6 +359,21 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
     final AuthMethods authMethods = AuthMethods();
 
+    final FavMethods _favMethods = FavMethods();
+
+      void sendFavs() async {
+  
+      Favs _favs = Favs(
+        
+        favId: userProvider.getUser.uid,
+        favRecipes: fRecipes,
+        favPeople: fPeople,
+
+      );
+
+      _favMethods.addFavsToDb(_favs);
+    }
+
     signOut() async {
       final bool isLoggedOut = await AuthMethods().signOut();
       if (isLoggedOut) {
@@ -564,10 +585,17 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                                       padding:
                                                           const EdgeInsets.only(
                                                               left: 8.0),
-                                                      child: Icon(
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                        
+                                                          fRecipes.add(widget.selectedRecipe.recipeId);
+                                                          sendFavs();
+                                                        },
+                                                                                                              child: Icon(
                                                         Icons.star_border,
-                                                        size: 40,
-                                                        color: uniColors.white2,
+                                                          size: 40,
+                                                          color: uniColors.white2,
+                                                        ),
                                                       ),
                                                     ),
                                                   ],

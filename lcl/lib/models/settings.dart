@@ -8,6 +8,7 @@ class Settings {
   String sMode;
   String sLat;
   String sLon;
+  List sLang;
 
   Settings({
     this.sId,
@@ -18,7 +19,8 @@ class Settings {
     this.sInterestedIn,
     this.sMode,
     this.sLat,
-    this.sLon
+    this.sLon,
+    this.sLang
   });
 
   // to map
@@ -33,6 +35,7 @@ class Settings {
     settingsMap["sMode"] = settings.sMode;
     settingsMap["sLat"] = settings.sLat;
     settingsMap["sLon"] = settings.sLon;
+    settingsMap["sLang"] = settings.sLang;
     return settingsMap;
   }
 
@@ -46,5 +49,6 @@ class Settings {
     this.sMode = settingsMap["sMode"];
     this.sLat = settingsMap["sLat"];
     this.sLon = settingsMap["sLon"];
+    this.sLang = settingsMap["sLang"];
   }
 }

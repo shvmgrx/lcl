@@ -48,6 +48,7 @@ dependencies:
   gradient_app_bar: ^0.0.1
   flutter_svg: ^0.17.1
   image_cropper: ^1.2.3
+  giffy_dialog: ^1.8.0
 
 
 

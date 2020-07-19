@@ -19,7 +19,6 @@ class Strings {
   static const String wildAnimals = "@Lara";
   static const String quickCategories = "";
   static const String location = "Location";
-  static const String lion = "Languages";
   static const String reptiles = "Meal Type";
   static const String pets = "Mode";
   static const String loremIpsum1 = "Wants to grab a drink along";
@@ -27,6 +26,7 @@ class Strings {
 
   static const String DONATE = "Donate";
 
+  static const String PARTNER_PREFERENCE = "Preference";
   static const String AGE_PREFERENCE = "Age Preference";
   static const String DISTANCE_PREFERENCE = "Distance";
   static const String LANGUAGES = "Languages";
@@ -61,4 +61,13 @@ class Strings {
    static const String DISTANCE = "Distance";
    static const String GLOBAL = "Global";
    static const String AGE = "Age";
+
+   static const String PREFERENCEDETAIL = "Preference to find your Lunchalize partner";
+   static const String DISTANCEDETAIL = "Choose the distance of your potential matches, nearby or global";
+   static const String LANGDETAIL = "Which languages do you speak?";
+   static const String MODEDETAIL = "In mood for flirting or making new friend?";
+
+   static const String SAVE = "Save";
+
+
 }

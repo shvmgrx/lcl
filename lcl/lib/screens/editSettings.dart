@@ -34,8 +34,7 @@ class _EditSettingsState extends State<EditSettings> {
 
    final SettingsMethods _settingsMethods = SettingsMethods();
 
-  final GlobalKey<FormBuilderState> _settingsFormKey =
-      GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _settingsFormKey = GlobalKey<FormBuilderState>();
 
   bool _autoValidate = false;
   ImageUploadProvider _imageUploadProvider;
@@ -169,6 +168,12 @@ class _EditSettingsState extends State<EditSettings> {
       _settingsMethods.addSettingsToDb(_settings);
     }
 
+    
+
+
+
+    
+
 
     
     return PickupLayout(
@@ -190,7 +195,7 @@ class _EditSettingsState extends State<EditSettings> {
                         InkWell(
                           onTap: () {
                             // updateProfileDataToDb();
-
+ sendSettings();
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -235,7 +240,7 @@ class _EditSettingsState extends State<EditSettings> {
                                   Row(
                                     children: <Widget>[
                                       Text("${Strings.AGE}:", style: TextStyles.settingHeading),
-                                      (loggedUserAge1 == null || loggedUserAge2 == null) ? Text(" 18",style: TextStyles.settingValue):   Text(" $loggedUserAge1-$loggedUserAge2",style: TextStyles.settingValue),
+                                      (loggedUserAge1 == null || loggedUserAge2 == null) ? Text(" 18-25",style: TextStyles.settingValue):   Text(" $loggedUserAge1-$loggedUserAge2",style: TextStyles.settingValue),
                                     ],
                                   ),
                             ),
@@ -248,7 +253,7 @@ class _EditSettingsState extends State<EditSettings> {
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 18.0,
                                 max: 99.0,
-                                initialValue:RangeValues( loggedUserAge1.toDouble(),loggedUserAge2.toDouble()) ,
+                                initialValue:RangeValues( 18,25) ,
                                 divisions: 81,
                                 decoration: InputDecoration(labelText: "",focusColor: Colors.yellow,),
                                 displayValues:  DisplayValues.none,
@@ -288,7 +293,7 @@ class _EditSettingsState extends State<EditSettings> {
                                 // validators: [FormBuilderValidators.min(6)],
                                 min: 1.0,
                                 max: 200.0,
-                                initialValue: loggedUserDistance.toDouble(),
+                                initialValue: 2,
                                 divisions: 200,
                                 
                                 decoration: InputDecoration(labelText: "",),
@@ -328,8 +333,8 @@ class _EditSettingsState extends State<EditSettings> {
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
                                 items: ['Men', 'Woman', 'Everyone']
-                                    .map((gender) => DropdownMenuItem(
-                                        value: gender, child: Text("$gender")))
+                                    .map((interestedIn) => DropdownMenuItem(
+                                        value: interestedIn, child: Text("$interestedIn",)))
                                     .toList(),
 
                                 onChanged: (value) {
@@ -366,8 +371,8 @@ class _EditSettingsState extends State<EditSettings> {
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
                                 items: ['Friend Mode', 'Flirt Mode']
-                                    .map((gender) => DropdownMenuItem(
-                                        value: gender, child: Text("$gender")))
+                                    .map((mode) => DropdownMenuItem(
+                                        value: mode, child: Text("$mode")))
                                     .toList(),
 
                                 onChanged: (value) {
@@ -402,8 +407,8 @@ class _EditSettingsState extends State<EditSettings> {
                               ),
                             ),
                             Positioned(
-                              left: 1,
-                              bottom: 50,
+                              right: 1,
+                              bottom: 46,
                               child: Container(
                                 child: Row(
                                   mainAxisAlignment:
@@ -441,9 +446,9 @@ class _EditSettingsState extends State<EditSettings> {
                                               ),
                                             ),
                                             onPressed: () => {
-                                                 print("f"),
-                                           sendSettings(),
-                                                  print("fe"),
+                                               
+                                          
+                                                 
                                                 }),
                                       ),
                                     ))

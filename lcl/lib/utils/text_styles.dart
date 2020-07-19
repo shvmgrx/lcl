@@ -610,7 +610,7 @@ static final TextStyle searchSubTextResult = TextStyle(
   );
 
           static final TextStyle settingHeading = TextStyle(
-    fontSize: 25,
+    fontSize: 19,
     fontWeight: FontWeight.w900,
     letterSpacing: 2.0,
     color: uniColors.lcRed,
@@ -619,6 +619,34 @@ static final TextStyle searchSubTextResult = TextStyle(
     //   Shadow(
     //     blurRadius: 2.0,
     //     color: UniversalVariables.gold2,
+    //   ),
+    // ],
+  );
+
+            static final TextStyle subHeadingDetail = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w100,
+    letterSpacing: 2.0,
+    color: uniColors.standardBlack,
+    fontFamily: 'Homizio',
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 1.0,
+        color: uniColors.black,
+      ),
+    ],
+  );
+
+              static final TextStyle submitButton = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w100,
+    letterSpacing: 2.0,
+    color: uniColors.white2,
+    fontFamily: 'Homizio',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.black,
     //   ),
     // ],
   );
