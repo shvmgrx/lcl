@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_action_row/floating_action_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:lcl/common/mainScreenBar.dart';
+import 'package:lcl/constants/constantStrings.dart';
 import 'package:lcl/enum/userState.dart';
 import 'package:lcl/models/favs.dart';
 import 'package:lcl/models/recipe.dart';
@@ -23,10 +25,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:lcl/utils/uniColors.dart';
 import 'package:language_pickers/languages.dart';
 import 'package:language_pickers/language_pickers.dart';
-import 'package:lcl/widgets/nmBarButton.dart';
-import 'package:lcl/widgets/nmBox.dart';
-import 'package:lcl/widgets/nmButton.dart';
-import 'package:gradient_text/gradient_text.dart';
+
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,6 +57,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
   int localPortion;
 
+  String loggedInId;
   String loggedInname;
   String loggedInprofilePhoto;
   String loggedInUsername;
@@ -90,19 +90,74 @@ class _RecipeDetailsState extends State<RecipeDetails>
   List<String> fPeople = new List<String>();
 
 
-  Language _selectedDropdownLanguage =
-      LanguagePickerUtils.getLanguageByIsoCode('en');
+    static final Firestore _firestore = Firestore.instance;
+  static final Firestore firestore = Firestore.instance;
+
+  final CollectionReference _favCollection =
+      _firestore.collection(FAV_COLLECTION);
 
   User recipeChef;
 
+ final FavMethods _favMethods = FavMethods();
+
+   void getFavRecipes() {
+  
+
+     //  var tempRecipes = _favMethods.getFavRecipesListFromDb(loggedInId);
+
+
+  
+      
+    }
+
+ void getFavRecipesListFromDb(String userId) async {
+    List<String> recipeNameList = List<String>();
+
+    DocumentSnapshot documentSnapshot =
+        await _favCollection.document(userId).get();
+
+    for (var i = 0; i < documentSnapshot.data['favRecipes'].length; i++) {
+      recipeNameList.add(documentSnapshot.data['favRecipes'][i]);
+    }
+
+    setState(() {
+      fRecipes=recipeNameList;
+    });
+
+    print("fRecipes: $fRecipes");
+
+   
+  }
+
+
+
+
+    void sendFavs() async {
+
+      print("yoyo: $fRecipes");
+      Favs _favs = Favs(
+        favId: loggedInId,
+        favRecipes: fRecipes,
+        favPeople: fPeople,
+      );
+
+      // setState(() {
+      //   latestFavs = _favs;
+      // });
+
+      _favMethods.updateFavsToDb(_favs);
+    }
+
+
   @override
   void initState() {
+    getFavRecipesListFromDb(loggedInId);
     getLocation();
     isVega = false;
     isVege = true;
     isNVege = false;
 
-    String recipeId = widget.selectedRecipe.recipeId;
+ 
 
     controller =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
@@ -116,13 +171,12 @@ class _RecipeDetailsState extends State<RecipeDetails>
     _repository.getCurrentUser().then((user) {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
+          loggedInId = loggedUser['uid'];
           loggedInname = loggedUser['name'];
           loggedInUsername = loggedUser['username'];
           loggedInBio = loggedUser['bio'];
           loggedInprofilePhoto = loggedUser['profile_photo'];
-          // isVega = loggedUser['isVegan'];
-          // isVege = loggedUser['isVegetarian'];
-          // isNVege = loggedUser['isNVegetarian'];
+          
         });
       });
     });
@@ -195,7 +249,8 @@ class _RecipeDetailsState extends State<RecipeDetails>
             padding: const EdgeInsets.symmetric(horizontal: 3.0),
             child: widget.selectedRecipe.recipeIngridients[i] != null
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -215,7 +270,6 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                     style: TextStyles
                                         .selectedRecipeIngridientUnit),
                               ),
-                              
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Text("$name",
@@ -278,13 +332,12 @@ class _RecipeDetailsState extends State<RecipeDetails>
   // }
 
   Widget difficultyMaker() {
-   
-   Widget diffi;
+    Widget diffi;
 
     List<Widget> list = new List<Widget>();
 
     if (widget.selectedRecipe.recipeDifficulty == "Fool proof") {
-     diffi = Row(
+      diffi = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset("assets/chefFi.svg",
@@ -297,7 +350,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
       );
     }
 
-        if (widget.selectedRecipe.recipeDifficulty == "Average") {
+    if (widget.selectedRecipe.recipeDifficulty == "Average") {
       diffi = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -324,7 +377,6 @@ class _RecipeDetailsState extends State<RecipeDetails>
         ],
       );
     }
-
 
     return diffi;
   }
@@ -359,20 +411,8 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
     final AuthMethods authMethods = AuthMethods();
 
-    final FavMethods _favMethods = FavMethods();
-
-      void sendFavs() async {
   
-      Favs _favs = Favs(
-        
-        favId: userProvider.getUser.uid,
-        favRecipes: fRecipes,
-        favPeople: fPeople,
-
-      );
-
-      _favMethods.addFavsToDb(_favs);
-    }
+   
 
     signOut() async {
       final bool isLoggedOut = await AuthMethods().signOut();
@@ -439,20 +479,15 @@ class _RecipeDetailsState extends State<RecipeDetails>
                         ),
                         Spacer(),
                         GestureDetector(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 15.0),
-                                      child: SvgPicture.asset(
-                                          "assets/message.svg",
-                                          height: 30,
-                                          width: 30,
-                                          color: uniColors.lcRed),
-                                    ),
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, "/chatList_screen");
-                                    },
-                                  ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: SvgPicture.asset("assets/message.svg",
+                                height: 30, width: 30, color: uniColors.lcRed),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/chatList_screen");
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -522,7 +557,11 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                 child: GestureDetector(
                                   onTap: () {},
                                   child: Container(
-                                    child: widget.selectedRecipe.recipeDifficulty!=null? difficultyMaker():Container(),
+                                    child: widget.selectedRecipe
+                                                .recipeDifficulty !=
+                                            null
+                                        ? difficultyMaker()
+                                        : Container(),
                                   ),
                                 ),
                               ),
@@ -555,27 +594,22 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                               children: <Widget>[
                                                 Row(
                                                   children: <Widget>[
-                                                    
-                                                    
-                                                    widget.selectedRecipe.recipeName.length<18 ? Text(widget.selectedRecipe.recipeName,style: TextStyles.selectedProfileName):Text("${widget.selectedRecipe.recipeName.substring(0,18)}...",style: TextStyles.selectedProfileName),
-                                                     
+                                                    widget
+                                                                .selectedRecipe
+                                                                .recipeName
+                                                                .length <
+                                                            18
+                                                        ? Text(
+                                                            widget
+                                                                .selectedRecipe
+                                                                .recipeName,
+                                                            style: TextStyles
+                                                                .selectedProfileName)
+                                                        : Text(
+                                                            "${widget.selectedRecipe.recipeName.substring(0, 18)}...",
+                                                            style: TextStyles
+                                                                .selectedProfileName),
 
-                                                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                   
                                                     // Text(
                                                     //   "${widget.selectedRecipe.recipeName}",
                                                     //   style: TextStyles
@@ -587,14 +621,16 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                                               left: 8.0),
                                                       child: InkWell(
                                                         onTap: () {
-                                                        
-                                                          fRecipes.add(widget.selectedRecipe.recipeId);
+                                                         // getFavRecipesListFromDb(userProvider.getUser.uid);
+                                                          print("printing here: $fRecipes");
+                                                           fRecipes.add(widget.selectedRecipe.recipeId);
                                                           sendFavs();
                                                         },
-                                                                                                              child: Icon(
-                                                        Icons.star_border,
+                                                        child: Icon(
+                                                          Icons.star_border,
                                                           size: 40,
-                                                          color: uniColors.white2,
+                                                          color:
+                                                              uniColors.white2,
                                                         ),
                                                       ),
                                                     ),
@@ -702,14 +738,14 @@ class _RecipeDetailsState extends State<RecipeDetails>
                             child: Column(
                               children: <Widget>[
                                 Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8.0, bottom: 10),
-                                          child: Container(
-                                            child: Text("Instructions",
-                                                style: TextStyles
-                                                    .selectedRecipeIngridients),
-                                          ),
-                                        ),
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, bottom: 10),
+                                  child: Container(
+                                    child: Text("Instructions",
+                                        style: TextStyles
+                                            .selectedRecipeIngridients),
+                                  ),
+                                ),
                                 Container(
                                   child: instructionMaker(),
                                 ),
