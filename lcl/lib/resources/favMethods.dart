@@ -23,25 +23,22 @@ class FavMethods {
     DocumentSnapshot documentSnapshot =
         await _favCollection.document(userId).get();
 
-    //  for (var i = 0; i < documentSnapshot.data['favRecipes'].length; i++) {
-    //    print(documentSnapshot.data['favRecipes'][i]);
-    //   }
-
     print(documentSnapshot.data['favRecipes']);
 
     return documentSnapshot;
   }
 
-  // Future<List> getFavRecipesListFromDb(String userId) async {
-  //   List<String> recipeNameList = List<String>();
+    Future<List> getFavRecipesListFromDb(String userId) async {
+    List<String> recipeNameList = List<String>();
 
-  //   DocumentSnapshot documentSnapshot =
-  //       await _favCollection.document(userId).get();
+    DocumentSnapshot documentSnapshot =
+        await _favCollection.document(userId).get();
 
-  //   for (var i = 0; i < documentSnapshot.data['favRecipes'].length; i++) {
-  //     recipeNameList.add(documentSnapshot.data['favRecipes'][i]);
-  //   }
+    for (var i = 0; i < documentSnapshot.data['favRecipes'].length; i++) {
+      recipeNameList.add(documentSnapshot.data['favRecipes'][i]);
+    }
 
-  //   return recipeNameList;
-  // }
+    return recipeNameList;
+  }
+
 }

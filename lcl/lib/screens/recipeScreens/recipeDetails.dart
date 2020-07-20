@@ -89,8 +89,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
   List<String> fRecipes = new List<String>();
   List<String> fPeople = new List<String>();
 
-
-    static final Firestore _firestore = Firestore.instance;
+  static final Firestore _firestore = Firestore.instance;
   static final Firestore firestore = Firestore.instance;
 
   final CollectionReference _favCollection =
@@ -98,66 +97,25 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
   User recipeChef;
 
- final FavMethods _favMethods = FavMethods();
+  final FavMethods _favMethods = FavMethods();
 
-   void getFavRecipes() {
-  
-
-     //  var tempRecipes = _favMethods.getFavRecipesListFromDb(loggedInId);
-
-
-  
-      
-    }
-
- void getFavRecipesListFromDb(String userId) async {
-    List<String> recipeNameList = List<String>();
-
+  void getFavRecipesListFromDb(String userId) async {
     DocumentSnapshot documentSnapshot =
         await _favCollection.document(userId).get();
 
     for (var i = 0; i < documentSnapshot.data['favRecipes'].length; i++) {
-      recipeNameList.add(documentSnapshot.data['favRecipes'][i]);
+      setState(() {
+        fRecipes.add(documentSnapshot.data['favRecipes'][i]);
+      });
     }
-
-    setState(() {
-      fRecipes=recipeNameList;
-    });
-
-    print("fRecipes: $fRecipes");
-
-   
   }
-
-
-
-
-    void sendFavs() async {
-
-      print("yoyo: $fRecipes");
-      Favs _favs = Favs(
-        favId: loggedInId,
-        favRecipes: fRecipes,
-        favPeople: fPeople,
-      );
-
-      // setState(() {
-      //   latestFavs = _favs;
-      // });
-
-      _favMethods.updateFavsToDb(_favs);
-    }
-
 
   @override
   void initState() {
-    getFavRecipesListFromDb(loggedInId);
     getLocation();
     isVega = false;
     isVege = true;
     isNVege = false;
-
- 
 
     controller =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
@@ -176,10 +134,12 @@ class _RecipeDetailsState extends State<RecipeDetails>
           loggedInUsername = loggedUser['username'];
           loggedInBio = loggedUser['bio'];
           loggedInprofilePhoto = loggedUser['profile_photo'];
-          
         });
+        getFavRecipesListFromDb(loggedInId);
       });
     });
+
+    // getFavRecipesListFromDb(loggedInId);
 
     _repository
       ..fetchUserById(widget.selectedRecipe.userId).then((user) {
@@ -203,11 +163,27 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
     // TODO: implement initState
     super.initState();
-    distance = 5;
-    time = 0;
-    buddyMode = true;
-    romanticMode = false;
-    businessMode = false;
+  }
+
+  void sendFavs(String recipeId) async {
+    var counter = 0;
+
+    for (var i = 0; i < fRecipes.length; i++) {
+      if (fRecipes[i] == recipeId) {
+        counter++;
+      }
+    }
+
+    if (counter == 0) {
+      fRecipes.add(widget.selectedRecipe.recipeId);
+
+      Favs _favs = Favs(
+        favId: loggedInId,
+        favRecipes: fRecipes,
+        favPeople: fPeople,
+      );
+      _favMethods.addFavsToDb(_favs);
+    }
   }
 
   Widget ingridientMaker(localPortion) {
@@ -410,9 +386,6 @@ class _RecipeDetailsState extends State<RecipeDetails>
     final UserProvider userProvider = Provider.of<UserProvider>(context);
 
     final AuthMethods authMethods = AuthMethods();
-
-  
-   
 
     signOut() async {
       final bool isLoggedOut = await AuthMethods().signOut();
@@ -621,10 +594,13 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                                               left: 8.0),
                                                       child: InkWell(
                                                         onTap: () {
-                                                         // getFavRecipesListFromDb(userProvider.getUser.uid);
-                                                          print("printing here: $fRecipes");
-                                                           fRecipes.add(widget.selectedRecipe.recipeId);
-                                                          sendFavs();
+                                                          //   getFavRecipesListFromDb(userProvider.getUser.uid);
+
+                                                          //    print("printing here: $fRecipes");
+
+                                                          sendFavs(widget
+                                                              .selectedRecipe
+                                                              .recipeId);
                                                         },
                                                         child: Icon(
                                                           Icons.star_border,
