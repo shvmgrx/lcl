@@ -190,7 +190,6 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
   Widget recipeDisplayMaker() {
     List<Widget> list = new List<Widget>();
 
-    print(selectedUserProfileRecipes.length);
     for (var i in selectedUserProfileRecipes) {
       i.recipeName != null
           ? list.add(

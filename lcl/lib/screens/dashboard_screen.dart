@@ -185,7 +185,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
-    print(controller.value);
+  
     controller.addListener(() {
       setState(() {});
     });
@@ -301,7 +301,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             return (matchesName);
           }).toList();
 
-    print(allRecipeList);
+  
 
     return ListView.builder(
       //withHashtags
@@ -414,7 +414,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.fetchBatch(user).then((List<User> list) {
-        print("objedct");
+      
         setState(() {
           filterList = list;
         });
@@ -490,7 +490,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   void getLocation() async {
-    print("comes here");
+
     GeolocationStatus geolocationStatus =
         await Geolocator().checkGeolocationPermissionStatus();
 
@@ -499,8 +499,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     setState(() {
       position = currentPosition;
     });
-    print("TAS");
-    print(position);
   }
 
   @override
@@ -795,7 +793,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           if (refreshLunchalize)
                                             if (recipeList != null)
                                               ...recipeList.map((e) {
-                                                print(recipeList);
                                                 return buildRecipeGrid(e);
                                               }).toList(),
                                           // Text("Main screen"),
@@ -851,7 +848,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           if (refreshLunchalize)
                                             if (filterList != null)
                                               ...filterList.map((e) {
-                                                print(filterList);
                                                 return buildFilterGrid(e);
                                               }).toList(),
                                           // Text("Main screen"),
@@ -1654,7 +1650,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                         // });
                         showRecipePageNow();
 
-                        print('Star it');
                       },
                     ),
 
@@ -1669,7 +1664,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         // });
                         showSearchPageNow();
 
-                        print('Star it');
+                      
                       },
                     ),
                     //           IconButton(
@@ -1697,7 +1692,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         // });
                         showLunchalizePageNow();
 
-                        print('Star it');
+                   
                       },
                       child:
                           Image.asset("assets/LCO.png", height: 150, width: 80),
@@ -1712,7 +1707,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         // });
                         showFavsPageNow();
 
-                        print('Star it');
+                        
                       },
                     ),
                     IconButton(
@@ -1726,7 +1721,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         // });
                         showAccountPageNow();
 
-                        print('Star it');
+                       
                       },
                     ),
                   ],
@@ -1982,7 +1977,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               opacity: 1,
               child: GestureDetector(
                 onTap: () {
-                  print("object");
+               
                   Navigator.pushAndRemoveUntil(
                     context,
                     CupertinoPageRoute(

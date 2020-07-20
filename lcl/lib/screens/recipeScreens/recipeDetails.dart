@@ -285,7 +285,7 @@ bool favSent=false;
 
   Widget instructionMaker() {
     Widget instruc = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 31.0, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 1.0, vertical: 10),
       child: widget.selectedRecipe.recipeInstructions != null
           ? Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -293,7 +293,9 @@ bool favSent=false;
                 child: Padding(
                   padding: const EdgeInsets.only(left: 1.0),
                   child: Text("${widget.selectedRecipe.recipeInstructions}",
-                      style: TextStyles.selectedRecipeInstructions),
+                      style: TextStyles.selectedRecipeInstructions,
+                      textDirection: TextDirection.ltr,
+                      ),
                 ),
               ),
             )
@@ -334,7 +336,7 @@ bool favSent=false;
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.standardBlack),
+              height: 30, width: 30, color: uniColors.white2),
           SvgPicture.asset("assets/chefEm.svg",
               height: 30, width: 30, color: uniColors.white2),
           SvgPicture.asset("assets/chefEm.svg",
@@ -348,11 +350,11 @@ bool favSent=false;
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.standardBlack),
+              height: 30, width: 30, color: uniColors.white2),
           SvgPicture.asset("assets/chefFi.svg",
               height: 30, width: 30, color: uniColors.white2),
           SvgPicture.asset("assets/chefEm.svg",
-              height: 30, width: 30, color: uniColors.standardBlack)
+              height: 30, width: 30, color: uniColors.white2)
         ],
       );
     }
@@ -362,11 +364,11 @@ bool favSent=false;
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.standardBlack),
+              height: 30, width: 30, color: uniColors.white2),
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.standardBlack),
+              height: 30, width: 30, color: uniColors.white2),
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.standardBlack)
+              height: 30, width: 30, color: uniColors.white2)
         ],
       );
     }
