@@ -86,6 +86,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
   bool refreshLunchalize = true;
 
+  List<String> fTempRecipes = new List<String>();
   List<String> fRecipes = new List<String>();
   List<String> fPeople = new List<String>();
 
@@ -165,7 +166,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
     super.initState();
   }
 
-  void sendFavs(String recipeId) async {
+  void storeRecipeFavs(String recipeId) async {
     var counter = 0;
 
     for (var i = 0; i < fRecipes.length; i++) {
@@ -176,12 +177,28 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
     if (counter == 0) {
       fRecipes.add(widget.selectedRecipe.recipeId);
+    }
+  }
+bool favSent=false;
+  void sendFavs(String recipeId) async {
+    var counter = 0;
+
+    for (var i = 0; i < fRecipes.length; i++) {
+      if (fRecipes[i] == recipeId) {
+        counter++;
+      }
+    }
+
+    if (counter == 0) {
+
+      fRecipes.add(widget.selectedRecipe.recipeId);
 
       Favs _favs = Favs(
         favId: loggedInId,
         favRecipes: fRecipes,
         favPeople: fPeople,
       );
+      
       _favMethods.addFavsToDb(_favs);
     }
   }
@@ -597,12 +614,20 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                                           //   getFavRecipesListFromDb(userProvider.getUser.uid);
 
                                                           //    print("printing here: $fRecipes");
-
+                                                          setState(() {
+                                                            favSent=true;
+                                                          });
                                                           sendFavs(widget
                                                               .selectedRecipe
                                                               .recipeId);
                                                         },
-                                                        child: Icon(
+                                                        child:favSent? Icon(
+                                                          Icons.star,
+                                                          size: 40,
+                                                          color:
+                                                              uniColors.white2,
+                                                        ):
+                                                        Icon(
                                                           Icons.star_border,
                                                           size: 40,
                                                           color:
