@@ -1,13 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_action_row/floating_action_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lcl/common/mainScreenBar.dart';
+import 'package:lcl/constants/constantStrings.dart';
 import 'package:lcl/enum/userState.dart';
+import 'package:lcl/models/favs.dart';
 import 'package:lcl/models/recipe.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/resources/authMethods.dart';
+import 'package:lcl/resources/favMethods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/chatScreens/chatScreen.dart';
@@ -50,6 +54,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
 
   List<Recipe> selectedUserProfileRecipes;
 
+  String loggedInId;
   String loggedInname;
   String loggedInprofilePhoto;
   String loggedInUsername;
@@ -78,8 +83,37 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
 
   bool refreshLunchalize = true;
 
+    List<String> fTempRecipes = new List<String>();
+  List<String> fRecipes = new List<String>();
+  List<String> fPeople = new List<String>();
+
   Language _selectedDropdownLanguage =
       LanguagePickerUtils.getLanguageByIsoCode('en');
+
+    static final Firestore _firestore = Firestore.instance;
+  static final Firestore firestore = Firestore.instance;
+
+  final CollectionReference _favCollection =
+      _firestore.collection(FAV_COLLECTION);
+
+    final FavMethods _favMethods = FavMethods();
+
+  void getFavsListFromDb(String userId) async {
+    DocumentSnapshot documentSnapshot =
+        await _favCollection.document(userId).get();
+
+    for (var i = 0; i < documentSnapshot.data['favRecipes'].length; i++) {
+      setState(() {
+        fRecipes.add(documentSnapshot.data['favRecipes'][i]);
+      });
+    }
+        for (var i = 0; i < documentSnapshot.data['favPeople'].length; i++) {
+      setState(() {
+        fPeople.add(documentSnapshot.data['favPeople'][i]);
+      });
+    }
+  }
+
 
   @override
   void initState() {
@@ -110,6 +144,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     _repository.getCurrentUser().then((user) {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
+            loggedInId = loggedUser['uid'];
           loggedInname = loggedUser['name'];
           loggedInUsername = loggedUser['username'];
           loggedInBio = loggedUser['bio'];
@@ -118,6 +153,8 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
           // isVege = loggedUser['isVegetarian'];
           // isNVege = loggedUser['isNVegetarian'];
         });
+        getFavsListFromDb(loggedInId);
+
       });
     });
 
@@ -141,6 +178,44 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     buddyMode = true;
     romanticMode = false;
     businessMode = false;
+  }
+
+    void storePersonFavs(String personId) async {
+    var counter = 0;
+
+    for (var i = 0; i < fPeople.length; i++) {
+      if (fPeople[i] == personId) {
+        counter++;
+      }
+    }
+
+    if (counter == 0) {
+      fRecipes.add(widget.selectedAvailableUser.uid);
+    }
+  }
+bool favSent=false;
+  void sendFavs(String peopleId) async {
+    var counter = 0;
+
+    for (var i = 0; i < fPeople.length; i++) {
+      if (fPeople[i] == peopleId) {
+        counter++;
+      }
+    }
+
+    if (counter == 0) {
+
+      
+      fPeople.add(widget.selectedAvailableUser.uid);
+
+      Favs _favs = Favs(
+        favId: loggedInId,
+        favRecipes: fRecipes,
+        favPeople: fPeople,
+      );
+      
+      _favMethods.addFavsToDb(_favs);
+    }
   }
 
   Widget chipMaker(User selectedAvailableUser) {
@@ -699,6 +774,36 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
                                                                   .selectedProfileAge,
                                                             )
                                                 ),
+                                                Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 8.0),
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          //   getFavRecipesListFromDb(userProvider.getUser.uid);
+
+                                                          //    print("printing here: $fRecipes");
+                                                          setState(() {
+                                                            favSent=true;
+                                                          });
+                                                          sendFavs(widget
+                                                              .selectedAvailableUser
+                                                              .uid);
+                                                        },
+                                                        child:favSent? Icon(
+                                                          Icons.star,
+                                                          size: 40,
+                                                          color:
+                                                              uniColors.white2,
+                                                        ):
+                                                        Icon(
+                                                          Icons.star_border,
+                                                          size: 40,
+                                                          color:
+                                                              uniColors.white2,
+                                                        ),
+                                                      ),
+                                                    ),
                                               ],
                                             ),
                                           ),

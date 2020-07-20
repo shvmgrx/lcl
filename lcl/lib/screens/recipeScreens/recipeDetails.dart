@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:floating_action_row/floating_action_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:lcl/common/mainScreenBar.dart';
 import 'package:lcl/constants/constantStrings.dart';
 import 'package:lcl/enum/userState.dart';
 import 'package:lcl/models/favs.dart';
@@ -15,7 +13,6 @@ import 'package:lcl/resources/favMethods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
-import 'package:lcl/screens/chatScreens/chatScreen.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/login_screen.dart';
 import 'package:lcl/utils/strings.dart';
@@ -23,11 +20,9 @@ import 'package:lcl/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lcl/utils/uniColors.dart';
-import 'package:language_pickers/languages.dart';
-import 'package:language_pickers/language_pickers.dart';
+
 
 import 'package:provider/provider.dart';
-import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RecipeDetails extends StatefulWidget {
@@ -100,7 +95,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
 
   final FavMethods _favMethods = FavMethods();
 
-  void getFavRecipesListFromDb(String userId) async {
+  void getFavsListFromDb(String userId) async {
     DocumentSnapshot documentSnapshot =
         await _favCollection.document(userId).get();
 
@@ -109,7 +104,13 @@ class _RecipeDetailsState extends State<RecipeDetails>
         fRecipes.add(documentSnapshot.data['favRecipes'][i]);
       });
     }
+        for (var i = 0; i < documentSnapshot.data['favPeople'].length; i++) {
+      setState(() {
+        fPeople.add(documentSnapshot.data['favPeople'][i]);
+      });
+    }
   }
+
 
   @override
   void initState() {
@@ -136,7 +137,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
           loggedInBio = loggedUser['bio'];
           loggedInprofilePhoto = loggedUser['profile_photo'];
         });
-        getFavRecipesListFromDb(loggedInId);
+        getFavsListFromDb(loggedInId);
       });
     });
 
