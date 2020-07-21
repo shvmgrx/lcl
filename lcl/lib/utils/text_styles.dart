@@ -31,7 +31,7 @@ class TextStyles {
   );
 
   static final TextStyle searchText = TextStyle(
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: FontWeight.w900,
     color: uniColors.lcRedLight,
     fontFamily: 'Homizio',

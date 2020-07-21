@@ -347,7 +347,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   },
                 ),
                 border: InputBorder.none,
-                hintText: "Search",
+                hintText: "Enter recipe name to search",
                 hintStyle: TextStyles.searchText),
           ),
         ),
@@ -1603,27 +1603,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                               child: FloatingActionRow(
                                 color: uniColors.white2,
                                 children: <Widget>[
-                                  // FloatingActionRowButton(
-                                  //     icon: Icon(Icons.add), onTap: () {}),
-                                  // FloatingActionRowDivider(),
-                          //         FloatingActionRowButton(
-                          //             icon:  Icon(
-                          //               loggedUserMode=="Flirt Mode"? Icons.favorite: SvgPicture.asset("assets/friendMode.svg",
-                          // height: 30, width: 30, color: uniColors.lcRed),
-                          //               color: uniColors.lcRed,
-                          //               size: 25,
-                          //             ),
-                          //             onTap: () {
-                          //               // Navigator.pushNamed(
-                          //               //     context, "/initial_screen");
-                          //             }
-                                      
-                          //             ),
+
                           Padding(
                             padding: const EdgeInsets.only(left:18.0),
                             child: loggedUserMode=="Flirt Mode"?  SvgPicture.asset("assets/heart.svg",
-                           height: 30, width: 30, color: uniColors.lcRed): SvgPicture.asset("assets/friendMode.svg",
-                           height: 30, width: 30, color: uniColors.lcRed),
+                           height: 30, width: 30, color: uniColors.grey2): SvgPicture.asset("assets/friendMode.svg",
+                           height: 30, width: 30, color: uniColors.grey2),
                           ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -1641,8 +1626,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                             Padding(
                             padding: const EdgeInsets.only(right:18.0),
                             child: loggedUserDistance <200 ?  SvgPicture.asset("assets/local.svg",
-                           height: 30, width: 30, color: uniColors.lcRed): SvgPicture.asset("assets/globe.svg",
-                           height: 30, width: 30, color: uniColors.lcRed),
+                           height: 30, width: 30, color: uniColors.grey2): SvgPicture.asset("assets/globe.svg",
+                           height: 30, width: 30, color: uniColors.grey2),
                           ),
                                   // FloatingActionRowButton(
                                   //     icon: Icon(
