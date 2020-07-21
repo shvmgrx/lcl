@@ -149,6 +149,21 @@ class FirebaseMethods {
     return recipeIdList;
   }
 
+      Future<String> fetchUserNameById(String userId) async {
+   String personName;
+  final CollectionReference _userCollection =
+      _firestore.collection(USERS_COLLECTION);
+   DocumentSnapshot documentSnapshot =
+        await _userCollection.document(userId).get();
+
+       personName = documentSnapshot.data['name'];
+
+        print("yayaya: $personName");
+
+
+    return personName;
+  }
+
 
 
 

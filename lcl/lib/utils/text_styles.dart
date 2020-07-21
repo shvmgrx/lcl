@@ -168,12 +168,12 @@ static final TextStyle searchSubTextResult = TextStyle(
     color: uniColors.white2,
     fontFamily: 'Bebas',
     letterSpacing: 1.5,
-    // shadows: <Shadow>[
-    //   Shadow(
-    //     blurRadius: 4.0,
-    //     color: uniColors.standardBlack,
-    //   ),
-    // ],
+    shadows: <Shadow>[
+      Shadow(
+        blurRadius: 5.0,
+        color: uniColors.standardBlack,
+      ),
+    ],
   );
   static final TextStyle profileUserName = TextStyle(
     fontSize: 25,

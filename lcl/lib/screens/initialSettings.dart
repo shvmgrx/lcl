@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -147,7 +149,186 @@ class _InitialSettingsState extends State<InitialSettings> {
                         barrierDismissible: false,
                         context: context,
                         builder: (context) {
-                          return StatefulBuilder(
+                          return BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                            child: StatefulBuilder(
+                              builder: (context, setState) {
+                                return Dialog(
+                                  //this right here
+                                  child: FormBuilder(
+                                    key: _settingsFormKey,
+                                    child: Expanded(
+                                      child: Container(
+                                        height: screenHeight * 0.542,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                                child: Image.asset(
+                                                    "assets/ageGroup.jpg")),
+                                            Center(
+                                                child: Container(
+                                              child: Text(
+                                                  "${Strings.PREFERENCEDETAIL}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyles
+                                                      .subHeadingDetail),
+                                            )),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: screenWidth * 0.13,
+                                                    child: Text(
+                                                        "${Strings.AGE}",
+                                                        style: TextStyles
+                                                            .settingHeading),
+                                                  ),
+                                                  Container(
+                                                    width: screenWidth * 0.42,
+                                                    child:
+                                                        FormBuilderRangeSlider(
+                                                      activeColor:
+                                                          uniColors.lcRed,
+                                                      attribute: "age",
+                                                      // validators: [FormBuilderValidators.min(6)],
+                                                      min: 18.0,
+                                                      max: 99.0,
+                                                      initialValue:
+                                                          RangeValues(18, 25),
+                                                      divisions: 81,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        labelText: "",
+                                                        focusColor:
+                                                            Colors.yellow,
+                                                      ),
+                                                      displayValues:
+                                                          DisplayValues.none,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          //recipeCalories = value.toString();
+                                                          ageRangeMaker(value);
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                  (preSaveAge1 == null ||
+                                                          preSaveAge2 == null)
+                                                      ? Text(" 18-25",
+                                                          style: TextStyles
+                                                              .settingValue)
+                                                      : Text(
+                                                          " $preSaveAge1-$preSaveAge2",
+                                                          style: TextStyles
+                                                              .settingValue),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: screenWidth * 0.34,
+                                                    child: Text(
+                                                        "${Strings.INTERESTED_IN}",
+                                                        style: TextStyles
+                                                            .settingHeading),
+                                                  ),
+                                                  Container(
+                                                    width: screenWidth * 0.42,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 15.0),
+                                                      child:
+                                                          FormBuilderDropdown(
+                                                        attribute:
+                                                            "loggedUserGender",
+                                                        decoration:
+                                                            InputDecoration(
+                                                                labelText: ""),
+                                                        items: [
+                                                          'Men',
+                                                          'Woman',
+                                                          'Everyone'
+                                                        ]
+                                                            .map((interestedIn) =>
+                                                                DropdownMenuItem(
+                                                                    value:
+                                                                        interestedIn,
+                                                                    child: Text(
+                                                                        "$interestedIn",
+                                                                        style: TextStyles
+                                                                            .settingValue)))
+                                                            .toList(),
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            loggedUserInterestedIn =
+                                                                value;
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Container(
+                                              width: screenWidth,
+                                              height: 50,
+                                              child: RaisedButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      tempInterestedIn =
+                                                          loggedUserInterestedIn;
+                                                      tempInterestedIn =
+                                                          loggedUserInterestedIn;
+                                                    });
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text(
+                                                    "${Strings.SAVE}",
+                                                    style:
+                                                        TextStyles.submitButton,
+                                                  ),
+                                                  color: uniColors.lcRed),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: SettingsContainer(
+                      text: Strings.PARTNER_PREFERENCE,
+                      imagePath: "assets/ageGroup.jpg",
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: StatefulBuilder(
                             builder: (context, setState) {
                               return Dialog(
                                 //this right here
@@ -155,7 +336,8 @@ class _InitialSettingsState extends State<InitialSettings> {
                                   key: _settingsFormKey,
                                   child: Expanded(
                                     child: Container(
-                                      height: screenHeight * 0.542,
+                                      height: screenHeight * 0.4,
+                                      width: screenWidth,
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
@@ -164,55 +346,18 @@ class _InitialSettingsState extends State<InitialSettings> {
                                         children: [
                                           Container(
                                               child: Image.asset(
-                                                  "assets/ageGroup.jpg")),
-                                          Center(
-                                              child: Container(
-                                            child: Text(
-                                                "${Strings.PREFERENCEDETAIL}",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyles
-                                                    .subHeadingDetail),
-                                          )),
+                                                  "assets/loc.jpg")),
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Container(
-                                                  width: screenWidth * 0.13,
-                                                  child: Text("${Strings.AGE}",
-                                                      style: TextStyles
-                                                          .settingHeading),
-                                                ),
-                                                Container(
-                                                  width: screenWidth * 0.42,
-                                                  child: FormBuilderRangeSlider(
-                                                    activeColor:
-                                                        uniColors.lcRed,
-                                                    attribute: "age",
-                                                    // validators: [FormBuilderValidators.min(6)],
-                                                    min: 18.0,
-                                                    max: 99.0,
-                                                    initialValue:
-                                                        RangeValues(18, 25),
-                                                    divisions: 81,
-                                                    decoration: InputDecoration(
-                                                      labelText: "",
-                                                      focusColor: Colors.yellow,
-                                                    ),
-                                                    displayValues:
-                                                        DisplayValues.none,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        //recipeCalories = value.toString();
-                                                        ageRangeMaker(value);
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                            (preSaveAge1 == null || preSaveAge2 == null) ?    Text(" 18-25",style: TextStyles.settingValue):   Text(" $preSaveAge1-$preSaveAge2",style: TextStyles.settingValue),
-                                              ],
-                                            ),
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
+                                            child: Center(
+                                                child: Container(
+                                              child: Text(
+                                                  "${Strings.DISTANCEDETAIL}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyles
+                                                      .subHeadingDetail),
+                                            )),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
@@ -220,44 +365,50 @@ class _InitialSettingsState extends State<InitialSettings> {
                                             child: Row(
                                               children: <Widget>[
                                                 Container(
-                                                  width: screenWidth * 0.34,
+                                                  width: screenWidth * 0.20,
                                                   child: Text(
-                                                      "${Strings.INTERESTED_IN}",
+                                                      "${Strings.DISTANCE}",
                                                       style: TextStyles
                                                           .settingHeading),
                                                 ),
                                                 Container(
                                                   width: screenWidth * 0.42,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.only(bottom:15.0),
-                                                    child: FormBuilderDropdown(
-                                                      attribute:
-                                                          "loggedUserGender",
-                                                      decoration: InputDecoration(
-                                                          labelText: ""),
-                                                      items: [
-                                                        'Men',
-                                                        'Woman',
-                                                        'Everyone'
-                                                      ]
-                                                          .map((interestedIn) =>
-                                                              DropdownMenuItem(
-                                                                  value:
-                                                                      interestedIn,
-                                                                  child: Text(
-                                                                      "$interestedIn",
-                                                                      style: TextStyles
-                                                                          .settingValue)))
-                                                          .toList(),
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          loggedUserInterestedIn =
-                                                              value;
-                                                        });
-                                                      },
+                                                  child: FormBuilderSlider(
+                                                    activeColor:
+                                                        uniColors.lcRed,
+                                                    attribute: "distance",
+                                                    // validators: [FormBuilderValidators.min(6)],
+                                                    min: 1.0,
+                                                    max: 200.0,
+                                                    initialValue: 5,
+                                                    divisions: 200,
+
+                                                    decoration: InputDecoration(
+                                                      labelText: "",
                                                     ),
+                                                    displayValues:
+                                                        DisplayValues.none,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        distanceMaker(value);
+
+                                                        //  print(loggedUserDistance.runtimeType);
+                                                      });
+                                                    },
                                                   ),
                                                 ),
+                                                preSaveDist == null
+                                                    ? Text(" 5 km",
+                                                        style: TextStyles
+                                                            .settingValue)
+                                                    : preSaveDist < 200
+                                                        ? Text(
+                                                            " $preSaveDist km",
+                                                            style: TextStyles
+                                                                .settingValue)
+                                                        : Text(" Global",
+                                                            style: TextStyles
+                                                                .settingValue),
                                               ],
                                             ),
                                           ),
@@ -268,9 +419,8 @@ class _InitialSettingsState extends State<InitialSettings> {
                                             child: RaisedButton(
                                                 onPressed: () {
                                                   setState(() {
-                                                    tempInterestedIn =
-                                                        loggedUserInterestedIn;
-                                                      tempInterestedIn = loggedUserInterestedIn;
+                                                    loggedUserDistance =
+                                                        preSaveDist;
                                                   });
                                                   Navigator.pop(context);
                                                 },
@@ -288,129 +438,7 @@ class _InitialSettingsState extends State<InitialSettings> {
                                 ),
                               );
                             },
-                          );
-                        },
-                      );
-                    },
-                    child: SettingsContainer(
-                      text: Strings.PARTNER_PREFERENCE,
-                      imagePath: "assets/ageGroup.jpg",
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return StatefulBuilder(
-                          builder: (context, setState) {
-                            return Dialog(
-                              //this right here
-                              child: FormBuilder(
-                                key: _settingsFormKey,
-                                child: Expanded(
-                                  child: Container(
-                                    height: screenHeight * 0.4,
-                                    width: screenWidth,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child:
-                                                Image.asset("assets/loc.jpg")),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8.0),
-                                          child: Center(
-                                              child: Container(
-                                            child: Text(
-                                                "${Strings.DISTANCEDETAIL}",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyles
-                                                    .subHeadingDetail),
-                                          )),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Container(
-                                                width: screenWidth * 0.20,
-                                                child: Text(
-                                                    "${Strings.DISTANCE}",
-                                                    style: TextStyles
-                                                        .settingHeading),
-                                              ),
-                                              Container(
-                                                width: screenWidth * 0.42,
-                                                child: FormBuilderSlider(
-                                                  activeColor: uniColors.lcRed,
-                                                  attribute: "distance",
-                                                  // validators: [FormBuilderValidators.min(6)],
-                                                  min: 1.0,
-                                                  max: 200.0,
-                                                  initialValue: 5,
-                                                  divisions: 200,
-
-                                                  decoration: InputDecoration(
-                                                    labelText: "",
-                                                  ),
-                                                  displayValues:
-                                                      DisplayValues.none,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      distanceMaker(value);
-
-                                                      //  print(loggedUserDistance.runtimeType);
-                                                    });
-                                                  },
-                                                ),
-                                              ),
-                                              preSaveDist == null
-                                                  ? Text(" 5 km",
-                                                      style: TextStyles
-                                                          .settingValue)
-                                                  : preSaveDist < 200
-                                                      ? Text(" $preSaveDist km",
-                                                          style: TextStyles
-                                                              .settingValue)
-                                                      : Text(" Global",
-                                                          style: TextStyles
-                                                              .settingValue),
-                                            ],
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Container(
-                                          width: screenWidth,
-                                          height: 50,
-                                          child: RaisedButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  loggedUserDistance =
-                                                      preSaveDist;
-                                                });
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                "${Strings.SAVE}",
-                                                style: TextStyles.submitButton,
-                                              ),
-                                              color: uniColors.lcRed),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
+                          ),
                         );
                       },
                     );
@@ -426,106 +454,113 @@ class _InitialSettingsState extends State<InitialSettings> {
                       context: context,
                       barrierDismissible: false,
                       builder: (context) {
-                        return StatefulBuilder(
-                          builder: (context, setState) {
-                            return Dialog(
-                              //this right here
-                              child: FormBuilder(
-                                key: _settingsFormKey,
-                                child: Expanded(
-                                  child: Container(
-                                    height: screenHeight * 0.492,
-                                    width: screenWidth,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child:
-                                                Image.asset("assets/lang.jpg")),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8.0),
-                                          child: Center(
-                                              child: Container(
-                                            child: Text("${Strings.LANGDETAIL}",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyles
-                                                    .subHeadingDetail),
-                                          )),
-                                        ),
-                                        Center(
-                                          child: Container(
-                                            width: screenWidth * 0.72,
-                                            child: FormBuilderFilterChip(
-                                              attribute: 'languages',
-                                              options: [
-                                                FormBuilderFieldOption(
-                                                    value: 'English',
-                                                    child: Text('English')),
-                                                FormBuilderFieldOption(
-                                                    value: 'German',
-                                                    child: Text('German')),
-                                                FormBuilderFieldOption(
-                                                    value: 'Spanish',
-                                                    child: Text('Spanish')),
-                                                FormBuilderFieldOption(
-                                                    value: 'Chinese',
-                                                    child: Text('Chinese')),
-                                                FormBuilderFieldOption(
-                                                    value: 'French',
-                                                    child: Text('French')),
-                                                FormBuilderFieldOption(
-                                                    value: 'Russian',
-                                                    child: Text('Russian')),
-                                                FormBuilderFieldOption(
-                                                    value: 'Arabic',
-                                                    child: Text('Arabic')),
-                                                FormBuilderFieldOption(
-                                                    value: 'Portuguese',
-                                                    child: Text('Portuguese')),
-                                                FormBuilderFieldOption(
-                                                    value: 'Japanese',
-                                                    child: Text('Japanese')),
-                                                FormBuilderFieldOption(
-                                                    value: 'Hindi',
-                                                    child: Text('Hindi')),
-                                              ],
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  print(value);
-                                                  preSaveLang = value;
-                                                });
-                                              },
+                        return BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: StatefulBuilder(
+                            builder: (context, setState) {
+                              return Dialog(
+                                //this right here
+                                child: FormBuilder(
+                                  key: _settingsFormKey,
+                                  child: Expanded(
+                                    child: Container(
+                                      height: screenHeight * 0.492,
+                                      width: screenWidth,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              child: Image.asset(
+                                                  "assets/lang.jpg")),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
+                                            child: Center(
+                                                child: Container(
+                                              child: Text(
+                                                  "${Strings.LANGDETAIL}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyles
+                                                      .subHeadingDetail),
+                                            )),
+                                          ),
+                                          Center(
+                                            child: Container(
+                                              width: screenWidth * 0.72,
+                                              child: FormBuilderFilterChip(
+                                                attribute: 'languages',
+                                                options: [
+                                                  FormBuilderFieldOption(
+                                                      value: 'English',
+                                                      child: Text('English')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'German',
+                                                      child: Text('German')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'Spanish',
+                                                      child: Text('Spanish')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'Chinese',
+                                                      child: Text('Chinese')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'French',
+                                                      child: Text('French')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'Russian',
+                                                      child: Text('Russian')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'Arabic',
+                                                      child: Text('Arabic')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'Portuguese',
+                                                      child:
+                                                          Text('Portuguese')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'Japanese',
+                                                      child: Text('Japanese')),
+                                                  FormBuilderFieldOption(
+                                                      value: 'Hindi',
+                                                      child: Text('Hindi')),
+                                                ],
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    print(value);
+                                                    preSaveLang = value;
+                                                  });
+                                                },
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Spacer(),
-                                        Container(
-                                          width: screenWidth,
-                                          height: 50,
-                                          child: RaisedButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  loggedUserLang = preSaveLang;
-                                                });
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text(
-                                                "${Strings.SAVE}",
-                                                style: TextStyles.submitButton,
-                                              ),
-                                              color: uniColors.lcRed),
-                                        ),
-                                      ],
+                                          Spacer(),
+                                          Container(
+                                            width: screenWidth,
+                                            height: 50,
+                                            child: RaisedButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    loggedUserLang =
+                                                        preSaveLang;
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  "${Strings.SAVE}",
+                                                  style:
+                                                      TextStyles.submitButton,
+                                                ),
+                                                color: uniColors.lcRed),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         );
                       },
                     );
@@ -541,97 +576,104 @@ class _InitialSettingsState extends State<InitialSettings> {
                       context: context,
                       barrierDismissible: false,
                       builder: (context) {
-                        return StatefulBuilder(
-                          builder: (context, setState) {
-                            return Dialog(
-                              //this right here
-                              child: FormBuilder(
-                                key: _settingsFormKey,
-                                child: Expanded(
-                                  child: Container(
-                                    height: screenHeight * 0.392,
-                                    width: screenWidth,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                            child:
-                                                Image.asset("assets/conv.jpg")),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8.0, left: 8, right: 8),
-                                          child: Center(
-                                              child: Container(
-                                            child: Text("${Strings.MODEDETAIL}",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyles
-                                                    .subHeadingDetail),
-                                          )),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Container(
-                                                width: screenWidth * 0.30,
-                                                child: Text("${Strings.MODE}",
-                                                    style: TextStyles
-                                                        .settingHeading),
-                                              ),
-                                              Container(
-                                                width: screenWidth * 0.42,
-                                                child: FormBuilderDropdown(
-                                                  attribute: "loggedUserGender",
-                                                  decoration: InputDecoration(
-                                                      labelText: ""),
-                                                  items: [
-                                                    'Friend Mode',
-                                                    'Flirt Mode'
-                                                  ]
-                                                      .map((mode) => DropdownMenuItem(
-                                                          value: mode,
-                                                          child: Text("$mode",
-                                                              style: TextStyles
-                                                                  .settingValue)))
-                                                      .toList(),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      preSaveMode = value;
-                                                    });
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Container(
-                                          width: screenWidth,
-                                          height: 50,
-                                          child: RaisedButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  loggedUserMode = preSaveMode;
-                                                });
-                                                Navigator.pop(context);
-                                              },
+                        return BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: StatefulBuilder(
+                            builder: (context, setState) {
+                              return Dialog(
+                                //this right here
+                                child: FormBuilder(
+                                  key: _settingsFormKey,
+                                  child: Expanded(
+                                    child: Container(
+                                      height: screenHeight * 0.392,
+                                      width: screenWidth,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              child: Image.asset(
+                                                  "assets/conv.jpg")),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8.0, left: 8, right: 8),
+                                            child: Center(
+                                                child: Container(
                                               child: Text(
-                                                "${Strings.SAVE}",
-                                                style: TextStyles.submitButton,
-                                              ),
-                                              color: uniColors.lcRed),
-                                        ),
-                                      ],
+                                                  "${Strings.MODEDETAIL}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyles
+                                                      .subHeadingDetail),
+                                            )),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  width: screenWidth * 0.30,
+                                                  child: Text("${Strings.MODE}",
+                                                      style: TextStyles
+                                                          .settingHeading),
+                                                ),
+                                                Container(
+                                                  width: screenWidth * 0.42,
+                                                  child: FormBuilderDropdown(
+                                                    attribute:
+                                                        "loggedUserGender",
+                                                    decoration: InputDecoration(
+                                                        labelText: ""),
+                                                    items: [
+                                                      'Friend Mode',
+                                                      'Flirt Mode'
+                                                    ]
+                                                        .map((mode) => DropdownMenuItem(
+                                                            value: mode,
+                                                            child: Text("$mode",
+                                                                style: TextStyles
+                                                                    .settingValue)))
+                                                        .toList(),
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        preSaveMode = value;
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Container(
+                                            width: screenWidth,
+                                            height: 50,
+                                            child: RaisedButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    loggedUserMode =
+                                                        preSaveMode;
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  "${Strings.SAVE}",
+                                                  style:
+                                                      TextStyles.submitButton,
+                                                ),
+                                                color: uniColors.lcRed),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         );
                       },
                     );
@@ -688,10 +730,11 @@ class _InitialSettingsState extends State<InitialSettings> {
               child: InkWell(
                 onTap: () {
                   sendSettings();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => DashboardScreen(),
-                    ),
+
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => DashboardScreen()),
+                    (Route<dynamic> route) => false,
                   );
                 },
                 child: Container(

@@ -144,7 +144,7 @@ class _AvailableUserDetailState extends State<AvailableUserDetail>
     _repository.getCurrentUser().then((user) {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
-            loggedInId = loggedUser['uid'];
+          loggedInId = loggedUser['uid'];
           loggedInname = loggedUser['name'];
           loggedInUsername = loggedUser['username'];
           loggedInBio = loggedUser['bio'];

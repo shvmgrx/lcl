@@ -1,16 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lcl/common/mainScreenBar.dart';
+import 'package:lcl/constants/constantStrings.dart';
 import 'package:lcl/enum/userState.dart';
+import 'package:lcl/models/favs.dart';
+import 'package:lcl/models/movie.dart';
 import 'package:lcl/models/recipe.dart';
 import 'package:lcl/models/user.dart';
 import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/resources/authMethods.dart';
+import 'package:lcl/resources/favMethods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
+import 'package:lcl/screens/favScreens/movieCard.dart';
+import 'package:lcl/screens/favScreens/movieList.dart';
 import 'package:lcl/screens/login_screen.dart';
 import 'package:lcl/screens/recipeScreens/bottomSheetCustom.dart';
 import 'package:lcl/screens/recipeScreens/recipeDetails.dart';
@@ -64,6 +71,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   String query = "";
   TextEditingController searchController = TextEditingController();
 
+  String loggedInId;
   String loggedInname;
   String loggedInprofilePhoto;
   String loggedInUsername;
@@ -97,18 +105,42 @@ class _DashboardScreenState extends State<DashboardScreen>
   bool showFavsPage = false;
   bool showAccountPage = false;
 
-  bool showFavRecipes = false;
+  bool showFavRecipes = true;
   bool showFavPeople = false;
-
- 
 
   bool refreshLunchalize = true;
   bool refreshRecipes = true;
 
-  Language _selectedDropdownLanguage =
-      LanguagePickerUtils.getLanguageByIsoCode('en');
+  List<String> fRecipes = new List<String>();
+  List<String> fRecipesNames = new List<String>();
+  List<String> fPeople = new List<String>();
+   List<String> fPeopleNames = new List<String>();
 
   UserProvider userProvider;
+
+  static final Firestore _firestore = Firestore.instance;
+  static final Firestore firestore = Firestore.instance;
+
+  final CollectionReference _favCollection =
+      _firestore.collection(FAV_COLLECTION);
+
+  final FavMethods _favMethods = FavMethods();
+
+  void getFavsListFromDb(String userId) async {
+    DocumentSnapshot documentSnapshot =
+        await _favCollection.document(userId).get();
+
+    for (var i = 0; i < documentSnapshot.data['favRecipes'].length; i++) {
+      setState(() {
+        fRecipes.add(documentSnapshot.data['favRecipes'][i]);
+      });
+    }
+    for (var i = 0; i < documentSnapshot.data['favPeople'].length; i++) {
+      setState(() {
+        fPeople.add(documentSnapshot.data['favPeople'][i]);
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -131,6 +163,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     _repository.getCurrentUser().then((user) {
       _repository.fetchLoggedUser(user).then((dynamic loggedUser) {
         setState(() {
+          loggedInId = loggedUser['uid'];
           loggedInname = loggedUser['name'];
           loggedInUsername = loggedUser['username'];
           loggedInBio = loggedUser['bio'];
@@ -140,6 +173,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           // isVege = loggedUser['isVegetarian'];
           // isNVege = loggedUser['isNVegetarian'];
         });
+        getFavsListFromDb(loggedInId);
       });
     });
 
@@ -185,7 +219,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
-  
+
     controller.addListener(() {
       setState(() {});
     });
@@ -225,6 +259,25 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
     controller.forward();
   }
+
+  // Future<String> getPersonNameById(String personId) async {
+  //   var personName = "ddbaro";
+
+  //   final CollectionReference _userCollection =
+  //       _firestore.collection(USERS_COLLECTION);
+  //   DocumentSnapshot documentSnapshot =
+  //       await _userCollection.document(personId).get();
+
+  //   setState(() {
+  //     personName = documentSnapshot.data['name'];
+  //   });
+
+  //   // _repository.fetchUserNameById(personId);
+
+  //   return personName;
+  // }
+
+
 
   searchAppBar(BuildContext context) {
     return GradientAppBar(
@@ -300,8 +353,6 @@ class _DashboardScreenState extends State<DashboardScreen>
             bool matchesName = _getName.contains(_query);
             return (matchesName);
           }).toList();
-
-  
 
     return ListView.builder(
       //withHashtags
@@ -411,10 +462,143 @@ class _DashboardScreenState extends State<DashboardScreen>
     return new Row(children: list);
   }
 
+  Widget favPeopleListMaker(int favPeopleCount) {
+    List<Widget> list = new List<Widget>();
+
+    for (var i = 0; i < favPeopleCount; i++) {
+      list.add(
+        fPeople[i] != null
+            ? Dismissible(
+                key: UniqueKey(),
+                onDismissed: (DismissDirection direction) {
+                  setState(() {
+                    fPeople.removeAt(i);
+
+                    Favs _favs = Favs(
+                      favId: loggedInId,
+                      favRecipes: fRecipes,
+                      favPeople: fPeople,
+                    );
+
+                    _favMethods.updateFavsToDb(_favs);
+                  });
+                },
+                direction: DismissDirection.endToStart,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          "https://firebasestorage.googleapis.com/v0/b/lclv1-68a3b.appspot.com/o/1594762179417?alt=media&token=86c6cbc9-af75-47d6-a161-4296c07aa76b"),
+                    ),
+                    //     leading: SvgPicture.asset("assets/donateNew.svg", height: 30, width: 30, color: uniColors.standardBlack),
+
+                 title: Text(fPeople[i]),
+
+                    trailing: InkWell(
+                        onTap: () {
+                       
+                          setState(() {
+                            fPeople.removeAt(i);
+
+                            Favs _favs = Favs(
+                              favId: loggedInId,
+                              favRecipes: fRecipes,
+                              favPeople: fPeople,
+                            );
+
+                            _favMethods.updateFavsToDb(_favs);
+                          });
+                        },
+                        child: SvgPicture.asset("assets/trash.svg",
+                            height: 20, width: 20, color: uniColors.white2)),
+                  ),
+                ),
+              )
+
+            // Chip(
+            //     backgroundColor: uniColors.white2,
+            //     label: Text(fPeople[i],
+            //         style: TextStyles.profileChipStyle),
+            //   )
+            : Container(),
+      );
+    }
+    return new Column(children: list);
+  }
+
+   Widget favRecipeListMaker(int favRecipeCount) {
+    List<Widget> list = new List<Widget>();
+
+    for (var i = 0; i < favRecipeCount; i++) {
+      list.add(
+        fRecipes[i] != null
+            ? Dismissible(
+                key: UniqueKey(),
+                onDismissed: (DismissDirection direction) {
+                  setState(() {
+                    fRecipes.removeAt(i);
+
+                    Favs _favs = Favs(
+                      favId: loggedInId,
+                      favRecipes: fRecipes,
+                      favPeople: fPeople,
+                    );
+
+                    _favMethods.updateFavsToDb(_favs);
+                  });
+                },
+                direction: DismissDirection.endToStart,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          "https://firebasestorage.googleapis.com/v0/b/lclv1-68a3b.appspot.com/o/1595267121726?alt=media&token=84b44529-b93d-475c-b9cd-9611e62578e8"),
+                    ),
+                    //     leading: SvgPicture.asset("assets/donateNew.svg", height: 30, width: 30, color: uniColors.standardBlack),
+
+                 title: Text(fRecipes[i]),
+
+                    trailing: InkWell(
+                        onTap: () {
+                       
+                          setState(() {
+                            fRecipes.removeAt(i);
+
+                            Favs _favs = Favs(
+                              favId: loggedInId,
+                              favRecipes: fRecipes,
+                              favPeople: fPeople,
+                            );
+
+                            _favMethods.updateFavsToDb(_favs);
+                          });
+                        },
+                        child: SvgPicture.asset("assets/trash.svg",
+                            height: 20, width: 20, color: uniColors.white2)),
+                  ),
+                ),
+              )
+
+            // Chip(
+            //     backgroundColor: uniColors.white2,
+            //     label: Text(fPeople[i],
+            //         style: TextStyles.profileChipStyle),
+            //   )
+            : Container(),
+      );
+    }
+    return new Column(children: list);
+  }
+
+
+
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.fetchBatch(user).then((List<User> list) {
-      
         setState(() {
           filterList = list;
         });
@@ -490,7 +674,6 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   void getLocation() async {
-
     GeolocationStatus geolocationStatus =
         await Geolocator().checkGeolocationPermissionStatus();
 
@@ -869,74 +1052,124 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     visible: showFavsPage,
                                     child: Container(
                                         margin: EdgeInsets.only(top: 0),
-                                        height:
-                                            MediaQuery.of(context).size.height -
-                                                300.0,
+                                        // height:screenHeight*0.8,
+//hhu
                                         child: Column(
                                           // mainAxisAlignment: MainAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
-                                              height: 40,
+                                              height: 30,
                                               // color: uniColors.white2,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceAround,
                                                 children: <Widget>[
+                                                  
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        showFavRecipes = false;
+                                                        showFavPeople = true;
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      child: 
+                                                      showFavPeople?
+                                                      SvgPicture.asset(
+                                                          "assets/personOutline.svg",
+                                                          height: 30,
+                                                          width: 30,
+                                                          color:
+                                                              uniColors.black):
+                                                          SvgPicture.asset(
+                                                          "assets/personOutline.svg",
+                                                          height: 30,
+                                                          width: 30,
+                                                          color:
+                                                              uniColors.white2),
+                                                    ),
+                                                  ),
                                                   InkWell(
                                                       onTap: () {
                                                         setState(() {
                                                           showFavRecipes = true;
-                                                        showFavPeople = false;
+                                                          showFavPeople = false;
                                                         });
-                                                        
-                                                    
                                                       },
                                                       child: Container(
-                                                        child: SvgPicture.asset(
+                                                        child: 
+                                                        showFavRecipes?
+                                                        SvgPicture.asset(
+                                                            "assets/recipe.svg",
+                                                            height: 30,
+                                                            width: 30,
+                                                            color: uniColors
+                                                                .black):
+                                                        SvgPicture.asset(
                                                             "assets/recipe.svg",
                                                             height: 30,
                                                             width: 30,
                                                             color: uniColors
                                                                 .white2),
                                                       )),
-                                                  InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          showFavRecipes = false;
-                                                        showFavPeople = true;
-                                                        });
-                                                        
-                                                  
-                                                      },
-                                                      child: Container(
-                                                        child: SvgPicture.asset(
-                                                            "assets/personOutline.svg",
-                                                            height: 30,
-                                                            width: 30,
-                                                            color: uniColors
-                                                                .white2),
-                                                      ),),
                                                 ],
                                               ),
                                             ),
                                             Visibility(
                                               visible: showFavRecipes,
                                               child: Padding(
-                                                padding: const EdgeInsets.only(top:15.0),
-                                                child: Container(
-                                                  width:screenWidth,
-                                                  height: screenHeight*0.6,
-                                                   color:Colors.red,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        child: Text(
-                                                            "Fav Recipe container"),
-                                                      )
-                                                    ],
+                                                padding: const EdgeInsets.only(
+                                                    top: 15.0),
+                                                child: Expanded(
+                                                  child: Container(
+                                                    width: screenWidth,
+                                                    height: screenHeight * 0.67,
+                                                    //goo
+                                                    decoration: BoxDecoration(
+                                                      color: uniColors.lcRed
+                                                          .withOpacity(0.98),
+                                                      borderRadius: BorderRadius.only(
+                                                          // topLeft:
+                                                          //     Radius.circular(5.0),
+                                                          // topRight:
+                                                          //     Radius.circular(5.0),
+                                                          // bottomLeft:
+                                                          //     Radius.circular(5.0),
+                                                          // bottomRight:
+                                                          //     Radius.circular(5.0),
+                                                          ),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 8.0),
+                                                          child: Column(
+                                                            children: <Widget>[
+                                                              Text(
+                                                                "",
+                                                                textDirection:
+                                                                    TextDirection
+                                                                        .ltr,
+                                                              ),
+                                                              Container(
+                                                                  child: favRecipeListMaker(
+                                                                      fRecipes
+                                                                          .length)),
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -944,20 +1177,57 @@ class _DashboardScreenState extends State<DashboardScreen>
                                             Visibility(
                                               visible: showFavPeople,
                                               child: Padding(
-                                                padding: const EdgeInsets.only(top:15.0),
-                                                child: Container(
-                                                  width:screenWidth,
-                                                  height: screenHeight*0.6,
-                                                  color:Colors.red,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      Container(
-                                                        child: Text(
-                                                            "Fav People container"),
-                                                      )
-                                                    ],
+                                                padding: const EdgeInsets.only(
+                                                    top: 15.0),
+                                                child: Expanded(
+                                                  child: Container(
+                                                    width: screenWidth,
+                                                    height: screenHeight * 0.67,
+                                                    //goo
+                                                    decoration: BoxDecoration(
+                                                      color: uniColors.lcRed
+                                                          .withOpacity(0.98),
+                                                      borderRadius: BorderRadius.only(
+                                                          // topLeft:
+                                                          //     Radius.circular(5.0),
+                                                          // topRight:
+                                                          //     Radius.circular(5.0),
+                                                          // bottomLeft:
+                                                          //     Radius.circular(5.0),
+                                                          // bottomRight:
+                                                          //     Radius.circular(5.0),
+                                                          ),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 8.0),
+                                                          child: Column(
+                                                            children: <Widget>[
+                                                              Text(
+                                                                "",
+                                                                textDirection:
+                                                                    TextDirection
+                                                                        .ltr,
+                                                              ),
+                                                              Container(
+                                                                  child: favPeopleListMaker(
+                                                                      fPeople
+                                                                          .length)),
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -1226,267 +1496,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                       ],
                                     ),
                                   ),
-
-                                  // Expanded(
-                                  //   child: SingleChildScrollView(
-                                  //     scrollDirection: Axis.horizontal,
-                                  //     child: Row(
-                                  //       children: <Widget>[
-                                  //         Container(
-                                  //           margin: const EdgeInsets.only(left: 16),
-                                  //           width: MediaQuery.of(context).size.width * 0.5,
-                                  //            height: MediaQuery.of(context).size.height *0.3,
-                                  //           child: Column(
-                                  //             crossAxisAlignment: CrossAxisAlignment.start,
-                                  //             children: <Widget>[
-                                  //               Expanded(
-                                  //                 child: ClipRRect(
-                                  //                   child: Image.asset(
-                                  //                     "assets/man3.jpg",
-                                  //                     fit: BoxFit.fill,
-                                  //                     width: MediaQuery.of(context).size.width *0.5,
-                                  //                    // height: MediaQuery.of(context).size.height *0.2,
-                                  //                   ),
-                                  //                   borderRadius: BorderRadius.circular(12),
-                                  //                 ),
-                                  //               ),
-                                  //               Padding(
-                                  //                 padding:
-                                  //                     const EdgeInsets.symmetric(vertical: 6),
-                                  //                 child: Text(
-                                  //                   Strings.lifeWithATiger,
-                                  //                   style: TextStyles.titleTextStyle,
-                                  //                 ),
-                                  //               ),
-                                  //               Padding(
-                                  //                 padding:
-                                  //                     const EdgeInsets.symmetric(vertical: 6),
-                                  //                 child: Text(
-                                  //                   Strings.loremIpsum1,
-                                  //                   style: TextStyles.body3TextStyle,
-                                  //                 ),
-                                  //               ),
-                                  //             ],
-                                  //           ),
-                                  //         ),
-                                  //         SizedBox(
-                                  //           width: 20,
-                                  //         ),
-                                  //         Container(
-                                  //           width: MediaQuery.of(context).size.width * 0.5,
-                                  //           child: Column(
-                                  //             crossAxisAlignment: CrossAxisAlignment.start,
-                                  //             children: <Widget>[
-                                  //               Expanded(
-                                  //                 child: ClipRRect(
-                                  //                   child: Image.asset(
-                                  //                     "assets/woman1.jpg",
-                                  //                     width: MediaQuery.of(context).size.width *
-                                  //                         0.5,
-                                  //                     fit: BoxFit.cover,
-                                  //                   ),
-                                  //                   borderRadius: BorderRadius.circular(12),
-                                  //                 ),
-                                  //               ),
-                                  //               Padding(
-                                  //                 padding:
-                                  //                     const EdgeInsets.symmetric(vertical: 6),
-                                  //                 child: Text(
-                                  //                   Strings.wildAnimals,
-                                  //                   style: TextStyles.titleTextStyle,
-                                  //                 ),
-                                  //               ),
-                                  //               Padding(
-                                  //                 padding:
-                                  //                     const EdgeInsets.symmetric(vertical: 6),
-                                  //                 child: Text(
-                                  //                   Strings.loremIpsum2,
-                                  //                   style: TextStyles.body3TextStyle,
-                                  //                 ),
-                                  //               ),
-                                  //             ],
-                                  //           ),
-                                  //         ),
-                                  //       ],
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.symmetric(
-                                  //     horizontal: 16,
-                                  //     vertical: 16,
-                                  //   ),
-                                  //   child: Text(
-                                  //     Strings.quickCategories,
-                                  //     style: TextStyles.titleTextStyle,
-                                  //   ),
-                                  // ),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                                  //   child: Row(
-                                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  //     mainAxisSize: MainAxisSize.max,
-                                  //     children: <Widget>[
-                                  //       Column(
-                                  //         children: <Widget>[
-                                  //           GestureDetector(
-                                  //             onTap: () {
-                                  //               getLocation();
-                                  //               _scaffoldKey.currentState.openDrawer();
-                                  //               // showDialog(
-                                  //               //   context: context,
-                                  //               //   barrierDismissible:
-                                  //               //       false, // user must tap button!
-                                  //               //   builder: (BuildContext context) {
-                                  //               //     return AlertDialog(
-                                  //               //       title: Center(child: Text('Distance')),
-                                  //               //       elevation: 2.5,
-                                  //               //       backgroundColor:
-                                  //               //           Colors.white.withOpacity(0.8),
-                                  //               //       shape: RoundedRectangleBorder(
-                                  //               //           borderRadius: BorderRadius.only(
-                                  //               //         topRight: Radius.circular(20),
-                                  //               //         topLeft: Radius.circular(20),
-                                  //               //         bottomLeft: Radius.circular(10),
-                                  //               //         bottomRight: Radius.circular(10),
-                                  //               //       )),
-                                  //               //       content: SingleChildScrollView(
-                                  //               //         child: ListBody(
-                                  //               //           children: <Widget>[
-                                  //               //             Text("$distance"),
-                                  //               //             Slider(
-                                  //               //               value: distance.toDouble(),
-                                  //               //               min: 0.0,
-                                  //               //               max: 220.0,
-                                  //               //               activeColor: uniColors.lcRed,
-                                  //               //               inactiveColor:
-                                  //               //                   uniColors.standardWhite,
-                                  //               //               onChanged: (double newValue) {
-                                  //               //                 setState(() {
-                                  //               //                   distance = newValue.round();
-                                  //               //                 });
-                                  //               //               },
-                                  //               //             ),
-                                  //               //           ],
-                                  //               //         ),
-                                  //               //       ),
-                                  //               //       actions: <Widget>[
-                                  //               //         Row(
-                                  //               //           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  //               //           children: <Widget>[
-                                  //               //             FlatButton(
-                                  //               //               child: Text('CANCEL'),
-                                  //               //               onPressed: () {
-                                  //               //                 Navigator.of(context).pop();
-                                  //               //               },
-                                  //               //             ),
-                                  //               //             FlatButton(
-                                  //               //               child: Text('SUBMIT'),
-                                  //               //               onPressed: () {
-                                  //               //                 Navigator.of(context).pop();
-                                  //               //               },
-                                  //               //             ),
-                                  //               //           ],
-                                  //               //         ),
-                                  //               //       ],
-                                  //               //     );
-                                  //               //   },
-                                  //               // );
-                                  //             },
-                                  //             child: Container(
-                                  //               padding: const EdgeInsets.all(12),
-                                  //               decoration: BoxDecoration(
-                                  //                   borderRadius: BorderRadius.circular(8),
-                                  //                   color: Colors.white),
-                                  //               // child: Image.asset(
-                                  //               //   "assets/city1.png",
-                                  //               //   height: 50,
-                                  //               //   width: 50,
-                                  //               // ),
-                                  //             ),
-                                  //           ),
-                                  //           SizedBox(
-                                  //             height: 4,
-                                  //           ),
-                                  //           Text(
-                                  //             Strings.location,
-                                  //             style: TextStyles.body2TextStyle,
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //       Column(
-                                  //         children: <Widget>[
-                                  //           Container(
-                                  //             padding: const EdgeInsets.all(12),
-                                  //             decoration: BoxDecoration(
-                                  //                 borderRadius: BorderRadius.circular(8),
-                                  //                 color: Colors.white),
-                                  //             // child: Image.asset(
-                                  //             //   "assets/time2.png",
-                                  //             //   height: 50,
-                                  //             //   width: 50,
-                                  //             // ),
-                                  //           ),
-                                  //           SizedBox(
-                                  //             height: 4,
-                                  //           ),
-                                  //           Text(
-                                  //             Strings.lion,
-                                  //             style: TextStyles.body2TextStyle,
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //       // Column(
-                                  //       //   children: <Widget>[
-                                  //       //     Container(
-                                  //       //       padding: const EdgeInsets.all(12),
-                                  //       //       decoration: BoxDecoration(
-                                  //       //         borderRadius: BorderRadius.circular(8),
-                                  //       //         color: Colors.white
-                                  //       //       ),
-                                  //       //       child: Image.asset(
-                                  //       //         "assets/meal2.png",
-                                  //       //         height: 50,
-                                  //       //         width: 50,
-                                  //       //       ),
-                                  //       //     ),
-                                  //       //     SizedBox(
-                                  //       //       height: 4,
-                                  //       //     ),
-                                  //       //     Text(
-                                  //       //       Strings.reptiles,
-                                  //       //       style: TextStyles.body2TextStyle,
-                                  //       //     ),
-                                  //       //   ],
-                                  //       // ),
-                                  //       Column(
-                                  //         children: <Widget>[
-                                  //           Container(
-                                  //             padding: const EdgeInsets.all(12),
-                                  //             decoration: BoxDecoration(
-                                  //                 borderRadius: BorderRadius.circular(8),
-                                  //                 color: Colors.white),
-                                  //             // child: Image.asset(
-                                  //             //   "assets/mode.png",
-                                  //             //   height: 50,
-                                  //             //   width: 50,
-                                  //             // ),
-                                  //           ),
-                                  //           SizedBox(
-                                  //             height: 4,
-                                  //           ),
-                                  //           Text(
-                                  //             Strings.pets,
-                                  //             style: TextStyles.body2TextStyle,
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  // SizedBox(
-                                  //   height: 32,
-                                  // ),
                                 ],
                               ),
                             ),
@@ -1633,7 +1642,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               color: uniColors.standardWhite,
               elevation: 2.0,
               clipBehavior: Clip.antiAlias,
-              notchMargin: 6.0,
+              notchMargin: 1.0,
               child: Container(
                 height: 55,
                 child: Row(
@@ -1649,7 +1658,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                         //   showFavsPage = false;
                         // });
                         showRecipePageNow();
-
                       },
                     ),
 
@@ -1663,8 +1671,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                         //   showFavsPage = false;
                         // });
                         showSearchPageNow();
-
-                      
                       },
                     ),
                     //           IconButton(
@@ -1691,8 +1697,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                         //   showFavsPage = false;
                         // });
                         showLunchalizePageNow();
-
-                   
                       },
                       child:
                           Image.asset("assets/LCO.png", height: 150, width: 80),
@@ -1706,8 +1710,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                         //   showFavsPage = true;
                         // });
                         showFavsPageNow();
-
-                        
                       },
                     ),
                     IconButton(
@@ -1720,8 +1722,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                         //   showFavsPage = true;
                         // });
                         showAccountPageNow();
-
-                       
                       },
                     ),
                   ],
@@ -1977,7 +1977,6 @@ class _DashboardScreenState extends State<DashboardScreen>
               opacity: 1,
               child: GestureDetector(
                 onTap: () {
-               
                   Navigator.pushAndRemoveUntil(
                     context,
                     CupertinoPageRoute(

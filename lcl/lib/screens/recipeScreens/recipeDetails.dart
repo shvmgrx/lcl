@@ -21,9 +21,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lcl/utils/uniColors.dart';
 
-
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:photo_view/photo_view.dart';
 
 class RecipeDetails extends StatefulWidget {
   final Recipe selectedRecipe;
@@ -104,13 +104,12 @@ class _RecipeDetailsState extends State<RecipeDetails>
         fRecipes.add(documentSnapshot.data['favRecipes'][i]);
       });
     }
-        for (var i = 0; i < documentSnapshot.data['favPeople'].length; i++) {
+    for (var i = 0; i < documentSnapshot.data['favPeople'].length; i++) {
       setState(() {
         fPeople.add(documentSnapshot.data['favPeople'][i]);
       });
     }
   }
-
 
   @override
   void initState() {
@@ -180,7 +179,8 @@ class _RecipeDetailsState extends State<RecipeDetails>
       fRecipes.add(widget.selectedRecipe.recipeId);
     }
   }
-bool favSent=false;
+
+  bool favSent = false;
   void sendFavs(String recipeId) async {
     var counter = 0;
 
@@ -191,7 +191,6 @@ bool favSent=false;
     }
 
     if (counter == 0) {
-
       fRecipes.add(widget.selectedRecipe.recipeId);
 
       Favs _favs = Favs(
@@ -199,7 +198,7 @@ bool favSent=false;
         favRecipes: fRecipes,
         favPeople: fPeople,
       );
-      
+
       _favMethods.addFavsToDb(_favs);
     }
   }
@@ -293,10 +292,11 @@ bool favSent=false;
               child: Container(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 1.0),
-                  child: Text("${widget.selectedRecipe.recipeInstructions}",
-                      style: TextStyles.selectedRecipeInstructions,
-                      textDirection: TextDirection.ltr,
-                      ),
+                  child: Text(
+                    "${widget.selectedRecipe.recipeInstructions}",
+                    style: TextStyles.selectedRecipeInstructions,
+                    textDirection: TextDirection.ltr,
+                  ),
                 ),
               ),
             )
@@ -306,26 +306,29 @@ bool favSent=false;
     return instruc;
   }
 
-  // Widget timeMaker() {
-  //   var prepTime = widget.selectedRecipe.recipePreparationTime;
-  //   var cookTime = widget.selectedRecipe.recipeCookingTime;
-  //   var restTime = widget.selectedRecipe.recipeRestTime;
+  Widget timeMaker() {
+    var prepTime = widget.selectedRecipe.recipePreparationTime;
+    var cookTime = widget.selectedRecipe.recipeCookingTime;
+    var restTime = widget.selectedRecipe.recipeRestTime;
 
-  //   var duPrep = double.parse(prepTime);
-  //   var duCook = double.parse(cookTime);
-  //   var duRest = double.parse(restTime);
+    var duPrep =
+        prepTime != null && prepTime != "" ? double.parse(prepTime) : 0;
+    var duCook =
+        cookTime != null && cookTime != "" ? double.parse(cookTime) : 0;
+    var duRest =
+        restTime != null && restTime != "" ? double.parse(restTime) : 0;
 
-  //   var totalTime = duPrep + duCook + duRest;
+    var totalTime = duPrep + duCook + duRest;
 
-  //   Widget instruc = totalTime > 0
-  //       ? Text(
-  //           "Time: ${totalTime.toInt()} mins",
-  //           style: TextStyles.cookTime,
-  //         )
-  //       : Text("");
+    Widget instruc = totalTime > 0
+        ? Text(
+            "Time: ${totalTime.toInt()} mins",
+            style: TextStyles.cookTime,
+          )
+        : Text("");
 
-  //   return instruc;
-  // }
+    return instruc;
+  }
 
   Widget difficultyMaker() {
     Widget diffi;
@@ -527,23 +530,38 @@ bool favSent=false;
                                       fit: BoxFit.cover),
                                 ),
                               ),
-                              // Positioned(
-                              //   left: 10,
-                              //   bottom: 10,
-                              //   child: Container(
-                              //     child: Row(
-                              //       mainAxisAlignment:
-                              //           MainAxisAlignment.spaceAround,
-                              //       children: <Widget>[
-                              //         Container(
-                              //             child: Padding(
-                              //           padding: const EdgeInsets.all(8.0),
-                              //           // child: timeMaker(),
-                              //         ))
-                              //       ],
-                              //     ),
-                              //   ),
-                              // ),
+                              // Container(
+                              //     height: screenHeight * 0.4,
+                              //     //  width: screenHeight * 0.4,
+                              //     child: PhotoView(
+                              //       imageProvider:
+                              //           (widget.selectedRecipe
+                              //                         .recipePicture ==
+                              //                     "dummyNoImage" ||
+                              //                 widget.selectedRecipe
+                              //                         .recipePicture ==
+                              //                     null)
+                              //             ? AssetImage("assets/plate.jpg")
+                              //             : NetworkImage(
+                              //                 "${widget.selectedRecipe.recipePicture}"),
+                              //     )),
+                              Positioned(
+                                left: 10,
+                                bottom: 10,
+                                child: Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Container(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: timeMaker(),
+                                      ))
+                                    ],
+                                  ),
+                                ),
+                              ),
                               Positioned(
                                 right: 10,
                                 bottom: 10,
@@ -618,24 +636,26 @@ bool favSent=false;
 
                                                           //    print("printing here: $fRecipes");
                                                           setState(() {
-                                                            favSent=true;
+                                                            favSent = true;
                                                           });
                                                           sendFavs(widget
                                                               .selectedRecipe
                                                               .recipeId);
                                                         },
-                                                        child:favSent? Icon(
-                                                          Icons.star,
-                                                          size: 40,
-                                                          color:
-                                                              uniColors.white2,
-                                                        ):
-                                                        Icon(
-                                                          Icons.star_border,
-                                                          size: 40,
-                                                          color:
-                                                              uniColors.white2,
-                                                        ),
+                                                        child: favSent
+                                                            ? Icon(
+                                                                Icons.star,
+                                                                size: 40,
+                                                                color: uniColors
+                                                                    .white2,
+                                                              )
+                                                            : Icon(
+                                                                Icons
+                                                                    .star_border,
+                                                                size: 40,
+                                                                color: uniColors
+                                                                    .white2,
+                                                              ),
                                                       ),
                                                     ),
                                                   ],

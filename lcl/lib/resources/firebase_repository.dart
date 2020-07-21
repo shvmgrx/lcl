@@ -41,6 +41,9 @@ class FirebaseRepository {
   Future<List<Recipe>> fetchRecipeBatchById(String userId) =>
       _firebaseMethods.fetchRecipeBatchById(userId);
 
+  Future<String> fetchUserNameById(String userId) =>
+      _firebaseMethods.fetchUserNameById(userId);
+
   void uploadImage(
           {@required File image,
           @required String receiverId,
