@@ -340,11 +340,11 @@ class _RecipeDetailsState extends State<RecipeDetails>
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.white2),
+              height: 30, width: 30, color: uniColors.lcRed),
           SvgPicture.asset("assets/chefEm.svg",
-              height: 30, width: 30, color: uniColors.white2),
+              height: 30, width: 30, color: uniColors.lcRed),
           SvgPicture.asset("assets/chefEm.svg",
-              height: 30, width: 30, color: uniColors.white2)
+              height: 30, width: 30, color: uniColors.lcRed)
         ],
       );
     }
@@ -354,11 +354,11 @@ class _RecipeDetailsState extends State<RecipeDetails>
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.white2),
+              height: 30, width: 30, color: uniColors.lcRed),
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.white2),
+              height: 30, width: 30, color: uniColors.lcRed),
           SvgPicture.asset("assets/chefEm.svg",
-              height: 30, width: 30, color: uniColors.white2)
+              height: 30, width: 30, color: uniColors.lcRed)
         ],
       );
     }
@@ -368,11 +368,11 @@ class _RecipeDetailsState extends State<RecipeDetails>
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.white2),
+              height: 30, width: 30, color: uniColors.lcRed),
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.white2),
+              height: 30, width: 30, color: uniColors.lcRed),
           SvgPicture.asset("assets/chefFi.svg",
-              height: 30, width: 30, color: uniColors.white2)
+              height: 30, width: 30, color: uniColors.lcRed)
         ],
       );
     }

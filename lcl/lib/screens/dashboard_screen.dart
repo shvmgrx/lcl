@@ -111,6 +111,18 @@ class _DashboardScreenState extends State<DashboardScreen>
   bool refreshLunchalize = true;
   bool refreshRecipes = true;
 
+
+  int loggedUserAge1;
+  int loggedUserAge2;
+  int loggedUserDistance;
+
+  String loggedUserInterestedIn;
+  String loggedUserMode;
+
+  String loggedUserLat;
+  String loggedUserLon;
+
+
   List<String> fRecipes = new List<String>();
   List<String> fRecipesNames = new List<String>();
   List<String> fPeople = new List<String>();
@@ -175,7 +187,21 @@ class _DashboardScreenState extends State<DashboardScreen>
         });
         getFavsListFromDb(loggedInId);
       });
+
+              _repository.fetchLoggedUserSettings(user).then((dynamic loggedUser) {
+        setState(() {
+          loggedUserAge1 = loggedUser['sAge1'];
+          loggedUserAge2 = loggedUser['sAge2'];
+          loggedUserDistance = loggedUser['sDistance'];
+          loggedUserInterestedIn = loggedUser['sInterestedIn'];
+          loggedUserMode = loggedUser['sMode'];
+
+          
+        });
+      });
     });
+
+  
 
     _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.fetchBatch(user).then((List<User> list) {
@@ -1281,7 +1307,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                                 "assets/defaultUserPicture.png")
                                                             : NetworkImage(
                                                                 "${loggedInprofilePhoto}"),
-                                                        fit: BoxFit.fitWidth),
+                                                        fit: BoxFit.cover),
                                                   ),
                                                 ),
                                               ),
@@ -1580,16 +1606,25 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   // FloatingActionRowButton(
                                   //     icon: Icon(Icons.add), onTap: () {}),
                                   // FloatingActionRowDivider(),
-                                  FloatingActionRowButton(
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: uniColors.lcRed,
-                                        size: 25,
-                                      ),
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, "/initial_screen");
-                                      }),
+                          //         FloatingActionRowButton(
+                          //             icon:  Icon(
+                          //               loggedUserMode=="Flirt Mode"? Icons.favorite: SvgPicture.asset("assets/friendMode.svg",
+                          // height: 30, width: 30, color: uniColors.lcRed),
+                          //               color: uniColors.lcRed,
+                          //               size: 25,
+                          //             ),
+                          //             onTap: () {
+                          //               // Navigator.pushNamed(
+                          //               //     context, "/initial_screen");
+                          //             }
+                                      
+                          //             ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:18.0),
+                            child: loggedUserMode=="Flirt Mode"?  SvgPicture.asset("assets/heart.svg",
+                           height: 30, width: 30, color: uniColors.lcRed): SvgPicture.asset("assets/friendMode.svg",
+                           height: 30, width: 30, color: uniColors.lcRed),
+                          ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20.0),
@@ -1603,16 +1638,22 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           refresh();
                                         }),
                                   ),
-                                  FloatingActionRowButton(
-                                      icon: Icon(
-                                        Icons.location_on,
-                                        color: uniColors.lcRed,
-                                        size: 25,
-                                      ),
-                                      onTap: () async {
-                                        getLocation();
-                                        // Navigator.pushNamed(context, "/splash_screen");
-                                      }),
+                                                            Padding(
+                            padding: const EdgeInsets.only(right:18.0),
+                            child: loggedUserDistance <200 ?  SvgPicture.asset("assets/local.svg",
+                           height: 30, width: 30, color: uniColors.lcRed): SvgPicture.asset("assets/globe.svg",
+                           height: 30, width: 30, color: uniColors.lcRed),
+                          ),
+                                  // FloatingActionRowButton(
+                                  //     icon: Icon(
+                                  //       Icons.location_on,
+                                  //       color: uniColors.lcRed,
+                                  //       size: 25,
+                                  //     ),
+                                  //     onTap: () async {
+                                  //       getLocation();
+                                  //       // Navigator.pushNamed(context, "/splash_screen");
+                                  //     }),
                                 ],
                               ),
                             ),
@@ -1791,7 +1832,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                         image: (availableUsers.profilePhoto == null)
                             ? AssetImage("assets/defaultUserPicture.png")
                             : NetworkImage("${availableUsers.profilePhoto}"),
-                        fit: BoxFit.fitWidth),
+                        fit: BoxFit.cover
+                        ),
                   ),
                 ),
               ),
@@ -1829,11 +1871,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 alignment: Alignment.center,
                                 child: availableUsers.name.length < 13
                                     ? Text(availableUsers.name,
-                                        style: TextStyles.mainScreenProfileName,
+                                        style: TextStyles.selfProfileRecipeName,
                                         textAlign: TextAlign.center)
                                     : Text(
-                                        "${availableUsers.name.substring(0, 12)}...",
-                                        style: TextStyles.mainScreenProfileName,
+                                        "${availableUsers.name.substring(0, 10)}...",
+                                        style: TextStyles.selfProfileRecipeName,
                                         textAlign: TextAlign.center),
                               ),
                             ),
@@ -1899,7 +1941,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 availableRecipes.recipePicture == null)
                             ? AssetImage("assets/plate.jpg")
                             : NetworkImage("${availableRecipes.recipePicture}"),
-                        fit: BoxFit.fitWidth),
+                        fit: BoxFit.cover),
                   ),
                 ),
               ),
@@ -1931,12 +1973,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 child: (availableRecipes.recipeName == "" ||
                                         availableRecipes.recipeName == null)
                                     ? Text("LC RECIPE",
-                                        style: TextStyles.mainScreenProfileName,
+                                        style: TextStyles.selfProfileRecipeName,
                                         textAlign: TextAlign.center)
                                     : availableRecipes.recipeName.length <= 16
                                         ? Text(availableRecipes.recipeName,
                                             style: TextStyles
-                                                .mainScreenProfileName,
+                                                .selfProfileRecipeName,
                                             textAlign: TextAlign.center)
                                         : Text(
                                             "${availableRecipes.recipeName.substring(0, 15)}...",
