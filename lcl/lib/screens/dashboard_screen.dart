@@ -1035,6 +1035,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                               Center(
                                                 child: buildSuggestions(query),
                                               ),
+                                              Center(
+                                                child: Text("csdvfgh ")
+                                              ),
                                             ],
                                           )),
                                     ),
