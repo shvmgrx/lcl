@@ -38,6 +38,8 @@ import 'package:provider/provider.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:floating_action_row/floating_action_row.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -259,6 +261,16 @@ class _DashboardScreenState extends State<DashboardScreen>
     controller.dispose();
     super.dispose();
   }
+
+ launchURL(String url) async {
+ 
+    if (await canLaunch(url)) {
+  
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
+ }
 
   void showRecipePageNow() {
     controller.reverse();
@@ -864,7 +876,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                             color: uniColors.standardBlack),
                         onTap: () {
                           //   Navigator.of(context).pop();
-
+                         const url = 'https://www.welthungerhilfe.de/spenden/';
+   launchURL(url);
+   
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
                     ListTile(
