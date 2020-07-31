@@ -835,7 +835,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                             onTap: () {
                               setState(() {
                                 paymentPressed = !paymentPressed;
-                                showAboutDialog(context: context);
+                                if (paymentPressed) {
+                                  Navigator.pushNamed(
+                                      context, "/about_screen");
+                                }
                               });
                             },
                             child: NMButton(

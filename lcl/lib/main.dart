@@ -1,5 +1,6 @@
 import 'package:lcl/provider/image_upload_provider.dart';
 import 'package:lcl/provider/user_provider.dart';
+import 'package:lcl/screens/aboutScreen.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/chatScreens/chatScreen.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
@@ -51,6 +52,7 @@ class _MyAppState extends State<MyApp> {
            '/chatList_screen': (context) => ChatListScreen(),
            '/initial_screen': (context) => InitialSettings(),
            '/splash_screen': (context) => SplashScreen(),
+           '/about_screen': (context) => AboutScreen(),
            
         },
         home: FutureBuilder(

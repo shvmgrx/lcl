@@ -318,6 +318,32 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+     static final TextStyle aboutMainText = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w800,
+    color: uniColors.black,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
+       static final TextStyle aboutSubText = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w300,
+    color: uniColors.standardBlack,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
  static final TextStyle selectedRecipeIngridientAmt = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w700,

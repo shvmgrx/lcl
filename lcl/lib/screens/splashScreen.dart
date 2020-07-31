@@ -15,43 +15,40 @@ class SplashScreen extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: <Widget>[
-            Positioned(
-              top:250,
-              left:130,
-              right:130,
-                          child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: <Widget>[
+          Positioned(
+            top: 250,
+            left: 130,
+            right: 130,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 160.0,
+                  height: 160.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/lcGradient.jpg"),
+                    ),
+                  ),
+                ),
 
-                  Container(
-                                      width: 160.0,
-                                      height: 160.0,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: AssetImage("assets/lcGradient.jpg"),),
-                                        ),
-                                      ),
-                                    
-            
-             //    Center(child: Image(image: AssetImage("assets/lcGradient.jpg"),))
-              
-                ],
-              ),
+                //    Center(child: Image(image: AssetImage("assets/lcGradient.jpg"),))
+              ],
             ),
-            Positioned(
-              bottom: 78,
-              left: 124,
-              right:100,
-              child: Text(Strings.APP_NAME,
-                  style: TextStyles.appNameTextStyle),
-            ),
-            
-          ],
-        ));
+          ),
+          Positioned(
+            bottom: 78,
+            left: 124,
+            right: 100,
+            child: Text(Strings.APP_NAME, style: TextStyles.appNameTextStyle),
+          ),
+        ],
+      ),
+    );
   }
 }
