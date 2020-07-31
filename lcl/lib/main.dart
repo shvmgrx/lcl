@@ -14,6 +14,7 @@ import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/login_screen.dart';
 import 'package:lcl/screens/pageviews/chat_list_screen.dart';
 import 'package:lcl/screens/splashScreen.dart';
+import 'package:lcl/screens/termsScreen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
            '/initial_screen': (context) => InitialSettings(),
            '/splash_screen': (context) => SplashScreen(),
            '/about_screen': (context) => AboutScreen(),
+           '/terms_screen': (context) => TermsScreen(),
            
         },
         home: FutureBuilder(

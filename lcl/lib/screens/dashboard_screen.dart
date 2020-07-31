@@ -877,13 +877,13 @@ class _DashboardScreenState extends State<DashboardScreen>
                         onTap: () {
                           //   Navigator.of(context).pop();
                          const url = 'https://www.welthungerhilfe.de/spenden/';
-   launchURL(url);
+                         launchURL(url);
    
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
                     ListTile(
                         title: new Text(
-                          "Terms of Service",
+                          "Legal",
                           style: TextStyle(
                               color: uniColors.standardBlack,
                               fontWeight: FontWeight.w600,
@@ -894,7 +894,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                             width: 30,
                             color: uniColors.standardBlack),
                         onTap: () {
-                          Navigator.of(context).pop();
+                           Navigator.pushNamed(
+                                      context, "/terms_screen");
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
                     InkWell(

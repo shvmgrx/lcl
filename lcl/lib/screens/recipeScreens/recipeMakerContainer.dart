@@ -243,7 +243,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg1(screenWidth) {
     Widget ig1 = Row(
       children: <Widget>[
-        
         Container(
           width: screenWidth * 0.1,
           child: Padding(
@@ -252,7 +251,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -298,7 +298,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
             ),
           ),
         ),
-        
         SizedBox(width: 5),
         Padding(
           padding: const EdgeInsets.only(top: 14.0),
@@ -309,7 +308,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-             // textCapitalization: TextCapitalization.characters,
+              // textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName1 = value;
@@ -349,7 +348,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -405,7 +405,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-            //  textCapitalization: TextCapitalization.characters,
+              //  textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName2 = value;
@@ -437,7 +437,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg3(screenWidth) {
     Widget ig3 = Row(
       children: <Widget>[
-      Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -445,7 +445,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -501,7 +502,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-           //   textCapitalization: TextCapitalization.characters,
+              //   textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName3 = value;
@@ -541,7 +542,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -597,7 +599,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-           //   textCapitalization: TextCapitalization.characters,
+              //   textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName4 = value;
@@ -637,7 +639,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -693,7 +696,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-             // textCapitalization: TextCapitalization.characters,
+              // textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName5 = value;
@@ -733,7 +736,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -789,7 +793,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-           //   textCapitalization: TextCapitalization.characters,
+              //   textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName6 = value;
@@ -829,7 +833,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -885,7 +890,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-            //  textCapitalization: TextCapitalization.characters,
+              //  textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName7 = value;
@@ -917,7 +922,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg8(screenWidth) {
     Widget ig8 = Row(
       children: <Widget>[
-       Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -925,7 +930,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -981,7 +987,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-           //   textCapitalization: TextCapitalization.characters,
+              //   textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName8 = value;
@@ -1021,7 +1027,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1077,7 +1084,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-            //  textCapitalization: TextCapitalization.characters,
+              //  textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName9 = value;
@@ -1117,7 +1124,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1217,7 +1225,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1317,7 +1326,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1417,7 +1427,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1517,7 +1528,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1617,7 +1629,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1709,7 +1722,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg16(screenWidth) {
     Widget ig16 = Row(
       children: <Widget>[
-      Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -1717,7 +1730,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1817,7 +1831,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -1917,7 +1932,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2017,7 +2033,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2117,7 +2134,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2217,7 +2235,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2309,7 +2328,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg22(screenWidth) {
     Widget ig22 = Row(
       children: <Widget>[
-         Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -2317,7 +2336,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2409,7 +2429,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg23(screenWidth) {
     Widget ig23 = Row(
       children: <Widget>[
-         Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -2417,7 +2437,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2509,7 +2530,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg24(screenWidth) {
     Widget ig24 = Row(
       children: <Widget>[
-         Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -2517,7 +2538,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2609,7 +2631,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg25(screenWidth) {
     Widget ig25 = Row(
       children: <Widget>[
-         Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -2617,7 +2639,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2709,7 +2732,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg26(screenWidth) {
     Widget ig26 = Row(
       children: <Widget>[
-         Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -2717,7 +2740,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2809,7 +2833,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg27(screenWidth) {
     Widget ig27 = Row(
       children: <Widget>[
-         Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -2817,7 +2841,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -2909,7 +2934,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg28(screenWidth) {
     Widget ig28 = Row(
       children: <Widget>[
-         Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -2917,7 +2942,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -3009,7 +3035,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
   Widget makeIg29(screenWidth) {
     Widget ig29 = Row(
       children: <Widget>[
-         Container(
+        Container(
           width: screenWidth * 0.1,
           child: Padding(
             padding: const EdgeInsets.only(top: 15.0),
@@ -3017,7 +3043,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -3117,7 +3144,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               width: screenWidth * 0.30,
               child: FormBuilderTextField(
                 attribute: "amount",
-                decoration: InputDecoration(labelText: "amt", helperStyle: TextStyles.recipe),
+                decoration: InputDecoration(
+                    labelText: "amt", helperStyle: TextStyles.recipe),
                 keyboardType: TextInputType.text,
                 //  textCapitalization: TextCapitalization.characters,
                 onChanged: (value) {
@@ -3260,7 +3288,9 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
     }
 
     Future<File> pickImage({@required ImageSource source}) async {
-      File selectedImg = await Utils.pickImage(source: ImageSource.gallery,);
+      File selectedImg = await Utils.pickImage(
+        source: ImageSource.gallery,
+      );
 
       //File compImgHigh;
       //   File compImgLow;
@@ -3275,6 +3305,8 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
 
       tempoRecipePicture = await uploadImageToStorage(tempRecipePicture);
     }
+
+    void showAlertDialog(BuildContext context) {}
 
     void sendRecipe() async {
       recipePicture = await uploadImageToStorage(tempRecipePicture);
@@ -3301,6 +3333,72 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
       );
 
       _recipeMethods.addRecipeToDb(_recipe);
+    }
+
+    void displayPhotographyTips() {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        child: CupertinoAlertDialog(
+          title: Text(Strings.PHOTOTIP0, style: TextStyles.photoTip),
+          content: Container(
+          
+              child: Column(
+            children: <Widget>[
+              Center(child: Padding(
+                    padding: const EdgeInsets.only(top:18.0),
+                    child: Text(Strings.PHOTOTIP1, style: TextStyles.aboutMainText),
+                  )),
+              Center(child: Padding(
+                    padding: const EdgeInsets.only(left:12,top:15.0,right:12),
+                    child: Text(Strings.PHOTOTIP2, style: TextStyles.aboutSubText),
+                  )),
+               Center(child: Padding(
+                    padding: const EdgeInsets.only(top:8.0),
+                    child: Text(Strings.PHOTOTIP3, style: TextStyles.aboutMainText),
+                  )),
+              Center(child: Padding(
+                    padding: const EdgeInsets.only(left:12,top:15.0,right:12),
+                    child: Text(Strings.PHOTOTIP4, style: TextStyles.aboutSubText),
+                  )),
+               Center(child: Padding(
+                    padding: const EdgeInsets.only(top:8.0),
+                    child: Text(Strings.PHOTOTIP5, style: TextStyles.aboutMainText),
+                  )),
+              Center(child: Padding(
+                    padding: const EdgeInsets.only(left:12,top:15.0,right:12),
+                    child: Text(Strings.PHOTOTIP6, style: TextStyles.aboutSubText),
+                  )),
+                Center(child: Padding(
+                    padding: const EdgeInsets.only(top:8.0),
+                    child: Text(Strings.PHOTOTIP7, style: TextStyles.aboutMainText),
+                  )),
+              Center(child: Padding(
+                    padding: const EdgeInsets.only(left:12,top:15.0,right:12),
+                    child: Text(Strings.PHOTOTIP8, style: TextStyles.aboutSubText),
+                  )),
+
+            ],
+          )),
+          actions: [
+            CupertinoDialogAction(
+              onPressed: () {
+                pickImage(source: ImageSource.gallery);
+                Navigator.pop(context);
+              },
+              child: new Text("Select picture",
+                  style: TextStyles.selectPicConfirmation),
+            ),
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              isDefaultAction: true,
+              child: new Text("Exit", style: TextStyles.alertConfirmation),
+            ),
+          ],
+        ),
+      );
     }
 
     void displayCloseDialog() {
@@ -3411,13 +3509,16 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               width: 170.0,
                                               height: 170.0,
                                               decoration: BoxDecoration(
-                                              //  shape: BoxShape.circle,
-                                              borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(8.0),
-                                          topRight: Radius.circular(8.0),
-                                          bottomLeft: Radius.circular(8.0),
-                                          bottomRight: Radius.circular(25.0),
-                                        ),
+                                                //  shape: BoxShape.circle,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(8.0),
+                                                  topRight:
+                                                      Radius.circular(8.0),
+                                                  bottomLeft:
+                                                      Radius.circular(8.0),
+                                                  bottomRight:
+                                                      Radius.circular(25.0),
+                                                ),
                                                 image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: AssetImage(
@@ -3429,13 +3530,16 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               width: 170.0,
                                               height: 170.0,
                                               decoration: BoxDecoration(
-                                              //  shape: BoxShape.circle,
-                                              borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(8.0),
-                                          topRight: Radius.circular(8.0),
-                                          bottomLeft: Radius.circular(8.0),
-                                          bottomRight: Radius.circular(25.0),
-                                        ),
+                                                //  shape: BoxShape.circle,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(8.0),
+                                                  topRight:
+                                                      Radius.circular(8.0),
+                                                  bottomLeft:
+                                                      Radius.circular(8.0),
+                                                  bottomRight:
+                                                      Radius.circular(25.0),
+                                                ),
                                                 image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: NetworkImage(
@@ -3445,11 +3549,12 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             ),
                                       Positioned(
                                         top: 137,
-                                bottom: 0,
-                                left: 125,
+                                        bottom: 0,
+                                        left: 125,
                                         child: InkWell(
                                           onTap: () {
-                                            pickImage(source: ImageSource.gallery);
+                                            displayPhotographyTips();
+                                            //pickImage(source: ImageSource.gallery);
                                           },
                                           child: Icon(
                                             Icons.add_circle,
@@ -3457,7 +3562,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             color: uniColors.lcRed,
                                           ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -3516,7 +3621,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                           items: [
                                             'Vegan',
                                             'Vegatarian',
-                                            
                                             'Low-Carb/Keto',
                                             'Lactose-free',
                                             'Gluten-free',
@@ -3592,122 +3696,122 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                       SizedBox(width: 10),
                                       Column(
                                         children: <Widget>[
-                                          makeIg1(screenWidth*0.9),
+                                          makeIg1(screenWidth * 0.9),
                                           Visibility(
                                             visible: showIg2,
-                                            child: makeIg2(screenWidth*0.9),
+                                            child: makeIg2(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg3,
-                                            child: makeIg3(screenWidth*0.9),
+                                            child: makeIg3(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg4,
-                                            child: makeIg4(screenWidth*0.9),
+                                            child: makeIg4(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg5,
-                                            child: makeIg5(screenWidth*0.9),
+                                            child: makeIg5(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg6,
-                                            child: makeIg6(screenWidth*0.9),
+                                            child: makeIg6(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg7,
-                                            child: makeIg7(screenWidth*0.9),
+                                            child: makeIg7(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg8,
-                                            child: makeIg8(screenWidth*0.9),
+                                            child: makeIg8(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg9,
-                                            child: makeIg9(screenWidth*0.9),
+                                            child: makeIg9(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg10,
-                                            child: makeIg10(screenWidth*0.9),
+                                            child: makeIg10(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg11,
-                                            child: makeIg11(screenWidth*0.9),
+                                            child: makeIg11(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg12,
-                                            child: makeIg12(screenWidth*0.9),
+                                            child: makeIg12(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg13,
-                                            child: makeIg13(screenWidth*0.9),
+                                            child: makeIg13(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg14,
-                                            child: makeIg14(screenWidth*0.9),
+                                            child: makeIg14(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg15,
-                                            child: makeIg15(screenWidth*0.9),
+                                            child: makeIg15(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg16,
-                                            child: makeIg16(screenWidth*0.9),
+                                            child: makeIg16(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg17,
-                                            child: makeIg17(screenWidth*0.9),
+                                            child: makeIg17(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg18,
-                                            child: makeIg18(screenWidth*0.9),
+                                            child: makeIg18(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg19,
-                                            child: makeIg19(screenWidth*0.9),
+                                            child: makeIg19(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg20,
-                                            child: makeIg20(screenWidth*0.9),
+                                            child: makeIg20(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg21,
-                                            child: makeIg21(screenWidth*0.9),
+                                            child: makeIg21(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg22,
-                                            child: makeIg22(screenWidth*0.9),
+                                            child: makeIg22(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg23,
-                                            child: makeIg23(screenWidth*0.9),
+                                            child: makeIg23(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg24,
-                                            child: makeIg24(screenWidth*0.9),
+                                            child: makeIg24(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg25,
-                                            child: makeIg25(screenWidth*0.9),
+                                            child: makeIg25(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg26,
-                                            child: makeIg26(screenWidth*0.9),
+                                            child: makeIg26(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg27,
-                                            child: makeIg27(screenWidth*0.9),
+                                            child: makeIg27(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg28,
-                                            child: makeIg28(screenWidth*0.9),
+                                            child: makeIg28(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg29,
-                                            child: makeIg29(screenWidth*0.9),
+                                            child: makeIg29(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg30,
-                                            child: makeIg30(screenWidth*0.9),
+                                            child: makeIg30(screenWidth * 0.9),
                                           ),
                                           Visibility(
                                             visible: showIg31,
@@ -3748,7 +3852,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               labelText: "",
                                               helperStyle: TextStyles.recipe),
                                           keyboardType: TextInputType.multiline,
-                                      //    textCapitalization:TextCapitalization.characters,
+                                          //    textCapitalization:TextCapitalization.characters,
                                           // validators: [
                                           //   // FormBuilderValidators.
                                           //   FormBuilderValidators.max(25),
@@ -3906,7 +4010,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             'Fool proof',
                                             'Average',
                                             'Pro',
-                                           
                                           ]
                                               .map((difficulty) =>
                                                   DropdownMenuItem(
@@ -3948,7 +4051,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                           items: [
                                             'Breakfast',
                                             'Lunch/Dinner',
-                                            
                                             'Snack',
                                             'Main course',
                                             'Dessert',
@@ -4004,7 +4106,6 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             'South American',
                                             'Spanish',
                                             'Turkish',
-
                                             'Other',
                                           ]
                                               .map((cuisine) =>

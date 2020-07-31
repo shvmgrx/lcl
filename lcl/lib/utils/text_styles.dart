@@ -330,6 +330,18 @@ static final TextStyle searchSubTextResult = TextStyle(
     //   ),
     // ],
   );
+       static final TextStyle photoTip = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w800,
+    color: uniColors.lcRed,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
 
        static final TextStyle aboutSubText = TextStyle(
     fontSize: 16,
@@ -696,6 +708,14 @@ static final TextStyle searchSubTextResult = TextStyle(
     fontWeight: FontWeight.w900,
     letterSpacing: 2.0,
     color: uniColors.black,
+    fontFamily: 'Homizio',
+
+  );
+          static final TextStyle selectPicConfirmation = TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w900,
+    letterSpacing: 2.0,
+    color: uniColors.lcRed,
     fontFamily: 'Homizio',
 
   );

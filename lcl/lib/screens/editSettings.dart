@@ -21,6 +21,8 @@ import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:lcl/utils/uniColors.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class EditSettings extends StatefulWidget {
   @override
@@ -110,6 +112,17 @@ class _EditSettingsState extends State<EditSettings> {
 
 
   }
+
+   launchURL(String url) async {
+ print(url);
+    if (await canLaunch(url)) {
+  
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
+ }
+
 
 
   void initState() {
@@ -421,35 +434,39 @@ class _EditSettingsState extends State<EditSettings> {
                                         padding: const EdgeInsets.only(
                                             left: 18.0, top: 30),
                                         child: FlatButton(
-                                            color: uniColors.backgroundGrey,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  SvgPicture.asset(
-                                                      "assets/donateNew.svg",
-                                                      height: 30,
-                                                      width: 30,
-                                                      color: uniColors.lcRed),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 15.0),
-                                                    child: Text(
-                                                      Strings.DONATE,
-                                                      style: TextStyles
-                                                          .donationTextStyle,
+
+                                              color: uniColors.backgroundGrey,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: <Widget>[
+                                                    SvgPicture.asset(
+                                                        "assets/donateNew.svg",
+                                                        height: 30,
+                                                        width: 30,
+                                                        color: uniColors.lcRed),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 15.0),
+                                                      child: Text(
+                                                        Strings.DONATE,
+                                                        style: TextStyles
+                                                            .donationTextStyle,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            onPressed: () => {
-                                               
-                                          
-                                                 
-                                                }),
+                                              onPressed: () => {
+                                              
+                                             
+                                         launchURL("https://www.welthungerhilfe.de/spenden/'")
+                                       
+                                            
+                                                   
+                                                  }),
                                       ),
                                     ))
                                   ],
