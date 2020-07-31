@@ -314,8 +314,9 @@ class _EditProfileState extends State<EditProfile> {
                                         ),
                                         image: DecorationImage(
                                           fit: BoxFit.cover,
-                                          image: NetworkImage(
+                                         image: NetworkImage(
                                               loggedUserProfilePhoto),
+                                            
                                         ),
                                       ),
                                     ),
@@ -430,10 +431,9 @@ class _EditProfileState extends State<EditProfile> {
                                 //  hint: Text('Select Gender'),
                                 // validators: [FormBuilderValidators.required()],
                                 items: [
-                                  'Male',
-                                  'Female',
+                                  'Man',
+                                  'Woman',
                                   'Non-Binary',
-                                  'Transgender',
                                   'Other'
                                 ]
                                     .map((gender) => DropdownMenuItem(

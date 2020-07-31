@@ -257,7 +257,7 @@ class _InitialSettingsState extends State<InitialSettings> {
                                                                 labelText: ""),
                                                         items: [
                                                           'Men',
-                                                          'Woman',
+                                                          'Women',
                                                           'Everyone'
                                                         ]
                                                             .map((interestedIn) =>
@@ -336,7 +336,7 @@ class _InitialSettingsState extends State<InitialSettings> {
                                   key: _settingsFormKey,
                                   child: Expanded(
                                     child: Container(
-                                      height: screenHeight * 0.4,
+                                      height: screenHeight * 0.5,
                                       width: screenWidth,
                                       child: Column(
                                         mainAxisAlignment:

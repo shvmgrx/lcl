@@ -1628,7 +1628,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   ),
                                                             Padding(
                             padding: const EdgeInsets.only(right:18.0),
-                            child: loggedUserDistance <200 ?  SvgPicture.asset("assets/local.svg",
+                            //uncomment the distance
+                            child: 34 <200 ?  SvgPicture.asset("assets/local.svg",
                            height: 30, width: 30, color: uniColors.grey2): SvgPicture.asset("assets/globe.svg",
                            height: 30, width: 30, color: uniColors.grey2),
                           ),

@@ -278,9 +278,9 @@ class _EditSettingsState extends State<EditSettings> {
                             Container(
                               child: Row(
                                 children: <Widget>[
+                                  //Uncomment this asap
                                   Text("${Strings.DISTANCE}:",style: TextStyles.settingHeading),
                                 loggedUserDistance==null? Text(" 5 km",style: TextStyles.settingValue): loggedUserDistance<200?  Text(" $loggedUserDistance km",style: TextStyles.settingValue):Text(" Global",style: TextStyles.settingValue),
- 
                                 ],
                               ),
                             ),
@@ -332,7 +332,7 @@ class _EditSettingsState extends State<EditSettings> {
                                 
                                 attribute: "loggedUserGender",
                                 decoration: InputDecoration(labelText: ""),
-                                items: ['Men', 'Woman', 'Everyone']
+                                items: ['Men', 'Women', 'Everyone']
                                     .map((interestedIn) => DropdownMenuItem(
                                         value: interestedIn, child: Text("$interestedIn",)))
                                     .toList(),

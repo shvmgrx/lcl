@@ -38,7 +38,7 @@ class Strings {
    static const String RECIPE_NAME = "Recipe Name";
    static const String RECIPE_DIET = "Diet";
    static const String RECIPE_PORTION = "Portion";
-   static const String RECIPE_INGRIDIENTS = "Ingridients";
+   static const String RECIPE_INGREDIENTS = "Ingredients";
    static const String RECIPE_INSTRUCTIONS = "Instructions";
    static const String RECIPE_PREPARATION_TIME = "Preparation Time";
    static const String RECIPE_COOKING_TIME = "Cooking Time";

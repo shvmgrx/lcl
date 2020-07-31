@@ -291,7 +291,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Container(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 1.0),
+                  padding: const EdgeInsets.only(left: 20.0),
                   child: Text(
                     "${widget.selectedRecipe.recipeInstructions}",
                     style: TextStyles.selectedRecipeInstructions,
@@ -609,7 +609,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                                                 .selectedRecipe
                                                                 .recipeName
                                                                 .length <
-                                                            18
+                                                            25
                                                         ? Text(
                                                             widget
                                                                 .selectedRecipe
@@ -617,7 +617,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                                             style: TextStyles
                                                                 .selectedProfileName)
                                                         : Text(
-                                                            "${widget.selectedRecipe.recipeName.substring(0, 18)}...",
+                                                            "${widget.selectedRecipe.recipeName.substring(0, 25)}...",
                                                             style: TextStyles
                                                                 .selectedProfileName),
 
@@ -735,7 +735,7 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                           padding: const EdgeInsets.only(
                                               top: 8.0, bottom: 10),
                                           child: Container(
-                                            child: Text("Ingridients",
+                                            child: Text("Ingredients",
                                                 style: TextStyles
                                                     .selectedRecipeIngridients),
                                           ),

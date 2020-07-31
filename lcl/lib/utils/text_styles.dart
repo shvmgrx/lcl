@@ -202,7 +202,7 @@ static final TextStyle searchSubTextResult = TextStyle(
   );
 
       static final TextStyle selectedProfileName = TextStyle(
-    fontSize: 25,
+    fontSize: 20,
     //fontWeight: FontWeight.w400,
     color: uniColors.white2,
     fontFamily: 'CaviarDreams',
@@ -319,7 +319,7 @@ static final TextStyle searchSubTextResult = TextStyle(
   );
 
  static final TextStyle selectedRecipeIngridientAmt = TextStyle(
-    fontSize: 19,
+    fontSize: 15,
     fontWeight: FontWeight.w700,
     color: uniColors.lcRed,
    // fontFamily: 'Raleway',
@@ -331,7 +331,7 @@ static final TextStyle searchSubTextResult = TextStyle(
     ],
   );
    static final TextStyle selectedRecipeIngridientUnit = TextStyle(
-    fontSize: 19,
+    fontSize: 15,
     fontWeight: FontWeight.w900,
     color: uniColors.black,
     fontFamily: 'Raleway',
@@ -343,7 +343,7 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
      static final TextStyle selectedRecipeIngridientName = TextStyle(
-    fontSize: 19,
+    fontSize: 15,
     fontWeight: FontWeight.w900,
     color: uniColors.black,
     fontFamily: 'Raleway',
