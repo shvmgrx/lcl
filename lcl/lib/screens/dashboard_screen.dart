@@ -14,6 +14,7 @@ import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/resources/authMethods.dart';
 import 'package:lcl/resources/favMethods.dart';
 import 'package:lcl/resources/firebase_repository.dart';
+import 'package:lcl/resources/recipeMethods.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/favScreens/movieCard.dart';
@@ -39,7 +40,6 @@ import 'package:swipedetector/swipedetector.dart';
 import 'package:floating_action_row/floating_action_row.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 class DashboardScreen extends StatefulWidget {
   @override
@@ -113,7 +113,6 @@ class _DashboardScreenState extends State<DashboardScreen>
   bool refreshLunchalize = true;
   bool refreshRecipes = true;
 
-
   int loggedUserAge1;
   int loggedUserAge2;
   int loggedUserDistance;
@@ -124,11 +123,10 @@ class _DashboardScreenState extends State<DashboardScreen>
   String loggedUserLat;
   String loggedUserLon;
 
-
   List<String> fRecipes = new List<String>();
   List<String> fRecipesNames = new List<String>();
   List<String> fPeople = new List<String>();
-   List<String> fPeopleNames = new List<String>();
+  List<String> fPeopleNames = new List<String>();
 
   UserProvider userProvider;
 
@@ -190,20 +188,16 @@ class _DashboardScreenState extends State<DashboardScreen>
         getFavsListFromDb(loggedInId);
       });
 
-              _repository.fetchLoggedUserSettings(user).then((dynamic loggedUser) {
+      _repository.fetchLoggedUserSettings(user).then((dynamic loggedUser) {
         setState(() {
           loggedUserAge1 = loggedUser['sAge1'];
           loggedUserAge2 = loggedUser['sAge2'];
           loggedUserDistance = loggedUser['sDistance'];
           loggedUserInterestedIn = loggedUser['sInterestedIn'];
           loggedUserMode = loggedUser['sMode'];
-
-          
         });
       });
     });
-
-  
 
     _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.fetchBatch(user).then((List<User> list) {
@@ -262,15 +256,13 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.dispose();
   }
 
- launchURL(String url) async {
- 
+  launchURL(String url) async {
     if (await canLaunch(url)) {
-  
       await launch(url, forceWebView: true);
     } else {
       throw 'Could not launch $url';
     }
- }
+  }
 
   void showRecipePageNow() {
     controller.reverse();
@@ -314,8 +306,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   //   return personName;
   // }
-
-
 
   searchAppBar(BuildContext context) {
     return GradientAppBar(
@@ -532,11 +522,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ),
                     //     leading: SvgPicture.asset("assets/donateNew.svg", height: 30, width: 30, color: uniColors.standardBlack),
 
-                 title: Text(fPeople[i]),
+                    title: Text(fPeople[i]),
 
                     trailing: InkWell(
                         onTap: () {
-                       
                           setState(() {
                             fPeople.removeAt(i);
 
@@ -566,7 +555,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return new Column(children: list);
   }
 
-   Widget favRecipeListMaker(int favRecipeCount) {
+  Widget favRecipeListMaker(int favRecipeCount) {
     List<Widget> list = new List<Widget>();
 
     for (var i = 0; i < favRecipeCount; i++) {
@@ -598,11 +587,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ),
                     //     leading: SvgPicture.asset("assets/donateNew.svg", height: 30, width: 30, color: uniColors.standardBlack),
 
-                 title: Text(fRecipes[i]),
+                    title: Text(fRecipes[i]),
 
                     trailing: InkWell(
                         onTap: () {
-                       
                           setState(() {
                             fRecipes.removeAt(i);
 
@@ -632,8 +620,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     return new Column(children: list);
   }
 
-
-
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.fetchBatch(user).then((List<User> list) {
@@ -649,6 +635,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       setState(() {
         recipeList = recipes;
       });
+      initState();
     });
   }
 
@@ -721,6 +708,8 @@ class _DashboardScreenState extends State<DashboardScreen>
       position = currentPosition;
     });
   }
+
+  final RecipeMethods _recipeMethods = RecipeMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -848,8 +837,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                               setState(() {
                                 paymentPressed = !paymentPressed;
                                 if (paymentPressed) {
-                                  Navigator.pushNamed(
-                                      context, "/about_screen");
+                                  Navigator.pushNamed(context, "/about_screen");
                                 }
                               });
                             },
@@ -876,9 +864,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                             color: uniColors.standardBlack),
                         onTap: () {
                           //   Navigator.of(context).pop();
-                         const url = 'https://www.welthungerhilfe.de/spenden/';
-                         launchURL(url);
-   
+                          const url = 'https://www.welthungerhilfe.de/spenden/';
+                          launchURL(url);
+
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
                     ListTile(
@@ -894,8 +882,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             width: 30,
                             color: uniColors.standardBlack),
                         onTap: () {
-                           Navigator.pushNamed(
-                                      context, "/terms_screen");
+                          Navigator.pushNamed(context, "/terms_screen");
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
                     InkWell(
@@ -1053,9 +1040,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                               Center(
                                                 child: buildSuggestions(query),
                                               ),
-                                              Center(
-                                                child: Text("csdvfgh ")
-                                              ),
+                                              Center(child: Text("csdvfgh ")),
                                             ],
                                           )),
                                     ),
@@ -1112,7 +1097,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                     MainAxisAlignment
                                                         .spaceAround,
                                                 children: <Widget>[
-                                                  
                                                   InkWell(
                                                     onTap: () {
                                                       setState(() {
@@ -1121,20 +1105,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                       });
                                                     },
                                                     child: Container(
-                                                      child: 
-                                                      showFavPeople?
-                                                      SvgPicture.asset(
-                                                          "assets/personOutline.svg",
-                                                          height: 30,
-                                                          width: 30,
-                                                          color:
-                                                              uniColors.black):
-                                                          SvgPicture.asset(
-                                                          "assets/personOutline.svg",
-                                                          height: 30,
-                                                          width: 30,
-                                                          color:
-                                                              uniColors.white2),
+                                                      child: showFavPeople
+                                                          ? SvgPicture.asset(
+                                                              "assets/personOutline.svg",
+                                                              height: 30,
+                                                              width: 30,
+                                                              color: uniColors
+                                                                  .black)
+                                                          : SvgPicture.asset(
+                                                              "assets/personOutline.svg",
+                                                              height: 30,
+                                                              width: 30,
+                                                              color: uniColors
+                                                                  .white2),
                                                     ),
                                                   ),
                                                   InkWell(
@@ -1145,20 +1128,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                                                         });
                                                       },
                                                       child: Container(
-                                                        child: 
-                                                        showFavRecipes?
-                                                        SvgPicture.asset(
-                                                            "assets/recipe.svg",
-                                                            height: 30,
-                                                            width: 30,
-                                                            color: uniColors
-                                                                .black):
-                                                        SvgPicture.asset(
-                                                            "assets/recipe.svg",
-                                                            height: 30,
-                                                            width: 30,
-                                                            color: uniColors
-                                                                .white2),
+                                                        child: showFavRecipes
+                                                            ? SvgPicture.asset(
+                                                                "assets/recipe.svg",
+                                                                height: 30,
+                                                                width: 30,
+                                                                color: uniColors
+                                                                    .black)
+                                                            : SvgPicture.asset(
+                                                                "assets/recipe.svg",
+                                                                height: 30,
+                                                                width: 30,
+                                                                color: uniColors
+                                                                    .white2),
                                                       )),
                                                 ],
                                               ),
@@ -1510,25 +1492,25 @@ class _DashboardScreenState extends State<DashboardScreen>
                                               top: 15.0, left: 5, right: 5),
                                           child: Container(
                                             //  color: uniColors.gold4,
-                                            height: screenHeight * 0.43,
+                                            height: screenHeight * 0.45,
                                             width: screenWidth,
                                             decoration: BoxDecoration(
                                               color: uniColors.backgroundGrey,
                                               borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(25.0),
                                                 topRight: Radius.circular(25.0),
-                                                // bottomLeft:
-                                                //     Radius.circular(25.0),
-                                                // bottomRight:
-                                                //     Radius.circular(25.0),
+                                                bottomLeft:
+                                                    Radius.circular(15.0),
+                                                bottomRight:
+                                                    Radius.circular(15.0),
                                               ),
                                             ),
 
                                             child: GridView.count(
-                                              crossAxisCount: 3,
-                                              crossAxisSpacing: 0.5,
-                                              mainAxisSpacing: 0,
-                                              childAspectRatio: 0.85,
+                                              crossAxisCount: 2,
+                                              crossAxisSpacing: 0,
+                                              mainAxisSpacing: 1,
+                                              childAspectRatio: 1.1,
                                               primary: false,
                                               children: <Widget>[
                                                 if (selfRecipeList != null)
@@ -1540,6 +1522,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                             ),
                                           ),
                                         ),
+                                       
                                       ],
                                     ),
                                   ),
@@ -1624,13 +1607,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                               child: FloatingActionRow(
                                 color: uniColors.white2,
                                 children: <Widget>[
-
-                          Padding(
-                            padding: const EdgeInsets.only(left:18.0),
-                            child: loggedUserMode=="Flirt Mode"?  SvgPicture.asset("assets/heart.svg",
-                           height: 30, width: 30, color: uniColors.grey2): SvgPicture.asset("assets/friendMode.svg",
-                           height: 30, width: 30, color: uniColors.grey2),
-                          ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 18.0),
+                                    child: loggedUserMode == "Flirt Mode"
+                                        ? SvgPicture.asset("assets/heart.svg",
+                                            height: 30,
+                                            width: 30,
+                                            color: uniColors.grey2)
+                                        : SvgPicture.asset(
+                                            "assets/friendMode.svg",
+                                            height: 30,
+                                            width: 30,
+                                            color: uniColors.grey2),
+                                  ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 20.0),
@@ -1644,13 +1633,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           refresh();
                                         }),
                                   ),
-                                                            Padding(
-                            padding: const EdgeInsets.only(right:18.0),
-                            //uncomment the distance
-                            child: 34 <200 ?  SvgPicture.asset("assets/local.svg",
-                           height: 30, width: 30, color: uniColors.grey2): SvgPicture.asset("assets/globe.svg",
-                           height: 30, width: 30, color: uniColors.grey2),
-                          ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 18.0),
+                                    //uncomment the distance
+                                    child: 34 < 200
+                                        ? SvgPicture.asset("assets/local.svg",
+                                            height: 30,
+                                            width: 30,
+                                            color: uniColors.grey2)
+                                        : SvgPicture.asset("assets/globe.svg",
+                                            height: 30,
+                                            width: 30,
+                                            color: uniColors.grey2),
+                                  ),
                                   // FloatingActionRowButton(
                                   //     icon: Icon(
                                   //       Icons.location_on,
@@ -1839,8 +1834,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         image: (availableUsers.profilePhoto == null)
                             ? AssetImage("assets/defaultUserPicture.png")
                             : NetworkImage("${availableUsers.profilePhoto}"),
-                        fit: BoxFit.cover
-                        ),
+                        fit: BoxFit.cover),
                   ),
                 ),
               ),
@@ -1901,6 +1895,34 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ))
           ],
         ),
+      ),
+    );
+  }
+
+  void deletePicDialog(Recipe selfRecipeList) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => new CupertinoAlertDialog(
+        // title: new Text("Discard"),
+        content: new Text("Do you want to delete this recipe?",
+            style: TextStyles.recipe),
+        actions: [
+          CupertinoDialogAction(
+            onPressed: () {
+              _recipeMethods.deleteRecipeFromDb(selfRecipeList);
+              refreshReci();
+              Navigator.pop(context);
+            },
+            child: new Text("Yes", style: TextStyles.alertConfirmation),
+          ),
+          CupertinoDialogAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            isDefaultAction: true,
+            child: new Text("No", style: TextStyles.alertConfirmation),
+          ),
+        ],
       ),
     );
   }
@@ -2034,34 +2056,37 @@ class _DashboardScreenState extends State<DashboardScreen>
                     (Route<dynamic> route) => false,
                   );
                 },
-                child: Container(
-                  height: screenWidth / 4,
-                  width: screenWidth / 3.5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Container(
+                    height: screenWidth / 3,
+                    width: screenWidth / 2.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(25.0),
+                        topRight: Radius.circular(25.0),
+                      ),
+                      image: DecorationImage(
+                          image: (selfRecipeList.recipePicture ==
+                                      "dummyNoImage" ||
+                                  selfRecipeList.recipePicture == null)
+                              ? AssetImage("assets/plate.jpg")
+                              : NetworkImage("${selfRecipeList.recipePicture}"),
+                          fit: BoxFit.fitWidth),
                     ),
-                    image: DecorationImage(
-                        image: (selfRecipeList.recipePicture ==
-                                    "dummyNoImage" ||
-                                selfRecipeList.recipePicture == null)
-                            ? AssetImage("assets/plate.jpg")
-                            : NetworkImage("${selfRecipeList.recipePicture}"),
-                        fit: BoxFit.fitWidth),
                   ),
                 ),
               ),
             ),
           ),
           Positioned(
-              left: 1.0,
-              top: 104.0,
+              left: 11.0,
+              top: 130.0,
               child: Column(
                 children: <Widget>[
                   Container(
                     height: 40.0,
-                    width: screenWidth / 3.5,
+                    width: screenWidth / 2.5,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(25.0),
@@ -2074,17 +2099,36 @@ class _DashboardScreenState extends State<DashboardScreen>
                         Expanded(
                           flex: 2,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2.0),
+                            padding: const EdgeInsets.only(left: 12.0),
                             child: Align(
-                              alignment: Alignment.center,
+                              alignment: Alignment.centerLeft,
                               child: (selfRecipeList.recipeName == "" ||
                                       selfRecipeList.recipeName == null)
                                   ? Text("LC RECIPE",
                                       style: TextStyles.selfProfileRecipeName,
-                                      textAlign: TextAlign.center)
-                                  : Text(selfRecipeList.recipeName,
-                                      style: TextStyles.selfProfileRecipeName,
-                                      textAlign: TextAlign.center),
+                                      textAlign: TextAlign.left)
+                                  : selfRecipeList.recipeName.length < 15
+                                      ? Text(selfRecipeList.recipeName,
+                                          style:
+                                              TextStyles.selfProfileRecipeName,
+                                          textAlign: TextAlign.left)
+                                      : Text(
+                                          "${selfRecipeList.recipeName.substring(0, 14)}...",
+                                          style:
+                                              TextStyles.selfProfileRecipeName,
+                                          textAlign: TextAlign.left),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: InkWell(
+                            onTap: () {
+                              deletePicDialog(selfRecipeList);
+                            },
+                            child: Icon(
+                              Icons.delete,
+                              color: uniColors.grey2,
                             ),
                           ),
                         ),

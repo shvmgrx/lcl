@@ -19,5 +19,8 @@ class RecipeMethods {
     _firestore.collection(RECIPE_COLLECTION).document(recipe.recipeId).setData(map);
   }
 
+   Future<void> deleteRecipeFromDb(Recipe recipe) async {
+    _firestore.collection(RECIPE_COLLECTION).document(recipe.recipeId).delete();
+  }
 
 }

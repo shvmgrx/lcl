@@ -17,6 +17,7 @@ import 'package:lcl/screens/callScreens/pickup/pickup_layout.dart';
 import 'package:lcl/screens/chatScreens/chatScreen.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/login_screen.dart';
+import 'package:lcl/screens/recipeScreens/recipeDetails.dart';
 import 'package:lcl/utils/strings.dart';
 import 'package:lcl/utils/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -270,40 +271,51 @@ bool favSent=false;
           ? list.add(
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Column(
-                  children: <Widget>[
-                   i.recipeName.length<10 ?
-                      Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(i.recipeName,style: TextStyles.recipeProfileName),
-                    ):
-                     
-                      Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text("${i.recipeName.substring(0,11)}...",style: TextStyles.recipeProfileName),
-                    ),
-                  
-
-                 
-                    Container(
-                      height: 150,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5.0),
-                          topRight: Radius.circular(5.0),
-                          bottomLeft: Radius.circular(5.0),
-                          bottomRight: Radius.circular(5.0),
-                        ),
-                        image: DecorationImage(
-                            image: (i.recipePicture == "dummyNoImage" ||
-                                    i.recipePicture == null)
-                                ? AssetImage("assets/defaultUserPicture.png")
-                                : NetworkImage("${i.recipePicture}"),
-                            fit: BoxFit.cover),
+                child: GestureDetector(
+                  onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) =>
+                            RecipeDetails(selectedRecipe: i)),
+                    (Route<dynamic> route) => false,
+                  );
+                },
+                                  child: Column(
+                    children: <Widget>[
+                     i.recipeName.length<10 ?
+                        Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(i.recipeName,style: TextStyles.recipeProfileName),
+                      ):
+                       
+                        Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text("${i.recipeName.substring(0,11)}...",style: TextStyles.recipeProfileName),
                       ),
-                    ),
-                  ],
+                    
+
+                   
+                      Container(
+                        height: 150,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(5.0),
+                            topRight: Radius.circular(5.0),
+                            bottomLeft: Radius.circular(5.0),
+                            bottomRight: Radius.circular(5.0),
+                          ),
+                          image: DecorationImage(
+                              image: (i.recipePicture == "dummyNoImage" ||
+                                      i.recipePicture == null)
+                                  ? AssetImage("assets/defaultUserPicture.png")
+                                  : NetworkImage("${i.recipePicture}"),
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )
