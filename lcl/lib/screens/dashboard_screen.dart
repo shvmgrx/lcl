@@ -1293,6 +1293,13 @@ for(var i=0;i<list.length;i++){
                                                                   child: favRecipeListMaker(
                                                                       fRecipes
                                                                           .length)),
+                                                                           Padding(
+                         padding: const EdgeInsets.all(18.0),
+                         child: Text(
+                                  "Add to Favourite Recipes: Under construction",
+                                  style: TextStyles.filterNames,
+                                ),
+                       ),
                                                             ],
                                                           ),
                                                         )
@@ -1351,6 +1358,13 @@ for(var i=0;i<list.length;i++){
                                                                   child: favPeopleListMaker(
                                                                       fPeople
                                                                           .length)),
+                                                                          Padding(
+                         padding: const EdgeInsets.all(18.0),
+                         child: Text(
+                                  "Add to Favourite People: Under construction",
+                                  style: TextStyles.filterNames,
+                                ),
+                       ),
                                                             ],
                                                           ),
                                                         )
