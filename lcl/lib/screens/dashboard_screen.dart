@@ -21,6 +21,7 @@ import 'package:lcl/screens/favScreens/movieCard.dart';
 import 'package:lcl/screens/favScreens/movieList.dart';
 import 'package:lcl/screens/login_screen.dart';
 import 'package:lcl/screens/recipeScreens/bottomSheetCustom.dart';
+import 'package:lcl/screens/recipeScreens/detailedSearchScreen.dart';
 import 'package:lcl/screens/recipeScreens/recipeDetails.dart';
 import 'package:lcl/screens/recipeScreens/recipeMakerContainer.dart';
 import 'package:lcl/utils/strings.dart';
@@ -398,15 +399,35 @@ class _DashboardScreenState extends State<DashboardScreen>
         Recipe searchedRecipe = Recipe(
           recipeId: suggestionList[index].recipeId,
           recipePicture: suggestionList[index].recipePicture,
-          recipeName: suggestionList[index].recipeName,
+          recipeName: suggestionList[index].recipeName,   
+
+
+   recipeDiet: suggestionList[index].recipeDiet,
+   recipePortion: suggestionList[index].recipePortion,
+   recipeIngridients: suggestionList[index].recipeIngridients,
+   recipeInstructions: suggestionList[index].recipeInstructions,
+   recipePreparationTime: suggestionList[index].recipePreparationTime,
+   recipeCookingTime: suggestionList[index].recipeCookingTime,
+   recipeRestTime: suggestionList[index].recipeRestTime,
+   recipeDifficulty: suggestionList[index].recipeDifficulty,
+   recipeType: suggestionList[index].recipeType,
+   recipeCuisine: suggestionList[index].recipeCuisine,
+   recipeCalories: suggestionList[index].recipeCalories,
+   recipeYums: suggestionList[index].recipeYums,
+   recipeCreatorPic: suggestionList[index].recipeCreatorPic,
+   recipeCreatorName: suggestionList[index].recipeCreatorName,
         );
 
         return CustomTile(
           mini: false,
           onTap: () {
-            // Navigator.of(context).push(MaterialPageRoute(
-            //     builder: (context) =>
-            //         InfluencerDetails(selectedInfluencer: searchedUser)));
+           Navigator.pushAndRemoveUntil(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) =>
+                            RecipeDetails(selectedRecipe: searchedRecipe)),
+                    (Route<dynamic> route) => false,
+                  );
           },
           leading: CircleAvatar(
             backgroundImage: (searchedRecipe.recipePicture == "dummyNoImage" ||
@@ -1036,11 +1057,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
-                                              //     searchAppBar(context),
+                                                  searchAppBar(context),
                                               Center(
                                                 child: buildSuggestions(query),
                                               ),
-                                              Center(child: Text("csdvfgh ")),
+                                             // Center(child: Text("csdvfgh ")),
                                             ],
                                           )),
                                     ),
@@ -1567,6 +1588,26 @@ class _DashboardScreenState extends State<DashboardScreen>
                                             backgroundColor: uniColors.white1,
                                             builder: (context) =>
                                                 RecipeMakerContainer(),
+                                          );
+                                        }),
+                                  ),
+                                  FloatingActionRowDivider(),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    child: FloatingActionRowButton(
+                                        icon: Icon(
+                                          Icons.search,
+                                          color: uniColors.lcRed,
+                                          size: 50,
+                                        ),
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                            context: context,
+                                            isScrollControlled: true,
+                                            backgroundColor: uniColors.white1,
+                                            builder: (context) =>
+                                                DetailedSearchScreen(),
                                           );
                                         }),
                                   ),

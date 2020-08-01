@@ -92,4 +92,14 @@ class Strings {
   static const String PHOTOTIP6 = "For an appetizing food photo, ideally use daylight and make sure that the food is evenly illuminated.  However, you should turn off your smartphone's flash, as it distorts the colours and creates shadows.";
   static const String PHOTOTIP7 = "Zoom & Focus";
   static const String PHOTOTIP8 = "It is advisable to hold the phone as close as possible to the subject with your phone. Unfortunately, the automatic zoom sometimes blurs the picture. You can easily set the focus by clicking it on the screen. Sometimes the picture looks more exciting when the subject is cropped.";
+
+  static const String SEARCH = "Search Recipes";
+  static const String DIET = "Diet";
+  static const String DIFFICULTY = "Difficulty";
+  static const String TYPE = "Type";
+  static const String CUISINE = "Cuisine";
+
+
+
+
 }

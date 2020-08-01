@@ -305,6 +305,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+     static final TextStyle filterNames = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: uniColors.lcRed,
+   // fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
    static final TextStyle selectedRecipeInstructions = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
@@ -346,6 +359,18 @@ static final TextStyle searchSubTextResult = TextStyle(
        static final TextStyle aboutSubText = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w300,
+    color: uniColors.standardBlack,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+         static final TextStyle recipeSubFilters = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w800,
     color: uniColors.standardBlack,
     fontFamily: 'Raleway',
     // shadows: <Shadow>[
