@@ -609,17 +609,17 @@ class _RecipeDetailsState extends State<RecipeDetails>
                                                                 .selectedRecipe
                                                                 .recipeName
                                                                 .length <
-                                                            25
+                                                            40
                                                         ? Text(
                                                             widget
                                                                 .selectedRecipe
                                                                 .recipeName,
                                                             style: TextStyles
-                                                                .selectedProfileName)
+                                                                .selectedRecipeName)
                                                         : Text(
-                                                            "${widget.selectedRecipe.recipeName.substring(0, 25)}...",
+                                                            "${widget.selectedRecipe.recipeName.substring(0, 40)}...",
                                                             style: TextStyles
-                                                                .selectedProfileName),
+                                                                .selectedRecipeName),
 
                                                     // Text(
                                                     //   "${widget.selectedRecipe.recipeName}",

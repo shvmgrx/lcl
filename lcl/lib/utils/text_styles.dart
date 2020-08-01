@@ -38,7 +38,7 @@ class TextStyles {
   );
 
     static final TextStyle searchTextResult = TextStyle(
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: FontWeight.w400,
     color: uniColors.black,
     fontFamily: 'Raleway',
@@ -214,6 +214,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     // ],
   );
 
+        static final TextStyle selectedRecipeName = TextStyle(
+    fontSize: 16,
+    //fontWeight: FontWeight.w400,
+    color: uniColors.white2,
+    fontFamily: 'CaviarDreams',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 2.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
+
         static final TextStyle selectedProfileAge = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w800,
@@ -306,9 +319,9 @@ static final TextStyle searchSubTextResult = TextStyle(
   );
 
      static final TextStyle filterNames = TextStyle(
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: FontWeight.w700,
-    color: uniColors.lcRed,
+    color: uniColors.white2,
    // fontFamily: 'Raleway',
     // shadows: <Shadow>[
     //   Shadow(

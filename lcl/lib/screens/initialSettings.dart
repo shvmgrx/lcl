@@ -146,7 +146,7 @@ class _InitialSettingsState extends State<InitialSettings> {
                   child: InkWell(
                     onTap: () {
                       showDialog(
-                        barrierDismissible: false,
+                        barrierDismissible: true,
                         context: context,
                         builder: (context) {
                           return BackdropFilter(

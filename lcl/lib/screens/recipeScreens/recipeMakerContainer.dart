@@ -1282,7 +1282,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+            //  textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName11 = value;
@@ -3845,7 +3845,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                       ),
                                       SizedBox(width: 20),
                                       Container(
-                                        width: screenWidth * 0.60,
+                                        width: screenWidth * 0.55,
                                         child: FormBuilderTextField(
                                           attribute: "instructions",
                                           decoration: InputDecoration(
@@ -3891,8 +3891,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                               labelText: "Mins",
                                               helperStyle: TextStyles.recipe),
                                           keyboardType: TextInputType.text,
-                                          textCapitalization:
-                                              TextCapitalization.characters,
+                                          textCapitalization:TextCapitalization.characters,
 
                                           // validators: [
                                           //   // FormBuilderValidators.

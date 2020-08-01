@@ -44,7 +44,7 @@ class SettingsContainer extends StatelessWidget {
           
           Positioned(
            
-             top: 95,
+             top: 80,
             // bottom: 0,
             // left: 10,
             // right: 1,

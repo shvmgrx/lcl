@@ -25,7 +25,6 @@ import 'package:lcl/utils/utilities.dart';
 import 'package:provider/provider.dart';
 import 'package:lcl/utils/uniColors.dart';
 
-
 class EditProfile extends StatefulWidget {
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -146,8 +145,8 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
-   Future<Null> _cropImage() async {
-     print("cropping start");
+  Future<Null> _cropImage() async {
+    print("cropping start");
     File croppedFile = await ImageCropper.cropImage(
         sourcePath: imageFile.path,
         aspectRatioPresets: Platform.isAndroid
@@ -183,7 +182,7 @@ class _EditProfileState extends State<EditProfile> {
         state = CropState.cropped;
       });
     }
-     print("cropping end");
+    print("cropping end");
   }
 
   static final Firestore firestore = Firestore.instance;
@@ -314,9 +313,10 @@ class _EditProfileState extends State<EditProfile> {
                                         ),
                                         image: DecorationImage(
                                           fit: BoxFit.cover,
-                                         image: NetworkImage(
-                                              loggedUserProfilePhoto),
-                                            
+                                          image: NetworkImage(
+                                              loggedUserProfilePhoto != null
+                                                  ? loggedUserProfilePhoto
+                                                  : "https://images.pexels.com/photos/1333318/pexels-photo-1333318.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"),
                                         ),
                                       ),
                                     ),
@@ -326,9 +326,8 @@ class _EditProfileState extends State<EditProfile> {
                                 left: 125,
                                 child: InkWell(
                                   onTap: () {
-                                 
-                                      pickImage(source: ImageSource.gallery);
-                               
+                                    pickImage(source: ImageSource.gallery);
+
                                     //  _cropImage();
                                     // pickImage(source: ImageSource.gallery);
                                   },
@@ -430,12 +429,7 @@ class _EditProfileState extends State<EditProfile> {
                                 //     : "",
                                 //  hint: Text('Select Gender'),
                                 // validators: [FormBuilderValidators.required()],
-                                items: [
-                                  'Man',
-                                  'Woman',
-                                  'Non-Binary',
-                                  'Other'
-                                ]
+                                items: ['Man', 'Woman', 'Non-Binary', 'Other']
                                     .map((gender) => DropdownMenuItem(
                                         value: gender, child: Text("$gender")))
                                     .toList(),
@@ -463,7 +457,7 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                             SizedBox(width: 70),
                             Container(
-                              width: screenWidth * 0.70,
+                              width: screenWidth * 0.60,
                               child: FormBuilderTextField(
                                 initialValue:
                                     loggedUserBio != null ? loggedUserBio : "",
@@ -498,7 +492,7 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                             SizedBox(width: 15),
                             Container(
-                              width: screenWidth * 0.70,
+                              width: screenWidth * 0.60,
                               child: FormBuilderFilterChip(
                                 attribute: "loggedUserCategory",
                                 initialValue: loggedUserCategory != null

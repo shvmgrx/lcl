@@ -846,7 +846,7 @@ for(var i=0;i<list.length;i++){
                         image: DecorationImage(
                           image: NetworkImage(loggedInprofilePhoto != null
                               ? loggedInprofilePhoto
-                              : "https://i.pinimg.com/736x/20/fb/5d/20fb5dc251af2d68822bd0420dcb0a8e.jpg"),
+                              : "https://images.pexels.com/photos/1333318/pexels-photo-1333318.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -953,7 +953,7 @@ for(var i=0;i<list.length;i++){
                         }),
                     ListTile(
                         title: new Text(
-                          "Legal",
+                          "Legal disclosure",
                           style: TextStyle(
                               color: uniColors.standardBlack,
                               fontWeight: FontWeight.w600,
@@ -969,7 +969,7 @@ for(var i=0;i<list.length;i++){
                         }),
                     ListTile(
                         title: new Text(
-                          "About us",
+                          "About",
                           style: TextStyle(
                               color: uniColors.standardBlack,
                               fontWeight: FontWeight.w600,
@@ -1623,7 +1623,7 @@ for(var i=0;i<list.length;i++){
                                               crossAxisCount: 2,
                                               crossAxisSpacing: 0,
                                               mainAxisSpacing: 1,
-                                              childAspectRatio: 1.1,
+                                              childAspectRatio: 0.98,
                                               primary: false,
                                               children: <Widget>[
                                                 if (selfRecipeList != null)
@@ -1992,7 +1992,7 @@ for(var i=0;i<list.length;i++){
                             flex: 1,
                             child: Icon(
                               Icons.close,
-                              color: uniColors.lcRed,
+                              color: uniColors.offline,
                             ),
                           ),
                           Expanded(
@@ -2017,7 +2017,7 @@ for(var i=0;i<list.length;i++){
                             flex: 1,
                             child: Icon(
                               Icons.done,
-                              color: uniColors.lcRed,
+                              color: uniColors.online,
                             ),
                           ),
                         ],
@@ -2093,7 +2093,7 @@ for(var i=0;i<list.length;i++){
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25.0),
                       topRight: Radius.circular(25.0),
-                      bottomLeft: Radius.circular(25.0),
+                     bottomLeft: Radius.circular(25.0),
                       bottomRight: Radius.circular(25.0),
                     ),
                     image: DecorationImage(
@@ -2144,7 +2144,7 @@ for(var i=0;i<list.length;i++){
                                         : Text(
                                             "${availableRecipes.recipeName.substring(0, 15)}...",
                                             style: TextStyles
-                                                .mainScreenProfileName,
+                                                .selfProfileRecipeName,
                                             textAlign: TextAlign.center),
                               ),
                             ),
@@ -2213,7 +2213,7 @@ for(var i=0;i<list.length;i++){
           ),
           Positioned(
               left: 11.0,
-              top: 130.0,
+              top: 120.0,
               child: Column(
                 children: <Widget>[
                   Container(
