@@ -94,6 +94,7 @@ class FirebaseMethods {
         .document(currentUser.uid)
         .get();
 
+
     return documentSnapshot;
   }
 

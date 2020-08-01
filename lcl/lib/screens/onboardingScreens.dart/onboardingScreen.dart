@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
+import 'package:lcl/screens/initialSettings.dart';
 import 'package:lcl/screens/onboardingScreens.dart/stepModel.dart';
 import 'package:lcl/utils/uniColors.dart';
 
@@ -136,7 +137,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
        if(initialPage==3){
           Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
+          MaterialPageRoute(builder: (context) => InitialSettings()),
           (Route<dynamic> route) => false,
         );
        }

@@ -63,6 +63,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   List<User> refreshList;
 
   List<User> filterList;
+  List<User> magicFilterList;
 
   List<Recipe> recipeList;
 
@@ -182,37 +183,71 @@ class _DashboardScreenState extends State<DashboardScreen>
           loggedInBio = loggedUser['bio'];
           loggedInprofilePhoto = loggedUser['profile_photo'];
           loggedInCategories = loggedUser['cuisines'];
-          // isVega = loggedUser['isVegan'];
-          // isVege = loggedUser['isVegetarian'];
-          // isNVege = loggedUser['isNVegetarian'];
         });
         getFavsListFromDb(loggedInId);
       });
 
       _repository.fetchLoggedUserSettings(user).then((dynamic loggedUser) {
         setState(() {
-          loggedUserAge1 = loggedUser['sAge1'];
-          loggedUserAge2 = loggedUser['sAge2'];
-          loggedUserDistance = loggedUser['sDistance'];
-          loggedUserInterestedIn = loggedUser['sInterestedIn'];
-          loggedUserMode = loggedUser['sMode'];
+          loggedUserAge1 = loggedUser.data['sAge1'];
+          loggedUserAge2 = loggedUser.data['sAge2'];
+          loggedUserDistance = loggedUser.data['sDistance'];
+          loggedUserInterestedIn = loggedUser.data['sInterestedIn'];
+          loggedUserMode = loggedUser.data['sMode'];
+        });
+
+        _repository.getCurrentUser().then((FirebaseUser user) {
+          _repository.fetchBatch(user).then((List<User> list) {
+             setState(() {
+             
+for(var i=0;i<list.length;i++){
+  print("gogo: ${list[i].name}");
+}
+
+              
+              if (loggedUserInterestedIn == "Men") {
+                for (var i = 0; i < list.length; i++) {
+                  if (list[i].gender == "Man") {
+              
+                    filterList.add(list[i]);
+                  }
+                }
+              }
+              if (loggedUserInterestedIn == "Women") {
+                for (var i = 0; i < list.length; i++) {
+                  if (list[i].gender == "Woman") {
+                  
+                    filterList.add(list[i]);
+                  }
+                }
+              }
+              else if (loggedUserInterestedIn == "Everyone" || loggedUserInterestedIn == null) {
+               
+                 filterList = list;
+              }
+
+              
+            });
+          });
         });
       });
     });
 
-    _repository.getCurrentUser().then((FirebaseUser user) {
-      _repository.fetchBatch(user).then((List<User> list) {
-        setState(() {
-          filterList = list;
+    // _repository.getCurrentUser().then((FirebaseUser user) {
+    //   _repository.fetchBatch(user).then((List<User> list) {
+    //     print("objfsfvect: ${loggedUserInterestedIn}");
+    //     setState(() {
+    //       filterList = list;
 
-          // for (var i = 0; i < 1; i++) {
-          // if (list[i].isInfluencer == true && list[i].isInfCert == true) {
-          // filterList.add(list[i]);
-          //}
-          // }
-        });
-      });
-    });
+    //       // for (var i = 0; i < 1; i++) {
+    //       // if (list[i].isInfluencer == true && list[i].isInfCert == true) {
+    //       // filterList.add(list[i]);
+    //       //}
+    //       // }
+    //     });
+
+    //   });
+    // });
 
     _repository.fetchRecipeBatch().then((List<Recipe> recipes) {
       setState(() {
@@ -399,35 +434,33 @@ class _DashboardScreenState extends State<DashboardScreen>
         Recipe searchedRecipe = Recipe(
           recipeId: suggestionList[index].recipeId,
           recipePicture: suggestionList[index].recipePicture,
-          recipeName: suggestionList[index].recipeName,   
-
-
-   recipeDiet: suggestionList[index].recipeDiet,
-   recipePortion: suggestionList[index].recipePortion,
-   recipeIngridients: suggestionList[index].recipeIngridients,
-   recipeInstructions: suggestionList[index].recipeInstructions,
-   recipePreparationTime: suggestionList[index].recipePreparationTime,
-   recipeCookingTime: suggestionList[index].recipeCookingTime,
-   recipeRestTime: suggestionList[index].recipeRestTime,
-   recipeDifficulty: suggestionList[index].recipeDifficulty,
-   recipeType: suggestionList[index].recipeType,
-   recipeCuisine: suggestionList[index].recipeCuisine,
-   recipeCalories: suggestionList[index].recipeCalories,
-   recipeYums: suggestionList[index].recipeYums,
-   recipeCreatorPic: suggestionList[index].recipeCreatorPic,
-   recipeCreatorName: suggestionList[index].recipeCreatorName,
+          recipeName: suggestionList[index].recipeName,
+          recipeDiet: suggestionList[index].recipeDiet,
+          recipePortion: suggestionList[index].recipePortion,
+          recipeIngridients: suggestionList[index].recipeIngridients,
+          recipeInstructions: suggestionList[index].recipeInstructions,
+          recipePreparationTime: suggestionList[index].recipePreparationTime,
+          recipeCookingTime: suggestionList[index].recipeCookingTime,
+          recipeRestTime: suggestionList[index].recipeRestTime,
+          recipeDifficulty: suggestionList[index].recipeDifficulty,
+          recipeType: suggestionList[index].recipeType,
+          recipeCuisine: suggestionList[index].recipeCuisine,
+          recipeCalories: suggestionList[index].recipeCalories,
+          recipeYums: suggestionList[index].recipeYums,
+          recipeCreatorPic: suggestionList[index].recipeCreatorPic,
+          recipeCreatorName: suggestionList[index].recipeCreatorName,
         );
 
         return CustomTile(
           mini: false,
           onTap: () {
-           Navigator.pushAndRemoveUntil(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) =>
-                            RecipeDetails(selectedRecipe: searchedRecipe)),
-                    (Route<dynamic> route) => false,
-                  );
+            Navigator.pushAndRemoveUntil(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) =>
+                      RecipeDetails(selectedRecipe: searchedRecipe)),
+              (Route<dynamic> route) => false,
+            );
           },
           leading: CircleAvatar(
             backgroundImage: (searchedRecipe.recipePicture == "dummyNoImage" ||
@@ -644,10 +677,37 @@ class _DashboardScreenState extends State<DashboardScreen>
   Future<Null> refresh() {
     return _repository.getCurrentUser().then((FirebaseUser user) {
       _repository.fetchBatch(user).then((List<User> list) {
+      
+
         setState(() {
-          filterList = list;
-        });
+             
+
+              if (loggedUserInterestedIn == "Men") {
+                for (var i = 0; i < list.length; i++) {
+                  if (list[i].gender == "Man") {
+                    
+                    filterList.add(list[i]);
+                  }
+                }
+              }
+              if (loggedUserInterestedIn == "Women") {
+                for (var i = 0; i < list.length; i++) {
+                  if (list[i].gender == "Woman") {
+                    
+                    filterList.add(list[i]);
+                  }
+                }
+              }
+              else if (loggedUserInterestedIn == "Everyone" || loggedUserInterestedIn == null) {
+                
+                 filterList = list;
+              }
+
+             
+            });
+           
       });
+       
     });
   }
 
@@ -858,7 +918,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                               setState(() {
                                 paymentPressed = !paymentPressed;
                                 if (paymentPressed) {
-                                 Navigator.pushNamed(context, "/community_guidelines_screen");
+                                  Navigator.pushNamed(
+                                      context, "/community_guidelines_screen");
                                 }
                               });
                             },
@@ -906,7 +967,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                           Navigator.pushNamed(context, "/terms_screen");
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
-                        ListTile(
+                    ListTile(
                         title: new Text(
                           "About us",
                           style: TextStyle(
@@ -919,8 +980,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                             width: 30,
                             color: uniColors.standardBlack),
                         onTap: () {
-                           Navigator.pushNamed(context, "/about_screen");
-                          
+                          Navigator.pushNamed(context, "/about_screen");
+
                           // Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
                     InkWell(
@@ -1074,11 +1135,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: <Widget>[
-                                                  searchAppBar(context),
+                                              searchAppBar(context),
                                               Center(
                                                 child: buildSuggestions(query),
                                               ),
-                                             // Center(child: Text("csdvfgh ")),
+                                              // Center(child: Text("csdvfgh ")),
                                             ],
                                           )),
                                     ),
@@ -1560,7 +1621,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                             ),
                                           ),
                                         ),
-                                       
                                       ],
                                     ),
                                   ),
