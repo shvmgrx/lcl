@@ -100,6 +100,12 @@ class Strings {
   static const String CUISINE = "Cuisine";
 
 
-
+  static const String COMMUNITY_GUIDELINES = "Community Guidelines";
+  static const String CG0 = "Own profile";
+  static const String CG1 = "• Do not hide behind anonymity and do not change your name (nicknames are ok), stand by your age and do not use photos of strangers (fake profile). Nobody likes liars!\n• Sexual content or explicit nudity is not allowed on your profile photos\n• Racist/sexist or similar remarks are not allowed\n";
+  static const String CG2 = "Communication in chat and video call";
+  static const String CG3 = "• Don't forget that on the other side is a person who reads your texts, sees photos and allows you to talk/eat with you via video call. • Don't use swear words: we value politeness and respect.\n• Do not send threats or inappropriate messages\n• Do not insult anybody and do not make racist/sexist etc. remarks\n• Do not bother anyone, not even by repeatedly dialing the Video Chat\n• Never send unsolicited sexual content of any kind or content with explicit nudity\n• Do not ask for bank details or other sensitive information\n• Do not send spam or advertising\n";
+  static const String CG4 = "Recipes";
+  static const String CG5 = "• Upload only photos where the food is clearly visible and looks appetizing. Below are a few tips on how to make your food look good photographically\n• Upload only photos that you have taken yourself or that you are authorized to share\n• Express yourself clearly and understandably during preparation\n• Check all details before posting your prescription\n";
 
 }

@@ -858,7 +858,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                               setState(() {
                                 paymentPressed = !paymentPressed;
                                 if (paymentPressed) {
-                                  Navigator.pushNamed(context, "/about_screen");
+                                 Navigator.pushNamed(context, "/community_guidelines_screen");
                                 }
                               });
                             },
@@ -869,7 +869,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                     ),
                     SizedBox(
-                      height: screenHeight * 0.22,
+                      height: screenHeight * 0.15,
                     ),
                     ListTile(
                         title: new Text(
@@ -905,6 +905,23 @@ class _DashboardScreenState extends State<DashboardScreen>
                         onTap: () {
                           Navigator.pushNamed(context, "/terms_screen");
                           //  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
+                        }),
+                        ListTile(
+                        title: new Text(
+                          "About us",
+                          style: TextStyle(
+                              color: uniColors.standardBlack,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16),
+                        ),
+                        trailing: SvgPicture.asset("assets/aboutus.svg",
+                            height: 30,
+                            width: 30,
+                            color: uniColors.standardBlack),
+                        onTap: () {
+                           Navigator.pushNamed(context, "/about_screen");
+                          
+                          // Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Page("Second Page")));
                         }),
                     InkWell(
                       onTap: () => signOut(),

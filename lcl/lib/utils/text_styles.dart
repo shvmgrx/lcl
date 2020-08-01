@@ -343,6 +343,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     //   ),
     // ],
   );
+
+       static final TextStyle cgText = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w800,
+    color: uniColors.lcRed,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
        static final TextStyle photoTip = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w800,

@@ -3,6 +3,7 @@ import 'package:lcl/provider/user_provider.dart';
 import 'package:lcl/screens/aboutScreen.dart';
 import 'package:lcl/screens/availableUserDetail.dart';
 import 'package:lcl/screens/chatScreens/chatScreen.dart';
+import 'package:lcl/screens/communityGuidelines.dart';
 import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/editProfile.dart';
 import 'package:lcl/screens/editSettings.dart';
@@ -55,6 +56,7 @@ class _MyAppState extends State<MyApp> {
            '/splash_screen': (context) => SplashScreen(),
            '/about_screen': (context) => AboutScreen(),
            '/terms_screen': (context) => TermsScreen(),
+           '/community_guidelines_screen': (context) => CommunityGuidelines(),
            
         },
         home: FutureBuilder(
