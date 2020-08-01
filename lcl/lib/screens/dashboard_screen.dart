@@ -2109,7 +2109,7 @@ for(var i=0;i<list.length;i++){
             ),
             Positioned(
                 left: 1.0,
-                top: 155.0,
+                top: 146.0,
                 child: Column(
                   children: <Widget>[
                     Container(
