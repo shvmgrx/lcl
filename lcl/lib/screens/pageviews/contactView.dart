@@ -10,6 +10,7 @@ import 'package:lcl/screens/pageviews/lastMessageContainer.dart';
 import 'package:lcl/screens/pageviews/online_dot_indicator.dart';
 import 'package:lcl/widgets/CustomTile.dart';
 import 'package:provider/provider.dart';
+import 'package:lcl/utils/uniColors.dart';
 
 
 class ContactView extends StatelessWidget {
@@ -62,7 +63,7 @@ class ViewLayout extends StatelessWidget {
       title: Text(
         (contact != null ? contact.name : null) != null ? contact.name : "..",
         style:
-            TextStyle(color: Colors.white, fontFamily: "Arial", fontSize: 19),
+            TextStyle(color: uniColors.lcRed, fontFamily: "Arial", fontSize: 19),
       ),
       subtitle: LastMessageContainer(
         stream: _chatMethods.fetchLastMessageBetween(

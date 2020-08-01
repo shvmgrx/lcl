@@ -368,6 +368,19 @@ static final TextStyle searchSubTextResult = TextStyle(
     //   ),
     // ],
   );
+
+        static final TextStyle onboardingHeading = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w800,
+    color: uniColors.standardBlack,
+    fontFamily: 'Raleway',
+    // shadows: <Shadow>[
+    //   Shadow(
+    //     blurRadius: 1.0,
+    //     color: uniColors.lcRed,
+    //   ),
+    // ],
+  );
          static final TextStyle recipeSubFilters = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w800,

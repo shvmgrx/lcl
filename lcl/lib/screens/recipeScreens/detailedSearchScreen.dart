@@ -102,7 +102,9 @@ class _DetailedSearchScreenState extends State<DetailedSearchScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                         child: Icon(
                           Icons.close,
                           color: uniColors.white1,
@@ -483,10 +485,13 @@ class _DetailedSearchScreenState extends State<DetailedSearchScreen> {
                       //     ),
                       //   ),
                       // ),
-                       Text(
-                                "Under construction",
-                                style: TextStyles.filterNames,
-                              ),
+                       Padding(
+                         padding: const EdgeInsets.all(18.0),
+                         child: Text(
+                                  "Under construction",
+                                  style: TextStyles.filterNames,
+                                ),
+                       ),
                     ],
                   )
 

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:lcl/screens/dashboard_screen.dart';
 import 'package:lcl/screens/onboardingScreens.dart/stepModel.dart';
 import 'package:lcl/utils/uniColors.dart';
 
@@ -88,15 +89,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         itemBuilder: (context, index) {
           return Column(
             children: <Widget>[
-              index == 1
+              index == 4
                   ? _displayText(list[index].text)
                   : _displayImage(list[index].id),
-              SizedBox(
-                height: 25,
-              ),
-              index == 1
+           
+              index == 4
                   ? _displayImage(list[index].id)
                   : _displayText(list[index].text),
+              
             ],
           );
         },
@@ -106,60 +106,76 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   _indicator() {
     return Container(
-      width: 90,
-      height: 90,
-      margin: EdgeInsets.only(top: 12,bottom:20),
-      child: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              width: 90,
-              height: 90,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.blueGrey),
-                value: (initialPage + 1) / (list.length + 1),
+        width: 90,
+        height: 90,
+        margin: EdgeInsets.only(top: 1,bottom:40),
+        child: Stack(
+    children: <Widget>[
+      Align(
+        alignment: Alignment.center,
+        child: Container(
+          width: 90,
+          height: 90,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(Colors.blueGrey),
+            value: (initialPage + 1) / (list.length + 1),
+          ),
+        ),
+      ),
+      Align(
+        alignment: Alignment.center,
+        child: GestureDetector(
+          onTap: () {
+            if (initialPage < list.length)
+              _controller.animateToPage(initialPage + 1,
+                  duration: Duration(microseconds: 500),
+                  curve: Curves.easeIn);
+          },
+          child: InkWell(
+             onTap: () {
+       if(initialPage==3){
+          Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+          (Route<dynamic> route) => false,
+        );
+       }
+      },
+                      child: Container(
+              width: 65,
+              height: 65,
+              decoration: BoxDecoration(
+                color: uniColors.lcRed,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(100),
+                ),
+              ),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: GestureDetector(
-              onTap: () {
-                if (initialPage < list.length)
-                  _controller.animateToPage(initialPage + 1,
-                      duration: Duration(microseconds: 500),
-                      curve: Curves.easeIn);
-              },
-              child: Container(
-                width: 65,
-                height: 65,
-                decoration: BoxDecoration(
-                  color: uniColors.lcRed,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(100),
-                  ),
-                ),
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+        ),
+      )
+    ],
+        ),
+      );
   }
 
   _displayText(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 20,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal:28.0),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 25,
+      fontWeight: FontWeight.w800,
+      color: uniColors.standardBlack,
+      fontFamily: 'Raleway',
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 
