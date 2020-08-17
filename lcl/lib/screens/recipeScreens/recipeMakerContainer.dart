@@ -1181,7 +1181,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
               decoration: InputDecoration(
                   labelText: "ingredient name", helperStyle: TextStyles.recipe),
               keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
+             // textCapitalization: TextCapitalization.characters,
               onChanged: (value) {
                 setState(() {
                   igName10 = value;
@@ -4051,6 +4051,7 @@ class _RecipeMakerContainerState extends State<RecipeMakerContainer> {
                                             'Breakfast',
                                             'Lunch/Dinner',
                                             'Snack',
+                                            'Starter'
                                             'Main course',
                                             'Dessert',
                                             'Baking',

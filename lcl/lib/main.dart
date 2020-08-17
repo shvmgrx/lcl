@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lcl/resources/firebase_repository.dart';
 import 'package:lcl/screens/login_screen.dart';
+import 'package:lcl/screens/onboardingScreens.dart/onboardingScreen.dart';
 import 'package:lcl/screens/pageviews/chat_list_screen.dart';
 import 'package:lcl/screens/splashScreen.dart';
 import 'package:lcl/screens/termsScreen.dart';
@@ -57,6 +58,7 @@ class _MyAppState extends State<MyApp> {
            '/about_screen': (context) => AboutScreen(),
            '/terms_screen': (context) => TermsScreen(),
            '/community_guidelines_screen': (context) => CommunityGuidelines(),
+           '/onboarding_screen': (context) => OnBoardingScreen(),
            
         },
         home: FutureBuilder(

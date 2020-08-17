@@ -321,7 +321,7 @@ static final TextStyle searchSubTextResult = TextStyle(
      static final TextStyle filterNames = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
-    color: uniColors.white2,
+    color: uniColors.lcRed,
    // fontFamily: 'Raleway',
     // shadows: <Shadow>[
     //   Shadow(

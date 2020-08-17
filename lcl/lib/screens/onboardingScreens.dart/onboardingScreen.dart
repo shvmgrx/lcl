@@ -91,12 +91,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           return Column(
             children: <Widget>[
               index == 4
-                  ? _displayText(list[index].text)
+                  ? _displayText(list[index].text, list[index].textDes)
                   : _displayImage(list[index].id),
            
               index == 4
                   ? _displayImage(list[index].id)
-                  : _displayText(list[index].text),
+                  : _displayText(list[index].text, list[index].textDes),
               
             ],
           );
@@ -164,18 +164,35 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       );
   }
 
-  _displayText(String text) {
+  _displayText(String text, String textDes) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal:28.0),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 25,
-      fontWeight: FontWeight.w800,
-      color: uniColors.standardBlack,
-      fontFamily: 'Raleway',
-        ),
-        textAlign: TextAlign.center,
+      child: Column(
+        children: <Widget>[
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 25,
+          fontWeight: FontWeight.w800,
+          color: uniColors.lcRed,
+          fontFamily: 'Raleway',
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              textDes,
+              style: TextStyle(
+                fontSize: 15,
+            fontWeight: FontWeight.w800,
+            color: uniColors.standardBlack,
+            fontFamily: 'Raleway',
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -183,7 +200,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   _displayImage(String path) {
     return Image.asset(
       "assets/$path.jpg",
-      height: MediaQuery.of(context).size.height * .5,
+      height: MediaQuery.of(context).size.height * .40,
     );
   }
 }

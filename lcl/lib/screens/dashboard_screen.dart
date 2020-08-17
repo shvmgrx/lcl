@@ -1037,7 +1037,10 @@ for(var i=0;i<list.length;i++){
                                   ),
                                   Spacer(),
                                   GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/onboarding_screen");
+                                    },
                                     child: Text(
                                       Strings.APP_NAME,
                                       style: TextStyles.appNameTextStyle,
@@ -2178,7 +2181,7 @@ for(var i=0;i<list.length;i++){
             top: 1.0,
             child: Opacity(
               opacity: 1,
-              child: GestureDetector(
+              child: GestureDetector( 
                 onTap: () {
                   Navigator.pushAndRemoveUntil(
                     context,
@@ -2188,6 +2191,7 @@ for(var i=0;i<list.length;i++){
                     (Route<dynamic> route) => false,
                   );
                 },
+                
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Container(

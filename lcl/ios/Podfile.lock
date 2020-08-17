@@ -407,7 +407,7 @@ PODS:
     - Flutter
   - path_provider_macos (0.0.1):
     - Flutter
-  - permission_handler (2.2.0):
+  - permission_handler (3.0.0):
     - Flutter
   - phone_number (0.6.2):
     - Flutter
@@ -592,7 +592,7 @@ SPEC CHECKSUMS:
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_linux: 4d630dc393e1f20364f3e3b4a2ff41d9674a84e4
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
-  permission_handler: 0fc6d6641c09e4bfd5541dd39b0f44c7e369aa6b
+  permission_handler: 047f11d44db785922214783da5f7a3cc8874c843
   phone_number: b545f5b7d9711bec0f020c7df43ae5a82119f4ad
   PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75

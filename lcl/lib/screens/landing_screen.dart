@@ -30,7 +30,7 @@ class LandingScreen extends StatelessWidget {
               Padding(
                 
                 padding: const EdgeInsets.only(
-                  bottom: 32.0,
+                  bottom: 30.0,
                   left: 32,
                   right: 32,
                 ),
